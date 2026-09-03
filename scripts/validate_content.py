@@ -307,6 +307,16 @@ PII_PATTERNS = [
 ]
 FEE_PATTERN = re.compile(r"(시간당|강사료|강의료|단가)\s*[\d,]+|\b[\d,]{2,}\s*만?\s*원")
 FULL_NAME_PATTERN = re.compile(r"[가-힣]{2,4}")
+# 실명이 아닌 자리표시자. 초안 단계의 '미정'·'외부강사' 등을 실명으로 오인하지 않도록 제외한다.
+NON_NAME_KEYWORDS = re.compile(r"강사|협의|미정|미배정|섭외|예정|추후|TBD", re.IGNORECASE)
+
+
+def looks_like_real_name(name: str) -> bool:
+    """강사 이름 값이 마스킹이 필요한 실명인지 판단한다."""
+    normalized = name.replace(" ", "")
+    if not FULL_NAME_PATTERN.fullmatch(normalized):
+        return False
+    return not NON_NAME_KEYWORDS.search(normalized)
 
 
 def validate_compliance(data: dict[str, Any], findings: list[Finding]) -> None:
@@ -321,7 +331,7 @@ def validate_compliance(data: dict[str, Any], findings: list[Finding]) -> None:
         if not isinstance(ins, dict):
             continue
         name = str(ins.get("name", ""))
-        if FULL_NAME_PATTERN.search(name) and "*" not in name:
+        if looks_like_real_name(name) and "*" not in name:
             findings.append(
                 Finding(
                     "FIX",
