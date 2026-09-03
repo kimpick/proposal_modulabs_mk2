@@ -25,6 +25,7 @@ Thumbs.db
 # AI agent local config
 .claude/*
 !.claude/skills/
+!.claude/commands/
 # 팀 공유 대상: hook·권한 설정 (settings.local.json은 개인용이라 계속 제외)
 !.claude/settings.json
 .omc/
@@ -90,6 +91,7 @@ hermes/
 #    기존 `.claude/*` 는 루트에만 걸려 projects/*/.claude 가 새어나갔다
 **/.claude/*
 !**/.claude/skills/
+!**/.claude/commands/
 !**/.claude/settings.json
 **/.claude/worktrees/
 

@@ -298,6 +298,75 @@ def validate_track_readability(data: dict[str, Any], findings: list[Finding]) ->
                 )
 
 
+# ===== mk2 addition: 컴플라이언스(강사·내부정보) 검증 =====
+# 원본(영광님 repo) 대비 추가분. 재동기화 시 이 블록과 아래 호출부를 유지할 것.
+PII_PATTERNS = [
+    (re.compile(r"01[016789]-?\d{3,4}-?\d{4}"), "휴대전화번호"),
+    (re.compile(r"\b\d{2,3}-\d{3,4}-\d{4}\b"), "전화번호"),
+    (re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}"), "이메일"),
+]
+FEE_PATTERN = re.compile(r"(시간당|강사료|강의료|단가)\s*[\d,]+|\b[\d,]{2,}\s*만?\s*원")
+FULL_NAME_PATTERN = re.compile(r"[가-힣]{2,4}")
+
+
+def validate_compliance(data: dict[str, Any], findings: list[Finding]) -> None:
+    """고객 제출본에 나가면 안 되는 것들을 결정적으로 잡는다.
+    - 강사 실명 마스킹 누락
+    - 강사 카드 내 개인정보(연락처·이메일)
+    - 강사 카드 내 강의료/단가(내부정보)
+    - '수정사항 반영' 협의 이력이 최종본에 잔존
+    """
+    instructors = data.get("instructors") or []
+    for i, ins in enumerate(instructors):
+        if not isinstance(ins, dict):
+            continue
+        name = str(ins.get("name", ""))
+        if FULL_NAME_PATTERN.search(name) and "*" not in name:
+            findings.append(
+                Finding(
+                    "FIX",
+                    f"instructors[{i}].name",
+                    "강사 실명이 마스킹되지 않았습니다.",
+                    "고객사에 강사 실명이 그대로 노출됩니다(개인정보·영업기밀).",
+                    "가운데 글자를 '*'로 마스킹하세요 (예: 홍길동 → 홍*동).",
+                )
+            )
+        blob = json.dumps(ins, ensure_ascii=False)
+        for pat, label in PII_PATTERNS:
+            if pat.search(blob):
+                findings.append(
+                    Finding(
+                        "FIX",
+                        f"instructors[{i}]",
+                        f"강사 카드에 {label}(개인정보)가 포함됐습니다.",
+                        "연락처·이메일 등 개인정보가 고객 제출본에 노출됩니다.",
+                        f"{label}를 제거하세요. 강사 카드엔 개인정보를 넣지 않습니다.",
+                    )
+                )
+        if FEE_PATTERN.search(blob):
+            findings.append(
+                Finding(
+                    "WARN",
+                    f"instructors[{i}]",
+                    "강사 카드에 강의료/단가로 보이는 표현이 있습니다.",
+                    "내부 단가가 고객 제출본에 노출될 수 있습니다.",
+                    "강의료·단가는 제안서에서 제거하세요(견적은 별도 견적서로).",
+                )
+            )
+    section_07 = str(data.get("section_07_title", ""))
+    schedule_message = str(data.get("schedule_message", ""))
+    if "수정사항" in section_07 or re.search(r"수정\s*요청|반영\s*결과|요청하신", schedule_message):
+        findings.append(
+            Finding(
+                "WARN",
+                "schedule_message",
+                "협의 이력('수정사항 반영')으로 보이는 내용이 최종본에 남아 있습니다.",
+                "중간 협의 내역이 최종 제안서에 노출되면 지저분하고 내부 논의가 드러납니다.",
+                "최종본에서는 협의 이력 섹션을 빼고, 반영 결과는 커리큘럼 본문에 녹이세요.",
+            )
+        )
+
+
 def validate_content(path: Path) -> list[Finding]:
     data = json.loads(path.read_text(encoding="utf-8"))
     findings: list[Finding] = []
@@ -352,6 +421,9 @@ def validate_content(path: Path) -> list[Finding]:
 
     for field in TEXT_FIELDS_WITH_HTML:
         validate_html_fragment(data.get(field), field, findings)
+
+    # mk2 addition: 강사·내부정보 컴플라이언스 검증
+    validate_compliance(data, findings)
 
     return findings
 
