@@ -347,6 +347,7 @@
     <div class="notice-box">{{ data.venue_info | safe }}</div>
 </div>
 
+{% if data.instructors %}
 <div class="section-title"><span class="section-num">08</span>강사진 소개</div>
 <div class="instructor-grid">
     {% for ins in data.instructors %}
@@ -364,6 +365,7 @@
     {% endfor %}
 </div>
 <div class="instructor-note">{{ data.instructor_note | safe }}</div>
+{% endif %}
 
 <div class="section-title"><span class="section-num">09</span>사전 준비 안내</div>
 <div class="prep-grid">

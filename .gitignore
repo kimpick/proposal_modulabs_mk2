@@ -2,6 +2,7 @@
 *.pdf
 !projects/전주대학교_AI부트캠프사업/**/*.pdf
 proposal_render.html
+proposal_render_*.html
 !projects/삼성전자MX_토큰최적화/제안서/proposal_render.html
 
 # Python

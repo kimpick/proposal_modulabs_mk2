@@ -92,10 +92,20 @@ def detect_template_type(data: dict) -> str:
                          "'days', 'steps', 'tracks', 'seminars', 또는 'modules' 키가 필요합니다.")
 
 
-def render_html(content_json_path: str) -> str:
-    """content.json → HTML 렌더링 후 HTML 파일 경로 반환"""
+def render_html(content_json_path: str, include_instructors: bool = True,
+                html_filename: str = "proposal_render.html") -> str:
+    """content.json → HTML 렌더링 후 HTML 파일 경로 반환
+
+    include_instructors=False 면 '추천 강사 후보군' 섹션을 뺀 강사공유용을 렌더한다.
+    섭외 대상 강사에게 보내는 문서에 다른 강사 후보가 보여선 안 된다.
+    track.html 은 instructors 와 show_instructors 를 함께 보므로 둘 다 끈다.
+    """
     with open(content_json_path, "r", encoding="utf-8") as f:
         data = json.load(f)
+
+    if not include_instructors:
+        data.pop("instructors", None)
+        data["show_instructors"] = False
 
     # 글로벌 base.css 로드
     with open(CSS_FILE, "r", encoding="utf-8") as f:
@@ -132,7 +142,7 @@ def render_html(content_json_path: str) -> str:
     html = template.render(data=data, css=css, workshop_css=extra_css)
 
     output_dir = os.path.dirname(content_json_path)
-    html_path = os.path.join(output_dir, "proposal_render.html")
+    html_path = os.path.join(output_dir, html_filename)
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(html)
 
@@ -220,18 +230,57 @@ def build_proposal(project_path: str):
         data = json.load(f)
 
     is_landscape = data.get("orientation") == "landscape"
+    if data.get("pdf_filename"):
+        pdf_name, suffix = data["pdf_filename"], ""
+    else:
+        pdf_name = folder_name
+        suffix = "_교육안내서" if data.get("type") == "guide" else "_제안서"
+
     try:
-        if data.get("pdf_filename"):
-            pdf_path = html_to_pdf(html_path, data["pdf_filename"], suffix="",
-                                   landscape=is_landscape)
-        else:
-            suffix = "_교육안내서" if data.get("type") == "guide" else "_제안서"
-            pdf_path = html_to_pdf(html_path, folder_name, suffix=suffix,
-                                   landscape=is_landscape)
+        pdf_path = html_to_pdf(html_path, pdf_name, suffix=suffix,
+                               landscape=is_landscape)
         if pdf_path:
             print(f"   ✅ PDF:  {pdf_path}")
     except Exception as e:
         print(f"   ❌ PDF 생성 실패: {e}")
+
+    build_instructor_copy(content_json, html_path, pdf_name, suffix, is_landscape)
+
+
+def build_instructor_copy(content_json: str, html_path: str, pdf_name: str,
+                          suffix: str, is_landscape: bool):
+    """강사공유용(추천 강사 후보군 제외) PDF 를 추가로 뽑는다.
+
+    어느 섹션이 강사 카드를 그리는지는 템플릿마다 조건이 다르다(track 은
+    show_instructors 까지 봄, module 은 섹션 번호까지 바뀜). 그 조건을 여기서
+    다시 구현하면 템플릿이 늘 때마다 어긋나므로, 강사 제외 렌더 결과를 원본과
+    비교해 **실제로 달라질 때만** PDF 를 만든다.
+    """
+    variant_html = None
+    try:
+        variant_html = render_html(
+            content_json, include_instructors=False,
+            html_filename="proposal_render_강사공유용.html",
+        )
+        with open(html_path, encoding="utf-8") as f:
+            original = f.read()
+        with open(variant_html, encoding="utf-8") as f:
+            stripped = f.read()
+
+        if original == stripped:
+            # 강사 섹션이 애초에 렌더되지 않는 제안서 — 같은 파일을 두 번 만들 필요 없다.
+            os.remove(variant_html)
+            return
+
+        pdf_path = html_to_pdf(variant_html, pdf_name,
+                               suffix=f"{suffix}_강사공유용",
+                               landscape=is_landscape)
+        if pdf_path:
+            print(f"   ✅ PDF:  {pdf_path} (강사 후보군 제외)")
+    except Exception as e:
+        print(f"   ❌ 강사공유용 PDF 생성 실패: {e}")
+        if variant_html and os.path.exists(variant_html):
+            os.remove(variant_html)
 
 
 def build_company(company_name: str, author: str = "시스템", message: str = "",
