@@ -65,6 +65,27 @@ jobs:
           echo "감지된 기업:"
           echo "${UNIQUE_COMPANIES}"
 
+          # 도구 변경 감지: 전체 content.json 에 영향을 주는 경로.
+          # projects/ 변경이 없으면 아래 기업별 스텝이 전부 스킵되므로,
+          # 이 플래그로 도구 회귀 스모크 테스트를 따로 돌린다.
+          if echo "${CHANGED_FILES}" | \
+            grep -qE '^(scripts/|templates/|schemas/|build\.py$)'; then
+            INFRA=true
+          else
+            INFRA=false
+          fi
+          echo "infra=${INFRA}" >> "$GITHUB_OUTPUT"
+          echo "도구(scripts/·templates/·schemas/·build.py) 변경: ${INFRA}"
+
+      - name: 도구 회귀 스모크 테스트
+        # 도구가 바뀌면 변경된 기업이 있든 없든 전체 코퍼스로 회귀를 본다.
+        # 콘텐츠 품질은 보지 않는다 (기존 content.json 상당수가 이미 NEEDS_FIX).
+        if: steps.detect.outputs.infra == 'true'
+        env:
+          CI: 'true'
+          PYTHONIOENCODING: utf-8
+        run: python3 scripts/ci_smoke.py
+
       - name: validate_content.py 실행
         if: steps.detect.outputs.companies != ''
         env:
@@ -140,12 +161,13 @@ jobs:
           fi
 
       - name: PR 코멘트로 결과 요약
-        if: always() && steps.detect.outputs.companies != ''
+        if: always() && (steps.detect.outputs.companies != '' || steps.detect.outputs.infra == 'true')
         uses: actions/github-script@v7
         with:
           script: |
             const companies = `${{ steps.detect.outputs.companies }}`.trim();
-            if (!companies) return;
+            const infra = '${{ steps.detect.outputs.infra }}' === 'true';
+            if (!companies && !infra) return;
             const status = '${{ job.status }}';
             const emoji = status === 'success' ? '✅' : '❌';
             const body = [
@@ -153,8 +175,12 @@ jobs:
               '',
               `**검증 대상 기업:**`,
               '```',
-              companies,
+              companies || '(없음 — 도구 변경 전용 PR)',
               '```',
+              '',
+              infra
+                ? '**도구 회귀 스모크 테스트:** 실행됨 (`scripts/ci_smoke.py` — 전체 content.json 검증·렌더)'
+                : '**도구 회귀 스모크 테스트:** 미실행 (도구 변경 없음)',
               '',
               `**상태:** ${status}`,
               '',
