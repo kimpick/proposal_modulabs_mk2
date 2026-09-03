@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>[모두의연구소] 지마켓 발표덱 부록 — Qoder 교육 3단계 (기초·활용·심화)</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+  :root{
+    --primary:#EE3E4C; --primary-dk:#C92434; --secondary:#EBBAC0;
+    --ink:#111111; --body:#333333; --muted:#6B7280; --faint:#9AA1AC;
+    --border:#EBEBEB; --line:#F0F0F2; --bg:#ffffff; --soft:#FAFAFB; --soft2:#F5F6F8;
+    --blue:#2563EB; --blue-bg:#EEF4FF; --green:#0E9F6E; --green-bg:#E7F6EF;
+    --amber:#B45309; --amber-bg:#FEF3E2; --purple:#7C3AED;
+    --shadow:0 1px 2px rgba(17,17,17,.04),0 10px 30px rgba(17,17,17,.08);
+    --radius:16px;
+    --slide-w:1280px; --slide-h:720px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;overflow:hidden;background:#0a0c11;
+    font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+
+  .stage{position:fixed;inset:0;display:grid;place-items:center}
+  .deck{position:relative;width:var(--slide-w);height:var(--slide-h);transform-origin:center center;
+    box-shadow:0 20px 60px rgba(0,0,0,.45);border-radius:6px;overflow:hidden;background:var(--bg)}
+
+  .slide{position:absolute;inset:0;width:var(--slide-w);height:var(--slide-h);background:var(--bg);
+    overflow:hidden;opacity:0;pointer-events:none;transform:translateX(24px);
+    transition:opacity .4s ease,transform .4s ease}
+  .slide.is-active{opacity:1;pointer-events:auto;transform:translateX(0)}
+  .fit-frame{position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start}
+  .fit-content{padding:46px 64px;transform-origin:top center}
+
+  .sec-num{font-size:12px;font-weight:700;color:var(--faint);letter-spacing:.08em}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;
+    letter-spacing:.04em;color:var(--primary);text-transform:uppercase;margin:8px 0 12px}
+  .kicker::before{content:"";width:22px;height:2px;background:var(--primary);border-radius:2px}
+  h2{font-size:27px;line-height:1.25;color:var(--ink);margin:0 0 8px;font-weight:800;letter-spacing:-.02em}
+  h3{font-size:17px;color:var(--ink);margin:0;font-weight:700}
+  .lead{font-size:14.5px;color:var(--muted);margin:0 0 18px;max-width:920px}
+
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+
+  .refcol{background:var(--soft);border:1px solid var(--border);border-radius:14px;padding:16px 18px}
+  .refcol .refhd{font-size:13px;font-weight:800;color:var(--primary);padding-bottom:9px;margin-bottom:5px;border-bottom:2px solid #f4ccd0}
+  .refcol ul{margin:0;padding:0;list-style:none}
+  .refcol li{font-size:13.5px;font-weight:600;color:var(--ink);padding:6px 0;border-bottom:1px solid var(--line)}
+  .refcol li:last-child{border-bottom:none}
+  .refcol li span{font-size:11.5px;color:var(--muted);font-weight:500}
+
+  .kpi{background:var(--soft);border:1px solid var(--border);border-radius:14px;padding:20px 18px;text-align:center}
+  .kpi .n{font-size:33px;font-weight:800;color:var(--primary);letter-spacing:-.03em;line-height:1}
+  .kpi .n small{font-size:17px;font-weight:700}
+  .kpi .l{font-size:12.5px;color:var(--muted);margin-top:8px;font-weight:500;line-height:1.35}
+
+  .tbl{width:100%;border-collapse:collapse;font-size:13px}
+  .tbl th{background:var(--ink);color:#fff;text-align:left;padding:11px 13px;font-weight:600;font-size:12px}
+  .tbl th:first-child{border-radius:8px 0 0 0}.tbl th:last-child{border-radius:0 8px 0 0}
+  .tbl td{padding:11px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl tbody tr:nth-child(even){background:var(--soft)}
+  .tbl .task-c{font-weight:700;color:var(--ink);white-space:nowrap}
+  .pill{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;margin:2px 3px 2px 0}
+  .pill.b{background:var(--blue-bg);color:var(--blue)}
+  .pill.r{background:#FEF0F0;color:var(--primary)}
+  .pill.g{background:var(--green-bg);color:var(--green)}
+
+  .tierbar{display:inline-flex;gap:3px;background:var(--soft2);border:1px solid var(--border);
+    border-radius:999px;padding:3px}
+  .tierbar .tier{font-size:12px;font-weight:700;color:var(--faint);padding:5px 14px;
+    border-radius:999px;letter-spacing:-.01em;white-space:nowrap}
+  .tierbar .tier.on{color:#fff}
+  .tierbar .t-basic.on{background:linear-gradient(135deg,#22B183,#0E9F6E);box-shadow:0 2px 7px rgba(14,159,110,.28)}
+  .tierbar .t-util.on{background:linear-gradient(135deg,#2563EB,#1D4FD8);box-shadow:0 2px 7px rgba(37,99,235,.28)}
+  .tierbar .t-adv.on{background:linear-gradient(135deg,#333,#111);box-shadow:0 2px 7px rgba(17,17,17,.22)}
+
+  .sechead{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+
+  .keypt{display:flex;align-items:flex-start;gap:10px;background:#FFF6F7;border:1px solid #F6D2D6;
+    border-left:3px solid var(--primary);border-radius:10px;padding:9px 14px;margin:0 0 14px;
+    font-size:13px;color:var(--ink);line-height:1.5}
+  .keypt .kt{flex:none;font-size:10px;font-weight:800;color:#fff;background:var(--primary);
+    border-radius:5px;padding:3px 7px;letter-spacing:.06em;margin-top:1px}
+  .keypt b{color:var(--primary-dk)}
+
+  .case{border:1px solid var(--border);border-radius:14px;padding:20px 22px;background:#fff;position:relative}
+  .case::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:4px;border-radius:4px;background:var(--primary)}
+  .case .ctop{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding-left:14px}
+  .case .co{font-size:18px;font-weight:800;color:var(--ink)}
+  .case .cat{font-size:11.5px;font-weight:700;color:var(--muted);background:var(--soft2);padding:4px 10px;border-radius:999px;white-space:nowrap}
+  .case .desc{font-size:13px;color:var(--body);padding-left:14px;margin:6px 0 0}
+
+  .note{font-size:11.5px;color:var(--faint);margin-top:14px;padding-top:12px;border-top:1px dashed var(--border)}
+
+  .nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:center;gap:3px;
+    padding:12px 6vw;opacity:.18;transition:opacity .25s}
+  .nav:hover{opacity:.95}
+  .nav-dot{width:22px;height:3px;padding:0;background:rgba(255,255,255,.4);border:0;border-radius:2px;cursor:pointer;transition:all .2s}
+  .nav-dot.active{width:34px;background:var(--primary)}
+  .nav-dot:hover{background:var(--primary)}
+  .slide-num{position:fixed;right:26px;bottom:20px;z-index:1000;color:rgba(255,255,255,.55);
+    font-size:12px;font-weight:700;letter-spacing:.08em;font-variant-numeric:tabular-nums}
+  .hint{position:fixed;left:26px;bottom:20px;z-index:1000;color:rgba(255,255,255,.32);font-size:11px}
+
+  @media print{
+    @page{ size:A4 landscape; margin:0; }
+    html,body{overflow:visible;background:#fff;height:auto}
+    .stage{position:static;display:block}
+    .deck{transform:none!important;box-shadow:none;border-radius:0;width:auto;height:auto}
+    .nav,.slide-num,.hint{display:none}
+    .slide{position:relative;inset:auto;width:100vw;height:100vh;opacity:1;transform:none;
+      page-break-after:always;break-inside:avoid;transition:none}
+    .slide:last-child{page-break-after:auto}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<div class="nav" id="nav" aria-label="슬라이드 목차"></div>
+<div class="slide-num" id="slideNum" aria-live="polite"></div>
+<div class="hint">← → 이동 · F 전체화면 · Ctrl/⌘+P PDF</div>
+
+<div class="stage">
+  <div class="deck" id="deck">
+
+    <!-- ===== 부록 1 · 기초 Qoder ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">부록 / Qoder 교육 3단계 — 본 사업 범위 밖 확장 로드맵</span>
+          <div class="sechead" style="margin:6px 0 10px">
+            <p class="kicker" style="margin:0">Appendix 1 · 기초 Qoder</p>
+            <span class="tierbar"><span class="tier t-basic on">① 기초</span><span class="tier t-util">② 활용</span><span class="tier t-adv">③ 심화</span></span>
+          </div>
+          <h2>기초 — 자연어 지시 기반 업무 자동화 단계</h2>
+          <p class="lead"><b>본 제안 31차수에 포함되지 않는 확장 로드맵(향후 제안)입니다.</b> 본 제안은 임원 3H · 리더 5H · 직원 4H 구조이며, 아래 3단계는 교육 이후 Qoder 활용을 조직에 확산할 때의 후속 과정입니다. 지마켓 교육 원칙(개발=Claude Code / 비개발=Qoder Work)은 그대로 유지합니다.</p>
+          <div class="keypt"><span class="kt">핵심</span><span>목표는 도구 사용법 습득을 넘어 <b>개인 업무 자동화 1건을 스스로 완성</b>하는 데 있습니다. 계정·크레딧·보안 기본을 함께 익혀 조직 도입의 기준을 통일합니다.</span></div>
+          <table class="tbl">
+            <tr><th>학습 영역</th><th>구성</th><th>기대 효과</th></tr>
+            <tr><td class="task-c">Qoder Work 기본</td><td>데스크톱 AI 업무 어시스턴트 — 문서·스프레드시트·웹·데스크톱 자동화</td><td>반복 문서 업무를 말로 지시해 처리</td></tr>
+            <tr><td class="task-c">지식 기능 이해</td><td>Repo Wiki · 지식 카드 · 대화 기억(Memory)이 자동으로 쌓이는 구조</td><td>"대화할수록 일이 빨라진다"는 경험</td></tr>
+            <tr><td class="task-c">계정·크레딧</td><td>개인 플랜(Free · Pro · Pro+ · Ultra)과 조직 플랜(Teams · Enterprise) 구분 · 크레딧(모델 사용 예산) 개념 · IDE·CLI·Work 잔액 공유</td><td>전사 도입 시 조직 플랜·예산 판단 가능</td></tr>
+            <tr><td class="task-c">보안 기본</td><td>위험 동작 승인 · 허용 폴더 · 로컬 실행 범위</td><td>민감정보 보호 습관 정착</td></tr>
+            <tr><td class="task-c">실습</td><td>① 문서 10개 요약·표 정리 지시 ② 반복 업무 1건 예약 등록 ③ 승인 판단 5회</td><td><span class="pill g">성과</span> 개인 업무 자동화 1건 완성</td></tr>
+          </table>
+          <p class="note">연계 · 본 제안 S22 직원 교육 공통 4시간 구조 및 S26 AI 보안·윤리 가이드와 동일한 원칙 · Qoder Work 공식 문서 기준</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 부록 2 · 활용 Qoder IDE ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">부록 / Qoder 교육 3단계</span>
+          <div class="sechead" style="margin:6px 0 10px">
+            <p class="kicker" style="margin:0">Appendix 2 · 활용 Qoder IDE</p>
+            <span class="tierbar"><span class="tier t-basic">① 기초</span><span class="tier t-util on">② 활용</span><span class="tier t-adv">③ 심화</span></span>
+          </div>
+          <h2>활용 — 과제 위임과 팀 지식 자산 구축 단계</h2>
+          <p class="lead"><b>확장 로드맵 2단계</b> — 직무 리더와 실무 핵심 인력 대상입니다. Qoder IDE의 에이전트 기능으로 직무 프로젝트에 AI를 적용합니다.</p>
+          <div class="keypt"><span class="kt">핵심</span><span>개인 생산성을 넘어 <b>팀이 함께 쓰는 지식 자산(Repo Wiki)</b>을 만드는 것이 이 단계의 성과입니다. 위임하되 계획 승인과 검증은 사람이 쥡니다.</span></div>
+          <table class="tbl">
+            <tr><th>학습 영역</th><th>구성</th><th>기대 효과</th></tr>
+            <tr><td class="task-c">Quest 위임</td><td>Agent 모드(단일·끝까지 수행) · Experts 모드(전문가 팀 병렬) · 안전한 롤백</td><td>"고쳐줘"가 아닌 "끝내줘"로 위임 방식 전환</td></tr>
+            <tr><td class="task-c">Spec·Goal 명세</td><td>요구를 검증 가능한 명세로 — 선택형 되묻기 · 제약별 테스트 케이스</td><td>재작업 없는 첫 통과 (100줄 이내 명세 원칙)</td></tr>
+            <tr><td class="task-c">Repo Wiki 운영</td><td>자동 문서화 · 코드 변경 감지 갱신 · 팀 온보딩 활용</td><td>신규 인력의 프로젝트 이해 시간 단축</td></tr>
+            <tr><td class="task-c">Better Harness</td><td>이해→실행→검증→전달→학습 5차원 진단 · 원클릭 수정</td><td>AI 활용 성숙도의 가시화·개선</td></tr>
+            <tr><td class="task-c">실습</td><td>① 실습 저장소 Wiki 생성·갱신 사이클 ② 직무 과제 명세 작성 후 Quest 실행</td><td><span class="pill g">성과</span> 팀 지식 자산(Repo Wiki) 1식 구축</td></tr>
+          </table>
+          <p class="note">연계 · 본 제안 S29~31 도구 역량(10영업일 리드타임 · 리스크 대응 · 검증 장치 기반 교수법) · Qoder 공식 문서 기준</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 부록 3 · 심화 Qoder CLI ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">부록 / Qoder 교육 3단계</span>
+          <div class="sechead" style="margin:6px 0 10px">
+            <p class="kicker" style="margin:0">Appendix 3 · 심화 Qoder CLI</p>
+            <span class="tierbar"><span class="tier t-basic">① 기초</span><span class="tier t-util">② 활용</span><span class="tier t-adv on">③ 심화</span></span>
+          </div>
+          <h2>심화 — 커스터마이징 원리와 전사 공유 단계</h2>
+          <p class="lead"><b>확장 로드맵 3단계</b> — 선도 인력과 DX 담당자 대상입니다. Qoder CLI 중심으로 설정의 원리를 익히고, 팀·전사 공유 체계를 구축합니다.</p>
+          <div class="keypt"><span class="kt">핵심</span><span>Qoder의 커스터마이징은 <b>"모든 것이 파일·Git"</b>이라는 원리 위에 있습니다. 규칙·지식·연동을 파일로 설계해 조직의 자산으로 공유하는 능력이 이 단계의 목표입니다.</span></div>
+          <table class="tbl">
+            <tr><th>학습 영역</th><th>구성</th><th>기대 효과</th></tr>
+            <tr><td class="task-c">CLI 운영</td><td>터미널 에이전트 · qoder wiki 로컬 생성 · 무인(CI) 실행 · worktree 병렬</td><td>서버·자동화 환경까지 활용 영역 확장</td></tr>
+            <tr><td class="task-c">커스터마이징 원리</td><td>AGENTS.md 3층 구조 · 규칙 트리거 4종 · wiki_plan.yaml · 스킬/에이전트/MCP</td><td>버튼 사용자 → 설계자로 전환</td></tr>
+            <tr><td class="task-c">팀·전사 공유</td><td>① Git 기반(.qoder/ 커밋·pull) ② Enterprise Knowledge 자동 동기화 — 요금·보안·전파 기준 비교</td><td>한 사람의 지식이 전 팀 자산으로</td></tr>
+            <tr><td class="task-c">품질 루프</td><td>Better Harness 진단 → 수정 → 재진단 · 지식 변경의 PR 리뷰 통제</td><td>지속 개선 사이클 상시화</td></tr>
+            <tr><td class="task-c">종합 실습</td><td>팀 프로젝트 6단계 셋업 — 저장소 → AGENTS.md → wiki_plan → Wiki → 공유 → 진단</td><td><span class="pill g">성과</span> 전사 공유 프로젝트 기반 1식</td></tr>
+          </table>
+          <div class="grid g3" style="margin-top:14px">
+            <div class="kpi"><div class="n">① 기초</div><div class="l">전 임직원 · 개인 자동화<br>Qoder Work 중심</div></div>
+            <div class="kpi"><div class="n">② 활용</div><div class="l">직무 리더 · 팀 지식 자산<br>Qoder IDE 중심</div></div>
+            <div class="kpi"><div class="n">③ 심화</div><div class="l">선도 인력 · 전사 공유<br>Qoder CLI 중심</div></div>
+          </div>
+          <p class="note">연계 · 본 제안 Agentic Work Loop(보안 설정 → 목표 → 맥락 → 실행 → 검증 → 재사용)와 동일한 흐름 · Qoder 공식 문서 기준</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+(function(){
+  const deck   = document.getElementById('deck');
+  const nav    = document.getElementById('nav');
+  const numEl  = document.getElementById('slideNum');
+  const slides = Array.from(deck.querySelectorAll('.slide'));
+  const total  = slides.length;
+  let current  = 0;
+
+  function fitStage(){
+    const k = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+    deck.style.transform = 'scale(' + k + ')';
+  }
+
+  function fitContent(slide){
+    const frame = slide.querySelector('.fit-frame');
+    const content = slide.querySelector('.fit-content');
+    if(!frame || !content) return;
+    content.style.transform = 'none';
+    const avail = frame.clientHeight;
+    const need  = content.scrollHeight;
+    if(need > avail){
+      content.style.transform = 'scale(' + (avail / need).toFixed(4) + ')';
+    }
+  }
+
+  slides.forEach((slide, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot';
+    dot.type = 'button';
+    dot.title = '슬라이드 ' + (i + 1);
+    dot.addEventListener('click', () => go(i));
+    nav.appendChild(dot);
+  });
+  const dots = Array.from(nav.querySelectorAll('.nav-dot'));
+
+  function go(i){
+    if(i < 0 || i >= total) return;
+    slides[current].classList.remove('is-active');
+    dots[current].classList.remove('active');
+    current = i;
+    slides[current].classList.add('is-active');
+    dots[current].classList.add('active');
+    numEl.textContent = (current + 1) + ' / ' + total;
+    fitContent(slides[current]);
+  }
+
+  window.addEventListener('resize', () => { fitStage(); fitContent(slides[current]); });
+  window.addEventListener('load', () => { slides.forEach(fitContent); });
+  window.addEventListener('beforeprint', () => slides.forEach(fitContent));
+
+  document.addEventListener('keydown', e => {
+    if(e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' '){ e.preventDefault(); go(current + 1); }
+    if(e.key === 'ArrowLeft'  || e.key === 'ArrowUp'){ e.preventDefault(); go(current - 1); }
+    if(e.key === 'Home'){ e.preventDefault(); go(0); }
+    if(e.key === 'End'){ e.preventDefault(); go(total - 1); }
+    if(e.key.toLowerCase() === 'f'){
+      if(!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+
+  fitStage();
+  go(0);
+})();
+</script>
+</body>
+</html>

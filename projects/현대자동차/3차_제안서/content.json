@@ -1,0 +1,265 @@
+{
+  "title": "현대자동차 RAG · Agentic AI 통합 실무 과정",
+  "subtitle": "사내 문서 RAG 파이프라인 구축부터 하네스 엔지니어링 기반 업무 자동화 에이전트까지 · 5일 과정",
+  "info": {
+    "keyword": "RAG · LCEL · Vector DB · Harness Engineering · MCP · HITL",
+    "ax_stage": "3~5단계 (RAG 구축 · 에이전트 적용 · PoC)",
+    "target": "현대자동차 차량사이버보안개발팀 개발자 및 보안 실무진",
+    "duration": "총 35시간 (5일 × 7시간)<br/>2026년 8월 24일(월) ~ 8월 28일(금)"
+  },
+  "intro": "본 과정은 사내 문서 기반 RAG 파이프라인을 구축하고, 이를 검색 기반으로 연결해 업무를 자율 수행하는 AI 에이전트를 하네스(Harness) 엔지니어링 관점에서 구축·통제하는 5일 실습 과정입니다. Day 1~2는 RAG 구축과 검색 품질 개선·평가를, Day 3~5는 에이전트 구축·정책 통제·도구 연결·안전장치·통합 실습을 다룹니다. 매일 마지막 90분은 개인 프로젝트 시간으로, 각자 부서 문서와 문제에 그날 배운 내용을 적용합니다. Day 1에 만든 Vector DB가 Day 3에서 에이전트의 검색 기반이 되고 Day 4에서 도구와 안전장치가 붙는 식으로 결과물이 누적되어, 마지막 날 시연과 부서 도입 검토 자료로 이어집니다. 실습은 GitHub Codespaces 통일 환경에서 Claude Code, Codex를 사용해 진행하며, 수강생 전원이 동일한 환경에서 실습합니다.",
+  "objective": "<ul><li>문서 로딩·청킹·임베딩·Chroma 적재·LCEL로 이어지는 RAG 파이프라인을 직접 구축한다.</li><li>score 임계값·MultiQuery·하이브리드 검색으로 검색 품질을 개선하고 RAGAS로 품질을 수치화·평가한다.</li><li>하네스 5요소(시스템 프롬프트·에이전트 루프·컨텍스트 관리·도구 설계·안전장치)를 이해하고 자기 업무에 적용 가능한 에이전트를 구축한다.</li><li>CLAUDE.md 기반 사내 보안 정책 주입과 프롬프트 인젝션 방어로 에이전트를 정책 수준에서 통제한다.</li><li>MCP로 기존 도구를 연결하고 HITL 승인·감사 로그로 안전하게 자율 실행하는 파이프라인을 구현한다.</li><li>RAG·도구·정책·안전장치를 통합한 PoC를 완성하고 부서 도입 시 비용·권한·보안 판단 기준을 함께 정리한다.</li></ul>",
+  "tech_stack": [
+    "Python",
+    "LangChain · LCEL",
+    "Chroma",
+    "tiktoken",
+    "RAGAS",
+    "MCP",
+    "Claude Code",
+    "Codex",
+    "GitHub Codespaces",
+    "HITL · 감사 로그"
+  ],
+  "infrastructure": [
+    "실습용 노트북 1인 1대 (Python 개발환경, VS Code 권장)",
+    "GitHub Codespaces 기반 통일 클라우드 실습 환경",
+    "Claude Code 및 Codex 계정 · API 키·사용량 한도 설정",
+    "실습용 저장소(Repository) 및 시연용 격리 샌드박스",
+    "개인 프로젝트용 부서 문서 데이터 (반입 기준 사전 협의)"
+  ],
+  "use_simple_track_label": true,
+  "page_break_before_curriculum": true,
+  "curriculum_title": "상세 커리큘럼",
+  "curriculum_format": "track",
+  "curriculum_table": [
+    {
+      "course": "RAG 파이프라인 구축 - Day 1",
+      "module_name": "Day 1 - 1",
+      "module_content": "과정 방향 정리(AI 코딩 도구 발전 흐름) 및 실습 환경 세팅(Codespaces · API 키)",
+      "duration": "1H"
+    },
+    {
+      "course": "RAG 파이프라인 구축 - Day 1",
+      "module_name": "Day 1 - 2",
+      "module_content": "문서 로딩→청킹→임베딩→Chroma 적재→LCEL 한 사이클 완성 · Splitter 3종 비교 · 한국어 종결어 separator · chunk_size 트레이드오프",
+      "duration": "2H"
+    },
+    {
+      "course": "RAG 파이프라인 구축 - Day 1",
+      "module_name": "Day 1 - 3",
+      "module_content": "tiktoken 임베딩 비용 사전 추정 · Chroma 메타데이터(category·보안등급·출처·최신성) 설계 · persist로 재임베딩 비용 절감",
+      "duration": "1.5H"
+    },
+    {
+      "course": "RAG 파이프라인 구축 - Day 1",
+      "module_name": "Day 1 - 4",
+      "module_content": "Retriever·RAG 프롬프트·LCEL 체인·출처 표시 연결, 답 없는 질문으로 환각 재현 후 프롬프트로 차단",
+      "duration": "1H"
+    },
+    {
+      "course": "RAG 파이프라인 구축 - Day 1",
+      "module_name": "Day 1 - 5",
+      "module_content": "개인 프로젝트: 부서 문서로 나만의 RAG 파이프라인 구축",
+      "duration": "1.5H"
+    },
+    {
+      "course": "검색 고도화와 평가 - Day 2",
+      "module_name": "Day 2 - 1",
+      "module_content": "score 임계값 기준으로 신뢰도 낮은 답변 차단·재검색하는 구조 구현",
+      "duration": "1.5H"
+    },
+    {
+      "course": "검색 고도화와 평가 - Day 2",
+      "module_name": "Day 2 - 2",
+      "module_content": "MultiQueryRetriever · 하이브리드 검색(키워드+벡터) 적용 후 전후 결과 비교",
+      "duration": "1.5H"
+    },
+    {
+      "course": "검색 고도화와 평가 - Day 2",
+      "module_name": "Day 2 - 3",
+      "module_content": "메타데이터 필터로 검색 범위 좁히기 + 미저장 키 필터 시 결과 0 되는 장애 상황 재현",
+      "duration": "1H"
+    },
+    {
+      "course": "검색 고도화와 평가 - Day 2",
+      "module_name": "Day 2 - 4",
+      "module_content": "RAGAS 데모(faithfulness·answer relevancy)로 검색 품질 수치화 · 에이전트 개념 도입(답변형 vs 행동형) · Self-RAG 시연",
+      "duration": "1.5H"
+    },
+    {
+      "course": "검색 고도화와 평가 - Day 2",
+      "module_name": "Day 2 - 5",
+      "module_content": "개인 프로젝트: 검색 품질 개선·평가 적용",
+      "duration": "1.5H"
+    },
+    {
+      "course": "하네스와 정책 통제 - Day 3",
+      "module_name": "Day 3 - 1",
+      "module_content": "하네스 5요소(시스템 프롬프트·에이전트 루프·컨텍스트 관리·도구 설계·안전장치) 이론 · 실행→관찰→수정→검증 루프",
+      "duration": "1H"
+    },
+    {
+      "course": "하네스와 정책 통제 - Day 3",
+      "module_name": "Day 3 - 2",
+      "module_content": "첫 에이전트 실행: 파일 읽기·수정·명령 실행·테스트로 이어지는 루프 관찰",
+      "duration": "1.5H"
+    },
+    {
+      "course": "하네스와 정책 통제 - Day 3",
+      "module_name": "Day 3 - 3",
+      "module_content": "CLAUDE.md에 사내 보안 정책(금지 명령·접근 불가 경로·필수 검증) 주입 · 반복 실수를 규칙 파일·테스트·검증 절차로 흡수 · 프롬프트 인젝션 점검·방어 보강",
+      "duration": "1.5H"
+    },
+    {
+      "course": "하네스와 정책 통제 - Day 3",
+      "module_name": "Day 3 - 4",
+      "module_content": "Day 1~2 RAG를 에이전트에 연결(사내 문서 근거 판단·행동) · 컨텍스트 관리 · 작업별 모델 배치 · 토큰 비용",
+      "duration": "1.5H"
+    },
+    {
+      "course": "하네스와 정책 통제 - Day 3",
+      "module_name": "Day 3 - 5",
+      "module_content": "개인 프로젝트: 부서 정책을 반영한 에이전트 통제",
+      "duration": "1.5H"
+    },
+    {
+      "course": "도구 연결과 안전장치 - Day 4",
+      "module_name": "Day 4 - 1",
+      "module_content": "MCP로 보안 스캐너 등 기존 도구 연결 · 에이전트가 스스로 실행하고 로그 해석해 다음 행동 결정",
+      "duration": "1.5H"
+    },
+    {
+      "course": "도구 연결과 안전장치 - Day 4",
+      "module_name": "Day 4 - 2",
+      "module_content": "도구 허용 목록 방식 · 최소 권한 부여(조회 scope만) · 격리 샌드박스에서 안전장치 없는 위험 행동 시연",
+      "duration": "1.5H"
+    },
+    {
+      "course": "도구 연결과 안전장치 - Day 4",
+      "module_name": "Day 4 - 3",
+      "module_content": "HITL 승인 구조 구현 · 승인 이력·결정 사유를 감사 로그로 기록(보안 감사·부서 결재 관점 로그 설계)",
+      "duration": "1.5H"
+    },
+    {
+      "course": "도구 연결과 안전장치 - Day 4",
+      "module_name": "Day 4 - 4",
+      "module_content": "작업/검수 에이전트 분리(오케스트레이션 기초)·검증 루프 · CVE 연계 점검 시나리오 데모",
+      "duration": "1H"
+    },
+    {
+      "course": "도구 연결과 안전장치 - Day 4",
+      "module_name": "Day 4 - 5",
+      "module_content": "개인 프로젝트: 도구·안전장치 적용",
+      "duration": "1.5H"
+    },
+    {
+      "course": "통합과 최종 리뷰 - Day 5",
+      "module_name": "Day 5 - 1",
+      "module_content": "RAG + MCP 도구 + 정책 파일 + HITL·감사 로그를 하나의 에이전트로 통합 · 전체 흐름 실행(검색→판단→도구 실행→검증→결과 정리)",
+      "duration": "2H"
+    },
+    {
+      "course": "통합과 최종 리뷰 - Day 5",
+      "module_name": "Day 5 - 2",
+      "module_content": "부서 문제 적용 결과 시연: 자동화 대상 업무·부여 권한·안전장치 위치, 도입 시 비용·권한·승인 흐름 발표",
+      "duration": "2H"
+    },
+    {
+      "course": "통합과 최종 리뷰 - Day 5",
+      "module_name": "Day 5 - 3",
+      "module_content": "상호 피드백·개별 피드백·종합 리뷰",
+      "duration": "1.5H"
+    },
+    {
+      "course": "통합과 최종 리뷰 - Day 5",
+      "module_name": "Day 5 - 4",
+      "module_content": "개인 프로젝트 마무리 · 자습 노트북 배포(RAGAS 심화·청킹 그리드 실험·Self-RAG 구현)",
+      "duration": "1.5H"
+    }
+  ],
+  "tracks": [
+    {
+      "track_id": "01",
+      "track_name": "RAG · Agentic AI 통합 실무",
+      "course_title": "사내 문서 RAG 구축 + 하네스 엔지니어링 기반 업무 자동화 에이전트",
+      "target": "RAG 파이프라인 구축과 자기 업무 적용 에이전트 설계·통제 역량이 필요한 개발자 및 보안 실무진",
+      "duration": "총 35시간 (5일 × 7시간) · 2026년 8월 24일(월) ~ 8월 28일(금)",
+      "tools": [
+        "Python",
+        "LangChain · LCEL",
+        "Chroma",
+        "tiktoken",
+        "RAGAS",
+        "MCP",
+        "Claude Code",
+        "Codex",
+        "GitHub Codespaces",
+        "HITL · 감사 로그"
+      ],
+      "modules": [
+        {
+          "module_name": "Day 1 (8/24). RAG 파이프라인 구축",
+          "duration": "7H",
+          "items": [
+            "[1H] 과정 방향 정리(AI 코딩 도구 발전 흐름) 및 실습 환경 세팅(Codespaces · API 키)",
+            "[2H] 문서 로딩→청킹→임베딩→Chroma 적재→LCEL 한 사이클 완성 · Splitter 3종 비교 · 한국어 종결어 separator · chunk_size 트레이드오프",
+            "[1.5H] tiktoken 임베딩 비용 사전 추정 · Chroma 메타데이터(category·보안등급·출처·최신성) 설계 · persist로 재임베딩 비용 절감",
+            "[1H] Retriever·RAG 프롬프트·LCEL 체인·출처 표시 연결, 답 없는 질문으로 환각 재현 후 프롬프트로 차단",
+            "[1.5H] 개인 프로젝트: 부서 문서로 나만의 RAG 파이프라인 구축"
+          ]
+        },
+        {
+          "module_name": "Day 2 (8/25). 검색 고도화와 평가",
+          "duration": "7H",
+          "items": [
+            "[1.5H] score 임계값 기준으로 신뢰도 낮은 답변 차단·재검색하는 구조 구현",
+            "[1.5H] MultiQueryRetriever · 하이브리드 검색(키워드+벡터) 적용 후 전후 결과 비교",
+            "[1H] 메타데이터 필터로 검색 범위 좁히기 + 미저장 키 필터 시 결과 0 되는 장애 상황 재현",
+            "[1.5H] RAGAS 데모(faithfulness·answer relevancy)로 검색 품질 수치화 · 에이전트 개념 도입(답변형 vs 행동형) · Self-RAG 시연",
+            "[1.5H] 개인 프로젝트: 검색 품질 개선·평가 적용"
+          ]
+        },
+        {
+          "module_name": "Day 3 (8/26). 하네스와 정책 통제",
+          "duration": "7H",
+          "items": [
+            "[1H] 하네스 5요소(시스템 프롬프트·에이전트 루프·컨텍스트 관리·도구 설계·안전장치) 이론 · 실행→관찰→수정→검증 루프",
+            "[1.5H] 첫 에이전트 실행: 파일 읽기·수정·명령 실행·테스트로 이어지는 루프 관찰",
+            "[1.5H] CLAUDE.md에 사내 보안 정책(금지 명령·접근 불가 경로·필수 검증) 주입 · 반복 실수를 규칙 파일·테스트·검증 절차로 흡수 · 프롬프트 인젝션 점검·방어 보강",
+            "[1.5H] Day 1~2 RAG를 에이전트에 연결(사내 문서 근거 판단·행동) · 컨텍스트 관리 · 작업별 모델 배치 · 토큰 비용",
+            "[1.5H] 개인 프로젝트: 부서 정책을 반영한 에이전트 통제"
+          ]
+        },
+        {
+          "module_name": "Day 4 (8/27). 도구 연결과 안전장치",
+          "duration": "7H",
+          "items": [
+            "[1.5H] MCP로 보안 스캐너 등 기존 도구 연결 · 에이전트가 스스로 실행하고 로그 해석해 다음 행동 결정",
+            "[1.5H] 도구 허용 목록 방식 · 최소 권한 부여(조회 scope만) · 격리 샌드박스에서 안전장치 없는 위험 행동 시연",
+            "[1.5H] HITL 승인 구조 구현 · 승인 이력·결정 사유를 감사 로그로 기록(보안 감사·부서 결재 관점 로그 설계)",
+            "[1H] 작업/검수 에이전트 분리(오케스트레이션 기초)·검증 루프 · CVE 연계 점검 시나리오 데모",
+            "[1.5H] 개인 프로젝트: 도구·안전장치 적용"
+          ]
+        },
+        {
+          "module_name": "Day 5 (8/28). 통합과 최종 리뷰",
+          "duration": "7H",
+          "items": [
+            "[2H] RAG + MCP 도구 + 정책 파일 + HITL·감사 로그를 하나의 에이전트로 통합 · 전체 흐름 실행(검색→판단→도구 실행→검증→결과 정리)",
+            "[2H] 부서 문제 적용 결과 시연: 자동화 대상 업무·부여 권한·안전장치 위치, 도입 시 비용·권한·승인 흐름 발표",
+            "[1.5H] 상호 피드백·개별 피드백·종합 리뷰",
+            "[1.5H] 개인 프로젝트 마무리 · 자습 노트북 배포(RAGAS 심화·청킹 그리드 실험·Self-RAG 구현)"
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "<ul><li>부서 문서 기반 RAG 파이프라인(청킹·임베딩·Chroma 적재·LCEL) 구축 결과 1건</li><li>MultiQuery·하이브리드 검색 및 RAGAS 품질 평가 결과 1건</li><li>CLAUDE.md 사내 보안 정책이 주입된 통제형 에이전트 1건</li><li>MCP 도구 연결·HITL 승인·감사 로그가 적용된 자율 실행 파이프라인 1건</li><li>RAG+도구+정책+안전장치를 통합한 업무 자동화 에이전트 PoC 및 부서 도입 검토 자료 1건</li></ul>",
+  "pdf_filename": "[모두의연구소]현대자동차_RAG_Agentic_AI_3차_교육안내서",
+  "section_07_title": "교육 사전 안내사항",
+  "prep_message": "<div style='text-align:left;color:#333;font-style:normal;padding:0;'><p style='font-size:13px;color:#333;margin:0;'>본 교육 시 사용되는 노션 페이지입니다.</p><ul style='font-size:13px;color:#555;margin:8px 0 0;padding-left:18px;'><li>교육 노션 페이지 : <a href='https://adorable-hail-415.notion.site/RAG-Agentic-352137efedf6809a897febd31755d936?source=copy_link' style='color:#EE3E4C;text-decoration:underline;'>노션 페이지 바로가기</a></li></ul><p style='font-size:13px;color:#333;margin:14px 0 0;'>본 교육은 <b>GitHub Codespace</b>를 통해 진행됩니다. 원활한 실습을 위해 GitHub 계정을 준비해주세요.</p><ul style='font-size:13px;color:#555;margin:8px 0 0;padding-left:18px;'><li>GitHub 계정이 없는 경우 : <a href='https://github.com/signup' style='color:#EE3E4C;text-decoration:underline;'>github.com/signup</a> 에서 사전 가입 필요</li><li>CodeSpace 사전 준비 안내 : <a href='https://adorable-hail-415.notion.site/GitHub-Codespaces-374137efedf680589a39fde27f2d1c74?pvs=143' style='color:#EE3E4C;text-decoration:underline;'>Codespaces 준비 가이드</a></li></ul></div>",
+  "section_08_title": "운영 및 일정 안내",
+  "schedule_message": "<div style='text-align:left;color:#333;font-style:normal;padding:0;'><p style='font-size:13px;color:#333;margin:0;'>본 교육 시 사용되는 노션 페이지입니다.</p><ul style='font-size:13px;color:#555;margin:8px 0 0;padding-left:18px;'><li>교육 노션 페이지 : <a href='https://adorable-hail-415.notion.site/RAG-Agentic-352137efedf6809a897febd31755d936?source=copy_link' style='color:#EE3E4C;text-decoration:underline;'>노션 페이지 바로가기</a></li></ul><p style='font-size:13px;color:#333;margin:14px 0 0;'>본 교육은 <b>GitHub Codespace</b>를 통해 진행됩니다. 원활한 실습을 위해 GitHub 계정을 준비해주세요.</p><ul style='font-size:13px;color:#555;margin:8px 0 0;padding-left:18px;'><li>GitHub 계정이 없는 경우 : <a href='https://github.com/signup' style='color:#EE3E4C;text-decoration:underline;'>github.com/signup</a> 에서 사전 가입 필요</li><li>CodeSpace 사전 준비 안내 : <a href='https://adorable-hail-415.notion.site/GitHub-Codespaces-374137efedf680589a39fde27f2d1c74?pvs=143' style='color:#EE3E4C;text-decoration:underline;'>Codespaces 준비 가이드</a></li></ul></div></div></div><div style='page-break-inside:avoid;break-inside:avoid;'><div class='section-title'><span class='section-num'>08</span>운영 및 일정 안내</div><div class='schedule-placeholder'><table style='width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px;'><tr style='background:#fafafa;font-weight:700;color:#555;'><td style='border:1px solid #ebebeb;padding:10px 12px;width:140px;'>일자</td><td style='border:1px solid #ebebeb;padding:10px 12px;width:180px;'>교육 장소</td><td style='border:1px solid #ebebeb;padding:10px 12px;'>주제</td></tr><tr><td style='border:1px solid #ebebeb;padding:10px 12px;font-weight:700;'>8/24 (월)</td><td style='border:1px solid #ebebeb;padding:10px 12px;'>현대자동차 제로원 스튜디오<br/><span style='font-size:11px;color:#888;'>드림플러스 6층 <a href='https://naver.me/xl0DQ5lW' style='color:#EE3E4C;font-size:12px;text-decoration:underline;'>(링크)</a></span></td><td style='border:1px solid #ebebeb;padding:10px 12px;'>RAG 파이프라인 구축</td></tr><tr><td style='border:1px solid #ebebeb;padding:10px 12px;font-weight:700;'>8/25 (화)</td><td style='border:1px solid #ebebeb;padding:10px 12px;'>현대자동차 제로원 스튜디오<br/><span style='font-size:11px;color:#888;'>드림플러스 6층 <a href='https://naver.me/xl0DQ5lW' style='color:#EE3E4C;font-size:12px;text-decoration:underline;'>(링크)</a></span></td><td style='border:1px solid #ebebeb;padding:10px 12px;'>검색 고도화와 평가</td></tr><tr><td style='border:1px solid #ebebeb;padding:10px 12px;font-weight:700;'>8/26 (수)</td><td style='border:1px solid #ebebeb;padding:10px 12px;'>현대자동차 제로원 스튜디오<br/><span style='font-size:11px;color:#888;'>드림플러스 6층 <a href='https://naver.me/xl0DQ5lW' style='color:#EE3E4C;font-size:12px;text-decoration:underline;'>(링크)</a></span></td><td style='border:1px solid #ebebeb;padding:10px 12px;'>하네스와 정책 통제</td></tr><tr><td style='border:1px solid #ebebeb;padding:10px 12px;font-weight:700;'>8/27 (목)</td><td style='border:1px solid #ebebeb;padding:10px 12px;'>현대자동차 제로원 스튜디오<br/><span style='font-size:11px;color:#888;'>드림플러스 6층 <a href='https://naver.me/xl0DQ5lW' style='color:#EE3E4C;font-size:12px;text-decoration:underline;'>(링크)</a></span></td><td style='border:1px solid #ebebeb;padding:10px 12px;'>도구 연결과 안전장치</td></tr><tr><td style='border:1px solid #ebebeb;padding:10px 12px;font-weight:700;'>8/28 (금)</td><td style='border:1px solid #ebebeb;padding:10px 12px;'>현대자동차 제로원 스튜디오<br/><span style='font-size:11px;color:#888;'>드림플러스 6층 <a href='https://naver.me/xl0DQ5lW' style='color:#EE3E4C;font-size:12px;text-decoration:underline;'>(링크)</a></span></td><td style='border:1px solid #ebebeb;padding:10px 12px;'>통합과 최종 리뷰</td></tr></table><p style='font-size:12px;color:#555;'>※ 제로원 스튜디오 방문 시: 1층 Info에서 QR로 출입등록 후 출입카드 수령 후 입장</p><p><b>선수 조건</b>: Python 기본 문법 이해 (변수·함수·리스트/딕셔너리 수준)</p><p><b>실습 환경</b>: GitHub Codespaces 기반 통일 클라우드 환경 (Claude Code, Codex 활용) · API 키·사용량 한도 사전 설정</p><p><b>사전 준비 요청</b>: ① 실습용 저장소(Repository) 및 시연용 격리 샌드박스, ② 개인 프로젝트용 부서 문서 반입 기준 사전 협의 (사내 문서 반입 불가 시 부서별 유사 공개 데이터 준비)</p></div></div><div style='page-break-inside:avoid;break-inside:avoid;'><div class='section-title'><span class='section-num'>09</span>기타</div><div class='content-box'><p style='font-size:14px;font-weight:700;color:#333;margin:0 0 4px;'>현대자동차 제로원 스튜디오 · 드림플러스 6층 (8/24 · 8/25 · 8/26 · 8/27 · 8/28)</p><p style='font-size:12px;color:#888;margin:0 0 12px;'><a href='https://naver.me/xl0DQ5lW' style='color:#EE3E4C;text-decoration:underline;'>(지도 링크)</a></p><div style='background:#fff5f5;border:1px solid #EE3E4C;border-left:4px solid #EE3E4C;border-radius:8px;padding:12px 14px;margin:0 0 14px;'><div style='margin:0 0 6px;'><span style='display:inline-block;background:#EE3E4C;color:#fff;font-size:11px;font-weight:700;letter-spacing:0.3px;padding:3px 9px;border-radius:4px;'>출입 필수 안내</span></div><p style='font-size:13px;color:#333;font-weight:700;line-height:1.7;margin:0;'>제로원 6층 방문 시 1층 Info에서 QR로 출입등록(방문회사: 제로원 / 직원: 조성태) 후, <span style='color:#EE3E4C;'>출입카드 수령 후 입장</span></p></div><ul style='font-size:13px;color:#555;margin:0;padding-left:18px;line-height:1.7;'><li><b>주차</b>: 거점 운영 정책상 전무급 이상 임원만 지원되며, 그 外 본 건물 유료주차 시 10분당 1,000원 요금이 발생합니다. 가급적 드림플러스 건물 뒷편 도보 5분 이내의 민간주차장 또는 대중교통 이용을 권장드립니다.</li><li><b>추천 주차장</b> (모두의주차장 사전 결제 필요): 에피소드서초393 주차장(당일권 1만 원, 기계식 지하5층) · 서초 그랑자이 상가주차장(당일권 1만2천 원, 비기계식)</li></ul></div></div><div style='display:none'>",
+  "section_09_title": "기타"
+}

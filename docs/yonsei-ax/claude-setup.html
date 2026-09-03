@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>연세대학교 AX 캠프 Claude 환경세팅 가이드</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard.min.css" />
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --ink: #111827;
+      --muted: #647084;
+      --quiet: #8d98aa;
+      --line: #e5e7eb;
+      --paper: #fffaf5;
+      --panel: #ffffff;
+      --coral: #f7585c;
+      --coral-deep: #d73f45;
+      --navy: #202a5a;
+      --mint: #00a896;
+      --amber: #f59e0b;
+      --code: #111827;
+      --code-text: #e5e7eb;
+      --shadow: 0 18px 45px rgba(17, 24, 39, 0.1);
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: "Pretendard", "Malgun Gothic", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        linear-gradient(90deg, rgba(247, 88, 92, 0.08) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(32, 42, 90, 0.05) 1px, transparent 1px),
+        var(--paper);
+      background-size: 32px 32px;
+      color: var(--ink);
+      line-height: 1.6;
+      letter-spacing: 0;
+    }
+
+    a { color: inherit; }
+
+    button, a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .app {
+      min-height: 100vh;
+    }
+
+    .hero {
+      background: var(--ink);
+      color: white;
+      padding: 32px 18px 26px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(247, 88, 92, 0.24), transparent 42%),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px 60px);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      color: var(--coral);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(31px, 7.6vw, 76px);
+      line-height: 1.06;
+      font-weight: 900;
+      max-width: 880px;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      letter-spacing: 0;
+    }
+
+    .hero p {
+      margin: 18px 0 0;
+      color: rgba(255, 255, 255, 0.76);
+      max-width: 760px;
+      font-size: clamp(15px, 3.8vw, 19px);
+      word-break: normal;
+      overflow-wrap: anywhere;
+    }
+
+    .hero-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .action-link,
+    .chip-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      text-decoration: none;
+      padding: 10px 13px;
+      min-height: 42px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 750;
+      cursor: pointer;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .action-link.primary {
+      background: var(--coral);
+      border-color: var(--coral);
+    }
+
+    .shell {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .quick-start {
+      display: grid;
+      gap: 10px;
+      margin-top: -18px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .quick-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 24px rgba(17, 24, 39, 0.08);
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .quick-num {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius);
+      background: var(--ink);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      font-size: 16px;
+    }
+
+    .quick-card:nth-child(2) .quick-num { background: var(--coral); }
+    .quick-card:nth-child(3) .quick-num { background: var(--navy); }
+    .quick-card:nth-child(4) .quick-num { background: var(--mint); }
+
+    .quick-card h2 {
+      margin: 0 0 4px;
+      font-size: 17px;
+      line-height: 1.35;
+    }
+
+    .quick-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      word-break: keep-all;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .toc {
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: 0 8px 24px rgba(17, 24, 39, 0.06);
+    }
+
+    .toc-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 850;
+      margin-bottom: 10px;
+    }
+
+    .toc-list {
+      display: grid;
+      gap: 4px;
+    }
+
+    .toc a {
+      display: block;
+      text-decoration: none;
+      padding: 9px 10px;
+      border-radius: var(--radius);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .toc a:hover,
+    .toc a.active {
+      background: #fff0f0;
+      color: var(--coral-deep);
+    }
+
+    .content {
+      display: grid;
+      gap: 18px;
+      min-width: 0;
+    }
+
+    .section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      scroll-margin-top: 18px;
+    }
+
+    .section-head {
+      padding: 18px 18px 14px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(90deg, #ffffff, #fff6f6);
+    }
+
+    .section-label {
+      color: var(--coral);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .section h2 {
+      margin: 0;
+      font-size: clamp(22px, 5.5vw, 32px);
+      line-height: 1.25;
+      word-break: keep-all;
+    }
+
+    .section-body {
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .section-body h3 {
+      margin: 12px 0 0;
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    .section-body p {
+      margin: 0;
+      color: var(--muted);
+      word-break: keep-all;
+    }
+
+    .note {
+      border-left: 4px solid var(--coral);
+      background: #fff5f5;
+      padding: 12px 13px;
+      color: #4b5563;
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+
+    .grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .grid.two,
+    .grid.three {
+      grid-template-columns: 1fr;
+    }
+
+    .mini-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px;
+      background: #fbfcfe;
+    }
+
+    .mini-card strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--ink);
+      font-size: 15px;
+    }
+
+    .mini-card span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .step-list {
+      display: grid;
+      gap: 10px;
+      counter-reset: step;
+    }
+
+    .step {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .step::before {
+      content: counter(step);
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius);
+      background: var(--coral);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    .step p {
+      padding-top: 4px;
+    }
+
+    .code-card {
+      background: var(--code);
+      color: var(--code-text);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid #1f2937;
+    }
+
+    .code-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 9px 10px;
+      border-bottom: 1px solid #263244;
+      background: #0b1220;
+      color: #9ca3af;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .copy-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #334155;
+      background: #172033;
+      color: #e5e7eb;
+      border-radius: 6px;
+      padding: 7px 9px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    pre {
+      margin: 0;
+      padding: 14px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "SFMono-Regular", Menlo, monospace;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    table {
+      width: 100%;
+      min-width: 620px;
+      border-collapse: collapse;
+      background: white;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 14px;
+    }
+
+    th {
+      background: var(--ink);
+      color: white;
+      font-weight: 850;
+    }
+
+    td {
+      color: var(--muted);
+    }
+
+    .checklist {
+      display: grid;
+      gap: 8px;
+    }
+
+    .check-item {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbfcfe;
+      cursor: pointer;
+    }
+
+    .box {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 2px solid #cbd5e1;
+      display: grid;
+      place-items: center;
+      color: white;
+      transition: 0.16s ease;
+    }
+
+    .check-item.done .box {
+      background: var(--mint);
+      border-color: var(--mint);
+    }
+
+    .check-item.done span {
+      color: var(--quiet);
+      text-decoration: line-through;
+    }
+
+    .bottom-bar {
+      position: sticky;
+      bottom: 0;
+      z-index: 20;
+      background: rgba(17, 24, 39, 0.94);
+      color: white;
+      padding: 10px 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+    }
+
+    .bottom-inner {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      display: grid;
+      gap: 8px;
+    }
+
+    .progress-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.78);
+      font-weight: 800;
+    }
+
+    .progress-track {
+      height: 7px;
+      background: rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      background: var(--coral);
+      transition: width 0.2s ease;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .submit-panel,
+    .contact-panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff7f7;
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .submit-panel h3,
+    .contact-panel h3 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    .submit-panel p,
+    .contact-panel p {
+      margin: 0;
+    }
+
+    .mail-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--coral-deep);
+      font-weight: 900;
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .link-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      border: 1px solid var(--line);
+      padding: 9px 10px;
+      border-radius: var(--radius);
+      color: var(--navy);
+      background: #f8fafc;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .footer {
+      color: var(--quiet);
+      font-size: 13px;
+      text-align: center;
+      padding: 26px 0 12px;
+    }
+
+    @media (min-width: 740px) {
+      .hero { padding: 52px 28px 46px; }
+      .hero-actions { display: flex; flex-wrap: wrap; }
+      .action-link,
+      .chip-button { width: auto; justify-content: flex-start; }
+      .shell { padding: 24px 28px 36px; gap: 24px; }
+      .quick-start { grid-template-columns: repeat(4, 1fr); margin-top: -46px; }
+      .quick-card { grid-template-columns: 1fr; }
+      .grid.two { grid-template-columns: repeat(2, 1fr); }
+      .grid.three { grid-template-columns: repeat(3, 1fr); }
+      .section-body { padding: 24px; gap: 16px; }
+    }
+
+    @media (min-width: 1040px) {
+      .layout {
+        grid-template-columns: 260px minmax(0, 1fr);
+        align-items: start;
+      }
+
+      .toc {
+        position: sticky;
+        top: 18px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .section-head,
+      .section-body {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script>
+    const { useEffect, useMemo, useState } = React;
+    const h = React.createElement;
+
+    const codeBlocks = {
+      firstPrompt: `나는 연세대학교 AX 캠프에 참여하는 학생입니다.
+Claude를 처음 쓰는 사람에게 가장 먼저 익혀야 할 기능 5가지를 알려줘.`,
+      summarize: `아래 글을 읽고 1) 핵심 주장 2) 근거 3) 애매한 부분 4) 내가 추가로 확인해야 할 질문으로 나눠 정리해줘.`,
+      ideate: `나는 [전공/관심사]를 바탕으로 3주 안에 실행 가능한 AI 프로젝트를 찾고 있어.
+너무 거창하지 않고, 실제로 검증 가능한 주제 10개를 제안해줘.
+각 주제마다 필요한 데이터와 예상 산출물도 붙여줘.`,
+      critique: `아래 기획안을 심사위원 관점에서 냉정하게 검토해줘.
+특히 실행 가능성, 근거 부족, 범위 과다, AI 활용의 진정성을 중심으로 지적해줘.`,
+      voice: `아래 문장을 대학생이 직접 쓴 것처럼 자연스럽게 다듬어줘.
+너무 광고 문구처럼 보이지 않게 하고, 핵심은 유지해줘.`,
+      folder: `Documents/Yonsei_AX_Camp`,
+      appCheck: `내가 오늘 Claude 앱 설치를 완료했는지 확인하는 체크리스트를 만들어줘.
+Windows와 macOS 공통으로 볼 수 있게 정리해줘.`,
+      coworkFolder: `이 폴더는 연세대 AX 캠프 작업 폴더입니다.
+폴더 구조를 보고, 앞으로 연구/콘텐츠/사업 기획을 진행하기 좋은 하위 폴더 구조를 제안해줘.`,
+      coworkReview: `내가 작성한 기획안 초안을 읽고,
+1) 강점 2) 약점 3) 보완 질문 4) 다음에 만들어야 할 파일 목록으로 정리해줘.`,
+      psInstall: `irm https://claude.ai/install.ps1 | iex`,
+      psCheck: `claude --version
+claude doctor`,
+      psRun: `cd "$HOME\\Documents\\Yonsei_AX_Camp"
+claude`,
+      cmdInstall: `curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd`,
+      bashInstall: `curl -fsSL https://claude.ai/install.sh | bash`,
+      bashRun: `cd ~/Documents/Yonsei_AX_Camp
+claude`,
+      readme: `이 폴더는 연세대 AX 캠프 실습 폴더야.
+README.md를 만들고, 앞으로 작업할 폴더 구조와 파일 관리 규칙을 한국어로 정리해줘.
+먼저 어떤 파일을 만들지 계획을 보여주고, 내가 승인하면 진행해줘.`,
+      notes: `notes.md를 읽고 내용을 주제별로 정리해줘.
+원본은 보존하고, 정리본은 summary.md로 새로 만들어줘.`,
+      safe: `파일을 수정하기 전에 반드시 변경 계획을 먼저 보여줘.
+삭제나 덮어쓰기가 필요한 경우에는 내 확인을 받은 뒤 진행해줘.`,
+      omc: `내 프로젝트 주제를 기준으로 역할을 나눠 검토해줘.
+1) 기획자 관점 2) 사용자 관점 3) 실행 가능성 관점 4) 심사위원 관점으로 나눠서
+강점, 리스크, 다음 액션을 정리해줘.`
+    };
+
+    const sections = [
+      { id: "goal", label: "00", title: "오늘의 목표" },
+      { id: "tools", label: "01", title: "준비물" },
+      { id: "before", label: "02", title: "설치 전 체크" },
+      { id: "login", label: "03", title: "Claude 로그인" },
+      { id: "basics", label: "04", title: "기본 기능" },
+      { id: "app", label: "05", title: "앱 설치" },
+      { id: "cowork", label: "06", title: "Cowork" },
+      { id: "code", label: "07", title: "Claude Code 설치" },
+      { id: "practice", label: "08", title: "첫 실습" },
+      { id: "omc", label: "09", title: "OMC" },
+      { id: "checklist", label: "10", title: "최종 체크" },
+      { id: "trouble", label: "11", title: "문제 해결" },
+      { id: "complete-form", label: "13", title: "설치 완료 응답" },
+      { id: "links", label: "14", title: "참고 링크" },
+      { id: "contact", label: "15", title: "문의" }
+    ];
+
+    const checklist = [
+      "Claude 웹 로그인 완료",
+      "Claude 앱 설치 완료",
+      "수업용 작업 폴더 생성 완료",
+      "Claude 앱에서 간단한 질문 1회 이상 실행",
+      "Claude Code 설치 완료",
+      "claude --version 실행 성공",
+      "claude doctor 실행 성공 또는 오류 메시지 캡처",
+      "수업용 폴더에서 claude 실행 성공",
+      "개인정보가 들어간 파일을 수업용 폴더에 넣지 않음"
+    ];
+
+    function Icon({ name, size = 16 }) {
+      return h("i", { "data-lucide": name, style: { width: size, height: size } });
+    }
+
+    function CodeBlock({ label, value }) {
+      const [copied, setCopied] = useState(false);
+      const copy = async () => {
+        try {
+          await navigator.clipboard.writeText(value);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 1300);
+        } catch (error) {
+          setCopied(false);
+        }
+      };
+
+      return h("div", { className: "code-card" },
+        h("div", { className: "code-top" },
+          h("span", null, label),
+          h("button", { className: "copy-button", onClick: copy, type: "button" },
+            h(Icon, { name: copied ? "check" : "copy", size: 14 }),
+            copied ? "복사됨" : "복사"
+          )
+        ),
+        h("pre", null, value)
+      );
+    }
+
+    function Table({ headers, rows }) {
+      return h("div", { className: "table-wrap" },
+        h("table", null,
+          h("thead", null, h("tr", null, headers.map((header) => h("th", { key: header }, header)))),
+          h("tbody", null, rows.map((row, i) =>
+            h("tr", { key: i }, row.map((cell, j) => h("td", { key: j }, cell)))
+          ))
+        )
+      );
+    }
+
+    function Section({ id, label, title, children }) {
+      return h("section", { className: "section", id },
+        h("div", { className: "section-head" },
+          h("div", { className: "section-label" }, label),
+          h("h2", null, title)
+        ),
+        h("div", { className: "section-body" }, children)
+      );
+    }
+
+    function MiniCard({ title, body }) {
+      return h("div", { className: "mini-card" }, h("strong", null, title), h("span", null, body));
+    }
+
+    function App() {
+      const [active, setActive] = useState("goal");
+      const [done, setDone] = useState(() => {
+        try { return JSON.parse(localStorage.getItem("claudeSetupDone") || "[]"); }
+        catch { return []; }
+      });
+
+      useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+          const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if (visible) setActive(visible.target.id);
+        }, { rootMargin: "-12% 0px -68% 0px", threshold: [0.12, 0.25, 0.5] });
+
+        sections.forEach((section) => {
+          const element = document.getElementById(section.id);
+          if (element) observer.observe(element);
+        });
+
+        return () => observer.disconnect();
+      }, []);
+
+      useEffect(() => {
+        localStorage.setItem("claudeSetupDone", JSON.stringify(done));
+      }, [done]);
+
+      useEffect(() => {
+        if (window.lucide) window.lucide.createIcons();
+      });
+
+      const percent = Math.round((done.length / checklist.length) * 100);
+      const toggle = (item) => {
+        setDone((current) => current.includes(item) ? current.filter((value) => value !== item) : [...current, item]);
+      };
+
+      return h("div", { className: "app" },
+        h("header", { className: "hero" },
+          h("div", { className: "hero-inner" },
+            h("div", { className: "eyebrow" }, "Yonsei AX Camp · Setup Guide"),
+            h("h1", null, "Claude 설치 및", h("br"), "기본 기능 소개"),
+            h("p", null, "Markdown 기준 모바일 웹가이드입니다.", h("br"), "설치 중 휴대폰으로 열어두고", h("br"), "명령어를 복사해 따라 하세요."),
+            h("div", { className: "hero-actions" },
+              h("a", { className: "action-link primary", href: "https://claude.ai", target: "_blank", rel: "noreferrer" }, h(Icon, { name: "external-link" }), "Claude 열기"),
+              h("a", { className: "action-link", href: "https://claude.ai/download", target: "_blank", rel: "noreferrer" }, h(Icon, { name: "download" }), "앱 다운로드"),
+              h("a", { className: "action-link", href: "#code" }, h(Icon, { name: "terminal" }), "설치 명령 보기"),
+              h("a", { className: "action-link", href: "#contact" }, h(Icon, { name: "mail" }), "문의")
+            )
+          )
+        ),
+        h("main", { className: "shell" },
+          h("div", { className: "quick-start" },
+            ["Claude 웹사이트에 로그인한다.", "Claude 앱을 설치하고 로그인한다.", "Claude Code를 설치한다.", "수업용 폴더에서 claude를 실행한다."].map((item, i) =>
+              h("div", { className: "quick-card", key: item },
+                h("div", { className: "quick-num" }, String(i + 1)),
+                h("div", null, h("h2", null, item), h("p", null, i === 3 ? "입력창이 보이면 준비 완료입니다." : "막히면 오류 화면을 캡처하세요."))
+              )
+            )
+          ),
+          h("div", { className: "layout" },
+            h("aside", { className: "toc" },
+              h("div", { className: "toc-title" }, h(Icon, { name: "list" }), "목차"),
+              h("nav", { className: "toc-list" },
+                sections.map((section) => h("a", { key: section.id, href: "#" + section.id, className: active === section.id ? "active" : "" }, `${section.label}. ${section.title}`))
+              )
+            ),
+            h("div", { className: "content" },
+              h(Section, { id: "goal", label: "00 · Goal", title: "오늘의 목표" },
+                h("p", null, "핵심은 완벽한 이해가 아니라 수업을 시작할 수 있는 상태를 만드는 것입니다."),
+                h("div", { className: "note" }, "완료 기준: Claude 웹 로그인, 앱 로그인, Claude Code 설치, 수업용 폴더에서 claude 실행.")
+              ),
+              h(Section, { id: "tools", label: "01 · Toolkit", title: "한눈에 보는 준비물" },
+                h(Table, {
+                  headers: ["구분", "무엇인가요?", "이번 교육에서 쓰는 방식"],
+                  rows: [
+                    ["Claude", "웹 브라우저에서 쓰는 AI 대화 도구", "자료 읽기, 아이디어 정리, 글 초안, 비판적 검토"],
+                    ["Claude Cowork", "데스크톱 앱 기반의 작업 보조 환경", "내 파일/폴더를 보며 함께 정리하고 문서 만들기"],
+                    ["Claude Code", "터미널/앱/IDE에서 쓰는 에이전트형 코딩 도구", "반복 작업 자동화, 파일 생성, 간단한 스크립트 실행"],
+                    ["Oh My Claude Code", "Claude Code를 쉽게 다루기 위한 수업용 보조 환경", "여러 역할을 나눠 연구·콘텐츠·사업 작업 진행"]
+                  ]
+                }),
+                h("p", null, "Claude Cowork와 OMC는 수업 운영 맥락에서 쓰는 이름입니다. 화면 표시명은 계정 권한과 설치 버전에 따라 달라질 수 있습니다.")
+              ),
+              h(Section, { id: "before", label: "02 · Before Install", title: "설치 전 체크" },
+                h("div", { className: "grid three" },
+                  h(MiniCard, { title: "계정", body: "Claude에 로그인할 이메일 또는 Google 계정" }),
+                  h(MiniCard, { title: "운영체제", body: "Windows 10 이상 또는 macOS 13 이상 권장" }),
+                  h(MiniCard, { title: "인터넷", body: "설치 중 다운로드와 로그인 필요" }),
+                  h(MiniCard, { title: "폴더", body: "수업용 작업 폴더 1개 준비" }),
+                  h(MiniCard, { title: "권한", body: "학교/회사 보안 PC는 설치 권한 필요 가능" }),
+                  h(MiniCard, { title: "보안", body: "개인정보 파일은 수업 폴더에 넣지 않기" })
+                ),
+                h(CodeBlock, { label: "수업용 폴더 예시", value: codeBlocks.folder })
+              ),
+              h(Section, { id: "login", label: "03 · Login", title: "Claude 계정 만들기 및 로그인" },
+                h("div", { className: "step-list" },
+                  ["브라우저에서 https://claude.ai 접속", "이메일 또는 Google 계정으로 가입/로그인", "새 대화 화면이 열리면 로그인 성공", "아래 문장을 입력해 첫 대화를 시작"].map((text) => h("div", { className: "step", key: text }, h("p", null, text)))
+                ),
+                h(CodeBlock, { label: "첫 질문", value: codeBlocks.firstPrompt }),
+                h("div", { className: "note" }, "Claude Code는 무료 Claude.ai 플랜만으로는 사용할 수 없을 수 있습니다. 학교/교육 운영진이 안내한 계정이 있다면 그 안내를 우선하세요.")
+              ),
+              h(Section, { id: "basics", label: "04 · Basics", title: "Claude 기본 기능 익히기" },
+                h("div", { className: "grid two" },
+                  h(CodeBlock, { label: "긴 글 요약", value: codeBlocks.summarize }),
+                  h(CodeBlock, { label: "아이디어 확장", value: codeBlocks.ideate }),
+                  h(CodeBlock, { label: "비판적 검토", value: codeBlocks.critique }),
+                  h(CodeBlock, { label: "내 문체로 다듬기", value: codeBlocks.voice })
+                )
+              ),
+              h(Section, { id: "app", label: "05 · Desktop App", title: "Claude 데스크톱 앱 설치" },
+                h("div", { className: "grid two" },
+                  h(MiniCard, { title: "Windows", body: "claude.ai/download 접속 → Windows 설치 파일 다운로드 → 설치 파일 실행 → Claude 앱 열기 → 같은 계정으로 로그인" }),
+                  h(MiniCard, { title: "macOS", body: "claude.ai/download 접속 → .dmg 다운로드 → Applications 폴더로 이동 → Claude 앱 열기 → 보안 경고 시 실행 허용" })
+                ),
+                h(CodeBlock, { label: "앱 설치 확인 질문", value: codeBlocks.appCheck })
+              ),
+              h(Section, { id: "cowork", label: "06 · Cowork", title: "Claude Cowork 기본 사용법" },
+                h("p", null, "Claude Cowork는 내 작업 폴더와 문맥을 함께 보며 결과물을 만드는 방식입니다."),
+                h("div", { className: "grid two" },
+                  h(CodeBlock, { label: "폴더 구조 제안", value: codeBlocks.coworkFolder }),
+                  h(CodeBlock, { label: "초안 검토", value: codeBlocks.coworkReview })
+                ),
+                h("div", { className: "note" }, "권한은 좁게 여세요. 수업용 폴더만 연결하고, AI가 만든 결과물은 제출 전에 반드시 직접 읽고 수정합니다.")
+              ),
+              h(Section, { id: "code", label: "07 · Claude Code", title: "Claude Code 설치" },
+                h("h3", null, "Windows PowerShell"),
+                h(CodeBlock, { label: "설치", value: codeBlocks.psInstall }),
+                h(CodeBlock, { label: "설치 확인", value: codeBlocks.psCheck }),
+                h(CodeBlock, { label: "수업용 폴더에서 실행", value: codeBlocks.psRun }),
+                h("h3", null, "Windows CMD"),
+                h(CodeBlock, { label: "CMD 설치", value: codeBlocks.cmdInstall }),
+                h("h3", null, "macOS / Linux / WSL"),
+                h(CodeBlock, { label: "설치", value: codeBlocks.bashInstall }),
+                h(CodeBlock, { label: "수업용 폴더에서 실행", value: codeBlocks.bashRun })
+              ),
+              h(Section, { id: "practice", label: "08 · Practice", title: "Claude Code 첫 실습" },
+                h("p", null, "처음에는 실제 중요한 파일이 없는 빈 수업용 폴더에서 진행하세요."),
+                h("div", { className: "grid two" },
+                  h(CodeBlock, { label: "README 만들기", value: codeBlocks.readme }),
+                  h(CodeBlock, { label: "메모 정리하기", value: codeBlocks.notes }),
+                  h(CodeBlock, { label: "안전하게 요청하기", value: codeBlocks.safe })
+                )
+              ),
+              h(Section, { id: "omc", label: "09 · OMC", title: "Oh My Claude Code 소개" },
+                h("p", null, "OMC는 한 명의 AI에게 모든 일을 시키는 대신, 역할을 나눠서 검토·작성·정리·비판을 병렬로 진행하는 감각을 익히는 데 사용합니다."),
+                h(Table, {
+                  headers: ["트랙", "OMC 활용 예시"],
+                  rows: [
+                    ["Track 1 — AI 연구 에이전트", "논문 검색 질문 만들기, 선행연구 요약, 연구 갭 검토, 초록 비판"],
+                    ["Track 2 — AI 퍼스널 브랜딩", "콘텐츠 아이디어 발산, 타깃 독자 분석, 채널별 카피 작성, 발행 캘린더 정리"],
+                    ["Track 3 — AI 비즈니스 랩", "고객 페르소나 정리, 문제-해결 가설 검토, 랜딩페이지 문구 작성, 실험 지표 설계"]
+                  ]
+                }),
+                h(CodeBlock, { label: "첫 OMC 요청 예시", value: codeBlocks.omc })
+              ),
+              h(Section, { id: "checklist", label: "10 · Checklist", title: "수업 전 최종 체크리스트" },
+                h("div", { className: "checklist" },
+                  checklist.map((item) => h("label", { key: item, className: "check-item " + (done.includes(item) ? "done" : ""), onClick: () => toggle(item) },
+                    h("span", { className: "box" }, done.includes(item) ? "✓" : ""),
+                    h("span", null, item)
+                  ))
+                ),
+                h("div", { className: "note" }, "설치를 마친 뒤에는 아래 13번 항목의 구글폼으로 완료 여부를 응답해 주세요.")
+              ),
+              h(Section, { id: "trouble", label: "11 · Troubleshooting", title: "자주 막히는 지점" },
+                h("div", { className: "grid two" },
+                  h(MiniCard, { title: "claude 명령을 찾을 수 없음", body: "터미널을 완전히 닫았다가 새로 열어 다시 시도합니다." }),
+                  h(MiniCard, { title: "PowerShell에서 && 오류", body: "CMD용 명령을 PowerShell에서 실행한 경우입니다. PowerShell 명령을 사용하세요." }),
+                  h(MiniCard, { title: "로그인이 안 됨", body: "브라우저 팝업 차단 또는 Claude Code 계정 권한 문제일 수 있습니다." }),
+                  h(MiniCard, { title: "파일 수정이 걱정됨", body: "빈 수업용 폴더에서만 실습하고, 수정 전 계획을 먼저 요청하세요." })
+                ),
+                h("div", { className: "note" }, "문제가 있으면 1) 운영체제 2) 입력한 명령어 3) 오류 메시지 전체 화면을 캡처해 운영진에게 공유하세요.")
+              ),
+              h(Section, { id: "complete-form", label: "13 · Submit", title: "설치 완료 응답" },
+                h("div", { className: "submit-panel" },
+                  h("h3", null, "설치 완료 후 구글폼을 제출해 주세요"),
+                  h("p", null, "Claude 로그인, 앱 설치, Claude Code 실행 확인까지 마쳤다면 아래 구글폼으로 완료 여부를 응답합니다."),
+                  h("a", { className: "link-pill", href: "https://forms.gle/KcmSv61eWbkuXzyH8", target: "_blank", rel: "noreferrer" }, h(Icon, { name: "send" }), "설치 완료 응답하기")
+                )
+              ),
+              h(Section, { id: "links", label: "14 · Links", title: "참고 링크" },
+                h("div", { className: "links" },
+                  h("a", { className: "link-pill", href: "https://claude.ai", target: "_blank", rel: "noreferrer" }, h(Icon, { name: "external-link" }), "Claude"),
+                  h("a", { className: "link-pill", href: "https://claude.ai/download", target: "_blank", rel: "noreferrer" }, h(Icon, { name: "download" }), "Claude 다운로드"),
+                  h("a", { className: "link-pill", href: "https://docs.anthropic.com/en/docs/claude-code/overview", target: "_blank", rel: "noreferrer" }, h(Icon, { name: "book-open" }), "Claude Code Overview"),
+                  h("a", { className: "link-pill", href: "https://docs.anthropic.com/en/docs/claude-code/setup", target: "_blank", rel: "noreferrer" }, h(Icon, { name: "book-open-check" }), "Claude Code Setup")
+                ),
+                h("p", null, "Claude Code는 코드베이스를 읽고, 파일을 수정하고, 명령을 실행하며 개발 도구와 통합되는 에이전트형 코딩 도구입니다.")
+              ),
+              h(Section, { id: "contact", label: "15 · Contact", title: "문의" },
+                h("div", { className: "contact-panel" },
+                  h("h3", null, "막히면 오류 화면을 캡처해 문의해 주세요"),
+                  h("p", null, "설치 중 막히면 오류 화면을 캡처해서 아래 메일로 문의하고 오피스아워에 참여해 주세요."),
+                  h("a", { className: "mail-link", href: "mailto:mediaservice@yonsei.ac.kr" }, h(Icon, { name: "mail" }), "mediaservice@yonsei.ac.kr")
+                )
+              ),
+              h("div", { className: "footer" }, "© 2026 모두의연구소 · 연세대학교 AX 캠프")
+            )
+          )
+        ),
+        h("div", { className: "bottom-bar" },
+          h("div", { className: "bottom-inner" },
+            h("div", { className: "progress-row" },
+              h("span", null, "설치 준비 진행률"),
+              h("span", null, `${done.length}/${checklist.length} · ${percent}%`)
+            ),
+            h("div", { className: "progress-track" }, h("div", { className: "progress-fill", style: { width: percent + "%" } }))
+          )
+        )
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(h(App));
+  </script>
+</body>
+</html>

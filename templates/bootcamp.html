@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<style>
+{{ css }}
+
+/* ── bootcamp 전용 추가 스타일 ── */
+
+/* 설계 논리 표 */
+.logic-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+.logic-table th {
+    background: #fafafa;
+    border: 1px solid #EBEBEB;
+    padding: 9px 12px;
+    font-size: 11px;
+    font-weight: 800;
+    color: #555;
+    text-align: left;
+    white-space: nowrap;
+}
+.logic-table td {
+    border: 1px solid #EBEBEB;
+    padding: 9px 12px;
+    vertical-align: top;
+    line-height: 1.6;
+    color: #333;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.logic-table tr:last-child td { background: #fafafa; font-size: 11px; color: #555; }
+.logic-nd   { font-weight: 800; color: #111; white-space: nowrap; }
+.logic-verdict {
+    display: inline-block;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #16a34a;
+    font-size: 10.5px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 5px;
+    white-space: nowrap;
+}
+.logic-verdict.v-basis {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1d4ed8;
+}
+
+/* 시간 배분 바 */
+.time-bar-wrap {
+    display: flex;
+    height: 34px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #EBEBEB;
+    margin-bottom: 10px;
+}
+.tbar-seg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    color: #fff;
+    white-space: nowrap;
+    text-align: center;
+    padding: 0 6px;
+}
+.tbar-primary { background: #EE3E4C; flex: 20; }
+.tbar-dark    { background: #374151; flex: 10; }
+.tbar-mid     { background: #6B7280; flex: 10; }
+.tbar-light   { background: #9CA3AF; flex: 5;  }
+
+.time-legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+.tl-item { display: flex; align-items: center; gap: 5px; font-size: 11.5px; }
+.tl-dot  { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+.tl-dot.c-primary { background: #EE3E4C; }
+.tl-dot.c-dark    { background: #374151; }
+.tl-dot.c-mid     { background: #6B7280; }
+.tl-dot.c-light   { background: #9CA3AF; }
+.tl-label { color: #111; font-weight: 700; white-space: nowrap; }
+.tl-h     { color: #888; white-space: nowrap; }
+
+.intent-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 4px;
+}
+.intent-card {
+    background: #fafafa;
+    border: 1px solid #EBEBEB;
+    border-radius: 8px;
+    padding: 14px 14px;
+    font-size: 11px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    line-height: 1.6;
+}
+.intent-card.ic-0 { border-top: 3px solid #EE3E4C; }
+.intent-card.ic-1 { border-top: 3px solid #374151; }
+.intent-card.ic-2 { border-top: 3px solid #6B7280; }
+.intent-card.ic-3 { border-top: 3px solid #9CA3AF; }
+.ic-module  { font-size: 10px; font-weight: 800; color: #888; margin-bottom: 5px; white-space: nowrap; }
+.ic-intent  { font-weight: 600; color: #111; line-height: 1.6; margin-bottom: 8px; word-break: keep-all; }
+.ic-enables {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #EE3E4C;
+    background: #fff5f5;
+    border-radius: 4px;
+    padding: 2px 6px;
+    display: inline-block;
+    word-break: keep-all;
+}
+
+/* ND5 학습 흐름 */
+.nd5-flow-header {
+    background: #111111;
+    color: #fff;
+    padding: 13px 20px;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.nd5-fh-title { font-size: 14px; font-weight: 900; word-break: keep-all; }
+.nd5-fh-sub   { font-size: 11px; opacity: .7; margin-top: 3px; word-break: keep-all; }
+.nd5-fh-badge {
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 6px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 800;
+    flex-shrink: 0;
+    margin-left: 12px;
+    white-space: nowrap;
+}
+.nd5-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid #EBEBEB;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+.nd5-step {
+    padding: 14px 12px;
+    border-right: 1px solid #EBEBEB;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    word-break: keep-all;
+}
+.nd5-step:last-child { border-right: none; background: #fafafa; }
+.nd5-step-label { font-size: 9px; font-weight: 900; letter-spacing: .08em; color: #888; white-space: nowrap; }
+.nd5-step-mod   { font-size: 18px; font-weight: 900; color: #EE3E4C; line-height: 1; }
+.nd5-step-name  { font-size: 11.5px; font-weight: 800; color: #111; line-height: 1.45; word-break: keep-all; }
+.nd5-step-hours { font-size: 10px; font-weight: 800; color: #888; }
+.nd5-step ul    { margin: 4px 0 0 0; padding-left: 14px; }
+.nd5-step li    { font-size: 10.5px; color: #555; line-height: 1.55; margin-bottom: 3px; word-break: keep-all; overflow-wrap: break-word; }
+.nd5-step-out {
+    font-size: 9.5px;
+    font-weight: 700;
+    color: #fff;
+    background: #EE3E4C;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 6px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+}
+.nd5-step:last-child .nd5-step-out { background: #111; }
+
+.nd5-flow-bar {
+    background: #f9fafb;
+    border: 1px solid #EBEBEB;
+    border-radius: 8px;
+    padding: 9px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-size: 11px;
+    font-weight: 700;
+    color: #555;
+    margin-bottom: 24px;
+    word-break: keep-all;
+}
+.nd5-flow-chip {
+    background: #fff5f5;
+    border: 1px solid #EBBAC0;
+    color: #EE3E4C;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-size: 11px;
+    white-space: nowrap;
+}
+.nd5-flow-arrow { color: #ccc; font-size: 14px; }
+
+/* ── ND 연계 섹션 ── */
+.nd-align-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+.nd-align-table th {
+    background: #fafafa;
+    border: 1px solid #EBEBEB;
+    padding: 9px 12px;
+    font-size: 11px;
+    font-weight: 800;
+    color: #555;
+    text-align: left;
+    white-space: nowrap;
+}
+.nd-align-table td {
+    border: 1px solid #EBEBEB;
+    padding: 9px 12px;
+    vertical-align: top;
+    line-height: 1.6;
+    color: #333;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.nd-align-table tr.nd5-highlight td {
+    background: #fff8f8;
+    font-weight: 600;
+}
+.nd-align-nd { font-weight: 800; color: #111; white-space: nowrap; }
+.nd-badge-direct {
+    display: inline-block;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #16a34a;
+    font-size: 10.5px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 5px;
+    white-space: nowrap;
+}
+.nd-badge-basis {
+    display: inline-block;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1d4ed8;
+    font-size: 10.5px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 5px;
+    white-space: nowrap;
+}
+
+/* ── 상세 커리큘럼 테이블 ── */
+.curriculum-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11.5px;
+    margin-bottom: 24px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    border-top: 2px solid #111;
+}
+.curriculum-table th {
+    background: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 12px;
+    font-size: 11px;
+    font-weight: 800;
+    color: #444;
+    text-align: left;
+    white-space: nowrap;
+}
+.curriculum-table td {
+    border-bottom: 1px solid #EBEBEB;
+    padding: 12px 14px;
+    vertical-align: middle;
+    line-height: 1.6;
+    color: #222;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.ct-module-name {
+    width: 20%;
+    border-right: 1px solid #EBEBEB;
+    background: #fdfdfd;
+}
+.ct-detail {
+    width: 53%;
+}
+.ct-method {
+    width: 16%;
+    text-align: center;
+}
+.ct-hours {
+    width: 11%;
+    text-align: center;
+    font-weight: 800;
+    color: #EE3E4C;
+}
+
+.method-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-size: 10.5px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+.method-badge.m-theory {
+    background: #e0e7ff;
+    color: #3730a3;
+    border: 1px solid #c7d2fe;
+}
+.method-badge.m-practice {
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+.method-badge.m-capstone {
+    background: #fff1f2;
+    color: #be123c;
+    border: 1px solid #fecdd3;
+}
+
+/* 트랙 heading */
+.track-heading {
+    margin: 32px 0 14px 0;
+    page-break-after: avoid;
+    break-after: avoid;
+}
+.track-label {
+    font-size: 11px;
+    font-weight: 900;
+    color: #EE3E4C;
+    letter-spacing: 0.08em;
+    margin-bottom: 5px;
+}
+.track-name {
+    font-size: 16px;
+    font-weight: 900;
+    color: #111111;
+    margin: 0 0 8px 0;
+}
+.track-tools {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+}
+.tool-chip {
+    border: 1px solid #ddd;
+    background: #fafafa;
+    border-radius: 50px;
+    padding: 4px 14px;
+    font-size: 11px;
+    font-weight: 800;
+    color: #333;
+}
+.track-divider {
+    border: none;
+    border-top: 3px solid #f0f0f0;
+    margin: 36px 0 4px 0;
+}
+
+/* 인쇄 */
+@media print {
+    body { padding: 36px 44px; }
+    .logic-table, .nd-align-table, .nd5-steps-grid, .intent-grid { page-break-inside: avoid; }
+    .section-title { page-break-after: avoid; }
+    .curriculum-table { page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── 헤더 ── -->
+<div class="header">
+    <div class="header-text">모두의연구소 AI교육 커리큘럼 2026 · 전주대학교 피지컬 AI 부트캠프</div>
+    <h1 class="title">{{ data.title }}</h1>
+    <p class="subtitle">{{ data.subtitle }}</p>
+</div>
+
+<!-- ── 기본 정보 그리드 ── -->
+<div class="info-grid">
+    <div class="info-box"><div class="info-label">키워드</div><div class="info-value" style="white-space:pre-line;">{{ data.info.keyword }}</div></div>
+    <div class="info-box"><div class="info-label">수준</div><div class="info-value">{{ data.info.ax_stage }}</div></div>
+    <div class="info-box"><div class="info-label">수강 대상</div><div class="info-value">{{ data.info.target }}</div></div>
+    <div class="info-box"><div class="info-label">총 시간</div><div class="info-value" style="white-space:pre-line;">{{ data.info.duration }}</div></div>
+</div>
+
+<!-- ── 01. 과정 소개 ── -->
+<div class="section-title"><span class="section-num">01</span>과정 소개</div>
+<div class="content-box">{{ data.intro }}</div>
+
+<!-- ── 02. 교육 목표 ── -->
+<div class="section-title"><span class="section-num">02</span>교육 목표</div>
+<div class="content-box">{{ data.objective }}</div>
+
+<!-- ── 03. 핵심 도구 ── -->
+<div style="page-break-inside:avoid; break-inside:avoid;">
+    <div class="section-title"><span class="section-num">03</span>핵심 도구</div>
+    <div class="tech-container">
+        {% for t in data.tech_stack %}<div class="tech-badge">{{ t }}</div>{% endfor %}
+    </div>
+</div>
+
+<!-- ── 04. 필요 인프라 ── -->
+<div style="page-break-inside:avoid; break-inside:avoid;">
+    <div class="section-title"><span class="section-num">04</span>필요 인프라</div>
+    <div class="infra-box">
+        <ul>{% for i in data.infrastructure %}<li><span>{{ i }}</span></li>{% endfor %}</ul>
+    </div>
+</div>
+
+{% set sec = namespace(num=5) %}
+
+{% if data.design_logic %}
+<!-- ── AI기초→ND5 직행 설계 논리 ── -->
+<div class="section-title"><span class="section-num">{{ "%02d" | format(sec.num) }}</span>AI 기초 → ND5 직행 설계 논리</div>
+<div class="content-box">{{ data.design_logic.summary }}</div>
+
+<!-- 중간과정 불필요 근거 표 -->
+<div style="border:1px solid #EBEBEB; border-radius:10px; overflow:hidden; margin-bottom:24px; page-break-inside:avoid; break-inside:avoid;">
+    <div style="background:#fafafa; border-bottom:1px solid #EBEBEB; padding:9px 16px; font-size:11px; font-weight:800; color:#555; display:flex; align-items:center; gap:8px;">
+        <span style="background:#EBEBEB; color:#555; font-size:9.5px; font-weight:800; padding:1px 7px; border-radius:4px;">참고</span>
+        ND1~3(중급) 선이수 없이도 진입 가능한 근거 — 과정별 기술 요구 비교
+    </div>
+    <table class="logic-table">
+        <thead>
+            <tr>
+                <th style="width:8%;">중급 과정</th>
+                <th style="width:28%;">주요 기술 심화 내용</th>
+                <th style="width:44%;">ND5에서 실제로 사용하는 방식</th>
+                <th style="width:20%;">선이수 필요 여부</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data.design_logic.nd_comparison %}
+            <tr>
+                <td class="logic-nd">{{ row.nd }}</td>
+                <td>{{ row.what }}</td>
+                <td>{{ row.nd5_usage }}</td>
+                <td><span class="logic-verdict">{{ row.verdict }}</span></td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td class="logic-nd" style="color:#888;">참고사항</td>
+                <td colspan="3">{{ data.design_logic.nd_comparison_note }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% set sec.num = sec.num + 1 %}
+{% endif %}
+
+{% if data.time_allocation %}
+<!-- ── AI 기초 45H 시간 배분 ── -->
+<div class="section-title"><span class="section-num">{{ "%02d" | format(sec.num) }}</span>{{ data.time_allocation.title | default("AI 기초 시간 배분") }}</div>
+<div style="border:1px solid #EBEBEB; border-radius:10px; padding:18px 20px; margin-bottom:24px; page-break-inside:avoid; break-inside:avoid;">
+    <div class="time-bar-wrap">
+        {% for b in data.time_allocation.bars %}
+        <div class="tbar-seg tbar-{{ b.color }}">{{ b.module.split(' ')[0] }} {{ b.hours }}H</div>
+        {% endfor %}
+    </div>
+    <div class="time-legend">
+        {% set colors = ['primary', 'dark', 'mid', 'light'] %}
+        {% for b in data.time_allocation.bars %}
+        <div class="tl-item">
+            <div class="tl-dot c-{{ colors[loop.index0] }}"></div>
+            <span class="tl-label">{{ b.module }} {{ b.hours }}H</span>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="intent-grid">
+        {% for c in data.time_allocation.intent_cards %}
+        <div class="intent-card ic-{{ loop.index0 }}">
+            <div class="ic-module">{{ c.module }}</div>
+            <div class="ic-intent">{{ c.intent }}</div>
+            <div class="ic-enables">{{ c.enables }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% set sec.num = sec.num + 1 %}
+{% endif %}
+
+{% macro render_flow(flow_data, sec_num, note_suffix="파이프라인") %}
+<div class="section-title"><span class="section-num">{{ "%02d" | format(sec_num) }}</span>{{ flow_data.title }}</div>
+<div style="margin-bottom:24px; page-break-inside:avoid; break-inside:avoid;">
+    <div class="nd5-flow-header">
+        <div>
+            <div class="nd5-fh-title">{{ flow_data.title | replace(' — 단계별 심화 구조', '') }}</div>
+            <div class="nd5-fh-sub">{{ flow_data.subtitle }}</div>
+        </div>
+        <div class="nd5-fh-badge">{{ flow_data.total }}</div>
+    </div>
+    <div class="nd5-steps-grid">
+        {% for s in flow_data.steps %}
+        <div class="nd5-step">
+            <div class="nd5-step-label">{{ s.step }} · {{ s.hours }}</div>
+            <div class="nd5-step-mod">{{ s.module }}</div>
+            <div class="nd5-step-name">{{ s.name }}</div>
+            <ul>{% for item in s['items'] %}<li>{{ item }}</li>{% endfor %}</ul>
+            <div class="nd5-step-out">{{ s.output }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="nd5-flow-bar">
+        {% for label in flow_data.flow_labels %}
+        <span class="nd5-flow-chip">{{ label }}</span>
+        {% if not loop.last %}<span class="nd5-flow-arrow">→</span>{% endif %}
+        {% endfor %}
+        <span style="color:#aaa; font-size:10.5px; margin-left:4px;">= {{ note_suffix }}</span>
+    </div>
+</div>
+{% endmacro %}
+
+{% if data.nd1_flow %}
+{{ render_flow(data.nd1_flow, sec.num, "단대단(E2E) 제어 파이프라인") }}
+{% set sec.num = sec.num + 1 %}
+{% endif %}
+
+{% if data.nd2_flow %}
+{{ render_flow(data.nd2_flow, sec.num, "합성 데이터 및 VLM 파이프라인") }}
+{% set sec.num = sec.num + 1 %}
+{% endif %}
+
+{% if data.nd5_flow %}
+{{ render_flow(data.nd5_flow, sec.num, "LLM이 로봇을 제어하는 완전한 파이프라인") }}
+{% set sec.num = sec.num + 1 %}
+{% endif %}
+
+{% if data.design_logic and data.design_logic.nd_other_tracks %}
+<!-- ── AI 기초 → 전체 ND 과정 연계 ── -->
+<div class="section-title" style="margin-top:0;"><span class="section-num" style="font-size:22px;">{{ "%02d" | format(sec.num - 1) }}-B</span>AI 기초 → 전체 ND 과정 연계</div>
+<div style="border:1px solid #EBEBEB; border-radius:10px; overflow:hidden; margin-bottom:24px; page-break-inside:avoid; break-inside:avoid;">
+    <div style="background:#fafafa; border-bottom:1px solid #EBEBEB; padding:9px 16px; font-size:11px; font-weight:800; color:#555;">
+        AI 기초(45H)는 ND5 직행뿐 아니라 다른 ND 과정의 기반 소양으로도 활용됩니다
+    </div>
+    <table class="nd-align-table">
+        <thead>
+            <tr>
+                <th style="width:8%;">ND 과정</th>
+                <th style="width:28%;">AI 기초에서 연계되는 내용</th>
+                <th style="width:44%;">연계 효과</th>
+                <th style="width:20%;">활용 유형</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data.design_logic.nd_other_tracks %}
+            <tr{% if row.nd == 'ND5' %} class="nd5-highlight"{% endif %}>
+                <td class="nd-align-nd">{{ row.nd }}</td>
+                <td>{{ row.ai_basis }}</td>
+                <td>{{ row.relation }}</td>
+                <td>
+                    {% if row.note == '직행 가능' %}
+                    <span class="nd-badge-direct">{{ row.note }}</span>
+                    {% else %}
+                    <span class="nd-badge-basis">{{ row.note }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% if data.tracks and data.tracks | length > 0 %}
+<!-- ── 상세 커리큘럼 ── -->
+<div class="section-title"><span class="section-num">{{ "%02d" | format(sec.num) }}</span>상세 커리큘럼</div>
+{% set sec.num = sec.num + 1 %}
+{% for track in data.tracks %}
+{% if not loop.first %}<hr class="track-divider">{% endif %}
+<div class="track-heading" style="page-break-inside:avoid; break-inside:avoid;">
+    <div class="track-label">TRACK {{ track.track_id }}</div>
+    <div class="track-name">{{ track.track_name }}</div>
+    <div style="font-size:12px; color:#555; margin-bottom:8px; word-break:keep-all;">{{ track.course_title }}</div>
+    <div class="track-tools">{% for tool in track.tools %}<span class="tool-chip">{{ tool }}</span>{% endfor %}</div>
+</div>
+
+<table class="curriculum-table">
+    <thead>
+        <tr>
+            <th class="ct-module-name">모듈명</th>
+            <th class="ct-detail">세부 모듈</th>
+            <th class="ct-method">교육 방법</th>
+            <th class="ct-hours">세부 모듈별 시간</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for mod in track.modules %}
+            {% set mod_idx = loop.index %}
+            {% for item in mod['items'] %}
+            <tr>
+                {% if loop.first %}
+                <td rowspan="{{ mod['items']|length }}" class="ct-module-name">
+                    <div style="font-size:10px; color:#EE3E4C; font-weight:900; margin-bottom:4px;">MODULE {{ '%02d' | format(mod_idx) }}</div>
+                    <div style="font-size:13px; font-weight:800; color:#111; line-height:1.45; margin-bottom:4px; word-break:keep-all;">{{ mod.module_name }}</div>
+                    <div style="font-size:11px; font-weight:800; color:#888;">({{ mod.duration }})</div>
+                </td>
+                {% endif %}
+                <td class="ct-detail"><span style="color:#EE3E4C; font-weight:800; margin-right:4px;">·</span>{{ item.detail }}</td>
+                <td class="ct-method">
+                    <span class="method-badge {% if '이론' in item.method %}m-theory{% elif '캡스톤' in item.method %}m-capstone{% else %}m-practice{% endif %}">{{ item.method }}</span>
+                </td>
+                <td class="ct-hours">{{ item.hours }}</td>
+            </tr>
+            {% endfor %}
+        {% endfor %}
+    </tbody>
+</table>
+{% endfor %}
+{% endif %}
+
+<!-- ── 예상 산출물 ── -->
+<div style="page-break-inside:avoid; break-inside:avoid;">
+    <div class="section-title"><span class="section-num">{{ "%02d" | format(sec.num) }}</span>예상 산출물</div>
+    {% set sec.num = sec.num + 1 %}
+    <div class="content-box">{{ data.output }}</div>
+</div>
+
+<!-- ── 일정 안내 ── -->
+<div style="page-break-inside:avoid; break-inside:avoid;">
+    <div class="section-title"><span class="section-num">{{ "%02d" | format(sec.num) }}</span>일정 협의 안내</div>
+    <div class="schedule-placeholder">{{ data.schedule_message }}</div>
+</div>
+
+<div class="footer">&copy; 2026 MODULABS — 모두의연구소 AI 교육 커리큘럼</div>
+
+</body>
+</html>

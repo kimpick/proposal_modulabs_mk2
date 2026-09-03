@@ -1,0 +1,59 @@
+{
+  "title": "도쿄일렉트론코리아 RAG 교육 제안서",
+  "subtitle": "기초 (24H) | RAG 파이프라인 구축부터 GraphRAG·Agentic RAG까지 | 총 24시간",
+  "info": {
+    "keyword": "RAG 파이프라인 구축",
+    "ax_stage": "기초 과정",
+    "target": "사내 엔지니어",
+    "duration": "3일×2회, 총 6일"
+  },
+  "intro": "본 과정은 특정 벤더에 종속되지 않는 오픈소스 프레임워크(LangChain 등)를 기반으로, RAG 파이프라인의 기본 작동 원리부터 GraphRAG, Agentic RAG까지 엔드-투-엔드로 다룹니다.\n\n1일차에서 RAG 기본 구조와 고급 프롬프트 엔지니어링으로 이론적 기반을 확립하고, 2일차에서 검색 고도화와 GraphRAG를 실습하며, 3일차에서 평가·Agentic RAG를 다루고 미니 경진대회로 학습 내용을 종합 적용합니다.",
+  "objective": "<ul><li><b>RAG 파이프라인 핵심 구조 이해 및 구현</b>: 임베딩, 벡터 검색, 청킹의 원리를 이해하고 직접 구현</li><li><b>고급 프롬프트 엔지니어링</b>: 프롬프트 구조 설계, 컨텍스트 주입, Grounding, Citation으로 LLM 제어 역량 확보</li><li><b>GraphRAG 실무 적용</b>: 지식그래프 기반 검색, Multi-Hop 맥락 검색, Neo4j 실습</li><li><b>Agentic RAG 기초</b>: CRAG, Self-RAG 개념 습득 및 LangGraph 실습</li><li><b>정량적 평가 역량</b>: RAGAS/TruLens 기반 RAG 성능 측정 및 개선</li></ul>",
+  "tech_stack": ["LangChain", "LangGraph", "ChromaDB", "Qdrant", "Neo4j", "RAGAS", "TruLens"],
+  "infrastructure": [
+    "개인 노트북 (Python 3.10+ 환경 구축)",
+    "OpenAI API Key (LLM 호출 및 임베딩용)",
+    "Docker Desktop (Neo4j 실행 — GraphRAG 실습용)",
+    "모두의연구소 강남캠퍼스 교육장 (Wi-Fi, 전원 제공)"
+  ],
+  "modules": [
+    {
+      "module_id": "01",
+      "subtitle": "1일차",
+      "module_name": "RAG 기초 및 프롬프트 엔지니어링",
+      "duration": "8H",
+      "items": [
+        "<b>RAG 패러다임 & LangChain 기본 (1.5H)</b>: Naive RAG 한계, Advanced RAG 진화, LangChain 기본 구조 + 간단한 Chain 실습",
+        "<b>프롬프트 엔지니어링 고급 (2H)</b>: 프롬프트 구조 설계(System/Context/Instruction), 컨텍스트 주입, Grounding, Citation, Few-shot/Chain-of-Thought를 활용한 답변 품질 제어",
+        "<b>벡터 검색 / 임베딩 핵심 개념 (2.5H)</b>: 임베딩 변환 원리(Dense/Sparse), 코사인 유사도, ChromaDB/Qdrant 벡터 DB 구축 및 인덱싱",
+        "<b>비정형 데이터 파싱 & 시맨틱 청킹 (2H)</b>: <span class='trend-badge'>Trend</span> Vision LLM 기반 PDF 파싱, Contextual & Semantic Chunking, 메타데이터 추출"
+      ]
+    },
+    {
+      "module_id": "02",
+      "subtitle": "2일차",
+      "module_name": "검색 고도화 및 Graph RAG",
+      "duration": "8H",
+      "items": [
+        "<b>하이브리드 검색 및 Re-ranking (2.5H)</b>: 키워드+시맨틱 결합, Cross-Encoder Re-ranking, Reciprocal Rank Fusion(RRF) 구현",
+        "<b>Query Transformation (2.5H)</b>: <span class='trend-badge'>Trend</span> Query Rewriting, HyDE, Semantic Routing, LLM Query 분해/재작성 파이프라인",
+        "<b>Graph RAG (3H)</b>: <span class='paradigm-badge'>Paradigm</span> 지식 그래프 개념, Entity/Relation 추출, Multi-Hop 맥락 검색, 그래프 순회+벡터 결합 검색, Neo4j 실습"
+      ]
+    },
+    {
+      "module_id": "03",
+      "subtitle": "3일차",
+      "module_name": "평가, Agentic RAG 및 미니 경진대회",
+      "duration": "8H",
+      "items": [
+        "<b>Multi-Representation 인덱싱 (2H)</b>: <span class='paradigm-badge'>Paradigm</span> Multi-Vector Retriever, 계층적 인덱싱, BM25 Sparse+Dense 결합",
+        "<b>RAG 성능 측정 및 정량적 평가 (2H)</b>: <span class='trend-badge'>Trend</span> RAG 핵심 5대 지표 분석, LLM-as-a-Judge, RAGAS/TruLens 실습",
+        "<b>Agentic RAG 기초 (2H)</b>: <span class='paradigm-badge'>Paradigm Shift</span> CRAG(Corrective RAG), Self-RAG 개념, LangGraph 순환형 파이프라인 미니 실습",
+        "<b>RAG 미니 경진대회 (2H)</b>: 교육 전체 내용 종합 적용, 팀별 RAG 파이프라인 구축 경쟁, 결과 발표 및 피드백"
+      ]
+    }
+  ],
+  "output": "<ul><li>LangChain 기반 RAG 파이프라인 완성 + RAGAS 평가 리포트</li><li>GraphRAG 기반 지식그래프 검색 실습 결과물</li><li>RAG 미니 경진대회 팀 프로젝트 산출물</li></ul>",
+  "section_07_title": "일정 협의 안내",
+  "schedule_message": "<p><b>📅 1차: 1그룹 기초 과정</b> — 5/12 (화) ~ 5/14 (목), 3일 (24H)</p><p><b>📅 2차: 2그룹 기초 과정</b> — 5/26 (화) ~ 5/28 (목), 3일 (24H)</p><br><p><i>* 상기 일정은 강사 섭외 상황에 따라 조정 가능하며, 교육 전 사전 공지드립니다.</i></p>"
+}

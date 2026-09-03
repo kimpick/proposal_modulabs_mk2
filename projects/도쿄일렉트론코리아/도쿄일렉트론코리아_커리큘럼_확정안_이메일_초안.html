@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>도쿄일렉트론코리아 RAG 심화 교육 커리큘럼 최종 검토안</title>
+</head>
+<body style="margin:0;padding:0;background:#ffffff;">
+<!-- ==================== 메일 제목 (참고용) ==================== -->
+<!--
+제목: [모두의연구소] 도쿄일렉트론코리아 RAG 심화 교육 커리큘럼 최종 검토안 공유
+-->
+
+<div style="font-family:'Apple SD Gothic Neo','Malgun Gothic','맑은 고딕',Arial,sans-serif;font-size:14px;line-height:1.7;color:#222222;max-width:760px;padding:24px 8px;">
+
+  <p style="margin:0 0 14px 0;">[담당자명]님, 안녕하세요.</p>
+  <p style="margin:0 0 14px 0;">모두의연구소 김영광입니다.</p>
+
+  <p style="margin:0 0 14px 0;">
+    지난 회의에서 전달 주신 커리큘럼 수정 요청을 강사님(김민수)과 함께 검토하였습니다.
+    전문가 소견과 교육 운영 측면을 종합하여 <strong>최종 커리큘럼 구성안</strong>을 제안 드리오니 검토 부탁드립니다.
+  </p>
+
+  <hr style="border:none;border-top:1px solid #e5e5e5;margin:24px 0;">
+
+  <!-- ==================== 1. 주요 조정 사항 ==================== -->
+  <h3 style="margin:0 0 12px 0;font-size:16px;color:#111111;">1. 주요 조정 사항</h3>
+
+  <ol style="margin:0 0 18px 22px;padding:0;">
+    <li style="margin-bottom:10px;">
+      <strong>총 시간 조정 (29H → 24H)</strong><br>
+      전달 주신 초안이 총 29시간으로 협의된 24시간(3일×8H) 대비 5시간 초과되어, 중복 항목 통합과 우선순위 조정을 진행했습니다.
+    </li>
+    <li style="margin-bottom:10px;">
+      <strong>RAG 기초 강화 (1일차 추가)</strong><br>
+      사전 기초 교육에 LangChain 기본 구조가 포함되지 않은 점이 확인되어, RAG 구축에 필요한 기초 개념과
+      LangChain 기본 사용법(PromptTemplate, ChatPromptTemplate, LCEL Q&amp;A 챗봇 실습)을 1일차에 추가했습니다.
+    </li>
+    <li style="margin-bottom:10px;">
+      <strong>고급 프롬프트 엔지니어링 압축</strong><br>
+      일반 프롬프트 작성법 전반을 다루는 대신, RAG 검색 품질 개선에 직접 연결되는
+      <em>Query Rewriting · Multi-Query · HyDE · Semantic Routing</em> 중심으로 재정의했습니다.
+      Chain-of-Thought는 최신 모델·RAG 파이프라인에서 효과가 일관되지 않아 의도적으로 제외했습니다.
+    </li>
+    <li style="margin-bottom:10px;">
+      <strong>Langfuse 평가/Tracing 추가 (3일차)</strong><br>
+      3일차 평가 모듈에 Langfuse 기반 RAG 요청 Trace 확인과 RAGAS · TruLens와의 역할 구분을 추가했습니다.
+    </li>
+    <li style="margin-bottom:10px;">
+      <strong>하이브리드 검색 통합 (2일차)</strong><br>
+      당초 2일차의 하이브리드 검색과 3일차의 BM25 Sparse + Dense 결합은 동일한 구현 방식이므로
+      2일차의 Hybrid Retrieval 파트로 통합했습니다.
+    </li>
+    <li style="margin-bottom:10px;">
+      <strong>벡터화 강화 방향 — 임베딩·청킹 중심</strong><br>
+      본격적인 Graph RAG / Graph-enhanced RAG는 짧은 시간 내 깊이 있게 다루기 어려워 심화 과정으로 이관합니다.
+      대신 이번 과정에서는 벡터화의 핵심 요소인
+      <strong>도메인에 맞는 임베딩 모델 선택, 적절한 차원 수, 문서 구조에 따른 청킹 전략</strong>(고정 길이/재귀적/구조 기반/시맨틱)
+      을 1·2일차에 걸쳐 강화합니다.
+    </li>
+    <li style="margin-bottom:10px;">
+      <strong>벡터 DB 튜닝 → 운영 환경별 DB 선택</strong><br>
+      벡터 DB 내부 저장 방식·옵션 튜닝은 수학적 이해 부담이 커 이번 교육 범위에 적절치 않다고 판단했습니다.
+      대신 컴퓨팅 자원과 운영 환경에 따른 <strong>벡터 DB 선택 관점</strong>
+      (예: GPU 가속을 위한 Faiss, 분산 컴퓨팅을 위한 Qdrant)으로 다루겠습니다.
+    </li>
+    <li style="margin-bottom:10px;">
+      <strong>Agentic RAG — 추가 학습 자료로 대체</strong><br>
+      Agentic RAG는 LangGraph 학습이 선행되어야 하므로 이번 과정에서는 본격적으로 다루지 않고,
+      <strong>추가 학습 자료 공유</strong>로 대체합니다.
+      전체 교육 밀도가 높은 만큼, 시간 여유와 수강생 참여도를 보고 기본 원리 수준에서 소개 여부를 유연하게 결정하겠습니다.
+      본격적인 내용은 후속 심화 과정에서 다루는 것을 제안 드립니다.
+    </li>
+  </ol>
+
+  <hr style="border:none;border-top:1px solid #e5e5e5;margin:24px 0;">
+
+  <!-- ==================== 2. 실습 자료 ==================== -->
+  <h3 style="margin:0 0 12px 0;font-size:16px;color:#111111;">2. 실습 자료 (제안)</h3>
+
+  <p style="margin:0 0 12px 0;">
+    도메인 유사 외부 문서 공유가 어려우신 점 확인했습니다.
+    이에 외부 문서(예: 미래에셋 ETF 자료) 대신,
+    <strong>강사님께서 준비하신 약 190페이지 분량의 문서</strong>를 실습 베이스로 활용하는 방향을 제안 드립니다.
+  </p>
+  <p style="margin:0 0 16px 0;">
+    회의 시 말씀드린 <strong>미니 경진대회(최종 과제)</strong>도 동일한 강사 제공 자료를 기반으로 진행되므로,
+    수강생분들께서 별도의 내부 문서를 준비하지 않으셔도 됩니다. 다만 사내 데이터로 직접 적용해 보시기를 원하시는 분은
+    개별적으로 준비하셔서 실습 시간에 활용하실 수 있습니다.
+  </p>
+
+  <hr style="border:none;border-top:1px solid #e5e5e5;margin:24px 0;">
+
+  <!-- ==================== 3. 최종 커리큘럼 ==================== -->
+  <h3 style="margin:0 0 12px 0;font-size:16px;color:#111111;">3. 최종 커리큘럼 (3일 × 8H = 24H)</h3>
+
+  <table style="border-collapse:collapse;width:100%;font-size:13.5px;margin-bottom:18px;">
+    <thead>
+      <tr style="background:#f5f6f8;">
+        <th style="border:1px solid #d6d8db;padding:10px 12px;text-align:left;width:140px;">일자</th>
+        <th style="border:1px solid #d6d8db;padding:10px 12px;text-align:left;">주제 및 세부 내용</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Day 1 -->
+      <tr>
+        <td style="border:1px solid #d6d8db;padding:12px;vertical-align:top;background:#fafbfc;">
+          <strong>1일차 (8H)</strong><br>
+          <span style="color:#555;">RAG 기초 및 데이터 처리</span>
+        </td>
+        <td style="border:1px solid #d6d8db;padding:12px;vertical-align:top;">
+          <ul style="margin:0;padding-left:18px;">
+            <li>LangChain 기본 구조와 간단한 Chain 실습</li>
+            <li>PromptTemplate, ChatPromptTemplate, Few-shot 기본 사용법</li>
+            <li>LCEL 기반 Q&amp;A 챗봇 실습</li>
+            <li>RAG 개념 이해: LLM 단독 사용의 한계, Retrieval + Generation 구조</li>
+            <li>임베딩과 벡터 검색 원리</li>
+            <li>ChromaDB 기반 벡터 저장소 구축 및 검색 실습</li>
+            <li>ChromaDB 기본 인덱싱 방식인 HNSW 포함 벡터 인덱싱 개념</li>
+            <li>기본형 RAG 파이프라인 구성 실습</li>
+            <li>Naive RAG의 한계 진단</li>
+            <li>고정 길이 청킹, 재귀적 청킹, 구조 기반 청킹, 시맨틱 청킹 비교</li>
+            <li>Query Rewriting을 통한 검색 질문 개선 실습</li>
+          </ul>
+        </td>
+      </tr>
+      <!-- Day 2 -->
+      <tr>
+        <td style="border:1px solid #d6d8db;padding:12px;vertical-align:top;background:#fafbfc;">
+          <strong>2일차 (8H)</strong><br>
+          <span style="color:#555;">검색 고도화 및 Advanced RAG 기법</span>
+        </td>
+        <td style="border:1px solid #d6d8db;padding:12px;vertical-align:top;">
+          <ul style="margin:0;padding-left:18px;">
+            <li>Multi-Query Retrieval: 하나의 질문을 여러 검색 쿼리로 확장</li>
+            <li>HyDE: 가상 답변을 생성해 검색 품질 보완</li>
+            <li>Semantic Routing: 질문 유형에 따라 검색 경로 선택</li>
+            <li>Hybrid Retrieval: BM25 Sparse Retrieval + Dense Retrieval 결합</li>
+            <li>RRF: Sparse / Dense 검색 결과를 순위 기반으로 결합</li>
+            <li>Cross-Encoder Re-ranking: 검색 후보 재정렬</li>
+            <li>Context Filtering &amp; Compression: 중복·잡음 제거 및 질문 기준 문맥 압축</li>
+            <li>Multi-Representation Indexing: 원문 외 요약/대표 표현을 함께 활용하는 인덱싱 패턴</li>
+          </ul>
+        </td>
+      </tr>
+      <!-- Day 3 -->
+      <tr>
+        <td style="border:1px solid #d6d8db;padding:12px;vertical-align:top;background:#fafbfc;">
+          <strong>3일차 (8H)</strong><br>
+          <span style="color:#555;">평가, 운영 모니터링, 지식그래프 기초</span>
+        </td>
+        <td style="border:1px solid #d6d8db;padding:12px;vertical-align:top;">
+          <ul style="margin:0;padding-left:18px;">
+            <li>평가셋 설계: 질문, 기준 답변, 근거 문서 구성</li>
+            <li>Retrieval 평가: Hit@K, Recall@K 계산</li>
+            <li>Generation 평가: Faithfulness 중심의 LLM-as-a-Judge 평가</li>
+            <li>수동 평가 지표와 RAGAS 지표의 관계</li>
+            <li>RAGAS 입력 구조: user_input, retrieved_contexts, response, reference</li>
+            <li>Langfuse 기반 RAG 요청 Trace 확인</li>
+            <li>RAGAS, Langfuse, TruLens의 역할 구분</li>
+            <li>관계형 질문에서 Vector RAG가 흔들리는 지점 확인</li>
+            <li>온톨로지 / 지식그래프 기초: Entity, Relation, Triple 개념</li>
+            <li>짧은 문장에서 트리플 추출 미니 실습</li>
+            <li>Graph RAG로 확장하기 전 설계 체크리스트</li>
+            <li>미니 경진대회 (최종 과제)</li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr style="border:none;border-top:1px solid #e5e5e5;margin:24px 0;">
+
+  <!-- ==================== 4. 향후 일정 ==================== -->
+  <h3 style="margin:0 0 12px 0;font-size:16px;color:#111111;">4. 향후 일정 / 확인 요청</h3>
+
+  <ul style="margin:0 0 18px 22px;padding:0;">
+    <li style="margin-bottom:6px;">위 최종 커리큘럼 구성안 검토 후 <strong>확정 의견</strong> 회신 부탁드립니다.</li>
+    <li style="margin-bottom:6px;">추가 보완·수정 의견 있으시면 함께 전달 주시면 신속히 반영하겠습니다.</li>
+    <li style="margin-bottom:6px;">교육 일정은 협의된 대로 <strong>5월 13일 / 14일 / 15일</strong> 3일간 진행으로 준비하고 있습니다.</li>
+  </ul>
+
+  <p style="margin:18px 0 14px 0;">
+    문의 사항은 회신 또는 아래 연락처로 편하게 주시기 바랍니다.<br>
+    감사합니다.
+  </p>
+
+  <!-- ==================== 서명 ==================== -->
+  <div style="margin-top:28px;padding-top:16px;border-top:1px solid #e5e5e5;font-size:13px;color:#444;">
+    <strong style="color:#111;">김영광</strong> &nbsp;|&nbsp; AI 교육기획<br>
+    모두의연구소 (Modulabs)<br>
+    Email. <a href="mailto:yk.kim@modulabs.co.kr" style="color:#1a73e8;text-decoration:none;">yk.kim@modulabs.co.kr</a>
+  </div>
+
+</div>
+</body>
+</html>

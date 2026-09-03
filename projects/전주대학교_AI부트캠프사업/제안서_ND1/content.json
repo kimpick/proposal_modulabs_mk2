@@ -1,0 +1,202 @@
+{
+  "type": "bootcamp",
+  "title": "모두의연구소 × 전주대학교 AI 부트캠프 [ND1 단독]",
+  "subtitle": "ND1 피지컬 AI 핵심 기초(60H) — 입문/초급을 위한 로보틱스 기초 완벽 가이드",
+  "info": {
+    "keyword": "ROS2\n로봇 기구학\n물리 시뮬레이션\n파인튜닝",
+    "ax_stage": "입문/초급",
+    "target": "입문자/비전공자",
+    "duration": "총 60시간"
+  },
+  "intro": "본 제안서는 전주대학교 피지컬 AI 부트캠프 중 <b>[ND1] 피지컬 AI 핵심 기초</b> 트랙을 위한 단독 커리큘럼입니다. 가상과 현실을 잇는 피지컬 AI의 기초 언어(ROS2)와 물리 법칙, 파운데이션 모델의 뼈대를 세우며, LLM부터 시뮬레이션 환경 제어까지 단대단(End-to-End) 구동을 목표로 합니다.",
+  "objective": "<ul><li>오픈소스 생태계(HuggingFace, ROS2, Isaac/MuJoCo)를 활용하며 피지컬 AI의 하드웨어/소프트웨어 맥락을 통합적으로 체득</li><li>LLM 기초부터 로봇 물리 제어, 시뮬레이션 환경 구축까지 단계적 습득</li></ul>",
+  "tech_stack": [
+    "Python · PyTorch",
+    "Hugging Face (Transformers)",
+    "LangChain / LlamaIndex / LangGraph",
+    "Ultralytics (YOLO11)",
+    "Open-source VLMs (Florence-2 / Qwen3-VL-3B)",
+    "ROS2 (Humble)",
+    "NVIDIA Isaac Sim 6.0 / MuJoCo",
+    "FoundationPose (6D Pose) / OpenVLA",
+    "MLflow / W&B",
+    "Git / GitHub"
+  ],
+  "infrastructure": [
+    "GPU 기반 AI 클라우드 — 모델 추론 및 서빙 실습 환경",
+    "LLM 서빙 플랫폼 — RAG 파이프라인 · 에이전트 런타임",
+    "MLOps-DevOps 환경 — 실험 이력 관리 · 재현성 보장",
+    "AI LMS / 문제은행 — 전 과정 학습 지원",
+    "물리 시뮬레이션 클러스터 — MuJoCo · Isaac Sim 실습"
+  ],
+  "tracks": [
+    {
+      "track_id": "ND1",
+      "track_name": "ND1. 피지컬 AI 핵심 기초 — 중급 (60H)",
+      "course_title": "피지컬 AI의 뼈대 : LLM부터 오픈소스 로봇 시뮬레이션까지",
+      "target": "AI 기초(초급) 수료자 또는 그에 준하는 프로그래밍 역량 보유자",
+      "duration": "60시간 (하계 2026년 집중이수, 주 5일 몰입형)",
+      "tools": [
+        "Python · C++ (기초)",
+        "Hugging Face",
+        "ROS2 (Humble)",
+        "OpenCV / YOLO",
+        "Isaac Sim / MuJoCo"
+      ],
+      "modules": [
+        {
+          "module_name": "M1. LLM 파운데이션 & 임베딩",
+          "duration": "15H",
+          "items": [
+            {
+              "detail": "언어 모델과 Transformer 논리 구조 심화 및 초거대 AI(GPT-4o, Claude 3.5) 진화 사례 분석",
+              "method": "이론/사례",
+              "hours": "5H"
+            },
+            {
+              "detail": "NVIDIA GPU 환경 기반 경량 SLM(Llama-3 8B, Qwen 1.5B) 로컬 파인튜닝 및 추론 실습",
+              "method": "실습/심화",
+              "hours": "6H"
+            },
+            {
+              "detail": "HuggingFace 생태계를 활용한 나만의 커스텀 파라미터 언어 모델 구축 미니 캡스톤",
+              "method": "캡스톤",
+              "hours": "4H"
+            }
+          ]
+        },
+        {
+          "module_name": "M7. 로봇공학 이론 및 피지컬 인지",
+          "duration": "15H",
+          "items": [
+            {
+              "detail": "로봇 기구학 기본 원리 및 Tesla Optimus, Boston Dynamics 등 휴머노이드 모션 제어 사례 프레젠테이션",
+              "method": "이론/사례",
+              "hours": "4H"
+            },
+            {
+              "detail": "Numpy 라이브러리를 활용한 6DoF 산업용 매니퓰레이터(UR) 순기구학 계산 및 공간 좌표 가시화 실습",
+              "method": "실습/심화",
+              "hours": "6H"
+            },
+            {
+              "detail": "카메라/LiDAR 센서 데이터 기초 처리 및 Pinhole 캘리브레이션 튜토리얼 코딩",
+              "method": "실습/심화",
+              "hours": "5H"
+            }
+          ]
+        },
+        {
+          "module_name": "M8. ROS2 생태계 및 로봇 통신 심화",
+          "duration": "15H",
+          "items": [
+            {
+              "detail": "ROS2 아키텍처 및 DDS 개념, 실제 공장/물류 현장의 다수종 AMR(자율주행로봇) 통합 통신망 구축 방안 사례 탐구",
+              "method": "이론/사례",
+              "hours": "5H"
+            },
+            {
+              "detail": "비싼 하드웨어를 대체할 Turtlesim, Turtlebot3 가상 노드를 활용한 실전 Python Topic/Action 통신망 구축 실습",
+              "method": "실습/심화",
+              "hours": "6H"
+            },
+            {
+              "detail": "URDF 모델 구조 분석 및 TF2 라이브러리를 이용한 조인트 간 동적 좌표 변환 응용 노드 구현",
+              "method": "실습/심화",
+              "hours": "4H"
+            }
+          ]
+        },
+        {
+          "module_name": "M13. 물리 시뮬레이션 및 에이전트 기반 연동",
+          "duration": "15H",
+          "items": [
+            {
+              "detail": "강체 동역학 및 물리 엔진(MuJoCo) 기초 구조 설계와 OpenAI, DeepMind의 대규모 병렬 강화학습 시뮬레이터 구축 사례",
+              "method": "이론/사례",
+              "hours": "5H"
+            },
+            {
+              "detail": "단일 머신 환경에서의 MuJoCo/Isaac Sim 구동, 파이썬 API 기반 시뮬레이터 로봇 스폰 및 기초 토크 제어 실습",
+              "method": "실습/심화",
+              "hours": "5H"
+            },
+            {
+              "detail": "과정 융합: ROS2 Action 통신 레이어 연동을 통한 파이썬 스크립트 기반 시뮬레이션 환경 내 Pick & Place 단대단 구현",
+              "method": "캡스톤",
+              "hours": "5H"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "<ul><li><b>[ND1 M8/M13 산출물]</b> LLM-ROS2 연동을 통한 에이전트 기반 시뮬레이션 제어 데모 영상</li><li><b>[ND2 산출물]</b> Isaac Sim 도메인 랜덤화 기반 합성 데이터셋 생성 스크립트 및 YOLO11 학습 결과 로그 (PGR 지표 산출)</li><li><b>[ND2 VLM 캡스톤]</b> 교육용 경량 VLM(Florence-2/YOLO11)을 활용한 시뮬레이션 합성 화면 속 객체 Grounding 파이프라인 구축</li><li><b>[ND5 M12 캡스톤]</b> LLM 기반 로봇 제어 단대단(E2E) 시스템 — Git/README + 실행 스크립트 + 데모 영상 (역량 인증 Lv4)</li></ul>",
+  "schedule_message": "동계(겨울학기) 집중이수 기간을 활용하여, **1월에 ND1(기초)과 ND2(데이터/인지)를 순차적으로 연달아 진행**하여 데이터를 제어할 로봇/인지 체력을 집중적으로 다지고, 여기서 도출된 역량을 바탕으로 **2월에 ND5(에이전트 두뇌/행동 통합)**를 이어가는 몰입형 연속 스케줄을 제안합니다. 이를 통해 몰입형 캠프의 교육 연속성과 최종 캡스톤 시스템 완성도를 극대화할 수 있습니다.",
+  "nd1_flow": {
+    "title": "ND1 내부 학습 흐름 — 단계별 심화 구조",
+    "subtitle": "주 5일 몰입형 집중과정 · 15H 모듈 심화",
+    "total": "총 60H · 절대평가",
+    "steps": [
+      {
+        "step": "STEP 1",
+        "module": "M1.",
+        "name": "LLM 파운데이션 & 임베딩",
+        "hours": "15H",
+        "items": [
+          "Transformer 아키텍처 이론 및 초거대 AI 사례 분석",
+          "경량 SLM(Llama-3 8B, Qwen 1.5B) 로컬 파인튜닝",
+          "HuggingFace 생태계 활용 커스텀 모델 구축",
+          "임베딩 기반 유사도 연산 실습"
+        ],
+        "output": "결과물: 커스텀 경량 언어 모델 로컬 구동"
+      },
+      {
+        "step": "STEP 2",
+        "module": "M7.",
+        "name": "로봇공학 이론 및 피지컬 인지",
+        "hours": "15H",
+        "items": [
+          "로봇 기구학 원리 및 휴머노이드 사례 분석",
+          "Numpy 기반 6DoF 순기구학 계산·가시화",
+          "카메라/LiDAR 센서 데이터 기초 처리",
+          "Pinhole 캘리브레이션 파이썬 코딩"
+        ],
+        "output": "결과물: 파이썬 기반 로봇 좌표 연산 코드"
+      },
+      {
+        "step": "STEP 3",
+        "module": "M8.",
+        "name": "ROS2 생태계 및 로봇 통신 심화",
+        "hours": "15H",
+        "items": [
+          "ROS2 DDS 아키텍처 및 AMR 통신 사례",
+          "Python Topic / Action 통신망 실전 구축",
+          "URDF 모델 분석 · TF2 좌표 변환 구현",
+          "가상 로봇 노드 커맨드 통신 실습"
+        ],
+        "output": "결과물: ROS2 Python 통신망 구동 데모"
+      },
+      {
+        "step": "STEP 4",
+        "module": "M13.",
+        "name": "물리 시뮬레이션 및 에이전트 연동",
+        "hours": "15H",
+        "items": [
+          "물리 엔진(MuJoCo) 구조 및 강화학습 사례",
+          "파이썬 API 기반 시뮬레이터 로봇 스폰·제어",
+          "ROS2 Action 통신 연동 구현",
+          "시뮬레이션 내 Pick & Place E2E 캡스톤"
+        ],
+        "output": "결과물: 시뮬레이션 Pick & Place 데모 영상",
+        "is_capstone": true
+      }
+    ],
+    "flow_labels": [
+      "M1. LLM 두뇌 기초",
+      "M7. 로봇 기구학",
+      "M8. ROS2 통신",
+      "M13. 시뮬레이션 E2E"
+    ]
+  }
+}

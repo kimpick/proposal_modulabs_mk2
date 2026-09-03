@@ -1,0 +1,307 @@
+{
+  "title": "Claude 기반 R&D 업무 자동화 표준 교육 과정",
+  "subtitle": "연구원을 위한 초급·중급·고급 단계별 Claude 및 Claude Code 실습 제안서",
+  "pdf_title": "Claude 기반 R&D 업무 자동화 표준 교육 과정",
+  "course_code": "",
+  "author": "이은경",
+  "info": {
+    "keyword": "Claude / R&D 자동화",
+    "ax_stage": "Level 1~3 — 기초 활용부터 에이전트 설계까지",
+    "target": "AI 도구 사용 경험이 없는 비개발자부터 개발 기초 지식 보유 연구원까지",
+    "duration": "트랙별 1일"
+  },
+  "intro": "본 과정은 연구원의 연구·시험·보고 업무를 Claude와 Claude Code 기반 워크플로우로 전환하기 위한 표준형 교육 제안입니다. 초급 트랙은 Claude Desktop, Project, Skills, Connectors, Cowork을 활용해 논문·시험 데이터 정리와 문서 초안 생성을 경험하도록 설계했습니다.\n\n중급 트랙은 Claude Code를 처음 사용하는 연구원이 PDF 시험 데이터, 이미지, 메모 등 다양한 입력 자료를 읽고 정부 과제 HWP/HWPX 양식 보고서로 변환하는 자동화 파이프라인을 구축하도록 구성했습니다. 고급 트랙은 터미널, Python, Git 등 개발 기초 지식을 보유한 연구원이 Skills, Subagents, Hooks, MCP를 조합해 새 시험 데이터가 들어오면 분석·시각화·보고서 작성·검증까지 수행하는 R&D 에이전트를 설계하고 배포하는 것을 목표로 합니다.",
+  "objective": "1. 연구·시험 자료를 Claude 기반으로 정리·요약하고 보고서 초안을 빠르게 생성하는 실무 감각을 확보합니다.\n2. Claude Code를 활용해 PDF·이미지·메모·데이터 파일을 처리하고 HWP/HWPX 보고서 자동화 파이프라인을 구축합니다.\n3. Skills, Subagents, MCP를 조합해 반복 R&D 업무를 자율 수행하는 에이전트 구조를 설계하고 현업 적용 가능성을 검증합니다.",
+  "tech_stack": [
+    "Claude Desktop",
+    "Claude Projects",
+    "Artifacts",
+    "Claude Skills",
+    "Connectors",
+    "Claude Cowork",
+    "Claude Code",
+    "CLAUDE.md",
+    "Python",
+    "Git/GitHub",
+    "Subagents",
+    "MCP"
+  ],
+  "infrastructure": [
+    "개인 노트북 및 안정적인 인터넷 접속 환경",
+    "Claude Desktop 및 Claude Pro 또는 Team Plan 등 실습 가능한 계정",
+    "중급·고급 트랙용 Claude Code 설치 가능 환경(macOS, Linux, Windows WSL 권장)",
+    "실습용 연구·시험 샘플 자료: 논문 PDF, 시험 데이터 PDF, 엑셀, 이미지, 메모, 보고서 양식",
+    "고급 트랙용 기본 개발 환경: 터미널, Python, Git, GitHub 계정",
+    "실제 내부 데이터 활용 시 사전 비식별화 및 보안정책 확인 필요"
+  ],
+  "tracks": [
+    {
+      "track_id": "01",
+      "track_name": "초급 — R&D 자료 정리·요약 자동화",
+      "course_title": "Claude 기초 조작, 간단한 문서 생성 실습",
+      "target": "AI 도구 사용 경험이 없는 비개발자",
+      "duration": "1일",
+      "tools": [
+        "Claude Desktop",
+        "Artifacts",
+        "Projects",
+        "Skills",
+        "Connectors",
+        "Claude Cowork"
+      ],
+      "modules": [
+        {
+          "module_name": "Claude 시작 + 기본 사용법",
+          "duration": "1H",
+          "items": [
+            "앱 설치와 기본 대화 흐름을 익히고 연구·행정 문서 초안 생성 구조를 이해합니다.",
+            "출장 보고서, 회의록, 간단한 연구 메모를 Claude로 정리하는 기본 패턴을 실습합니다.",
+            "실습: 출장 보고서·회의록 초안 만들기"
+          ]
+        },
+        {
+          "module_name": "잘 시키는 법 + 아티팩트",
+          "duration": "1H",
+          "items": [
+            "역할, 맥락, 제약, 출력 형식을 포함한 기본 프롬프트 구조를 익힙니다.",
+            "Artifacts를 활용해 대화 결과를 문서 형태로 받고 수정·확장하는 흐름을 실습합니다.",
+            "실습: 학회 초록·보도자료·과제 요약본 생성"
+          ]
+        },
+        {
+          "module_name": "Project + 파일 업로드 (문서 QA)",
+          "duration": "1H",
+          "items": [
+            "자료를 Project에 등록하고 특정 문서 묶음에 대해 질문·요약·비교하는 방법을 익힙니다.",
+            "논문 PDF 여러 건을 업로드해 분야별 최근 동향을 구조화합니다.",
+            "실습: 본인 연구 분야 논문 PDF 다수 업로드 → “최근 동향 정리해줘” 챗봇 구성"
+          ]
+        },
+        {
+          "module_name": "Skills + Connectors",
+          "duration": "1H",
+          "items": [
+            "반복 업무 절차를 Skill로 등록하고 재사용 가능한 업무 템플릿으로 전환합니다.",
+            "Connectors를 활용해 외부 서비스 또는 사내 도구 연결 가능성을 이해합니다.",
+            "실습: 시험 결과 정리 양식을 Skill로 등록 + 사내 도구 연결 시나리오 설계"
+          ]
+        },
+        {
+          "module_name": "Claude Cowork (로컬 파일 자동화)",
+          "duration": "1H",
+          "items": [
+            "로컬 폴더 단위 파일을 대상으로 다단계 정리·요약·초안 작성 작업을 요청하는 방법을 학습합니다.",
+            "엑셀, 이미지, 메모가 섞인 시험 데이터 폴더를 하나의 보고 흐름으로 정리합니다.",
+            "실습: 시험 데이터 폴더(엑셀·이미지·메모) → “이번 주 결과 정리해줘” 한 줄로 초안 받기"
+          ]
+        },
+        {
+          "module_name": "나만의 업무 자동화 완성",
+          "duration": "1H",
+          "items": [
+            "Cowork, Skills, Projects를 조합해 본인 업무 흐름 1개를 자동화 시나리오로 완성합니다.",
+            "입력 자료, 처리 규칙, 결과물 형식, 검토 기준을 간단한 워크플로우로 정리합니다.",
+            "실습: 본인 R&D 보고 흐름 1개 완전 자동화 + 공유"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "02",
+      "track_name": "중급 — R&D 보고서 자동화 파이프라인",
+      "course_title": "Claude Code 기반 문서 작업 심화",
+      "target": "코드 경험 없이 Claude Code를 처음 사용하는 연구원",
+      "duration": "1일",
+      "tools": [
+        "Claude Code",
+        "CLAUDE.md",
+        "PDF 처리",
+        "이미지 입력",
+        "HWP/HWPX",
+        "GitHub"
+      ],
+      "modules": [
+        {
+          "module_name": "설치·환경 구성 + 첫 실행",
+          "duration": "1H",
+          "items": [
+            "Claude Code 실행 환경을 구축하고 기본 명령 흐름을 익힙니다.",
+            "설치 가이드에 따라 환경을 점검하고 첫 실행 결과를 확인합니다.",
+            "실습: 환경 세팅 + 기본 실행"
+          ]
+        },
+        {
+          "module_name": "기본 사용법 + 탐색→계획→코드→커밋 루프",
+          "duration": "1H",
+          "items": [
+            "Claude Code가 파일을 탐색하고 계획을 세운 뒤 코드를 수정·검증하는 에이전틱 루프를 이해합니다.",
+            "작업 지시, 중간 확인, 결과 검토, 커밋 단위 정리 흐름을 체험합니다.",
+            "실습: 시험 메모 폴더 정리·요약 작업 체험"
+          ]
+        },
+        {
+          "module_name": "CLAUDE.md로 작업 기억시키기",
+          "duration": "1H",
+          "items": [
+            "기관 보고서 양식, 문체 규칙, 용어집, 금지 사항을 CLAUDE.md에 기록하는 방법을 익힙니다.",
+            "반복 작업에서 컨텍스트를 유지하고 결과물의 일관성을 높이는 구조를 설계합니다.",
+            "실습: 기관 보고서 양식·문체 규칙·용어집을 CLAUDE.md에 등록"
+          ]
+        },
+        {
+          "module_name": "파일 처리 (PDF·한글·이미지 입력)",
+          "duration": "1H",
+          "items": [
+            "PDF, 한글 양식, 이미지, 메모 등 다양한 입력 파일을 처리하는 접근법을 학습합니다.",
+            "시험 데이터와 도면 이미지에서 핵심 수치, 조건, 결과를 추출하는 절차를 구성합니다.",
+            "실습: 시험 데이터 PDF·도면 이미지에서 핵심 수치·결과 추출"
+          ]
+        },
+        {
+          "module_name": "HWP/HWPX 출력 + 단계별 처리",
+          "duration": "1H",
+          "items": [
+            "분석, 생성, 검증 단계를 분리해 안정적인 보고서 자동화 파이프라인을 설계합니다.",
+            "추출 데이터를 정부 과제 HWP/HWPX 양식에 맞춰 보고서 초안으로 변환합니다.",
+            "실습: 추출 데이터를 정부 과제 HWP 양식 보고서로 자동 생성"
+          ]
+        },
+        {
+          "module_name": "통합 + GitHub 공유",
+          "duration": "1H",
+          "items": [
+            "입력, 처리, 출력 폴더 구조를 정리하고 실행 가능한 파이프라인으로 통합합니다.",
+            "재사용 가능한 형태로 GitHub 저장소에 정리하고 협업 공유 방식을 익힙니다.",
+            "실습: 시험 PDF·이미지 → HWP 보고서 파이프라인 통합 + GitHub 공유"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "03",
+      "track_name": "고급 — 자율 R&D 에이전트 설계",
+      "course_title": "Claude Code 기반 R&D 에이전트 설계",
+      "target": "개발 기초 지식(터미널, 파이썬, git 등)이 있는 연구원",
+      "duration": "1일",
+      "tools": [
+        "Claude Code",
+        "Agent Skills",
+        "Subagents",
+        "Hooks",
+        "MCP",
+        "Python",
+        "GitHub"
+      ],
+      "modules": [
+        {
+          "module_name": "빠른 환경 구성 + Claude Code in Action 핵심",
+          "duration": "1H",
+          "items": [
+            "연구 워크플로우에 Claude Code를 통합하고 프로젝트 단위 작업 구조를 설정합니다.",
+            "CLAUDE.md와 hooks로 데이터 폴더 보호, 실행 전 검토, 산출물 검증 등 기본 가드레일을 설계합니다.",
+            "실습: 환경 세팅 + CLAUDE.md·hooks 가드레일 구성"
+          ]
+        },
+        {
+          "module_name": "Agent Skills 작성",
+          "duration": "1H",
+          "items": [
+            "반복 연구 작업을 재사용 가능한 Skill로 정의하는 구조와 작성 원칙을 학습합니다.",
+            "분석 목적, 입력 형식, 처리 절차, 검증 기준을 SKILL.md 형태로 정리합니다.",
+            "실습: 본인 연구 영역 Skill 작성(진동 시험 결과 정리, 시뮬레이션 결과 검토, 도면 검토 체크리스트 등)"
+          ]
+        },
+        {
+          "module_name": "Subagents 설계 (1) 개념과 위임",
+          "duration": "1H",
+          "items": [
+            "작업을 분석, 작성, 검증 등 역할별 Subagent로 분리하는 설계 원칙을 이해합니다.",
+            "각 Subagent의 책임, 입력, 출력, 실패 처리 기준을 정의합니다.",
+            "실습: 데이터 분석·보고서 작성·검증을 각각 서브에이전트로 정의"
+          ]
+        },
+        {
+          "module_name": "Subagents 설계 (2) 실습",
+          "duration": "1H",
+          "items": [
+            "멀티스텝 연구 작업을 Subagent 단위로 분리하고 통합 실행 흐름을 설계합니다.",
+            "분석 결과를 보고서 작성과 검증 단계로 넘기는 에이전트 간 인터페이스를 정리합니다.",
+            "실습: 분석·작성·검증 서브에이전트 통합 실행"
+          ]
+        },
+        {
+          "module_name": "MCP 맛보기",
+          "duration": "1H",
+          "items": [
+            "MCP를 통해 외부 도구, 데이터, 사내 시스템을 Claude Code에 연결하는 기본 구조를 이해합니다.",
+            "기존 MCP 서버 연결을 실습하고 내부 DB·파일 시스템·업무 시스템 연동 가능성을 검토합니다.",
+            "실습: 기존 MCP 서버 연결 실습 및 사내 시스템·DB 연동 가능성 시연"
+          ]
+        },
+        {
+          "module_name": "연구/업무 자동화 에이전트 완성",
+          "duration": "1H",
+          "items": [
+            "Skills와 Subagents를 통합해 새 데이터 입력부터 검증까지 이어지는 R&D 자동화 Agent를 완성합니다.",
+            "GitHub에 실행 구조, 가드레일, 사용 방법, 확장 아이디어를 정리합니다.",
+            "실습: 새 시험 데이터 폴더 → 분석 → 시각화 → 보고서 초안 → 검증까지 자율 처리하는 에이전트 완성 + GitHub 공유"
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "<ul style=\"margin:0; padding-left:20px; line-height:1.9;\"><li>초급: 논문·시험 자료 정리용 Claude Project, 문서 초안 프롬프트, 개인 R&D 업무 자동화 시나리오</li><li>중급: CLAUDE.md 기반 보고서 작업 규칙, PDF·이미지 입력 처리 스크립트, HWP/HWPX 보고서 자동 생성 파이프라인</li><li>고급: R&D Agent Skills, 분석·작성·검증 Subagent 설계안, MCP 연동 PoC, 새 시험 데이터 기반 자율 보고 에이전트 프로토타입</li></ul>",
+  "schedule_message": "실제 교육 시 실습 데이터, Claude 계정 정책, 내부망·보안정책, HWP/HWPX 양식 제공 여부에 따라 세부 실습은 조정합니다.",
+  "instructors": [
+    {
+      "category": "AI Agent·RAG 과정",
+      "name": "엄*호",
+      "headline": "RAG·AI Agent / LLM·프롬프트 엔지니어링 교육 전문",
+      "bio": "프리랜서 강사이자 전 모두의연구소 리서처로 IT·AI 교육 콘텐츠 제작과 관리를 담당했습니다. LG전자 RAG 챗봇 개발, ETRI·LG전자 고급 프롬프트 엔지니어링, 카카오 LLM 핵심 이해와 적용 등 기업 대상 LLM·Agent 교육 경험이 풍부합니다. 본 과정의 고급 R&D 에이전트 설계에 필요한 RAG, AI Agent, LangChain·LangGraph·LlamaIndex 기반 사고 흐름을 연구원 눈높이에 맞춰 연결할 수 있습니다.",
+      "expertise": [
+        "RAG 챗봇 개발",
+        "AI Agent",
+        "프롬프트 엔지니어링",
+        "LLM 활용",
+        "LangChain·LangGraph"
+      ],
+      "experience": [
+        "LG전자 대상 RAG를 활용한 챗봇 개발 21시간 강의 수행",
+        "한국전자통신연구원(ETRI)·LG전자 대상 고급 프롬프트 엔지니어링(PE, RAG, AI Agent) 14시간 5회 강의 수행",
+        "K-디지털 트레이닝(KDT) 교강사 대상 딥러닝·LLM 80시간 강의 수행",
+        "카카오 대상 LLM 핵심 이해와 적용(GPTs, ChatGPT API, RAG, LlamaIndex) 21시간 10회 강의 수행",
+        "모두의연구소 리서처로 IT·AI 교육 콘텐츠 제작 및 관리 수행"
+      ],
+      "metrics": [
+        { "value": "21H", "label": "RAG 강의" },
+        { "value": "10회", "label": "LLM 과정" },
+        { "value": "80H", "label": "교강사 교육" }
+      ]
+    },
+    {
+      "category": "산업 AI·데이터 과정",
+      "name": "정*민",
+      "headline": "산업 AI·데이터 분석 / AI Agent·시계열 교육 전문",
+      "bio": "라지엘랩스 대표로 AI Solution과 AI 교육을 수행하고 있으며, 한국표준협회 전문위원으로 산업 인공지능 영역을 담당하고 있습니다. 인공지능 석사 배경과 삼성전자 Spotfire 시각화 데이터 분석 50회차 이상, 제조업 센서 시계열 분석, 멀티모달·컴퓨터비전·생성형 AI 강의 경험을 보유했습니다. R&D 데이터 분석, 시각화, 이상탐지, AI Agent 설계를 함께 다루는 본 과정의 중급·고급 트랙에 적합합니다.",
+      "expertise": [
+        "산업 AI",
+        "데이터 분석·시각화",
+        "시계열·이상탐지",
+        "생성형 AI·AI Agent",
+        "Python·ML/DL"
+      ],
+      "experience": [
+        "한국표준협회 전문위원으로 산업 인공지능 업무 수행",
+        "라지엘랩스 대표로 AI Solution / EDU 수행 및 알고링크 전문강사로 AI/ML 강의",
+        "삼성전자 대상 Spotfire 시각화 데이터 분석 50회차 이상 강의 수행",
+        "한국전자기술연구원 제조업 기반 센서 시계열 분석 및 SK텔레콤 멀티모달 특강 수행",
+        "K-MOOC 생성형 인공지능, 시각 인공지능, 클라우드 인공지능, 에이전트 인공지능 동영상 강의 제작"
+      ],
+      "metrics": [
+        { "value": "50회+", "label": "시각화 강의" },
+        { "value": "20+", "label": "교육 고객사" },
+        { "value": "3편", "label": "논문·저서" }
+      ]
+    }
+  ]
+}

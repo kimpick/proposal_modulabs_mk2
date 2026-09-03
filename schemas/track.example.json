@@ -1,0 +1,40 @@
+{
+  "title": "회사명 직무별 맞춤형 AI 활용 워크샵",
+  "subtitle": "한 줄 요약 설명",
+  "info": {
+    "keyword": "직무별 실무 AI 활용",
+    "ax_stage": "2단계 (실무 적용)",
+    "target": "비IT 직무 임직원",
+    "duration": "직군별 1일 (7시간)"
+  },
+  "intro": "과정 소개 상세 서술",
+  "objective": "교육 목표 요약",
+  "tech_stack": ["도구1", "도구2"],
+  "infrastructure": [
+    "인프라 항목 1",
+    "인프라 항목 2"
+  ],
+  "tracks": [
+    {
+      "track_id": "01",
+      "track_name": "직군명",
+      "course_title": "과정 제목",
+      "target": "대상 직무",
+      "duration": "1일 (7시간)",
+      "tools": ["도구1", "도구2"],
+      "modules": [
+        {
+          "module_name": "모듈명",
+          "duration": "2H",
+          "items": [
+            "학습 내용 1",
+            "학습 내용 2",
+            "실습: ..."
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "<ul><li>산출물 항목</li></ul>",
+  "schedule_message": "※ 일정 안내 메시지"
+}

@@ -1,0 +1,100 @@
+@echo off
+chcp 65001 >nul
+title Track2 Environment Setup
+
+echo ========================================
+echo 5/28 Track2 Windows Environment Setup
+echo ========================================
+echo.
+
+echo [1/7] Checking PowerShell ExecutionPolicy...
+set "PSPOLICY="
+for /f "tokens=3" %%a in ('reg query "HKCU\Software\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v ExecutionPolicy 2^>nul ^| find "REG_SZ"') do set "PSPOLICY=%%a"
+if not defined PSPOLICY (
+    for /f "tokens=3" %%a in ('reg query "HKLM\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v ExecutionPolicy 2^>nul ^| find "REG_SZ"') do set "PSPOLICY=%%a"
+)
+if not defined PSPOLICY set "PSPOLICY=Undefined (default)"
+echo Current ExecutionPolicy: %PSPOLICY%
+echo (Note: ExecutionPolicy does not affect running this .cmd file.)
+set "PSPOLICY="
+
+echo.
+echo [2/7] Checking Git...
+git --version
+if errorlevel 1 (
+    echo Git not found.
+    echo Download: https://git-scm.com/download/win
+)
+
+echo.
+echo [3/7] Checking Node.js...
+node -v
+if errorlevel 1 (
+    echo Node.js not found.
+    echo Download: https://nodejs.org/
+)
+
+echo.
+echo [4/7] Checking npm...
+call npm -v
+
+echo.
+echo [5/7] Checking Claude Code...
+call claude --version
+if errorlevel 1 call :install_claude
+
+echo.
+echo [6/7] Checking Codex...
+call codex --version
+if errorlevel 1 call :install_codex
+
+echo.
+echo [7/7] Claude API Key Setup
+echo (Codex does NOT need an API key - it logs in via OAuth.)
+
+set /p anthropic=Enter ANTHROPIC_API_KEY (Claude only):
+setx ANTHROPIC_API_KEY "%anthropic%"
+set ANTHROPIC_API_KEY=%anthropic%
+
+echo.
+echo ========================================
+echo Final Check
+echo ========================================
+
+git --version
+node -v
+call npm -v
+call claude --version
+call codex --version
+
+echo.
+echo Setup Complete.
+pause
+goto :eof
+
+
+:install_claude
+echo Installing Claude Code...
+where winget >nul 2>&1
+if errorlevel 1 (
+    echo winget not found. Installing Claude Code via npm...
+    call npm install -g @anthropic-ai/claude-code
+) else (
+    echo Installing Claude Code via winget...
+    winget install --id Anthropic.ClaudeCode -e --accept-source-agreements --accept-package-agreements
+    where claude >nul 2>&1
+    if errorlevel 1 (
+        echo winget install failed. Falling back to npm...
+        call npm install -g @anthropic-ai/claude-code
+    )
+)
+goto :eof
+
+
+:install_codex
+echo Installing Codex via npm...
+call npm install -g @openai/codex
+echo.
+echo Codex installed. Starting OAuth login (a browser window will open)...
+call codex login
+goto :eof

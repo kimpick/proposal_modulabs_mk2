@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<style>{{ css }}</style>
+<style>
+/* ─ 커리큘럼 가독성 ─ */
+.module-box { padding: 24px 24px; margin-bottom: 12px; }
+.module-right li span { font-size: 13.5px; line-height: 1.8; }
+.module-name { font-size: 13px; }
+
+/* ─ 목표 인라인 ─ */
+.course-goal {
+    font-size: 12.5px;
+    color: #555;
+    line-height: 1.7;
+    margin: 0 0 20px 0;
+    padding: 0;
+}
+
+/* ─ 일정 테이블 ─ */
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 13px;
+}
+.schedule-table th, .schedule-table td {
+    border: 1px solid #EBEBEB;
+    padding: 14px 16px;
+    vertical-align: middle;
+}
+.schedule-table th {
+    background-color: #fafafa;
+    font-weight: 800;
+    color: #555;
+    text-align: center;
+}
+.schedule-round {
+    color: #EE3E4C;
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+}
+.schedule-dates {
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* ─ 환경 구성 리스트 ─ */
+.env-section {
+    margin-bottom: 16px;
+}
+.env-section-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #EE3E4C;
+    margin-bottom: 6px;
+}
+.env-code {
+    background: #f7f7f7;
+    border: 1px solid #EBEBEB;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-family: 'Consolas', 'Menlo', monospace;
+    font-size: 11.5px;
+    line-height: 1.7;
+    color: #333;
+    word-break: break-all;
+    overflow-wrap: break-word;
+    margin: 8px 0 16px 0;
+}
+
+/* ─ 커리큘럼 태그 뱃지 ─ */
+.curriculum-tag {
+    display: inline;
+    font-size: inherit;
+    font-weight: 400;
+    padding: 1px 4px;
+    border-radius: 3px;
+    margin: 0;
+    vertical-align: baseline;
+    letter-spacing: 0.01em;
+}
+.tag-core { background: #FEF0F0; color: #EE3E4C; }
+.tag-trend { background: #EEF4FF; color: #2563EB; }
+.tag-paradigm { background: #F5F0FF; color: #7C3AED; }
+.tag-shift { background: #FFF8EB; color: #D97706; }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <div class="header-text">모두의연구소 AI교육 커리큘럼 2026</div>
+    <h1 class="title">{{ data.title }}</h1>
+    <p class="subtitle">{{ data.subtitle }}</p>
+</div>
+
+<div class="info-grid">
+    <div class="info-box"><div class="info-label">키워드 구분</div><div class="info-value">{{ data.info.keyword }}</div></div>
+    <div class="info-box"><div class="info-label">과정 구성</div><div class="info-value">{{ data.info.ax_stage }}</div></div>
+    <div class="info-box"><div class="info-label">권장 수강 대상</div><div class="info-value">{{ data.info.target }}</div></div>
+    <div class="info-box"><div class="info-label">총 시간</div><div class="info-value">{{ data.info.duration }}</div></div>
+</div>
+
+<div class="section-title"><span class="section-num">01</span>과정 소개</div>
+<div class="content-box">{{ data.intro }}</div>
+
+<div class="section-title"><span class="section-num">02</span>교육 목표</div>
+<div class="content-box"><strong>기초 과정:</strong> {{ data.objective_basic }}</div>
+<div class="content-box"><strong>심화 과정:</strong> {{ data.objective_advanced }}</div>
+
+<div style="display: flex; gap: 40px; page-break-inside: avoid; break-inside: avoid;">
+    <div style="flex: 1;">
+        <div class="section-title"><span class="section-num">03</span>핵심 기술</div>
+        <div class="tech-container">
+            {% for t in data.tech_stack %}<div class="tech-badge">{{ t }}</div>{% endfor %}
+        </div>
+    </div>
+    <div style="flex: 1.2;">
+        <div class="section-title"><span class="section-num">04</span>필요 인프라</div>
+        <div class="infra-box">
+            <ul>{% for i in data.infrastructure %}<li><span>{{ i }}</span></li>{% endfor %}</ul>
+        </div>
+    </div>
+</div>
+
+{# ─── 사전 환경 구성 안내 ─── #}
+<div style="page-break-inside: avoid; break-inside: avoid; margin-top: 16px;">
+    <div class="section-title"><span class="section-num">05</span>사전 환경 구성 안내 (개인 PC)</div>
+    <div class="infra-box">
+        <ul>{% for item in data.environment.required %}<li><span>{{ item }}</span></li>{% endfor %}</ul>
+    </div>
+    <div style="font-size: 12.5px; color: #888; margin-top: 8px; line-height: 1.6;">
+        자세한 설치 가이드 및 Python 패키지 목록은 교육 일정 확정 후 사전 안내드릴 예정입니다.
+    </div>
+</div>
+
+{# ─── 기초 과정 커리큘럼 ─── #}
+<div class="page-break"></div>
+<div class="section-title"><span class="section-num">06</span>기초 과정 커리큘럼 (24H)</div>
+<p class="course-goal"><strong>목표:</strong> {{ data.objective_basic }}</p>
+{% for mod in data.basic_modules %}
+<div class="module-box">
+    <div class="module-left">
+        <div class="module-label">{{ mod['step_name'] }}</div>
+        <div class="module-name">{{ mod['subtitle'] }}</div>
+    </div>
+    <div class="module-right">
+        <ul>{% for item in mod['items'] %}<li><span>{{ item | tag_label }}</span></li>{% endfor %}</ul>
+    </div>
+    <div class="module-hours">{{ mod['duration'] }}</div>
+</div>
+{% endfor %}
+
+{# ─── 심화 과정 커리큘럼 ─── #}
+<div class="page-break"></div>
+<div class="section-title"><span class="section-num">07</span>심화 과정 커리큘럼 (24H)</div>
+<p class="course-goal"><strong>목표:</strong> {{ data.objective_advanced }}</p>
+{% for mod in data.advanced_modules %}
+<div class="module-box">
+    <div class="module-left">
+        <div class="module-label">{{ mod['step_name'] }}</div>
+        <div class="module-name">{{ mod['subtitle'] }}</div>
+    </div>
+    <div class="module-right">
+        <ul>{% for item in mod['items'] %}<li><span>{{ item | tag_label }}</span></li>{% endfor %}</ul>
+    </div>
+    <div class="module-hours">{{ mod['duration'] }}</div>
+</div>
+{% endfor %}
+
+{# ─── 예상 산출물 ─── #}
+<div style="page-break-inside: avoid; break-inside: avoid;">
+    <div class="section-title"><span class="section-num">08</span>예상 산출물</div>
+    <div class="content-box">{{ data.output }}</div>
+</div>
+
+{# ─── 교육 일정 ─── #}
+<div style="page-break-inside: avoid; break-inside: avoid;">
+    <div class="section-title"><span class="section-num">09</span>교육 일정 제안</div>
+    <table class="schedule-table">
+        <tr>
+            <th style="width: 20%;">회차</th>
+            <th style="width: 35%;">일정</th>
+            <th style="width: 25%;">과정</th>
+            <th style="width: 20%;">비고</th>
+        </tr>
+        {% for s in data.schedule %}
+        <tr>
+            <td class="schedule-round">{{ s.round }}</td>
+            <td class="schedule-dates">{{ s.dates }}</td>
+            <td style="text-align: center;">{% if '심화' in s.round %}심화 과정{% else %}기초 과정{% endif %}</td>
+            <td style="text-align: center; color: #777;">{{ s.note }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div style="font-size: 12px; color: #888; margin-top: 6px; margin-bottom: 24px;">{{ data.schedule_message }}</div>
+</div>
+
+{# ─── 장소 안내 ─── #}
+<div style="page-break-inside: avoid; break-inside: avoid;">
+    <div class="section-title"><span class="section-num">10</span>교육장 안내</div>
+    <div class="content-box"><strong>장소:</strong> 모두의연구소 강남캠퍼스 교육장
+<strong>시간:</strong> 09:00 ~ 18:00 (점심시간 12:00~13:00)
+<strong>준비물:</strong> 개인 노트북 (사전 환경 구성 완료 필수)
+
+※ 모두의연구소 강남캠퍼스 일정 불가 시 타 장소 대관으로 변경될 수 있으며, 대관 요청 시 대관료가 별도 발생할 수 있습니다.</div>
+</div>
+
+<div class="footer">
+    &copy; 2026 MODULABS - 모두의연구소 AI 기업교육 커리큘럼
+</div>
+
+</body>
+</html>

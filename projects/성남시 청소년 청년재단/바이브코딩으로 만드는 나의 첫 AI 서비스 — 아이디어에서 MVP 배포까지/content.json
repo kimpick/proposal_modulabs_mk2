@@ -1,0 +1,286 @@
+{
+  "title": "바이브코딩으로 만드는 나의 첫 AI 서비스 — 아이디어에서 MVP 배포까지",
+  "subtitle": "코딩 경험이 없는 청년·대학생을 위한 8주 하이브리드 MVP 제작·배포 실전 과정",
+  "pdf_title": "바이브코딩 첫 AI 서비스 MVP 과정",
+  "info": {
+    "keyword": "바이브코딩.AI코딩",
+    "ax_stage": "Level 1",
+    "target": "코딩 경험이 없는 청년·대학생 및 AI 도구로 자신의 아이디어를 웹 서비스로 구현해보고 싶은 비전공자",
+    "duration": "총 51시간 (8주, 온라인 14H + 대면 37H)"
+  },
+  "intro": "AI가 코드를 작성하는 시대, 비전공자도 자연어 프롬프트만으로 실제 동작하는 웹 서비스를 만들 수 있는 '바이브코딩'이 새로운 디지털 리터러시로 부상하고 있습니다. 본 과정은 코딩 경험이 전혀 없는 청년·대학생을 대상으로, Lovable·Cursor 등 AI 코딩 도구를 활용해 아이디어 발굴부터 UI 구성, 데이터 연동, AI 기능 통합, 실제 URL 배포까지 MVP 개발의 전 과정을 8주간 체험합니다. 주중 온라인 세션에서 개념과 설계를 다지고, 주말 대면 워크숍에서 집중 빌드하는 하이브리드 구조로 운영되며, 소그룹 멘토링을 통해 25명 전원이 자신만의 MVP 1개를 완성합니다. 최종 데모데이에서 발표와 실시간 시연을 경험함으로써, 디지털 창업·취업 역량의 실질적 포트폴리오를 확보하게 됩니다.",
+  "objective": "AI 코딩 도구를 활용한 아이디어 기획–개발–배포 전 사이클 경험을 통해, 비전공 청년이 스스로 디지털 서비스를 설계하고 구현할 수 있는 바이브코딩 실전 역량을 확보합니다.",
+  "tech_stack": [
+    "Lovable",
+    "Cursor",
+    "ChatGPT API",
+    "Claude API",
+    "Vercel/Netlify"
+  ],
+  "infrastructure": [
+    "바이브코딩 도구: Lovable Pro($20/월/인) 또는 Bolt.new, Cursor Pro($20/월/인)",
+    "AI API: OpenAI API 또는 Claude API 유료 API 키 및 실습용 크레딧 사전 확보",
+    "배포: Vercel 또는 Netlify 무료 티어",
+    "수강생 개인 노트북 지참 필수 (크롬 브라우저 구동 가능 사양)"
+  ],
+  "tracks": [
+    {
+      "track_id": "01",
+      "track_name": "Explore",
+      "course_title": "바이브코딩 기본기와 MVP 주제 확정",
+      "duration": "13H",
+      "tools": [
+        "Lovable",
+        "Cursor"
+      ],
+      "modules": [
+        {
+          "module_name": "<span style='display:inline-block;background:#FDECEE;color:#EE3E4C;font-weight:800;font-size:11px;padding:2px 8px;border-radius:5px;'>1주차</span> <span style='font-size:11px;font-weight:600;color:#666;'>대면</span><div style='font-size:11px;color:#8a8a8a;margin-top:8px;line-height:1.6;'>8/1(토)<br>10:00~16:00</div>",
+          "title": "바이브코딩 기본 개념과 도구 사용법",
+          "duration": "6H",
+          "items": [
+            "바이브코딩을 위해 필요한 기본 개념 (AI가 코드를 만드는 원리, 프롬프트 기반 개발 흐름, 웹 서비스 기본 구성 요소)",
+            "바이브코딩 툴 소개 및 인터페이스·사용 방법 (프로젝트 생성 → 미리보기 → 수정 → 저장/배포 위치 등 화면 구성 익히기)",
+            "계정 생성·API 키/크레딧 연결·노트북 환경 점검 (공통 트러블슈팅)",
+            "실습 주제 예시 : 프롬프트 한 줄로 간단한 미니 페이지(D-day 카운터, 한 줄 명함 페이지 등) 만들며 생성→수정 사이클 테스트"
+          ]
+        },
+        {
+          "module_name": "<span style='display:inline-block;background:#FDECEE;color:#EE3E4C;font-weight:800;font-size:11px;padding:2px 8px;border-radius:5px;'>2주차</span> <span style='font-size:11px;font-weight:600;color:#666;'>온라인</span><div style='font-size:11px;color:#8a8a8a;margin-top:8px;line-height:1.6;'>8/5(수)<br>20:00~22:00</div>",
+          "title": "아이디어톤 : 문제 정의와 MVP 주제 확정",
+          "duration": "2H",
+          "items": [
+            "바이브코딩으로 해결하고 싶은 문제 정의 (일상·주변의 불편함 발굴)",
+            "아이디어톤 형식으로 아이디어 공유·발전 및 동료 피드백",
+            "타깃 사용자·핵심 기능 1개로 좁혀 개인별 MVP 주제 확정"
+          ]
+        },
+        {
+          "module_name": "<span style='display:inline-block;background:#FDECEE;color:#EE3E4C;font-weight:800;font-size:11px;padding:2px 8px;border-radius:5px;'>2주차</span> <span style='font-size:11px;font-weight:600;color:#666;'>대면</span><div style='font-size:11px;color:#8a8a8a;margin-top:8px;line-height:1.6;'>8/8(토)<br>10:00~15:00</div>",
+          "title": "미니 프로젝트로 익히는 바이브코딩 실습",
+          "duration": "5H",
+          "items": [
+            "하나의 주제(예: 자취생 식단 관리 앱)를 강사와 함께 단계별로 빌드",
+            "화면 생성 → 기능 추가 → 수정 프롬프트 반복 흐름을 따라 만들며 체득",
+            "자주 막히는 지점 공통 트러블슈팅 및 프롬프트 개선 요령 익히기"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "02",
+      "track_name": "Build",
+      "course_title": "화면·데이터·AI 기능 구현과 실제 배포",
+      "duration": "26H",
+      "tools": [
+        "Cursor",
+        "ChatGPT API",
+        "Claude API",
+        "Vercel/Netlify"
+      ],
+      "modules": [
+        {
+          "module_name": "<span style='display:inline-block;background:#FDECEE;color:#EE3E4C;font-weight:800;font-size:11px;padding:2px 8px;border-radius:5px;'>3주차</span> <span style='font-size:11px;font-weight:600;color:#666;'>온라인</span><div style='font-size:11px;color:#8a8a8a;margin-top:8px;line-height:1.6;'>8/12(수)<br>20:00~22:00</div>",
+          "title": "UI 구성 기초",
+          "duration": "2H",
+          "items": [
+            "레이아웃·컴포넌트 개념 (비전공자용 최소 설명)",
+            "AI에게 UI를 요청하기 위해 알아야 할 핵심 개념"
+          ]
+        },
+        {
+          "module_name": "<span style='display:inline-block;background:#FDECEE;color:#EE3E4C;font-weight:800;font-size:11px;padding:2px 8px;border-radius:5px;'>3주차</span> <span style='font-size:11px;font-weight:600;color:#666;'>대면</span><div style='font-size:11px;color:#8a8a8a;margin-top:8px;line-height:1.6;'>8/14(금)<br>18:00~21:00</div>",
+          "title": "메인 화면 빌드 실습",
+          "duration": "3H",
+          "items": [
+            "내 MVP의 메인 화면 집중 빌드 (핵심 기능 1개 우선)",
+            "컴포넌트 배치·반응형·색상 등 UI 다듬기 프롬프트 반복",
+            "실습 주제 예시 : 서비스 메인페이지·핵심 기능 화면 구현"
+          ]
+        },
+        {
+          "module_name": "<span style='display:inline-block;background:#FDECEE;color:#EE3E4C;font-weight:800;font-size:11px;padding:2px 8px;border-radius:5px;'>4주차</span> <span style='font-size:11px;font-weight:600;color:#666;'>온라인</span><div style='font-size:11px;color:#8a8a8a;margin-top:8px;line-height:1.6;'>8/19(수)<br>20:00~22:00</div>",
+          "title": "데이터 연동 기초",
+          "duration": "2H",
+          "items": [
+            "데이터베이스 개념과 API 연동 기초 (비유 중심 설명)",
+            "\"사용자가 입력 → 저장 → 조회\" 흐름 이해"
+          ]
+        },
+        {
+          "module_name": "<span style='display:inline-block;background:#FDECEE;color:#EE3E4C;font-weight:800;font-size:11px;padding:2px 8px;border-radius:5px;'>4주차</span> <span style='font-size:11px;font-weight:600;color:#666;'>대면</span><div style='font-size:11px;color:#8a8a8a;margin-top:8px;line-height:1.6;'>8/22(토)<br>10:00~15:00</div>",
+          "title": "데이터 입출력 기능 구현",
+          "duration": "5H",
+          "items": [
+            "내 MVP에 데이터 저장소 연결 (폼 입력 → 저장)",
+            "저장 데이터 목록 조회·상세 보기·수정/삭제 흐름 구현",
+            "입력 검증·빈 값 처리 등 기본 예외 처리",
+            "중간 점검 시연 및 동료 크로스 리뷰",
+            "실습 주제 예시 : 게시판 등록/조회, 설문 응답 수집, 예약 기능 구현"
+          ]
+        },
+        {
+          "module_name": "<span style='display:inline-block;background:#FDECEE;color:#EE3E4C;font-weight:800;font-size:11px;padding:2px 8px;border-radius:5px;'>5주차</span> <span style='font-size:11px;font-weight:600;color:#666;'>온라인</span><div style='font-size:11px;color:#8a8a8a;margin-top:8px;line-height:1.6;'>8/26(수)<br>20:00~22:00</div>",
+          "title": "AI API 연동과 기능 설계",
+          "duration": "2H",
+          "items": [
+            "AI 연동으로 확장되는 기능 및 AI의 한계",
+            "ChatGPT/Claude API 연동 개념"
+          ]
+        },
+        {
+          "module_name": "<span style='display:inline-block;background:#FDECEE;color:#EE3E4C;font-weight:800;font-size:11px;padding:2px 8px;border-radius:5px;'>5주차</span> <span style='font-size:11px;font-weight:600;color:#666;'>대면</span><div style='font-size:11px;color:#8a8a8a;margin-top:8px;line-height:1.6;'>8/29(토)<br>10:00~15:00</div>",
+          "title": "MVP에 AI 기능 통합 실습",
+          "duration": "5H",
+          "items": [
+            "API 키 연결 및 첫 AI 호출 성공시키기",
+            "내 MVP에 AI 기능 1개 직접 통합 (입력→AI 처리→화면 출력)",
+            "프롬프트 튜닝으로 AI 응답 품질·형식 조정",
+            "오류·응답 지연 등 예외 상황 대응",
+            "실습 주제 예시 : 챗봇 상담, 텍스트 자동 요약, 콘텐츠 추천 기능 구현"
+          ]
+        },
+        {
+          "module_name": "<span style='display:inline-block;background:#FDECEE;color:#EE3E4C;font-weight:800;font-size:11px;padding:2px 8px;border-radius:5px;'>6주차</span> <span style='font-size:11px;font-weight:600;color:#666;'>온라인</span><div style='font-size:11px;color:#8a8a8a;margin-top:8px;line-height:1.6;'>9/2(수)<br>20:00~22:00</div>",
+          "title": "UX 개선과 배포 개념",
+          "duration": "2H",
+          "items": [
+            "UX 개선 체크리스트 (접근성·가독성·반응속도)",
+            "Vercel/Netlify 배포 개념 및 사전 준비"
+          ]
+        },
+        {
+          "module_name": "<span style='display:inline-block;background:#FDECEE;color:#EE3E4C;font-weight:800;font-size:11px;padding:2px 8px;border-radius:5px;'>6주차</span> <span style='font-size:11px;font-weight:600;color:#666;'>대면</span><div style='font-size:11px;color:#8a8a8a;margin-top:8px;line-height:1.6;'>9/5(토)<br>10:00~15:00</div>",
+          "title": "버그 수정 및 서비스 배포 실습",
+          "duration": "5H",
+          "items": [
+            "동료 크로스 테스트로 버그 목록화 및 우선순위 수정",
+            "UX 체크리스트 기반 화면·문구·반응속도 개선",
+            "Vercel/Netlify로 실제 접속 가능한 URL 배포",
+            "배포 후 모바일/PC 환경 동작 테스트 및 최종 UI 다듬기",
+            "실습 주제 예시 : 배포 URL 공유, 크로스 브라우저 점검"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "03",
+      "track_name": "Launch",
+      "course_title": "발표 스토리텔링과 데모데이 런칭",
+      "duration": "12H",
+      "tools": [
+        "Vercel/Netlify"
+      ],
+      "modules": [
+        {
+          "module_name": "<span style='display:inline-block;background:#FDECEE;color:#EE3E4C;font-weight:800;font-size:11px;padding:2px 8px;border-radius:5px;'>7주차</span> <span style='font-size:11px;font-weight:600;color:#666;'>온라인</span><div style='font-size:11px;color:#8a8a8a;margin-top:8px;line-height:1.6;'>9/9(수)<br>20:00~22:00</div>",
+          "title": "발표 스토리텔링 설계",
+          "duration": "2H",
+          "items": [
+            "발표 구조(문제→솔루션→데모→임팩트) 설계",
+            "AI를 이용한 효과적인 발표 장표 제작"
+          ]
+        },
+        {
+          "module_name": "<span style='display:inline-block;background:#FDECEE;color:#EE3E4C;font-weight:800;font-size:11px;padding:2px 8px;border-radius:5px;'>7주차</span> <span style='font-size:11px;font-weight:600;color:#666;'>대면</span><div style='font-size:11px;color:#8a8a8a;margin-top:8px;line-height:1.6;'>9/12(토)<br>10:00~15:00</div>",
+          "title": "데모 리허설과 MVP 마무리",
+          "duration": "5H",
+          "items": [
+            "MVP 최종 기능 점검 및 마무리 보완",
+            "실시간 데모 시나리오 작성 및 예상 질의 대비",
+            "스크린샷·시연 영상 캡처 등 포트폴리오 자료 확보"
+          ]
+        },
+        {
+          "module_name": "<span style='display:inline-block;background:#FDECEE;color:#EE3E4C;font-weight:800;font-size:11px;padding:2px 8px;border-radius:5px;'>8주차</span> <span style='font-size:11px;font-weight:600;color:#666;'>대면</span><div style='font-size:11px;color:#8a8a8a;margin-top:8px;line-height:1.6;'>9/19(토)<br>10:00~13:00</div>",
+          "title": "데모데이 발표회",
+          "duration": "3H",
+          "items": [
+            "전원 발표 + 실시간 데모"
+          ]
+        },
+        {
+          "module_name": "<span style='display:inline-block;background:#FDECEE;color:#EE3E4C;font-weight:800;font-size:11px;padding:2px 8px;border-radius:5px;'>8주차</span> <span style='font-size:11px;font-weight:600;color:#666;'>온라인</span><div style='font-size:11px;color:#8a8a8a;margin-top:8px;line-height:1.6;'>9/30(수)<br>20:00~22:00</div>",
+          "title": "성과교류회 산출물 발표 전 강사 피드백",
+          "duration": "2H",
+          "items": [
+            "10월 성과교류회 제출용 산출물 최종 점검 피드백",
+            "발표 자료·데모 시나리오 리허설 및 강사 개별 피드백"
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "<ul style=\"margin:0; padding-left:20px; line-height: 1.9;\"><li>수강생 1인 1개 MVP 웹 서비스 (실제 접속 가능한 배포 URL 포함)</li><li>데모데이 발표 자료 (문제정의 → 솔루션 → 데모 시나리오 포함)</li><li>MVP 기획서 (아이디어 배경, 와이어프레임, 핵심 기능 정의)</li></ul>",
+  "show_instructors": true,
+  "instructors": [
+    {
+      "category": "비개발자 과정",
+      "name": "손*미",
+      "headline": "바이브코딩·AI 서비스 MVP / 생성형 AI 실무 교육 전문",
+      "bio": "AI 비즈니스 컨설팅과 데이터·AI 개발 역량을 함께 갖춘 실무형 강사입니다. Copilot·ChatGPT 기반 기업교육, 데이터/AI 부트캠프 코칭, AI 챗봇·RAG 서비스 구축 경험을 바탕으로 비전공 청년이 아이디어를 실제 웹 서비스로 구현하는 과정을 단계적으로 안내할 수 있습니다. Cursor·Next.js·Supabase·ChatGPT 서비스 구축 관련 교육 콘텐츠와 실습형 문제 출제 경험도 있어, 바이브코딩 기반 MVP 제작 과정에 적합합니다.",
+      "expertise": [
+        "바이브코딩·AI 서비스 MVP",
+        "ChatGPT·Claude API",
+        "Cursor·Next.js 웹앱",
+        "Copilot 업무자동화",
+        "데이터·AI 멘토링"
+      ],
+      "experience": [
+        "프리랜서 AI 강사 및 멘토로 메타코드·엘리스·팀스파르타·코드잇·패스트캠퍼스·네이버커넥트재단 등에서 생성형 AI·데이터/AI 교육 진행",
+        "KT 본사 Copilot 활용 마케팅 강의, 2025 SK 신입사원 genAI 교육, 에스티로더 코리아·메트라이프생명·SK브로드밴드 Copilot 비즈니스 실무 강의 진행",
+        "Cursor 기반 웹앱 개발, ChatGPT 서비스 구축, 프롬프트 엔지니어링, 생성형 이미지 분야 등 KDC 11개 과정 객관식·실습형 문제 출제",
+        "엘리스 인공지능 트랙 데이터/AI 코치 및 코드잇 데이터 애널리스트 과정 멘토로 MySQL·머신러닝·딥러닝·컴퓨터비전·데이터 실무 코칭",
+        "Next.js·OpenAI API·Modular RAG 기반 다국어 AICC 챗봇 기획·구축 및 쇼핑몰 도메인 맞춤형 LLM 챗봇 구축 녹화강의 교안 준비"
+      ],
+      "metrics": [
+        {
+          "value": "4.9/5.0",
+          "label": "강의만족도"
+        },
+        {
+          "value": "250H",
+          "label": "멘토링"
+        },
+        {
+          "value": "8종",
+          "label": "보유자격"
+        }
+      ]
+    },
+    {
+      "category": "비개발자 과정",
+      "name": "송*호",
+      "headline": "비전공자 AI 입문·바이브코딩 / 데이터 리터러시 교육 전문",
+      "bio": "신문방송학 박사이자 인천대학교 정보기술대학원 강사로, 미디어·데이터 분석 관점에서 AI를 쉽게 풀어내는 교육 경험을 보유하고 있습니다. 현재 직장인 대상 LLM 프롬프트 엔지니어링과 데이터 분석을 위한 바이브코딩을 강의하고 있으며, 청소년·대학생·일반인 대상 빅데이터·AI 입문 강의를 다수 진행했습니다. 비전공자로 AI를 학습해온 경험을 바탕으로, 코딩 경험이 없는 청년이 기술에 대한 두려움을 낮추고 직접 결과물을 만드는 과정에 적합합니다.",
+      "expertise": [
+        "비전공자 AI 입문",
+        "바이브코딩·데이터분석",
+        "LLM 프롬프트",
+        "ChatGPT 활용",
+        "미디어 데이터 리터러시"
+      ],
+      "experience": [
+        "인천대학교 정보기술대학원 강사로 직장인 대상 LLM 프롬프트 엔지니어링과 데이터 분석을 위한 바이브코딩 강의 진행",
+        "(주)더아이엠씨 빅데이터·인공지능 전문강사 및 인천대학교 정보기술대학원 강사로 활동",
+        "인천시청자미디어센터 '빅데이터로 보는 미디어' 강의 총 96시간 및 '빅데이터와 AI를 활용한 강의역량 강화' 강의 진행",
+        "ChatGPT 활용, 생성형 AI로 미디어 콘텐츠 제작하기, AI를 활용한 글쓰기, 인공지능과 친해질 수 있을까 등 공공·교육기관 AI 강의 진행",
+        "서울시립청소년드림센터 인공지능 교육 18시간, 초·중·고·대학 및 청소년센터 대상 빅데이터·AI·텍스트마이닝 강의 다수 진행"
+      ],
+      "metrics": [
+        {
+          "value": "96H",
+          "label": "미디어강의"
+        },
+        {
+          "value": "18H",
+          "label": "청소년AI"
+        },
+        {
+          "value": "박사",
+          "label": "전공학위"
+        }
+      ]
+    }
+  ]
+}

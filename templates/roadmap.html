@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<style>{{ css }}</style>
+</head>
+<body>
+
+<div class="header">
+    <div class="header-text">모두의연구소 AI교육 커리큘럼 2026</div>
+    <h1 class="title">{{ data.title }}</h1>
+    <p class="subtitle">{{ data.subtitle }}</p>
+</div>
+
+<div class="info-grid">
+    <div class="info-box"><div class="info-label">키워드 구분</div><div class="info-value">{{ data.info.keyword }}</div></div>
+    <div class="info-box"><div class="info-label">AX 적용 단계</div><div class="info-value">{{ data.info.ax_stage }}</div></div>
+    <div class="info-box"><div class="info-label">권장 수강 대상</div><div class="info-value">{{ data.info.target }}</div></div>
+    <div class="info-box"><div class="info-label">총 시간</div><div class="info-value">{{ data.info.duration }}</div></div>
+</div>
+
+<div class="section-title"><span class="section-num">01</span>과정 소개</div>
+<div class="content-box">{{ data.intro }}</div>
+
+<div class="section-title"><span class="section-num">02</span>교육 목표</div>
+<div class="content-box">{{ data.objective }}</div>
+
+<div style="display: flex; gap: 40px; page-break-inside: avoid; break-inside: avoid;">
+    <div style="flex: 1;">
+        <div class="section-title"><span class="section-num">03</span>핵심 기술</div>
+        <div class="tech-container">
+            {% for t in data.tech_stack %}<div class="tech-badge">{{ t }}</div>{% endfor %}
+        </div>
+    </div>
+    <div style="flex: 1.2;">
+        <div class="section-title"><span class="section-num">04</span>필요 인프라</div>
+        <div class="infra-box">
+            <ul>{% for i in data.infrastructure %}<li><span>{{ i }}</span></li>{% endfor %}</ul>
+        </div>
+    </div>
+</div>
+
+<div class="section-title"><span class="section-num">05</span>상세 로드맵</div>
+{% for step in data.steps %}
+<div class="module-box">
+    <div class="module-left">
+        <div class="module-label">STEP {{ loop.index }}</div>
+        <div class="module-name">{{ step.step_name | replace(' (', '<br><span style="font-size: 13px; color: #777; font-weight: 500;">(') | replace(')', ')</span>') }}</div>
+    </div>
+    <div class="module-right">
+        <ul>{% for item in step['items'] %}<li><span>{{ item }}</span></li>{% endfor %}</ul>
+    </div>
+    <div class="module-hours">{{ step.duration }}</div>
+</div>
+{% endfor %}
+
+<div style="page-break-inside: avoid; break-inside: avoid;">
+    <div class="section-title"><span class="section-num">06</span>예상 산출물</div>
+    <div class="content-box">{{ data.output }}</div>
+</div>
+
+{% if data.annual_plan is defined %}
+<div style="page-break-inside: avoid; break-inside: avoid; margin-top: -10px;">
+    <div class="section-title"><span class="section-num">07</span>연간 계획 제안</div>
+    <table class="plan-table">
+        <tr>
+            <th style="width: 9%;">일정</th>
+            <th style="width: 13%;">단계</th>
+            <th style="width: 40%;">핵심 활동</th>
+            <th style="width: 38%;">연계 흐름</th>
+        </tr>
+        {% for ap in data.annual_plan %}
+        <tr>
+            <td class="plan-month">{{ ap.month }}</td>
+            <td class="plan-title">{{ ap.phase }}</td>
+            <td>{{ ap.content }}</td>
+            <td style="color: #EE3E4C; font-size: 12px;">{{ ap.linkage }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endif %}
+
+{% if data.cases is defined %}
+<div style="page-break-inside: avoid; break-inside: avoid;">
+    <div class="section-title"><span class="section-num">{% if data.annual_plan is defined %}08{% else %}07{% endif %}</span>유사 교육 사례 및 성과</div>
+    <table class="plan-table">
+        <tr>
+            <th style="width: 14%;">고객사</th>
+            <th style="width: 24%;">교육 프로그램</th>
+            <th style="width: 41%;">핵심 내용 및 성과</th>
+            <th style="width: 21%;">본 제안 연계</th>
+        </tr>
+        {% for c in data.cases %}
+        <tr>
+            <td class="plan-title">{{ c.client }}</td>
+            <td style="font-size: 12px;">{{ c.program }}</td>
+            <td style="font-size: 12px;">{{ c.highlight }}</td>
+            <td style="color: #EE3E4C; font-size: 12px;">{{ c.linkage }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endif %}
+
+{% if data.schedule_message %}
+<div style="page-break-inside: avoid; break-inside: avoid;">
+    <div class="section-title"><span class="section-num">{% if data.annual_plan is defined and data.cases is defined %}09{% elif data.annual_plan is defined or data.cases is defined %}08{% else %}07{% endif %}</span>{{ data.section_07_title | default('일정 협의 안내') }}</div>
+    <div class="schedule-placeholder">{{ data.schedule_message }}</div>
+</div>
+{% endif %}
+
+{% if data.vod_proposal is defined %}
+<div style="page-break-inside: avoid; break-inside: avoid;">
+    <div class="section-title"><span class="section-num">08</span>VOD 과정 제안</div>
+    
+    <div class="module-box">
+        <div class="module-left">
+            <div class="module-label">추천</div>
+            <div class="module-name">연구원 전용 맞춤형 VOD 제작<br><span style="font-size: 11px; color: #777;">(과정임대형)</span></div>
+        </div>
+        <div class="module-right">
+            <div style="font-size: 13px; margin-bottom: 12px; line-height: 1.6; color: #555;">{{ data.vod_proposal.custom.reason }}</div>
+            <div style="font-size: 13px; font-weight: 700; color: #111; margin-bottom: 6px;">[맞춤형 커리큘럼 구성안]</div>
+            <ul style="margin: 0; padding-left: 18px;">
+                {% for module in data.vod_proposal.custom.modules -%}
+                <li style="margin-bottom: 2px; font-size: 13px; color: #EE3E4C;"><span style="color: #333;">{{ module }}</span></li>
+                {%- endfor %}
+            </ul>
+        </div>
+        <div class="module-hours">8H</div>
+    </div>
+
+    <div class="module-box">
+        <div class="module-left">
+            <div class="module-label">대안</div>
+            <div class="module-name">기존 우수 VOD 활용<br><span style="font-size: 11px; color: #777;">(무료 제공 가능)</span></div>
+        </div>
+        <div class="module-right">
+            <div style="font-size: 13px; margin-bottom: 8px; line-height: 1.6;"><strong style="color: #111;">추천 과정:</strong> {{ data.vod_proposal.secondary.course }}</div>
+            <div style="font-size: 13px; line-height: 1.6;"><strong style="color: #111;">추천 사유:</strong> {{ data.vod_proposal.secondary.reason }}</div>
+        </div>
+        <div class="module-hours">무료</div>
+    </div>
+</div>
+{% endif %}
+
+<div class="footer">
+    &copy; 2026 MODULABS - 모두의연구소 AI 기업교육 커리큘럼
+</div>
+
+</body>
+</html>

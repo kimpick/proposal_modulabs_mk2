@@ -1,0 +1,188 @@
+Sheet: 레퍼런스
+Columns: ['Unnamed: 0', '유입경로', '상태', '구분', 'ID', '기업유형', '고객사', '사업명', '직무 과정', '협의예산 (VAT별도)', '총 시간', '시간당 예산', '사업 시작일', '사업 종료일', '계약 월', '정산 월', '생성 일시', '업종 (산업군)', '교육대상', 'URL', 'Unnamed: 20']
+Shape: (75, 21)
+---
+Sheet: 전체 커리큘럼
+Columns: ['No', '코드', '세부 코드', '시트 링크', '최종 소개서', '키워드 구분', '과정 명', '권장 대상', 'AX 단계', '소요 시간', '작성자', '대표 사례', '레퍼런스 기업', '업종', '교육대상', '제작년도', '소개서', '상세 키워드', '추가 제안', '사업 url', '비고']
+Shape: (997, 21)
+---
+Sheet: 양식
+Columns: ['Unnamed: 0', 'Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4', 'Unnamed: 5', 'Unnamed: 6']
+Shape: (48, 7)
+---
+Sheet: 양식(생-전-1-007)
+Columns: ['Unnamed: 0', 'Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4', 'Unnamed: 5', 'Unnamed: 6']
+Shape: (79, 7)
+---
+Sheet: 자-관-3-001
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (24, 5)
+---
+Sheet: R-개-4-001
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (31, 5)
+---
+Sheet: 생-전-1-007
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (37, 5)
+---
+Sheet: 생-관-1-001
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (22, 5)
+---
+Sheet: 생-전-1-006
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (23, 5)
+---
+Sheet: R-개-2-003
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (25, 5)
+---
+Sheet: 자-전-1-002
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (24, 5)
+---
+Sheet: 기-개-2-002
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (24, 5)
+---
+Sheet: 바-전-1-002
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (26, 5)
+---
+Sheet: 생-전-1-005
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (32, 5)
+---
+Sheet: 기-개-2-001
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4', 'Unnamed: 5', 'Unnamed: 6', 'Unnamed: 7', 'Unnamed: 8', 'Unnamed: 9']
+Shape: (33, 10)
+---
+Sheet: 생-전-2-004
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (25, 5)
+---
+Sheet: 자-전-1-001
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4', 'Unnamed: 5', 'Unnamed: 6', 'Unnamed: 7', 'Unnamed: 8', 'Unnamed: 9']
+Shape: (25, 10)
+---
+Sheet: 샘플
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4', 'Unnamed: 5', 'Unnamed: 6', 'Unnamed: 7', 'Unnamed: 8', 'Unnamed: 9']
+Shape: (25, 10)
+---
+Sheet: 생-전-1-004
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4', 'Unnamed: 5', 'Unnamed: 6', 'Unnamed: 7', 'Unnamed: 8', 'Unnamed: 9']
+Shape: (23, 10)
+---
+Sheet: 자-개-4-001
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (49, 5)
+---
+Sheet: R-개-3-001
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (25, 5)
+---
+Sheet: R-개-2-002
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (25, 5)
+---
+Sheet: 기-전-2-001
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (33, 5)
+---
+Sheet: 바-개-1-001
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (21, 5)
+---
+Sheet: 바-대-1-001
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (22, 5)
+---
+Sheet: 바-전-3-001
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (34, 5)
+---
+Sheet: 바-전-2-002
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (43, 5)
+---
+Sheet: 생-전-1-001
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (40, 5)
+---
+Sheet: 생-전-1-002
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (20, 5)
+---
+Sheet: 생-전-1-003
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (20, 5)
+---
+Sheet: 생-전-2-001
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (24, 5)
+---
+Sheet: 생-전-2-002
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (25, 5)
+---
+Sheet: 생-전-2-003
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (20, 5)
+---
+Sheet: 자-개-2-001
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (30, 5)
+---
+Sheet: 바-전-1-001
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (20, 5)
+---
+Sheet: 바-전-2-001
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (23, 5)
+---
+Sheet: R-개-2-001
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (22, 5)
+---
+Sheet: R-전-1
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (21, 5)
+---
+Sheet: 마케팅
+Columns: ['Unnamed: 0', '교육 개요', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (22, 5)
+---
+Sheet: 경영
+Columns: ['`', 'Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (32, 5)
+---
+Sheet: HR인재양성 직무
+Columns: ['`', 'Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (26, 5)
+---
+Sheet: 고객서비스
+Columns: ['`', 'Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (97, 5)
+---
+Sheet: 행정공공 서비스
+Columns: ['`', 'Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (16, 5)
+---
+Sheet: 생산제조
+Columns: ['Unnamed: 0', 'Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (16, 5)
+---
+Sheet: 교통물류
+Columns: ['Unnamed: 0', 'Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (16, 5)
+---
+Sheet: 건설건축
+Columns: ['`', 'Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (16, 5)
+---
+Sheet: 보안
+Columns: ['Unnamed: 0', 'Unnamed: 1', 'Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4']
+Shape: (16, 5)
+---

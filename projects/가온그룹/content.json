@@ -1,0 +1,199 @@
+{
+  "title": "Claude Skills와 컨텍스트 엔지니어링 기반 AI Agent 실전 과정",
+  "subtitle": "가온그룹 임직원을 위한 Claude 업무 자동화, Skills 자산화, Claude Code 기반 Agent 프로토타입 구현 워크숍",
+  "pdf_title": "Claude Skills_AI Agent 실전 과정",
+  "course_code": "",
+  "author": "이은경",
+  "info": {
+    "keyword": "Claude Skills / AI Agent",
+    "ax_stage": "Level 3 — 업무 자동화 및 Agent 구현",
+    "target": "가온그룹 기획·영업·마케팅·개발·기술지원 실무자",
+    "duration": "총 16시간"
+  },
+  "intro": "본 과정은 Claude를 기반으로 직무별 반복 업무를 자동화하고, 생성형 AI 활용 역량을 실무 자산으로 전환하는 중급 교육 과정입니다. 비개발자 트랙은 마케팅·영업·경영지원 직군을 대상으로 Claude Projects, Deep Research, Artifacts, Skills를 활용하여 리서치, 보고서 작성, 고객 커뮤니케이션, 제안서 초안 작성 등 반복 업무를 자동화하는 방법을 실습합니다.\n\n개발자 트랙은 SW·플랫폼·QA 엔지니어를 대상으로 Claude Code, CLAUDE.md, SKILL.md, MCP를 활용한 컨텍스트 엔지니어링과 AI Agent 구현 역량을 강화하는 과정입니다. 수강생은 프로젝트 맥락 설계, 커스텀 Skill 구현, MCP 연동을 통해 PR 자동 리뷰, 기술 문서 생성, QA 테스트 자동화, 릴리즈 노트 생성 등 개발 현장에 적용 가능한 AI Agent 프로토타입을 완성합니다.",
+  "objective": "Claude 기반 업무 자동화와 Skills 제작 역량을 확보하고, CLAUDE.md·SKILL.md·MCP를 조합해 가온그룹 실무 맥락에 맞는 AI Agent 프로토타입을 설계·구현합니다.",
+  "tech_stack": [
+    "Claude",
+    "Claude Projects",
+    "Deep Research",
+    "Artifacts",
+    "Claude Skills",
+    "Claude Code",
+    "CLAUDE.md",
+    "SKILL.md",
+    "MCP"
+  ],
+  "infrastructure": [
+    "개인 노트북 및 안정적인 인터넷 접속 환경",
+    "Claude Pro 또는 Team 플랜 등 Claude Skills와 Projects 실습이 가능한 계정",
+    "Claude Code 설치 가능 환경(macOS, Linux, Windows WSL 권장)",
+    "실습용 샘플 문서: 제품 스펙, 시장 리서치 자료, 보고서 템플릿, 기술 문서 샘플",
+    "MCP 실습을 위한 GitHub 또는 로컬 파일시스템 접근 권한(사내 보안정책에 따라 조정)"
+  ],
+  "tracks": [
+    {
+      "track_id": "01",
+      "track_name": "Claude 기반 업무 자동화와 Skills 활용",
+      "course_title": "Claude 핵심 기능으로 반복 업무를 자동화 자산으로 전환",
+      "target": "기획·영업·마케팅·기술지원 등 문서·리서치·커뮤니케이션 업무 담당자",
+      "duration": "8H",
+      "tools": [
+        "Claude Projects",
+        "Deep Research",
+        "Artifacts",
+        "Claude Skills"
+      ],
+      "modules": [
+        {
+          "module_name": "생성형 AI 심화와 Claude 핵심 기능",
+          "duration": "2H",
+          "items": [
+            "생성형 AI 최신 동향과 업무 적용 프레임워크",
+            "Claude Projects·Deep Research·Artifacts 기능별 실무 활용법",
+            "실습 주제 예시: 글로벌 방송통신 시장 트렌드 리서치 자동화, 경쟁사 동향 보고서 생성"
+          ]
+        },
+        {
+          "module_name": "직무별 프롬프트 설계와 워크플로우 구성",
+          "duration": "2H",
+          "items": [
+            "고급 프롬프트 설계: 역할·맥락·제약·출력 구조",
+            "업무 맥락 기반 반복 업무 식별 및 자동화 대상 선정",
+            "실습 주제 예시: 다국어 고객 커뮤니케이션 초안 생성, 제품 스펙 기반 제안서 초안 작성"
+          ]
+        },
+        {
+          "module_name": "Claude Skills로 반복 업무 자산화",
+          "duration": "2H",
+          "items": [
+            "Claude Skills 개념과 구조 이해: SKILL.md 기반 작업 정의",
+            "Skill Creator를 활용한 나만의 업무 Skill 제작 실습",
+            "실습 주제 예시: 주간 보고서 자동 생성 Skill, 전시회 브리핑 자료 작성 Skill"
+          ]
+        },
+        {
+          "module_name": "팀별 AI 업무 혁신 아이디어톤",
+          "duration": "2H",
+          "items": [
+            "팀별 업무 자동화 시나리오 설계 및 Skill 워크플로우 완성",
+            "팀별 결과 발표 및 상호 피드백",
+            "실습 주제 예시: 영업 파이프라인 관리 자동화, 사내 기술 문서 검색·요약 Skill"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "02",
+      "track_name": "컨텍스트 엔지니어링 기반 AI Agent 구현",
+      "course_title": "CLAUDE.md·SKILL.md·MCP를 조합한 실무 Agent 프로토타입 제작",
+      "target": "개발·DX·기술기획·QA·운영 자동화 담당자 및 Agent 구현 관심 실무자",
+      "duration": "8H",
+      "tools": [
+        "Claude Code",
+        "CLAUDE.md",
+        ".claude/rules",
+        "REVIEW.md",
+        "SKILL.md",
+        "MCP",
+        "Subagents",
+        "Hooks",
+        "Claude Agent SDK",
+        "GitHub Actions"
+      ],
+      "modules": [
+        {
+          "module_name": "Agentic Coding 아키텍처와 코드베이스 컨텍스트 설계",
+          "duration": "2H",
+          "items": [
+            "Claude Code의 Agent Loop, Tool Use, Session, Context Window 구조 이해",
+            "CLAUDE.md, .claude/rules, REVIEW.md를 활용한 프로젝트 맥락·코딩 컨벤션·리뷰 기준 설계",
+            "실습 주제 예시: 레거시 코드베이스 분석용 컨텍스트 맵 작성, 팀 개발 규칙 파일 구성"
+          ]
+        },
+        {
+          "module_name": "커스텀 MCP 서버 구현과 도구 권한 설계",
+          "duration": "2H",
+          "items": [
+            "MCP Resources·Tools·Prompts 구조와 서버-클라이언트 아키텍처 이해",
+            "내부 API, DB, GitHub, 이슈트래커와 연동되는 커스텀 MCP 서버 구현",
+            "권한 범위, 입력 검증, 에러 처리, 민감정보 보호 기준 설계",
+            "실습 주제 예시: GitHub Issue 기반 작업 분석 MCP Tool, 테스트 데이터 조회 MCP Tool 구현"
+          ]
+        },
+        {
+          "module_name": "Subagents·Skills·Hooks 기반 개발 워크플로우 자동화",
+          "duration": "2H",
+          "items": [
+            "코드 리뷰, 테스트 생성, 리팩터링, 문서화 목적별 Subagent 설계",
+            "SKILL.md 기반 반복 개발 절차 자산화",
+            "Hooks를 활용한 사전 승인, 테스트 실행, 위험 명령 차단, 로그 기록 자동화",
+            "실습 주제 예시: PR 리뷰 Subagent, 테스트 실행 Hook, 기술 문서 생성 Skill 구성"
+          ]
+        },
+        {
+          "module_name": "Agent SDK 기반 CI/CD 통합과 운영 검증 해커톤",
+          "duration": "2H",
+          "items": [
+            "Claude Agent SDK를 활용한 자동화 Agent 실행 구조 설계",
+            "GitHub Actions 또는 GitLab CI/CD 연동을 통한 PR 리뷰·테스트·릴리즈 자동화",
+            "토큰·비용 추적, 실행 로그, OpenTelemetry 기반 관측성 설계",
+            "최종 실습 주제 예시: QA 테스트 자동화 Agent, 릴리즈 노트 생성 Agent, PR 자동 리뷰 Agent 구현 및 데모"
+          ]
+        }
+      ]
+    }
+  ],
+  "instructors": [
+    {
+      "category": "개발자 과정",
+      "name": "소*섭",
+      "headline": "딥러닝·LLM / 생성형 AI 모델 개발 교육 전문",
+      "bio": "ML Engineer이자 Blue Penguin CEO로 딥러닝 강의와 개발을 수행해 온 실무형 강사입니다. LG AI Research, Pangpany, Neutune, Pozalabs 등에서 생성 모델, 이상탐지, 소스 분리, AI 음악 생성 모델 연구·개발 경험을 보유했습니다. LLM with LangChain, Stable Diffusion, 딥러닝 프로젝트, 컴퓨터비전 강의 경험이 있어 개발자 트랙의 Agentic Coding과 AI 구현 실습을 기술적으로 뒷받침할 수 있습니다.",
+      "expertise": [
+        "LLM·LangChain",
+        "딥러닝 프로젝트",
+        "생성모델·Stable Diffusion",
+        "컴퓨터비전",
+        "Python·PyTorch"
+      ],
+      "experience": [
+        "Multi Campus LLM with LangChain 강의 수행",
+        "KT Research Center Stable Diffusion 강의 수행",
+        "Seegene·Samsung Display 딥러닝 기초 및 프로젝트 강의 수행",
+        "LG AI Research에서 AI Loop Music Generation Models 및 AI Human 프로젝트 참여",
+        "MODULABS Rubato Lab에서 Music Information Retrieval 연구 수행"
+      ],
+      "metrics": [
+        { "value": "8.9", "label": "강의 만족도" },
+        { "value": "80", "label": "NPS" }
+      ]
+    },
+    {
+      "category": "비개발자 과정",
+      "name": "엄*호",
+      "headline": "RAG·AI Agent / 프롬프트 엔지니어링 교육 전문",
+      "bio": "모두의연구소 리서처로 IT·AI 교육 콘텐츠 제작과 관리를 담당했고, 현재 프리랜서 강사로 기업 AI 교육을 수행하고 있습니다. RAG 챗봇 개발, 고급 프롬프트 엔지니어링, AI Agent, LLM 핵심 이해와 적용, 데이터엔지니어링 강의 경험이 풍부합니다. 가온그룹 개발자·실무자 대상 과정에서 RAG, Agent, LangChain·LangGraph·LlamaIndex 기반 실습을 안정적으로 이끌 수 있습니다.",
+      "expertise": [
+        "RAG 챗봇 개발",
+        "AI Agent",
+        "프롬프트 엔지니어링",
+        "LangChain·LangGraph",
+        "데이터엔지니어링"
+      ],
+      "experience": [
+        "LG전자 RAG를 활용한 챗봇 개발 21시간 강의 수행",
+        "ETRI·LG전자 고급 프롬프트 엔지니어링(PE, RAG, AI Agent) 강의 수행",
+        "카카오 LLM 핵심 이해와 적용(GPTs, ChatGPT API, RAG, LlamaIndex) 10회 강의 수행",
+        "K-디지털 트레이닝 교강사 대상 딥러닝·LLM 80시간 강의 수행",
+        "모두의연구소 리서처로 IT·AI 교육 콘텐츠 제작 및 관리 수행"
+      ],
+      "metrics": [
+        { "value": "8.8", "label": "강의 만족도" },
+        { "value": "80", "label": "NPS" }
+      ]
+    }
+  ],
+  "output": "<ul style=\"margin:0; padding-left:20px; line-height:1.9;\"><li>직무별 Claude 업무 자동화 프롬프트 및 워크플로우 설계안</li><li>팀별 Claude Skill 또는 SKILL.md 기반 업무 자동화 자산</li><li>CLAUDE.md 기반 프로젝트 컨텍스트 문서 초안</li><li>MCP 연동 구조를 포함한 AI Agent 프로토타입 및 데모 시나리오</li></ul>",
+  "schedule_message": "※ 상세 일정과 실습 데이터는 참여 직무, Claude 계정 사용 가능 여부, 사내 보안정책 및 개발 환경 확인 후 조정하여 확정합니다.",
+  "inline_schedule": true
+}

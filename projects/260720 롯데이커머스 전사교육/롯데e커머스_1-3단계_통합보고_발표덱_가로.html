@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>롯데e커머스 전사 AI 교육 — 1~3단계 통합 보고</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+  :root{
+    /* ==== 브랜드 토큰 (고객사에 맞게 --primary 계열만 교체) ==== */
+    --primary:#EE3E4C; --primary-dk:#C92434; --secondary:#EBBAC0;
+    --ink:#111111; --body:#333333; --muted:#6B7280; --faint:#9AA1AC;
+    --border:#EBEBEB; --line:#F0F0F2; --bg:#ffffff; --soft:#FAFAFB; --soft2:#F5F6F8;
+    --blue:#2563EB; --blue-bg:#EEF4FF; --green:#0E9F6E; --green-bg:#E7F6EF;
+    --amber:#B45309; --amber-bg:#FEF3E2; --purple:#7C3AED;
+    --shadow:0 1px 2px rgba(17,17,17,.04),0 10px 30px rgba(17,17,17,.08);
+    --radius:16px;
+    /* ==== 가로 슬라이드 프레임 (16:9) ==== */
+    --slide-w:1280px; --slide-h:720px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;overflow:hidden;background:#0a0c11;
+    font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+
+  /* ==== 무대: 뷰포트에 맞춰 덱을 중앙 정렬·스케일 ==== */
+  .stage{position:fixed;inset:0;display:grid;place-items:center}
+  .deck{position:relative;width:var(--slide-w);height:var(--slide-h);transform-origin:center center;
+    box-shadow:0 20px 60px rgba(0,0,0,.45);border-radius:6px;overflow:hidden;background:var(--bg)}
+
+  /* ==== 슬라이드 (가로 고정 프레임) ==== */
+  .slide{position:absolute;inset:0;width:var(--slide-w);height:var(--slide-h);background:var(--bg);
+    overflow:hidden;opacity:0;pointer-events:none;transform:translateX(24px);
+    transition:opacity .4s ease,transform .4s ease}
+  .slide.is-active{opacity:1;pointer-events:auto;transform:translateX(0)}
+  .fit-frame{position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start}
+  .fit-frame.center{justify-content:center}
+  .fit-content{padding:46px 64px;transform-origin:top center}
+  .fit-frame.center .fit-content{transform-origin:center center}
+
+  /* ==== kicker / 제목 ==== */
+  .sec-num{font-size:12px;font-weight:700;color:var(--faint);letter-spacing:.08em}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;
+    letter-spacing:.04em;color:var(--primary);text-transform:uppercase;margin:8px 0 12px}
+  .kicker::before{content:"";width:22px;height:2px;background:var(--primary);border-radius:2px}
+  h2{font-size:27px;line-height:1.25;color:var(--ink);margin:0 0 8px;font-weight:800;letter-spacing:-.02em}
+  h3{font-size:17px;color:var(--ink);margin:0;font-weight:700}
+  .lead{font-size:14.5px;color:var(--muted);margin:0 0 18px;max-width:920px}
+
+  /* ==== 공통 그리드 ==== */
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .split{display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:center}
+
+  /* ==== 표지 / 맺음말 ==== */
+  .cover{background:radial-gradient(1200px 520px at 82% -12%,#ff5d69 0%,transparent 55%),
+    linear-gradient(135deg,#1a1114 0%,#2a1418 40%,#7a1420 100%);color:#fff}
+  .cover .cover-badge{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:600;
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);padding:8px 15px;border-radius:999px}
+  .cover h1{font-size:46px;line-height:1.18;font-weight:800;margin:22px 0 14px;letter-spacing:-.03em;color:#fff}
+  .cover h1 span{color:#ffd0d4}
+  .cover .sub{font-size:18px;color:rgba(255,255,255,.88);max-width:720px;margin:0 0 30px}
+  .cover-meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-size:13.5px;color:rgba(255,255,255,.72);
+    border-top:1px solid rgba(255,255,255,.18);padding-top:20px}
+  .cover-meta b{color:#fff;font-weight:600}
+  .closing{background:linear-gradient(135deg,#1a1114,#5e1018);color:#fff}
+  .closing h2{color:#fff;font-size:30px}
+  .closing .msg{font-size:17px;color:rgba(255,255,255,.9);max-width:840px;margin:14px 0 26px;line-height:1.55}
+  .closing .sign{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:14px;color:rgba(255,255,255,.75);
+    border-top:1px solid rgba(255,255,255,.2);padding-top:20px}
+  .closing .sign b{color:#fff}
+  .cover .kicker,.closing .kicker{color:#ffd0d4}
+  .cover .kicker::before,.closing .kicker::before{background:#ffd0d4}
+
+  /* ==== KPI ==== */
+  .kpi{background:var(--soft);border:1px solid var(--border);border-radius:14px;padding:20px 18px;text-align:center}
+  .kpi .n{font-size:33px;font-weight:800;color:var(--primary);letter-spacing:-.03em;line-height:1}
+  .kpi .n small{font-size:17px;font-weight:700}
+  .kpi .l{font-size:12.5px;color:var(--muted);margin-top:8px;font-weight:500;line-height:1.35}
+
+  /* ==== 로고 칩 ==== */
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+  .chip{font-size:14px;font-weight:700;color:var(--ink);background:#fff;border:1px solid var(--border);
+    padding:9px 16px;border-radius:10px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  .chip.big{font-size:15px;border-color:#f2c9cd}
+
+  /* ==== 사례 카드 ==== */
+  .case{border:1px solid var(--border);border-radius:14px;padding:20px 22px;background:#fff;position:relative}
+  .case::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:4px;border-radius:4px;background:var(--primary)}
+  .case .ctop{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding-left:14px}
+  .case .co{font-size:18px;font-weight:800;color:var(--ink)}
+  .case .cat{font-size:11.5px;font-weight:700;color:var(--muted);background:var(--soft2);padding:4px 10px;border-radius:999px;white-space:nowrap}
+  .case .desc{font-size:13px;color:var(--body);padding-left:14px;margin:6px 0 12px}
+  .metrics{display:flex;flex-wrap:wrap;gap:9px;padding-left:14px}
+  .metric{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:9px 12px;min-width:92px}
+  .metric .mv{font-size:18px;font-weight:800;color:var(--primary-dk);line-height:1}
+  .metric .ml{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.3}
+  .taglist{padding-left:14px;margin-top:12px;font-size:12px;color:var(--faint)}
+  .taglist b{color:var(--body);font-weight:600}
+
+  /* ==== 레퍼런스 컬럼 ==== */
+  .refcol{background:var(--soft);border:1px solid var(--border);border-radius:14px;padding:16px 18px}
+  .refcol .refhd{font-size:13px;font-weight:800;color:var(--primary);padding-bottom:9px;margin-bottom:5px;border-bottom:2px solid #f4ccd0}
+  .refcol ul{margin:0;padding:0;list-style:none}
+  .refcol li{font-size:13.5px;font-weight:600;color:var(--ink);padding:6px 0;border-bottom:1px solid var(--line)}
+  .refcol li:last-child{border-bottom:none}
+  .refcol li span{font-size:11.5px;color:var(--muted);font-weight:500}
+
+  /* ==== MVP 카드 ==== */
+  .mvp{border:1px solid var(--border);border-radius:14px;padding:16px 18px;background:linear-gradient(180deg,#fff,#fdfafa)}
+  .mvp .mh{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+  .mvp .idx{flex:none;width:28px;height:28px;border-radius:8px;background:var(--ink);color:#fff;
+    font-size:12.5px;font-weight:800;display:grid;place-items:center}
+  .mvp .mt{font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.35}
+  .mvp .row{font-size:12.5px;margin:6px 0;display:flex;gap:8px}
+  .mvp .row .tag{flex:none;font-size:11px;font-weight:700;color:var(--muted);width:38px;padding-top:1px}
+  .mvp .row .val{color:var(--body)}
+  .mvp .row .val.tech{color:var(--blue);font-weight:600}
+  .mvp .row .val.eff{color:var(--green);font-weight:600}
+
+  /* ==== 인용 / 콜아웃 ==== */
+  .quote{background:linear-gradient(135deg,#fff5f6,#fdeef0);border:1px solid #f4ccd0;border-radius:14px;padding:22px 24px;position:relative}
+  .quote .q{font-size:19px;font-weight:800;color:var(--primary-dk);line-height:1.4;letter-spacing:-.02em}
+  .quote .by{font-size:12.5px;color:var(--muted);margin-top:10px}
+  .quote .mark{position:absolute;top:6px;right:20px;font-size:60px;color:#f4ccd0;font-family:Georgia,serif;line-height:1}
+
+  /* ==== 타임라인 (플로우) ==== */
+  .flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+  .step{flex:1;min-width:150px;background:var(--soft);border:1px solid var(--border);border-radius:12px;padding:14px 16px;position:relative}
+  .step + .step{margin-left:26px}
+  .step + .step::before{content:"→";position:absolute;left:-22px;top:50%;transform:translateY(-50%);color:var(--primary);font-weight:800;font-size:18px}
+  .step .st{font-size:11.5px;font-weight:700;color:var(--primary);margin-bottom:4px}
+  .step .sd{font-size:13.5px;color:var(--ink);font-weight:700}
+  .step .ss{font-size:12px;color:var(--muted);margin-top:3px}
+
+  /* ==== 과제 카드 ==== */
+  .task{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px}
+  .task .ti{font-size:22px}
+  .task .tt{font-size:14px;font-weight:700;color:var(--ink);margin:8px 0 4px}
+  .task .td{font-size:12px;color:var(--muted)}
+
+  /* ==== 일반 테이블 ==== */
+  .tbl{width:100%;border-collapse:collapse;font-size:13px}
+  .tbl th{background:var(--ink);color:#fff;text-align:left;padding:11px 13px;font-weight:600;font-size:12px}
+  .tbl th:first-child{border-radius:8px 0 0 0}.tbl th:last-child{border-radius:0 8px 0 0}
+  .tbl td{padding:11px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl tbody tr:nth-child(even){background:var(--soft)}
+  .tbl .task-c{font-weight:700;color:var(--ink);white-space:nowrap}
+  .pill{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;margin:2px 3px 2px 0}
+  .pill.b{background:var(--blue-bg);color:var(--blue)}
+  .pill.r{background:#FEF0F0;color:var(--primary)}
+  .pill.g{background:var(--green-bg);color:var(--green)}
+
+  /* ==== Before / After ==== */
+  .ba-head,.ba{display:grid;grid-template-columns:1.05fr 1.15fr 34px 1.15fr .9fr;gap:12px;align-items:center}
+  .ba-head{font-size:11.5px;font-weight:700;color:var(--muted);padding:0 4px 8px}
+  .ba-head .h-after{color:var(--primary)}
+  .ba{padding:9px 4px;border-top:1px solid var(--line)}
+  .ba .task-name{font-weight:700;color:var(--ink);font-size:13px}
+  .ba .before{background:var(--soft2);border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-size:12px;color:var(--muted)}
+  .ba .arrow{text-align:center;color:var(--primary);font-weight:800;font-size:18px}
+  .ba .after{background:#fff5f6;border:1px solid #f4ccd0;border-radius:10px;padding:9px 12px;font-size:12px;color:var(--ink);font-weight:500}
+  .ba .gain{text-align:center;font-size:14px;font-weight:800;color:var(--primary-dk);line-height:1.25}
+
+  /* ==== 견적 테이블 ==== */
+  .est-total{display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;background:linear-gradient(135deg,#EE3E4C,#C92434);color:#fff;border-radius:14px;padding:16px 22px;margin-bottom:12px}
+  .est-total .big{font-size:26px;font-weight:800;letter-spacing:-.02em}
+  .est-total .ko{font-size:13px;opacity:.9;margin-top:3px}
+  .est-total .per{margin-left:auto;font-size:12.5px;font-weight:600;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:8px 14px;border-radius:999px}
+  .est{width:100%;border-collapse:collapse;font-size:11.5px}
+  .est th{background:var(--ink);color:#fff;padding:8px 9px;text-align:center;font-weight:600;font-size:11px;white-space:nowrap}
+  .est th:first-child{border-radius:8px 0 0 0}.est th:last-child{border-radius:0 8px 0 0}
+  .est td{padding:6px 9px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+  .est td.cat{font-weight:800;color:var(--primary);background:var(--soft);font-size:12px}
+  .est td.item{text-align:left;font-weight:600;color:var(--ink)}
+  .est td.r{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink)}
+  .est td.memo{text-align:left;font-size:10px;color:var(--muted)}
+  .est tr.sub td{background:var(--soft);font-weight:700;color:var(--ink)}
+  .est tr.total td{background:var(--ink);color:#fff;font-weight:800;font-size:13px}
+  .est tr.total td.r{color:#fff}
+
+  /* ==== 커리큘럼 표 ==== */
+  .prop{width:100%;border-collapse:collapse;font-size:12px}
+  .prop th{text-align:left;padding:9px 11px;font-size:11px;font-weight:700;letter-spacing:.03em;color:var(--muted);background:var(--soft);border-bottom:2px solid var(--border);white-space:nowrap}
+  .prop th.c{text-align:center}
+  .prop td{padding:9px 11px;line-height:1.45;border-bottom:1px solid var(--line);vertical-align:middle;font-size:11.5px}
+  .prop td.trk{font-weight:800;color:var(--primary);background:var(--soft);white-space:nowrap;text-align:center;line-height:1.3}
+  .prop td.course{font-weight:700;color:var(--ink)}
+  .prop td.core{color:var(--body);font-size:11px}
+  .prop td.tgt{color:var(--muted);font-size:11px;white-space:nowrap;line-height:1.3}
+  .prop td.hrs{color:var(--primary);font-weight:800;text-align:center;white-space:nowrap;line-height:1.3}
+  .prop tr.sumrow td{background:#FFF6F2;font-weight:700;color:var(--ink)}
+  .badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:10.5px;font-weight:700;white-space:nowrap}
+  .badge-red{background:rgba(238,62,76,.12);color:var(--primary-dk)}
+  .badge-blue{background:rgba(37,99,235,.12);color:var(--blue)}
+  .badge-green{background:rgba(14,159,110,.12);color:var(--green)}
+  .badge-purple{background:rgba(124,58,237,.12);color:var(--purple)}
+
+  /* ==== 트랙 카드 ==== */
+  .track{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#fff}
+  .track .th{padding:14px 16px 12px;color:#fff}
+  .track.t1 .th{background:linear-gradient(135deg,#EE3E4C,#C92434)}
+  .track.t2 .th{background:linear-gradient(135deg,#F0736E,#d9524d)}
+  .track.t3 .th{background:linear-gradient(135deg,#8B5CF6,#6D3EE0)}
+  .track.t4 .th{background:linear-gradient(135deg,#2563EB,#1D4FD8)}
+  .track .tk{font-size:11.5px;font-weight:700;opacity:.9}
+  .track .tn{font-size:16px;font-weight:800;margin-top:3px}
+  .track .tp{font-size:12px;opacity:.92;margin-top:2px}
+  .track .tb{padding:13px 16px}
+
+  /* ==== "왜 우리인가" 다크 박스 ==== */
+  .why{background:var(--ink);color:#fff;border-radius:14px;padding:22px}
+  .why h3{color:#fff;margin-bottom:10px}
+  .why ul{margin:0;padding-left:18px;font-size:13.5px;color:rgba(255,255,255,.85)}
+  .why li{margin:8px 0}
+  .why b{color:#ffd0d4}
+
+  /* ==== 노트 ==== */
+  .note{font-size:11.5px;color:var(--faint);margin-top:14px;padding-top:12px;border-top:1px dashed var(--border)}
+
+  /* ==== 내비게이션 UI ==== */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:center;gap:3px;
+    padding:12px 6vw;opacity:.18;transition:opacity .25s}
+  .nav:hover{opacity:.95}
+  .nav-dot{width:22px;height:3px;padding:0;background:rgba(255,255,255,.4);border:0;border-radius:2px;cursor:pointer;transition:all .2s}
+  .nav-dot.active{width:34px;background:var(--primary)}
+  .nav-dot:hover{background:var(--primary)}
+  .slide-num{position:fixed;right:26px;bottom:20px;z-index:1000;color:rgba(255,255,255,.55);
+    font-size:12px;font-weight:700;letter-spacing:.08em;font-variant-numeric:tabular-nums}
+  .hint{position:fixed;left:26px;bottom:20px;z-index:1000;color:rgba(255,255,255,.32);font-size:11px}
+
+  /* ==== 인쇄: A4 가로, 슬라이드 1장=1페이지 ==== */
+  @media print{
+    @page{ size:A4 landscape; margin:0; }
+    html,body{overflow:visible;background:#fff;height:auto}
+    .stage{position:static;display:block}
+    .deck{transform:none!important;box-shadow:none;border-radius:0;width:auto;height:auto}
+    .nav,.slide-num,.hint{display:none}
+    .slide{position:relative;inset:auto;width:100vw;height:100vh;opacity:1;transform:none;
+      page-break-after:always;break-inside:avoid;transition:none}
+    .slide:last-child{page-break-after:auto}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<div class="nav" id="nav" aria-label="슬라이드 목차"></div>
+<div class="slide-num" id="slideNum" aria-live="polite"></div>
+<div class="hint">← → 이동 · F 전체화면 · Ctrl/⌘+P PDF</div>
+
+<div class="stage">
+  <div class="deck" id="deck">
+
+
+    <!-- 01 표지 -->
+    <section class="slide cover">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <span class="cover-badge">🔴 모두의연구소 &nbsp;×&nbsp; 롯데e커머스</span>
+          <h1>롯데e커머스 전사 AI 교육<br><span>1~3단계 통합 보고</span></h1>
+          <p class="sub">전 직원 500명 리터러시에서 팀 단위 업무 워크플로우까지 — 단계별 산출물이 다음 단계의 입력이 되는 순차 구조</p>
+          <div class="cover-meta">
+            <span><b>작성</b> · 모두의연구소 비즈팀</span>
+            <span><b>일자</b> · 2026-08-26</span>
+            <span><b>범위</b> · 1~3단계 필수 + 선택 과정 3종</span>
+            <span><b>도구</b> · Gemini Enterprise</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 전체 구조 한 장 -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">01 / 전체 구조</span>
+          <p class="kicker">한 장 요약</p>
+          <h2>전 직원 500명 → 실무 350명 → 팀 90개, 3단계 순차 이수</h2>
+          <p class="lead">앞 단계 산출물이 다음 단계 입력. 단계마다 대상이 좁아지고 산출물은 개인에서 팀으로 확장.</p>
+          <div class="flow" style="margin-bottom:16px">
+            <div class="step"><div class="st">1단계 · 12H</div><div class="sd">전사 리터러시</div><div class="ss">500명 · 문서화 후 에이전트 첫 제작</div></div>
+            <div class="step"><div class="st">2단계 · 4주</div><div class="sd">과제 도출·검증</div><div class="ss">350명 · 멘토링 구간 (교육 아님)</div></div>
+            <div class="step"><div class="st">3단계 · 12H</div><div class="sd">팀 워크플로우 제작</div><div class="ss">350명 · 90팀 · 18차수</div></div>
+          </div>
+          <table class="prop">
+            <thead><tr><th>단계</th><th>대상 · 인원</th><th class="c">시수</th><th>운영</th><th>핵심 산출물</th></tr></thead>
+            <tbody>
+              <tr><td class="trk">1단계<br>리터러시</td><td class="tgt">전 직원 500명<br>(IT 150 포함)</td><td class="hrs">12H<br>4H × 3회</td><td class="core">4개 반 · 반당 오프라인 50명 + 온라인 송출 300명</td><td class="core">업무 맥락 문서 500건 · 참조 에이전트 500건 · 기획서 초안 350건</td></tr>
+              <tr><td class="trk">2단계<br>과제 도출</td><td class="tgt">영업 200 · 마케팅 70<br>재무·지원·디자인 80</td><td class="hrs">4주<br>영업일 20일</td><td class="core">화상 멘토링 9회(1H·40명) + 서면 검토 2회</td><td class="core">개인 에이전트 350건 · 결과 보고서 350건 · 팀 워크플로우 초안 90건</td></tr>
+              <tr><td class="trk">3단계<br>팀 제작</td><td class="tgt">2단계 이수 350명<br>약 90팀</td><td class="hrs">12H<br>4H × 3회</td><td class="core">18차수 · 차수당 20명 5팀 · 교육장 1개 오전·오후반 · 약 27영업일</td><td class="core">팀 업무 워크플로우 90건 · 운영 문서 · 해커톤 발표 자료</td></tr>
+              <tr class="sumrow"><td class="trk">필수 합계</td><td class="tgt">500명 → 350명</td><td class="hrs">24H<br>+ 멘토링 4주</td><td class="core">1단계 4개 반 · 3단계 18차수</td><td class="core">개인 자산 500건이 팀 자산 90건으로 수렴</td></tr>
+            </tbody>
+          </table>
+          <p class="note">팀은 기존 회사 조직 단위를 그대로 사용 — 별도 팀 편성 절차 없음 · 선택 과정 3종은 06 슬라이드 참조</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 1단계 -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">02 / 1단계</span>
+          <p class="kicker">전사 AI 리터러시 · 12H</p>
+          <h2>문서화를 먼저, 도구는 그다음</h2>
+          <p class="lead">비개발자가 에이전트를 못 만드는 병목은 프롬프트가 아니라 판단 기준이 문서로 없다는 것. 1일차 산출물이 2일차 에이전트의 지식 소스.</p>
+          <table class="prop">
+            <thead><tr><th>일차</th><th>블록</th><th class="c">시간</th><th>핵심</th></tr></thead>
+            <tbody>
+              <tr><td class="trk" rowspan="4">Day 1<br>문서화</td><td class="course">리터러시·제품 구분</td><td class="hrs">1H</td><td class="core">챗봇과 에이전트 구분 · Gemini 앱과 Gemini Enterprise 구분</td></tr>
+              <tr><td class="course">프롬프트 기초</td><td class="hrs">0.5H</td><td class="core">4요소 최소 실습 · 프롬프트 문제와 지식 문제 구분</td></tr>
+              <tr><td class="course">업무 맥락 문서화</td><td class="hrs">1.5H</td><td class="core">담당 업무 1건 선정 · <b>판단 기준·예외·금지사항</b> 정리 — 이 과정의 핵심 실습</td></tr>
+              <tr><td class="course">사내 문서 구조화</td><td class="hrs">1H</td><td class="core">표준 구조 4요소 재작성 · Gemini Notebook 질의로 구조화 전후 비교</td></tr>
+              <tr><td class="trk" rowspan="3">Day 2<br>제작</td><td class="course">Gems 입문</td><td class="hrs">1H</td><td class="core">지시문 작성 · 1일차 문서 연결 전후 응답 비교</td></tr>
+              <tr><td class="course">Agent Designer</td><td class="hrs">2H</td><td class="core">같은 과제 재구성 · 1일차 문서 2종 연결 · Launch와 조직 공유</td></tr>
+              <tr><td class="course">안전한 활용</td><td class="hrs">1H</td><td class="core">공유 시 노출 범위 · 투입 금지 자료 · 개인 계정 사용 금지</td></tr>
+              <tr><td class="trk" rowspan="4">Day 3<br>검증·연계</td><td class="course">Deep Research</td><td class="hrs">1H</td><td class="core">외부 지식 보강 · 출처 검증 · 지식 소스 편입 판단</td></tr>
+              <tr><td class="course">에이전트 고도화</td><td class="hrs">1.5H</td><td class="core">출처 표기·모름 규칙 · 블라인드 테스트 · <b>질의 3건 통과</b></td></tr>
+              <tr><td class="course">자동화 후보 정리</td><td class="hrs">0.5H</td><td class="core">반복 업무 목록화 · 주기·소요 시간 기록 · 적용 가능성 분류</td></tr>
+              <tr><td class="course">2단계 과제 부여</td><td class="hrs">1H</td><td class="core">유형 판별 · 기획서 8칸 착수 · 3단계 팀 활동 예고</td></tr>
+            </tbody>
+          </table>
+          <p class="note">이수 판정은 참석이 아니라 산출물 보유 — 업무 맥락 문서 · 구조화 문서 · 동작하는 에이전트 · 자동화 후보 목록 · 기획서 초안 5종 · 온라인 300명은 에이전트 제작을 과제형 제출</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 2단계 -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">03 / 2단계</span>
+          <p class="kicker">과제 도출과 실현가능성 검증 · 4주</p>
+          <h2>교육이 아닌 멘토링 구간 — 만들다 막히는 지점을 걷어낸다</h2>
+          <p class="lead">참가자 자기주도 2주 + 강사 서면 검토 2회 + 화상 세션 9회. 개인이 만들고, 팀 단위로 묶어 3단계 진입을 판정.</p>
+          <table class="prop">
+            <thead><tr><th>구간</th><th class="c">기간</th><th>핵심</th></tr></thead>
+            <tbody>
+              <tr><td class="course">과제 부여</td><td class="hrs">1H</td><td class="core">1단계 Day3 마지막 파트에 편성 — 별도 차수 없음 · 기획서 8칸 · 에이전트 유형 7분류 · 실습 데이터 원칙 고지</td></tr>
+              <tr><td class="course">1구간 · 프로토타입 제작</td><td class="hrs">1주</td><td class="core">As-is 소요시간 실측 · 지시문 4요소 작성 · 1단계 문서를 지식 소스로 재사용 · 주차로그 기록</td></tr>
+              <tr><td class="course">서면 ① 실현가능성 판정</td><td class="hrs">2일<br>개인 350건</td><td class="core">5항목 루브릭 — <b>데이터 접근 가능성·효과 측정 가능성 필수 배점</b> · 적합/조건부/재설계/보류 등급 · 재설계 시 대안 과제 카탈로그 제시</td></tr>
+              <tr><td class="course">화상 멘토링 세션</td><td class="hrs">9H<br>1H × 9회</td><td class="core">회당 40명 · 공통 이슈 상위 4~5건 사전 클러스터링 · 일괄 피드백과 강사 시연 · 위험 신호 참가자 개별 슬롯</td></tr>
+              <tr><td class="course">2구간 · 완성과 초안 설계</td><td class="hrs">1주</td><td class="core">Launch 완료 · 실업무 입력 3건 통과 · To-be 실측 · 팀 워크플로우 초안(4단계 절단, 입출력 규격, 사람 개입 지점)</td></tr>
+              <tr><td class="course">서면 ② 팀 통합 검토</td><td class="hrs">3일<br>팀 90건</td><td class="core">강사 피드백을 팀 단위로 통합, 팀 내 동료 피드백으로 보강 · 과대 설계는 실현 가능한 범위로 축소 · 3단계 진입 판정과 차수 편성</td></tr>
+            </tbody>
+          </table>
+          <p class="note">개인 기획은 개인별, 운영·피드백은 팀 차원 · 팀은 기존 조직 단위를 그대로 사용하므로 별도 편성·공지 절차 없음</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 3단계 -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">04 / 3단계</span>
+          <p class="kicker">팀 업무 워크플로우 제작 · 12H</p>
+          <h2>설계는 2단계에서 끝났다 — 첫 시간부터 제작</h2>
+          <p class="lead">팀의 업무 흐름을 4단계로 절단해 팀원 1인이 1단계씩 담당. 마지막 회차는 차수 내 5팀이 같은 미션으로 겨루는 해커톤.</p>
+          <table class="prop">
+            <thead><tr><th>일차</th><th class="c">시간</th><th>핵심</th></tr></thead>
+            <tbody>
+              <tr><td class="trk">Day 1<br>조립 착수</td><td class="hrs">4H</td><td class="core">업무 흐름 매핑 후 4단계 절단, 입출력 규격 확정(0.7H) · 메인 구성과 오케스트레이션 지시문(0.8H) · <b>단계별 구성 4개 병렬 제작 — 팀원 1인당 1단계</b>(2H) · 1차 통합 실행과 실패 지점 기록(0.5H)</td></tr>
+              <tr><td class="trk">Day 2<br>완성·공유</td><td class="hrs">4H</td><td class="core">실패 사례 기반 지시문 튜닝(1.5H) · 지식 소스 정비와 민감정보 제거 재점검(1H) · Launch·조직 공유 후 팀 외 1명 블라인드 테스트(1H) · 운영 문서 1p — 소유자·갱신 책임·넣지 말 것(0.5H)</td></tr>
+              <tr><td class="trk">Day 3<br>해커톤</td><td class="hrs">4H</td><td class="core">미션 공개 — 팀별 동일 실업무 입력 5건(0.3H) · 개선 스프린트로 통과율 향상(2H) · 발표 자료와 산출물 제출(0.7H) · 팀 발표 5분 × 5팀 · 심사·시상(1H)</td></tr>
+            </tbody>
+          </table>
+          <div class="why" style="margin-top:16px">
+            <h3>3단계 설계의 전제</h3>
+            <ul>
+              <li><b>차수 편성</b> — 부서 단위 18차수, 차수당 20명 5팀. 교육장 1개에서 오전·오후반 2슬롯, 약 27영업일 소화</li>
+              <li><b>심사 기준 사전 공개</b> — 첫 회차에 공개한 항목 그대로 해커톤에 적용. 준비 방향이 흔들리지 않음</li>
+              <li><b>운영 문서 필수</b> — 만들고 끝내지 않고 소유자·갱신 책임을 명시해 인계 가능한 상태로 종료</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 산출물 연결 -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">05 / 연결 구조</span>
+          <p class="kicker">산출물이 다음 단계의 입력</p>
+          <h2>단계마다 만든 것이 버려지지 않는다</h2>
+          <p class="lead">각 단계의 산출물을 다음 단계가 그대로 받아 쓰도록 설계. 교육이 끝나면 조직에 자산이 남는 구조.</p>
+          <table class="tbl">
+            <thead><tr><th style="width:130px">단계</th><th>입력</th><th>이 단계에서 만드는 것</th><th style="width:210px">다음 단계로 넘기는 것</th></tr></thead>
+            <tbody>
+              <tr><td class="task-c">1단계<br>500명</td><td>담당 업무 1건 · 사내 비정형 문서(더미)</td><td>업무 맥락 문서 · 구조화 문서 · 참조 에이전트 1개 · 자동화 후보 목록</td><td><span class="pill r">기획서 초안 350건</span><span class="pill b">업무 맥락 문서</span></td></tr>
+              <tr><td class="task-c">2단계<br>350명</td><td>1단계 기획서 초안 · 업무 맥락 문서</td><td>개인 에이전트 350건(Launch·실업무 3건 통과) · 결과 보고서 · To-be 실측치</td><td><span class="pill r">팀 워크플로우 초안 90건</span><span class="pill b">개인 에이전트</span></td></tr>
+              <tr><td class="task-c">3단계<br>90팀</td><td>개인 에이전트 · 팀 워크플로우 초안</td><td>팀 업무 워크플로우 90건 · 운영 문서 1p · 해커톤 산출물</td><td><span class="pill g">선택 · 확장 과정</span><span class="pill g">선택 · IT 심화 A안</span></td></tr>
+            </tbody>
+          </table>
+          <p class="note">모든 산출물은 롯데e커머스 소유 · 교육 중에는 수강생 사내 PC에 저장하고 고객사가 지정하는 문서 저장소로 이관 · 모두의연구소는 산출물 사본과 사내 데이터를 보유하지 않음</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 선택 과정 개요 -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">06 / 선택 과정</span>
+          <p class="kicker">선택 3종 · 채택 여부에 따라 차수와 견적 조정</p>
+          <h2>IT 직군 2종 + 전사 확장 1종</h2>
+          <p class="lead">IT·인프라·정보보안 150명은 1단계만 이수하고 2·3단계 대상이 아님. 이 직군의 후속 과정이 A안·B안.</p>
+          <table class="prop">
+            <thead><tr><th>과정</th><th>대상</th><th class="c">시수</th><th>핵심</th><th style="width:250px">추천 이유</th></tr></thead>
+            <tbody>
+              <tr><td class="trk">IT 심화<br>A안</td><td class="tgt">IT·인프라·정보보안<br>150명 (차수당 20명)</td><td class="hrs">12H<br>4H × 3회</td><td class="core">1단계 산출물 정규화 → 문서 저장소 연결 → 커스텀 MCP 서버 → 운영 거버넌스</td><td class="core"><b>1단계 산출물 500건이 실제 입력.</b> 저장소 연결이 없으면 2·3단계 에이전트가 파일 업로드 범위에 갇힘. 7월 협의에서 요청한 사내 데이터 연동의 기반</td></tr>
+              <tr><td class="trk">IT 심화<br>B안</td><td class="tgt">IT·인프라·정보보안<br>150명<br>(개발 비중 낮은 인력 포함)</td><td class="hrs">12H<br>4H × 3회</td><td class="core">기능 경계 확인 → 고급 에이전트 구성 → 현업 지원 체계 (노코드 범위)</td><td class="core"><b>현업 350명을 지원할 조직이 필요.</b> 허용목록·토글·쿼터 등 운영 게이트를 아는 담당자와 헬프데스크 체계가 없으면 2·3단계 문의가 강사에게만 쏠림</td></tr>
+              <tr><td class="trk">확장</td><td class="tgt">1~3단계 이수 부서<br>대표 인력 · 팀장급</td><td class="hrs">8H<br>4H × 2회</td><td class="core">부서 간 연결 지점 설계 → 전사 흐름 구현 → 관리 체계 수립</td><td class="core"><b>3단계 산출물 90건은 부서 안에 갇혀 있음.</b> 부서 경계를 넘는 인수인계 지점을 연결해야 전사 효과가 발생. 3단계 완료 후에만 의미 있음</td></tr>
+            </tbody>
+          </table>
+          <div class="why" style="margin-top:14px">
+            <h3>A안과 B안 선택 기준</h3>
+            <ul>
+              <li><b>사내 데이터·문서를 AI에 연결하는 것이 목표</b> → A안. 커넥터·MCP 서버를 직접 구현하는 개발 성격</li>
+              <li><b>현업 지원과 GE 운영 정착이 목표</b> → B안. 코드 작성 없이 화면 안에서 완결</li>
+              <li>두 과정은 대상이 같고 내용이 겹치지 않으므로 <b>병행 편성도 가능</b></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 A안 상세 -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">07 / 선택 · IT 심화 A안</span>
+          <p class="kicker">사내 문서·데이터 연동 인프라 · 12H</p>
+          <h2>비개발 직군이 사내 데이터를 쓸 수 있게 만드는 기반</h2>
+          <p class="lead">1단계에서 나온 문서 500건을 검색 가능한 지식 베이스로 정규화하고, Gemini Enterprise에 연결해 운영까지 인계.</p>
+          <table class="prop">
+            <thead><tr><th>모듈</th><th class="c">시간</th><th>핵심</th></tr></thead>
+            <tbody>
+              <tr><td class="course">문서·데이터 연결 설계</td><td class="hrs">4H</td><td class="core">에디션별 기능 경계 정리 · 커넥터 설계(연결 대상·인덱싱 범위·권한 상속 검증) · Agent Search 데이터스토어 구축 · <b>1단계 산출물 500건 정규화 — 문서 종류·출처 경로·태그 부여</b></td></tr>
+              <tr><td class="course">커스텀 MCP 서버 구축</td><td class="hrs">4H</td><td class="core">MCP 아키텍처와 사내 시스템 연동 설계 · MCP 서버 구현 실습(DB·API·문서 저장소) · 인증·권한 위임 패턴 · <b>사내 문서 저장소 연결 — 커넥터 경로와 MCP 경로 비교</b></td></tr>
+              <tr><td class="course">거버넌스와 확산 지원</td><td class="hrs">4H</td><td class="core">공유 시 데이터·지시문 동반 노출 통제 · 조직 에이전트 카탈로그(등록·승인·배포·폐기) · 쿼터·비용 모니터링과 운영 인계 · <b>문서 갱신·폐기 절차</b></td></tr>
+            </tbody>
+          </table>
+          <div class="why" style="margin-top:14px">
+            <h3>이 과정을 권하는 이유</h3>
+            <ul>
+              <li><b>산출물이 흩어지지 않는다</b> — 1단계 문서 500건은 현재 설계상 수강생 PC에 저장. 정규화·연결을 거쳐야 조직 자산이 됨</li>
+              <li><b>2·3단계의 천장을 올린다</b> — 저장소 연결이 없으면 에이전트 지식 소스가 파일 업로드 범위로 제한</li>
+              <li><b>범위는 저장소 구축이 아니라 저장소 위에 파이프라인을 얹는 것</b> — 저장소 자체는 보유하신 것을 전제. 어디에 둘지는 정보보안·인프라 정책 결정 사항</li>
+            </ul>
+          </div>
+          <p class="note">Snowflake 데이터를 Gemini Enterprise에 연결하는 커넥터·MCP 서버 제작 교육은 대상(데이터 사이언스·개발 직군)과 난이도가 달라 별건으로 분리해 별도 제안</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 B안·확장 상세 -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">08 / 선택 · B안과 확장</span>
+          <p class="kicker">노코드 운영 역량 · 부서 간 연결</p>
+          <h2>현업을 지탱하는 조직, 부서를 잇는 흐름</h2>
+          <div class="grid g2">
+            <div class="track t4">
+              <div class="th"><div class="tk">선택 · IT 심화 B안 · 12H</div><div class="tn">Gemini Enterprise 활용 고도화</div><div class="tp">IT·인프라·정보보안 150명 · 노코드 범위</div></div>
+              <div class="tb">
+                <div class="mvp" style="border:0;padding:0;background:none">
+                  <div class="row"><span class="tag">4H</span><span class="val"><b>기능 경계와 활성화</b> — 허용목록·관리자 토글 2단 게이트 점검 절차 · 에디션별 기능 가용성 대장 · 쿼터 소진 대응과 증액 경로 · 릴리즈 노트 모니터링 루틴</span></div>
+                  <div class="row"><span class="tag">4H</span><span class="val"><b>고급 에이전트 구성</b> — Flow 탭 다단계 구성과 핸드오프 규격 · 도구 부여와 읽기·쓰기 권한 설계 · 예약·트리거 실행과 자격증명 갱신 · 품질 저하 감지와 지시문 버전 관리</span></div>
+                  <div class="row"><span class="tag">4H</span><span class="val"><b>현업 지원 체계</b> — 직군별 템플릿·표준 지시문 세트 · 헬프데스크 시나리오와 전형적 실패 대응 · 공유 범위·감사 로그 정책 · 부서별 자산 점검과 정기 리뷰</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="track t3">
+              <div class="th"><div class="tk">선택 · 확장 · 8H</div><div class="tn">부서 간 워크플로우 연결</div><div class="tp">1~3단계 이수 부서 대표 인력 · 팀장급</div></div>
+              <div class="tb">
+                <div class="mvp" style="border:0;padding:0;background:none">
+                  <div class="row"><span class="tag">4H</span><span class="val"><b>연결 지점 설계</b> — 부서별 워크플로우 자산 목록화와 중복·공백 진단 · 인수인계 지점 식별 · 연결 규격(필드명·순서·형식) 합의 · 임팩트와 난이도 기준 우선순위</span></div>
+                  <div class="row"><span class="tag">4H</span><span class="val"><b>전사 흐름과 관리 체계</b> — 부서 간 연결 구현과 통합 테스트 · 오류 발생 시 소유 부서와 대응 절차 · 전사 에이전트 카탈로그와 관리 주체 · 부서별·전사 절감 효과 집계</span></div>
+                  <div class="row"><span class="tag">전제</span><span class="val eff">3단계 산출물 90건이 있어야 성립 · 3단계 완료 후 편성</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="note">선택 과정 3종은 채택 여부에 따라 차수와 견적이 조정 · A안과 B안은 대상이 같고 내용이 겹치지 않아 병행 편성 가능</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 운영 전제 -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">09 / 운영 전제</span>
+          <p class="kicker">착수 전 확인이 필요한 항목</p>
+          <h2>기능이 있다고 화면에 보이는 것은 아니다</h2>
+          <p class="lead">Gemini Enterprise의 일부 기능은 정식 출시되어 사용할 준비가 끝난 상태여도, 기업 환경의 보안·통제 정책상 프로젝트 허용목록 등록과 관리자의 기능 토글 활성화를 거쳐야 실제 사용자 화면에 나타납니다.</p>
+          <div class="grid g2">
+            <div class="refcol">
+              <div class="refhd">교육 4주 전까지 확정 필요</div>
+              <ul>
+                <li>Agent Designer 활성화 <span>허용목록 등재 + 관리자 토글 ON · 미활성 시 2·3단계 성립 불가</span></li>
+                <li>에이전트 생성 쿼터 사전 증액 <span>개인 350건 + 팀 90건 규모 · 콘솔 자체 증액 불가, 계정팀 서면 요청</span></li>
+                <li>좌석 발급과 로그인 검증 <span>사내 SSO 연동은 통상 수 주 소요</span></li>
+              </ul>
+            </div>
+            <div class="refcol">
+              <div class="refhd">협의가 필요한 항목</div>
+              <ul>
+                <li>온라인 송출 300명 실습 지원 범위 <span>퍼실리테이터 증원 또는 실습 범위 축소 — 본 제안은 후자 기준</span></li>
+                <li>사내 문서 저장소 지정 <span>1단계 산출물 500건 보관처 · 지정 전까지 수강생 로컬 저장 후 이관</span></li>
+                <li>에이전트 공유 허용 범위 <span>관리자 승인 필수화 여부 · 그룹 공유 활성 여부</span></li>
+                <li>부서별 인원 명부 <span>3단계 차수 편성용 · 2단계 종료 전까지</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="why" style="margin-top:14px">
+            <h3>커리큘럼 편성 원칙</h3>
+            <ul>
+              <li><b>확정 실습</b>은 전 에디션 공통 기능으로만 구성 — 채팅 · Deep Research · Agent Designer · 파일 업로드 · 에이전트 공유</li>
+              <li><b>조건부 실습</b>은 교육 3주 전 강사가 테넌트에 직접 로그인해 화면을 확인한 뒤 확정 편성 · 미노출 시 대체 실습을 사전 준비</li>
+              <li><b>실습 데이터</b>는 더미 또는 비민감 공개 자료만 — 에이전트를 공유하면 연결 자료와 지시문이 함께 노출되기 때문</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 맺음말 -->
+    <section class="slide closing">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <p class="kicker">맺음말</p>
+          <h2>도구를 배우는 교육이 아니라, 일하는 방식을 문서로 남기는 과정</h2>
+          <p class="msg">1단계에서 500명이 자기 업무의 판단 기준을 문서로 정리하고, 2단계에서 그 문서로 에이전트를 완성하며, 3단계에서 팀의 업무 흐름으로 조립합니다. 각 단계의 산출물이 다음 단계의 입력이 되므로 교육이 끝난 뒤에도 조직에 자산이 남습니다. 선택 과정은 그 자산을 전사가 쓸 수 있는 기반으로 확장하는 경로입니다.</p>
+          <div class="sign">
+            <span><b>모두의연구소</b> · 비즈팀</span>
+            <span>modu.biz@modulabs.co.kr</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  const deck   = document.getElementById('deck');
+  const nav    = document.getElementById('nav');
+  const numEl  = document.getElementById('slideNum');
+  const slides = Array.from(deck.querySelectorAll('.slide'));
+  const total  = slides.length;
+  let current  = 0;
+
+  // --- 뷰포트에 맞춰 덱 스케일 (진짜 가로 비율 유지) ---
+  function fitStage(){
+    const k = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+    deck.style.transform = 'scale(' + k + ')';
+  }
+
+  // --- 슬라이드 내용이 프레임(720px)을 넘으면 축소해 잘림 방지 ---
+  function fitContent(slide){
+    const frame = slide.querySelector('.fit-frame');
+    const content = slide.querySelector('.fit-content');
+    if(!frame || !content) return;
+    content.style.transform = 'none';
+    const avail = frame.clientHeight;
+    const need  = content.scrollHeight;
+    if(need > avail){
+      content.style.transform = 'scale(' + (avail / need).toFixed(4) + ')';
+    }
+  }
+
+  // --- 내비 점 생성 ---
+  slides.forEach((slide, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot';
+    dot.type = 'button';
+    dot.title = '슬라이드 ' + (i + 1);
+    dot.addEventListener('click', () => go(i));
+    nav.appendChild(dot);
+  });
+  const dots = Array.from(nav.querySelectorAll('.nav-dot'));
+
+  function go(i){
+    if(i < 0 || i >= total) return;
+    slides[current].classList.remove('is-active');
+    dots[current].classList.remove('active');
+    current = i;
+    slides[current].classList.add('is-active');
+    dots[current].classList.add('active');
+    numEl.textContent = (current + 1) + ' / ' + total;
+    fitContent(slides[current]);
+  }
+
+  window.addEventListener('resize', () => { fitStage(); fitContent(slides[current]); });
+  window.addEventListener('load', () => { slides.forEach(fitContent); });
+  window.addEventListener('beforeprint', () => slides.forEach(fitContent));
+
+  document.addEventListener('keydown', e => {
+    if(e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' '){ e.preventDefault(); go(current + 1); }
+    if(e.key === 'ArrowLeft'  || e.key === 'ArrowUp'){ e.preventDefault(); go(current - 1); }
+    if(e.key === 'Home'){ e.preventDefault(); go(0); }
+    if(e.key === 'End'){ e.preventDefault(); go(total - 1); }
+    if(e.key.toLowerCase() === 'f'){
+      if(!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+
+  fitStage();
+  go(0);
+})();
+</script>
+</body>
+</html>

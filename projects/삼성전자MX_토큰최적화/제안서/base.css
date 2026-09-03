@@ -1,0 +1,10 @@
+/* ── 프로젝트 전용 조정 ──────────────────────────────────────
+   강사 소개 장은 강제 페이지 분할로 새 장에서 시작하므로 섹션 상단 여백이 불필요하다.
+   기본값 그대로 두면 카드가 장 끝까지 내려와 푸터가 다음 장으로 밀리면서
+   푸터 한 줄만 있는 빈 페이지가 생긴다. 상단 여백과 카드 내부 간격을 소폭 줄여 한 장에 담는다. */
+.instructor-section-title { margin-top: 0; }
+.instructor-category { margin-bottom: 14px; }
+.instructor-bio { line-height: 1.75; margin-bottom: 16px; }
+.instructor-experience { margin-bottom: 14px; }
+.instructor-metrics { padding: 16px 12px; margin-top: 14px; }
+.footer { margin-top: 24px; }

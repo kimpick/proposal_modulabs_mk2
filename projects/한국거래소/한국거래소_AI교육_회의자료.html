@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>한국거래소 AI 교육 협의 자료 | 모두의연구소</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  :root{
+    --coral:#FF5252;
+    --coral-soft:#FF8A80;
+    --coral-tint:#FFF1F1;
+    --off:#F7F6F3;
+    --card:#FFFFFF;
+    --ink:#1A1A1A;
+    --gray:#888888;
+    --border:#E8E6E0;
+    --beige:#F5D8B0;
+    --cream:#FFFDF8;
+    --gold:#C8902A;
+    --sans:"Pretendard","맑은 고딕","Malgun Gothic",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--sans);
+    background:var(--off);
+    color:var(--ink);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    font-size:15px;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px 80px;}
+
+  /* ---------- HEADER ---------- */
+  header{
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+    padding:64px 24px 56px;
+    position:relative;
+    overflow:hidden;
+  }
+  header::after{
+    content:"";position:absolute;top:0;left:0;right:0;height:6px;
+    background:linear-gradient(90deg,var(--coral) 0%,var(--coral-soft) 100%);
+  }
+  .header-inner{max-width:960px;margin:0 auto;}
+  .eyebrow{
+    font-size:13px;font-weight:600;letter-spacing:.12em;
+    color:var(--coral);text-transform:uppercase;margin-bottom:18px;
+  }
+  header h1{
+    font-size:34px;font-weight:800;letter-spacing:-.02em;
+    line-height:1.25;margin-bottom:14px;
+  }
+  header .sub{font-size:17px;color:#555;font-weight:500;}
+  .header-meta{
+    display:flex;flex-wrap:wrap;gap:10px;margin-top:30px;
+  }
+  .chip{
+    background:var(--off);border:1px solid var(--border);
+    border-radius:999px;padding:7px 16px;font-size:13px;color:#555;font-weight:500;
+  }
+  .chip b{color:var(--ink);font-weight:700;}
+
+  /* ---------- SECTION ---------- */
+  section{margin-top:56px;}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:24px;}
+  .sec-num{
+    font-size:15px;font-weight:800;color:var(--coral);
+    font-variant-numeric:tabular-nums;flex:none;
+  }
+  .sec-head h2{font-size:22px;font-weight:800;letter-spacing:-.01em;}
+  .sec-head .h2-note{font-size:13px;color:var(--gray);font-weight:500;margin-left:2px;}
+
+  /* ---------- CARDS / GRID ---------- */
+  .card{
+    background:var(--card);border:1px solid var(--border);
+    border-radius:14px;padding:26px 28px;
+  }
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+
+  .fact{
+    background:var(--card);border:1px solid var(--border);
+    border-radius:12px;padding:18px 20px;
+  }
+  .fact .label{
+    font-size:12px;font-weight:700;color:var(--coral);
+    letter-spacing:.02em;margin-bottom:7px;
+  }
+  .fact .val{font-size:14.5px;color:var(--ink);font-weight:500;line-height:1.55;}
+  .fact .val .em{font-weight:800;}
+
+  /* ---------- GOAL LIST ---------- */
+  .goal{display:flex;gap:16px;padding:20px 0;border-bottom:1px solid var(--border);}
+  .goal:last-child{border-bottom:none;}
+  .goal .gn{
+    flex:none;width:34px;height:34px;border-radius:50%;
+    background:var(--coral-tint);color:var(--coral);
+    font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;
+  }
+  .goal .gt{font-size:16px;font-weight:700;margin-bottom:4px;}
+  .goal .gd{font-size:14px;color:#555;}
+
+  /* ---------- RECOMMEND CALLOUT ---------- */
+  .rec{
+    background:var(--coral-tint);border:1px solid #FFD4D4;
+    border-radius:14px;padding:24px 28px;margin-bottom:16px;
+    display:flex;gap:18px;align-items:flex-start;
+  }
+  .rec .badge{
+    flex:none;background:var(--coral);color:#fff;font-weight:800;font-size:12px;
+    padding:6px 13px;border-radius:999px;letter-spacing:.03em;white-space:nowrap;margin-top:2px;
+  }
+  .rec .rec-body b{font-weight:800;}
+  .rec .rec-body{font-size:14.5px;color:#3a2222;line-height:1.6;}
+  .rec .rec-body .big{font-size:17px;font-weight:800;color:var(--ink);display:block;margin-bottom:6px;}
+
+  /* ---------- TABLE ---------- */
+  table{width:100%;border-collapse:collapse;font-size:14px;border-radius:12px;overflow:hidden;border:1px solid var(--border);}
+  thead th{
+    background:var(--beige);color:#5a4520;font-weight:700;
+    padding:13px 16px;text-align:left;font-size:13.5px;
+  }
+  tbody td{padding:13px 16px;border-top:1px solid var(--border);background:var(--card);vertical-align:top;}
+  tbody tr:nth-child(even) td{background:var(--cream);}
+  td .pick{color:var(--coral);font-weight:800;}
+
+  /* ---------- CURRICULUM ---------- */
+  .mod{
+    display:flex;gap:18px;background:var(--card);border:1px solid var(--border);
+    border-radius:12px;padding:20px 22px;margin-bottom:12px;
+  }
+  .mod .mtag{
+    flex:none;width:56px;text-align:center;
+  }
+  .mod .mtag .mn{font-size:12px;font-weight:700;color:var(--gray);}
+  .mod .mtag .mh{font-size:18px;font-weight:800;color:var(--coral);line-height:1;margin-top:3px;}
+  .mod .mtag .mu{font-size:11px;color:var(--gray);}
+  .mod .mbody .mt{font-size:15.5px;font-weight:800;margin-bottom:7px;}
+  .mod .mbody ul{list-style:none;}
+  .mod .mbody li{font-size:13.5px;color:#555;padding-left:15px;position:relative;margin-bottom:3px;}
+  .mod .mbody li::before{content:"·";position:absolute;left:3px;color:var(--coral);font-weight:800;}
+
+  /* ---------- TOOL CHIPS ---------- */
+  .tools{display:flex;flex-wrap:wrap;gap:10px;}
+  .tool{
+    background:var(--card);border:1px solid var(--border);border-radius:10px;
+    padding:14px 18px;flex:1;min-width:180px;
+  }
+  .tool .tk{font-size:12px;color:var(--coral);font-weight:700;margin-bottom:5px;}
+  .tool .tv{font-size:14px;font-weight:600;}
+
+  /* ---------- OUTPUT ---------- */
+  .out{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px dashed var(--border);}
+  .out:last-child{border-bottom:none;}
+  .out .od{flex:none;width:8px;height:8px;border-radius:50%;background:var(--coral);margin-top:8px;}
+  .out .ot{font-size:15px;font-weight:700;margin-bottom:2px;}
+  .out .os{font-size:13.5px;color:var(--gray);}
+
+  /* ---------- DISCUSSION (협의 포인트) ---------- */
+  .discuss-head{
+    background:var(--ink);color:#fff;border-radius:14px 14px 0 0;
+    padding:22px 28px;
+  }
+  .discuss-head .dh-eye{font-size:12px;letter-spacing:.12em;color:var(--coral-soft);font-weight:700;text-transform:uppercase;margin-bottom:6px;}
+  .discuss-head .dh-t{font-size:20px;font-weight:800;}
+  .discuss-head .dh-s{font-size:13.5px;color:#bbb;margin-top:5px;}
+  .discuss-body{
+    background:var(--card);border:1px solid var(--border);border-top:none;
+    border-radius:0 0 14px 14px;padding:8px 28px 14px;
+  }
+  .dp{display:flex;gap:18px;padding:20px 0;border-bottom:1px solid var(--border);}
+  .dp:last-child{border-bottom:none;}
+  .dp .dpn{
+    flex:none;width:30px;height:30px;border-radius:8px;
+    background:var(--coral);color:#fff;font-weight:800;font-size:14px;
+    display:flex;align-items:center;justify-content:center;margin-top:2px;
+  }
+  .dp .dpt{font-size:15.5px;font-weight:800;margin-bottom:5px;}
+  .dp .dpd{font-size:14px;color:#555;line-height:1.6;}
+  .dp .dpd .flag{color:var(--coral);font-weight:700;}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    text-align:center;margin-top:64px;padding-top:28px;
+    border-top:1px solid var(--border);
+    font-size:12.5px;color:var(--gray);
+  }
+  footer .sig{font-weight:700;color:#555;margin-bottom:4px;}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:680px){
+    header{padding:44px 20px 40px;}
+    header h1{font-size:25px;}
+    .grid-2,.grid-3{grid-template-columns:1fr;}
+    .rec{flex-direction:column;gap:12px;}
+    .sec-head{flex-wrap:wrap;gap:8px;}
+  }
+  @media print{
+    body{background:#fff;}
+    section{break-inside:avoid;}
+    .mod,.dp,.fact{break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="eyebrow">모두의연구소 AI 기업교육 · 2026</div>
+    <h1>한국거래소 AI 실무 역량 강화 과정<br>교육 협의 자료</h1>
+    <p class="sub">IT 관리직 임직원을 위한 생성형 AI · 업무 자동화 Agent 교육 — 1차 유선 상담 기반 협의</p>
+    <div class="header-meta">
+      <span class="chip"><b>대상</b> 비개발자 IT 관리직 20명</span>
+      <span class="chip"><b>분량</b> 총 20시간</span>
+      <span class="chip"><b>핵심</b> 업무 자동화 Agent 구현</span>
+      <span class="chip"><b>작성</b> 모두의연구소 비즈팀</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- 01 상담 내용 정리 -->
+  <section id="needs">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <h2>상담 내용 정리 <span class="h2-note">— 1차 유선 상담 기준 이해 사항</span></h2>
+    </div>
+    <div class="grid-2">
+      <div class="fact">
+        <div class="label">교육 대상</div>
+        <div class="val">비개발자 <span class="em">IT 관리직 20명</span> — 시스템 운영, 보안 관제, 계약 운영 등 사람·프로세스 관리 직군</div>
+      </div>
+      <div class="fact">
+        <div class="label">직무 특성</div>
+        <div class="val">전공 지식은 보유, <span class="em">실제 개발 경험은 없음.</span> 현재 인터넷 미연결 환경에서 업무 수행</div>
+      </div>
+      <div class="fact">
+        <div class="label">교육 분량</div>
+        <div class="val">총 <span class="em">20시간</span> — 4시간 × 5일 또는 7시간 × 3일 중 협의</div>
+      </div>
+      <div class="fact">
+        <div class="label">교육 환경</div>
+        <div class="val">망분리 환경 / <span class="em">교육 시 사외망 접속 가능</span> / 사내 교육장 진행</div>
+      </div>
+      <div class="fact">
+        <div class="label">희망 시작 시점</div>
+        <div class="val">2026년 <span class="em">6월 중순</span> 검토 — 준비 기간 고려한 일정 협의 필요</div>
+      </div>
+      <div class="fact">
+        <div class="label">교육 결과물</div>
+        <div class="val">반복 업무를 <span class="em">직접 자동화 Agent로 구현</span> (예: 보안 뉴스 모니터링, 공지 수집·알림)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 교육 목표 -->
+  <section id="goal">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2>교육 목표 · 기대 효과</h2>
+    </div>
+    <div class="card">
+      <div class="goal">
+        <div class="gn">1</div>
+        <div>
+          <div class="gt">병목이 되지 않는 관리자</div>
+          <div class="gd">AI에 대한 이해를 바탕으로 팀과 업무 흐름을 효과적으로 관리하고, 기술 변화 속에서 의사결정 병목을 줄입니다.</div>
+        </div>
+      </div>
+      <div class="goal">
+        <div class="gn">2</div>
+        <div>
+          <div class="gt">반복 업무의 자동화</div>
+          <div class="gd">매번 수작업으로 처리하던 정보 수집·정리·알림 등을 직접 만든 Agent로 자동화합니다.</div>
+        </div>
+      </div>
+      <div class="goal">
+        <div class="gn">3</div>
+        <div>
+          <div class="gt">자기주도적 확장</div>
+          <div class="gd">수료 후에도 스스로 새로운 업무 시나리오에 맞는 Agent를 설계·운영할 수 있는 기초 역량을 확보합니다.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 권장 교육 형태 -->
+  <section id="format">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2>권장 교육 형태</h2>
+    </div>
+    <div class="rec">
+      <span class="badge">권장안</span>
+      <div class="rec-body">
+        <span class="big">하루 4시간 × 5일 (총 20시간)</span>
+        비개발자가 처음 접하는 개념과 실습이 많은 과정으로, 하루 4시간 분량이 집중도·소화도 면에서 유리합니다. 또한 5일에 걸쳐 분산 진행하면 실습 사이에 본인 업무를 떠올리며 적용해 볼 여유가 생겨 <b>Agent 구현 정착에 효과적</b>입니다.
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr><th>구분</th><th>4시간 × 5일 (권장)</th><th>7시간 × 3일</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>집중도</td><td class="pick">하루 4시간으로 집중 유지 용이</td><td>7시간 장시간 집중 부담</td></tr>
+        <tr><td>실습 소화</td><td class="pick">회차 간 복습·적용 여유 확보</td><td>실습량 대비 소화 시간 부족</td></tr>
+        <tr><td>업무 병행</td><td class="pick">오전/오후 한쪽 업무 병행 가능</td><td>3일간 업무 전면 중단</td></tr>
+        <tr><td>일정 부담</td><td>5일간 일정 확보 필요</td><td class="pick">3일로 단기 집중</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 04 커리큘럼 개요 -->
+  <section id="curriculum">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2>커리큘럼 개요 <span class="h2-note">— 5개 모듈 / 모듈당 4시간</span></h2>
+    </div>
+    <div class="mod">
+      <div class="mtag"><div class="mn">MODULE</div><div class="mh">01</div><div class="mu">4H</div></div>
+      <div class="mbody">
+        <div class="mt">생성형 AI 이해와 업무 적용</div>
+        <ul>
+          <li>생성형 AI·LLM 작동 원리 (관리자 시각)</li>
+          <li>AI가 할 수 있는 것 / 없는 것, 업무 활용 패턴</li>
+          <li>실습: 보고서 요약, 지침 정리, 공문 초안 처리</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mod">
+      <div class="mtag"><div class="mn">MODULE</div><div class="mh">02</div><div class="mu">4H</div></div>
+      <div class="mbody">
+        <div class="mt">AI 협업 심화 — 문서·정보 자동화</div>
+        <ul>
+          <li>프롬프트 고급 패턴 (역할 부여, 단계적 지시, Few-shot)</li>
+          <li>반복 문서·정보 수집·요약·분류 자동화</li>
+          <li>실습: 내 업무 반복 작업 워크플로우 설계</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mod">
+      <div class="mtag"><div class="mn">MODULE</div><div class="mh">03</div><div class="mu">4H</div></div>
+      <div class="mbody">
+        <div class="mt">AI Agent 개념과 설계 방법론</div>
+        <ul>
+          <li>Agent란 무엇인가 — 구조, 도구 호출, 자율 실행</li>
+          <li>업무 자동화 Agent 설계 프레임워크 (목표→도구→흐름)</li>
+          <li>실습: 내 업무 시나리오 Agent 기획서 작성</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mod">
+      <div class="mtag"><div class="mn">MODULE</div><div class="mh">04</div><div class="mu">4H</div></div>
+      <div class="mbody">
+        <div class="mt">Agent 구현 실습</div>
+        <ul>
+          <li>노코드 Agent 빌더 환경 구성 및 기본 플로우</li>
+          <li>보안 뉴스 모니터링 Agent / 공지사항 수집·알림 Agent 구현</li>
+          <li>실습: Agent 테스트, 오류 수정 및 개선</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mod">
+      <div class="mtag"><div class="mn">MODULE</div><div class="mh">05</div><div class="mu">4H</div></div>
+      <div class="mbody">
+        <div class="mt">프로젝트 완성 및 운영 내재화</div>
+        <ul>
+          <li>내 업무 맞춤 Agent 완성 (보안 관제·시스템 운영·계약 관리 등 자유 주제)</li>
+          <li>팀별 결과물 발표 및 상호 피드백</li>
+          <li>Agent 운영·유지보수 가이드 / 수료 후 학습 로드맵</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 운영 방식 (현대차 참고) -->
+  <section id="approach">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <h2>운영 방식 <span class="h2-note">— 바이브 코딩 기반 체험·실습 중심</span></h2>
+    </div>
+    <div class="card" style="margin-bottom:14px;">
+      <p style="font-size:14.5px;color:#444;line-height:1.7;">
+        <b style="color:var(--coral);">바이브 코딩(Vibe Coding)</b>은 코드 작성 없이 <b>자연어 지시만으로 AI가 작업과 결과물을 만들어 주는</b> 방식입니다.
+        개발 경험이 없는 관리직 임직원도 "무엇을 자동화하고 싶은지"를 말로 설명하는 것만으로 Agent를 직접 구현할 수 있습니다.
+        강사가 먼저 <b>라이브 데모</b>로 흐름을 보여준 뒤, 수강생이 단계별로 따라 하며 <b>체험 → 직접 구현</b>으로 이어지도록 설계합니다.
+        (현대자동차 UX리서처팀 바이브 코딩 워크샵에서 검증된 운영 방식)
+      </p>
+    </div>
+    <div class="tools">
+      <div class="tool"><div class="tk">생성형 AI 플랫폼</div><div class="tv">Claude · ChatGPT</div></div>
+      <div class="tool"><div class="tk">노코드 Agent 빌더</div><div class="tv">n8n · Dify</div></div>
+      <div class="tool"><div class="tk">업무 연동</div><div class="tv">Google Workspace (스프레드시트·Docs)</div></div>
+    </div>
+  </section>
+
+  <!-- 06 예상 산출물 -->
+  <section id="output">
+    <div class="sec-head">
+      <span class="sec-num">06</span>
+      <h2>예상 산출물 <span class="h2-note">— 한국거래소 업무 맞춤</span></h2>
+    </div>
+    <div class="card">
+      <div class="out">
+        <div class="od"></div>
+        <div>
+          <div class="ot">보안 뉴스 모니터링·알림 Agent</div>
+          <div class="os">보안 관련 업데이트·이슈를 자동 수집하여 정리·알림하는 Agent</div>
+        </div>
+      </div>
+      <div class="out">
+        <div class="od"></div>
+        <div>
+          <div class="ot">상위 기관 공지사항 수집·알림 Agent</div>
+          <div class="os">상위 기관 공지를 주기적으로 수집·요약하고 담당자에게 알림하는 Agent</div>
+        </div>
+      </div>
+      <div class="out">
+        <div class="od"></div>
+        <div>
+          <div class="ot">개인 업무 맞춤 Agent 기획서 + 구현 결과물</div>
+          <div class="os">각자 담당 업무에 맞춘 자동화 Agent 1종 + 수료 후 자기주도 학습 가이드</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 망분리 환경 대응 -->
+  <section id="infra">
+    <div class="sec-head">
+      <span class="sec-num">07</span>
+      <h2>망분리 환경 대응 방안</h2>
+    </div>
+    <div class="grid-3">
+      <div class="fact">
+        <div class="label">교육장 환경</div>
+        <div class="val">사내 교육장 내 <span class="em">사외망 접속 PC / Wi-Fi</span> 사전 점검 — 노코드 빌더·생성형 AI 접속 확인</div>
+      </div>
+      <div class="fact">
+        <div class="label">계정 준비</div>
+        <div class="val">노코드 Agent 빌더(n8n Cloud / Dify) 및 생성형 AI 계정 <span class="em">교육 전 사전 준비</span></div>
+      </div>
+      <div class="fact">
+        <div class="label">보안 정책 확인</div>
+        <div class="val">사외망 사용 범위·실습 데이터 처리 등 <span class="em">사내 보안 정책 사전 협의</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 협의 포인트 -->
+  <section id="discuss">
+    <div class="discuss-head">
+      <div class="dh-eye">FOR DISCUSSION</div>
+      <div class="dh-t">회의 협의 필요 사항</div>
+      <div class="dh-s">금일 회의에서 함께 확정하면 좋은 항목입니다.</div>
+    </div>
+    <div class="discuss-body">
+      <div class="dp">
+        <div class="dpn">1</div>
+        <div>
+          <div class="dpt">교육 형태 확정</div>
+          <div class="dpd">권장안인 <span class="flag">4시간 × 5일</span> 동의 여부 — 또는 7시간 × 3일 검토</div>
+        </div>
+      </div>
+      <div class="dp">
+        <div class="dpn">2</div>
+        <div>
+          <div class="dpt">교육 일정</div>
+          <div class="dpd"><span class="flag">6월 중순은 준비 기간상 다소 촉박</span> — 6월 말~7월 진행 제안. 확정 가능 시점 협의</div>
+        </div>
+      </div>
+      <div class="dp">
+        <div class="dpn">3</div>
+        <div>
+          <div class="dpt">교육 환경 점검</div>
+          <div class="dpd">사외망 접속 PC·Wi-Fi 사전 점검 및 <span class="flag">계정 준비 주체</span> (고객사 / 모두연) 확정</div>
+        </div>
+      </div>
+      <div class="dp">
+        <div class="dpn">4</div>
+        <div>
+          <div class="dpt">산출물 우선순위</div>
+          <div class="dpd">보안 뉴스 모니터링 / 공지 수집·알림 중 <span class="flag">우선 구현할 핵심 시나리오</span> 협의</div>
+        </div>
+      </div>
+      <div class="dp">
+        <div class="dpn">5</div>
+        <div>
+          <div class="dpt">인원 및 분반</div>
+          <div class="dpd">20명 단일 분반 진행 여부 — 실습 밀도 고려 시 조교 투입·분반 검토</div>
+        </div>
+      </div>
+      <div class="dp">
+        <div class="dpn">6</div>
+        <div>
+          <div class="dpt">예산 · 견적</div>
+          <div class="dpd">교육 형태·인원 확정 후 <span class="flag">견적서 발송</span> — 사내 교육장 진행 기준</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="sig">모두의연구소 · Modulabs AI 기업교육</div>
+    © 2026 MODULABS — 한국거래소 AI 교육 협의 자료
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<style>{{ css }}</style>
+<style>{{ workshop_css }}</style>
+</head>
+<body>
+
+<div class="header">
+    <div class="header-text">모두의연구소 AI교육 커리큘럼 2026</div>
+    <h1 class="title">{{ data.title }}</h1>
+    <p class="subtitle">{{ data.subtitle }}</p>
+</div>
+
+<div class="info-grid">
+    <div class="info-box"><div class="info-label">키워드 구분</div><div class="info-value">{{ data.info.keyword }}</div></div>
+    <div class="info-box"><div class="info-label">AX 적용 단계</div><div class="info-value">{{ data.info.ax_stage }}</div></div>
+    <div class="info-box"><div class="info-label">권장 수강 대상</div><div class="info-value">{{ data.info.target }}</div></div>
+    <div class="info-box"><div class="info-label">총 시간</div><div class="info-value">{{ data.info.duration }}</div></div>
+</div>
+
+<div class="section-block">
+    <div class="section-title"><span class="section-num">01</span>과정 소개</div>
+    <div class="content-box">{{ data.intro }}</div>
+</div>
+
+<div class="section-block">
+    <div class="section-title"><span class="section-num">02</span>교육 목표</div>
+    <div class="content-box">{{ data.objective }}</div>
+</div>
+
+<div style="display: flex; gap: 40px; page-break-inside: avoid; break-inside: avoid;">
+    <div style="flex: 1;">
+        <div class="section-title"><span class="section-num">03</span>핵심 도구</div>
+        <div class="tech-container">
+            {% for t in data.tech_stack %}<div class="tech-badge">{{ t }}</div>{% endfor %}
+        </div>
+    </div>
+    <div style="flex: 1.4;">
+        <div class="section-title"><span class="section-num">04</span>필요 인프라</div>
+        <div class="infra-box">
+            <ul>{% for i in data.infrastructure %}<li><span>{{ i }}</span></li>{% endfor %}</ul>
+        </div>
+    </div>
+</div>
+
+<div class="section-title"><span class="section-num">05</span>{{ data.curriculum_title | default('일별 워크샵 커리큘럼') }}</div>
+
+{% for day in data.days %}
+{% if not loop.first %}
+<div class="day-divider">
+    <div class="day-divider-line"></div>
+    <div class="day-divider-dot"></div>
+    <div class="day-divider-line"></div>
+</div>
+{% endif %}
+<div class="day-block">
+    <div class="day-header">
+        <div class="day-number-block">
+            <div class="day-label">DAY</div>
+            <div class="day-num">{{ day.day_id }}</div>
+        </div>
+        <div class="day-info">
+            {% if day.theme %}<div class="day-theme">{{ day.theme }}</div>{% endif %}
+            <div class="day-title">{{ day.day_title }}</div>
+            <div class="day-meta-row">
+                <span class="day-duration">{{ day.duration }}</span>
+                <div class="day-tools">
+                    {% for tool in day.tools %}<span class="day-tool-chip">{{ tool }}</span>{% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="session-list">
+        {% for session in day.sessions %}
+        <div class="session-row">
+            <div class="session-left">
+                <div class="session-num">{{ '%02d' | format(loop.index) }}</div>
+                {% if session.session_type == 'lecture' %}
+                    <span class="session-type-badge badge-lecture">이론</span>
+                {% elif session.session_type == 'hands-on' %}
+                    <span class="session-type-badge badge-handson">핸즈온</span>
+                {% elif session.session_type == 'workshop' %}
+                    <span class="session-type-badge badge-workshop">워크샵</span>
+                {% elif session.session_type == 'hackathon' %}
+                    <span class="session-type-badge badge-hackathon">해커톤</span>
+                {% endif %}
+            </div>
+            <div class="session-center">
+                <div class="session-name">{{ session.session_name }}</div>
+                <ul class="session-items">
+                    {% for item in session['items'] %}<li>{{ item }}</li>{% endfor %}
+                </ul>
+            </div>
+            <div class="session-right">
+                <span class="session-hours">{{ session.duration }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}
+
+<div style="page-break-inside: avoid; break-inside: avoid;">
+    <div class="section-title"><span class="section-num">06</span>예상 산출물</div>
+    <div class="content-box">{{ data.output }}</div>
+</div>
+
+{% if data.schedule_message %}
+<div style="page-break-inside: avoid; break-inside: avoid;">
+    <div class="section-title"><span class="section-num">07</span>{{ data.section_07_title | default('운영 및 일정 안내') }}</div>
+    <div class="schedule-placeholder">{{ data.schedule_message }}</div>
+</div>
+{% endif %}
+
+<div class="footer">
+    &copy; 2026 MODULABS - 모두의연구소 AI 기업교육 커리큘럼
+</div>
+
+</body>
+</html>

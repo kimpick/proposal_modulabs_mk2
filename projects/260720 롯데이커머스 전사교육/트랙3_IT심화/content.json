@@ -1,0 +1,227 @@
+{
+  "title": "IT 심화 — 에이전트 엔지니어링과 사내 MCP 인프라 구축 상세 커리큘럼",
+  "subtitle": "평가·회귀테스트 하네스부터 Snowflake 커넥터, 사내 MCP 서버, Google Workspace 연동까지 24시간 실전 과정",
+  "info": {
+    "keyword": "에이전트 엔지니어링 · MCP 인프라",
+    "ax_stage": "심화 — 에이전트 엔지니어링과 사내 인프라 구축",
+    "target": "개발·인프라·정보보안 직군 (심화 10명 단위)",
+    "duration": "24H (4H×6일)"
+  },
+  "intro": "롯데이커머스 IT 직군(개발·인프라·정보보안)은 이미 AI 기초 교육을 이수하고 코딩 도구를 실무에 활용해 온 그룹입니다. 본 과정은 Gemini Enterprise 전사 도입에 맞춰 <b>전사 표준 Gemini 개발 도구 체인(Gemini Enterprise · Gemini CLI · Antigravity)</b> 위에서 에이전트 엔지니어링의 프로덕션 프랙티스를 정립하는 데 초점을 둡니다. 하네스·루프 엔지니어링으로 에이전트 개발의 품질 기준을 세우고, Snowflake 등 사내 데이터 소스와 연동되는 MCP 서버, Google Workspace MCP 연동까지 24시간(4시간×6일) 동안 단계적으로 구축합니다. IT 직군이 구축하는 커넥터·MCP 인프라는 <b>타 직군 임직원이 자신의 문서와 데이터를 AI에 연결해 활용하는 전사 기반</b>이 됩니다.",
+  "objective": "<ul style='margin:0; padding-left:20px; line-height:1.7;'><li><b>평가·회귀테스트 체계 수립:</b> 에이전트 출력 품질을 측정하는 하네스를 구축해 프로덕션 기준을 확보</li><li><b>자가개선 루프 정립:</b> 회귀테스트 결과를 반영해 에이전트를 반복 개선하는 프랙티스 습득</li><li><b>사내 데이터 연동 인프라 구축:</b> Snowflake 등 사내 데이터 소스를 Gemini Enterprise에 연결하는 커넥터·MCP 서버를 직접 구현</li><li><b>통합 파이프라인 완성:</b> Google Workspace MCP 연동과 멀티 에이전트 오케스트레이션으로 실무 프로토타입 완성</li></ul>",
+  "tech_stack": [
+    "Gemini Enterprise",
+    "Gemini CLI",
+    "Antigravity",
+    "MCP (Model Context Protocol)",
+    "Snowflake",
+    "Google Workspace"
+  ],
+  "infrastructure": [
+    "오프라인 교육장 (심화 10석)",
+    "Gemini Enterprise 계정 + Gemini CLI·Antigravity 환경 (사전 설치 안내)",
+    "사내 데이터 소스 접근 권한 (Snowflake/API/문서, 실습 범위 협의)",
+    "개인 개발 노트북 (사전 개발 환경 설치 안내)"
+  ],
+  "tracks": [
+    {
+      "track_id": "01",
+      "track_name": "에이전트 엔지니어링 기초 체계",
+      "course_title": "하네스·루프 엔지니어링으로 다지는 에이전트 개발 기본기",
+      "duration": "8H",
+      "tools": [
+        "Gemini Enterprise",
+        "Gemini CLI",
+        "Antigravity"
+      ],
+      "modules": [
+        {
+          "module_name": "하네스 엔지니어링 — 평가·회귀테스트 파이프라인",
+          "duration": "4H",
+          "items": [
+            "에이전트 출력 품질을 측정하는 평가 기준(정확도, 안전성, 응답 형식) 설계",
+            "회귀테스트 케이스 작성과 자동 실행 파이프라인 구축",
+            "실습 주제 예시: 사내 업무 시나리오 기반 테스트 케이스 셋 작성 및 실행"
+          ]
+        },
+        {
+          "module_name": "루프 엔지니어링 — 자가개선 사이클",
+          "duration": "2H",
+          "items": [
+            "회귀테스트 결과로 프롬프트·설정을 조정하는 자가개선 루프 구조 이해",
+            "품질 메트릭 정의와 반복 개선 사이클 실습",
+            "실습 주제 예시: 회귀테스트 결과 기반 프롬프트 개선 라운드 진행"
+          ]
+        },
+        {
+          "module_name": "Gemini 개발 도구 체인 세팅",
+          "duration": "2H",
+          "items": [
+            "Gemini Enterprise(업무 에이전트) · Gemini CLI(터미널) · Antigravity(에이전틱 IDE) 역할 분담과 통합 환경 구성",
+            "기존 코드 에디터(Cursor 등)에서 Antigravity로 전환하는 워크플로우 정리",
+            "실습 주제 예시: 팀별 개발 환경 세팅 후 샘플 데이터로 도구 연결 테스트"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "02",
+      "track_name": "사내 데이터 커넥터·MCP 서버 구축",
+      "course_title": "Snowflake 연동과 보안 통제를 갖춘 사내 MCP 서버 개발",
+      "duration": "8H",
+      "tools": [
+        "MCP (Model Context Protocol)",
+        "Snowflake",
+        "Gemini CLI",
+        "Antigravity",
+        "Gemini Enterprise"
+      ],
+      "modules": [
+        {
+          "module_name": "MCP 아키텍처와 커넥터 설계",
+          "duration": "2H",
+          "items": [
+            "MCP의 클라이언트-서버 구조와 Gemini Enterprise 커넥터 연동 방식 이해 (실시간 Tool 호출 vs 데이터스토어 인덱싱)",
+            "사내 후보 데이터 소스(Snowflake, API, 문서 저장소) 조사 및 연동 우선순위 설정",
+            "AI가 문서를 잘 이해하도록 데이터를 준비하는 Knowledge Graph·온톨로지 개념과 적용 포인트",
+            "실습 주제 예시: 팀별 연동 대상 데이터 소스 선정 및 인터페이스 스펙 정리"
+          ]
+        },
+        {
+          "module_name": "Snowflake 커넥터·MCP 서버 설계·구현",
+          "duration": "4H",
+          "items": [
+            "사내 데이터 저장소 Snowflake를 Gemini Enterprise에 연결하는 커넥터 구현 (Snowflake 네이티브 MCP 서버 활용 포함 — GE 커넥터·Tool 호출 지원 범위 확인 후 실습 구성 확정)",
+            "Gemini CLI·Antigravity로 서버 로직 작성 및 툴 정의(tool schema) 설계",
+            "실습 주제 예시: Snowflake 데이터 질의 MCP 서버 구현 및 Gemini Enterprise 연결 테스트"
+          ]
+        },
+        {
+          "module_name": "보안 통제 패턴 적용",
+          "duration": "2H",
+          "items": [
+            "DLP(데이터 유출 방지) 정책을 반영한 응답 필터링 패턴 구현",
+            "접근권한 검증 로직과 감사로그(audit log) 기록 체계 설계 — 팀 단위 권한으로 민감 데이터 에이전트 보호",
+            "실습 주제 예시: 권한별 응답 제한 테스트 및 감사로그 조회 실습"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "03",
+      "track_name": "Google Workspace 연동과 통합 파이프라인",
+      "course_title": "GW MCP 연동, 멀티 에이전트 오케스트레이션과 팀 프로젝트 완성",
+      "duration": "8H",
+      "tools": [
+        "Google Workspace",
+        "MCP (Model Context Protocol)",
+        "Gemini Enterprise",
+        "Gemini CLI",
+        "Antigravity"
+      ],
+      "modules": [
+        {
+          "module_name": "Google Workspace MCP 연동",
+          "duration": "3H",
+          "items": [
+            "Gmail·Calendar·Drive·Sheets를 연결하는 GW MCP 서버 구성",
+            "인증(OAuth) 설정과 권한 범위(scope) 관리",
+            "실습 주제 예시: Sheets 데이터를 조회해 요약 응답을 생성하는 연동 실습"
+          ]
+        },
+        {
+          "module_name": "멀티 에이전트 오케스트레이션 설계",
+          "duration": "3H",
+          "items": [
+            "역할이 분리된 다중 에이전트 간 작업 분배·조율 구조 설계 — 타 직군이 만든 에이전트를 연결·통제하는 관점 포함",
+            "앞서 구축한 Snowflake 커넥터·사내 MCP 서버와 GW MCP를 연결한 파이프라인 구성",
+            "실습 주제 예시: 문의 접수, 사내 데이터 조회, 이메일 초안 작성까지 이어지는 파이프라인 구현"
+          ]
+        },
+        {
+          "module_name": "팀 프로젝트 발표와 코드 리뷰",
+          "duration": "2H",
+          "items": [
+            "팀별 프로덕션 프로토타입 완성 및 시연 준비",
+            "팀 간 코드 리뷰 — 아키텍처, 보안 통제, 에러 처리 관점 피드백",
+            "발표 및 질의응답, 사내 배포 로드맵 정리"
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "<ul style='margin:0; padding-left:20px; line-height:1.8;'><li><b>Snowflake 커넥터·사내 MCP 서버 1종:</b> 사내 데이터 소스 연동, DLP·접근권한·감사로그 통제 반영 — 타 직군의 AI 활용 기반 인프라</li><li><b>GW 연동 파이프라인:</b> Gmail/Calendar/Drive/Sheets와 사내 MCP를 연결한 멀티 에이전트 워크플로우</li><li><b>팀별 프로덕션 프로토타입:</b> 실제 업무 시나리오 기반 완성 결과물과 발표 자료</li><li><b>평가·회귀테스트 하네스:</b> 팀별 에이전트 품질 측정 및 지속 개선용 테스트 파이프라인</li></ul>",
+  "curriculum_title": "단계별 상세 커리큘럼",
+  "schedule_message": "<p style='margin:0 0 8px 0'>본 과정은 개발·인프라·정보보안 직군 대상 심화 과정으로, <b>10명 단위 소규모 차수</b>로 운영합니다. 사전 설문으로 참여자의 개발 환경·AI 활용 수준을 진단해 팀 편성에 반영합니다.</p><p style='margin:0'>8월 말~9월 초 이후 일정 협의를 통해 차수를 확정하며, 24시간(4시간×6일) 구성은 팀 프로젝트 진행 상황에 따라 조정 가능합니다. Snowflake 등 사내 데이터 연동 실습 범위는 커넥터 개발 일정과 연계해 협의합니다.</p>",
+  "show_instructors": true,
+  "instructors": [
+    {
+      "category": "개발자 심화 과정",
+      "name": "김O욱",
+      "headline": "전 Microsoft 수석(13년) · SKT Gemini Enterprise 도입 교육 · Hello AI 대표",
+      "bio": "전 Microsoft 수석(13년) 출신으로 EBS 온라인 클래스 300만 접속 시스템을 책임진 엔터프라이즈급 기술 전문가. Microsoft MVP(AI)·Regional Director·MCT·KIRD 객원교수로 활동하며, SKT 사내툴 활용 교육과 Gemini Enterprise 도입 교육을 진행해 기업 GE 도입 노하우를 보유. 서울대·SKT FLYAI 생성형 AI 개발자 과정 등 개발자 대상 심화 교육 전문.",
+      "expertise": [
+        "LLM 개발·컨설팅",
+        "Gemini Enterprise 도입",
+        "개발자 생성형 AI 교육",
+        "LangChain",
+        "Azure"
+      ],
+      "experience": [
+        "전 Microsoft 수석 13년 · EBS 온라인 클래스 300만 접속 시스템 책임",
+        "SKT 사내툴 활용 교육 · SKT Gemini Enterprise 도입 교육",
+        "서울대·SKT FLYAI 생성형 AI 개발자 과정 진행",
+        "국방부·대한상공회의소·롯데케미칼 등 기업 교육 다수",
+        "『생성형AI 사피엔스』 외 저서 4권 · KIRD Best 강사상 2회"
+      ],
+      "metrics": [
+        {
+          "value": "13년",
+          "label": "Microsoft 수석"
+        },
+        {
+          "value": "2회",
+          "label": "KIRD Best 강사상"
+        },
+        {
+          "value": "4권",
+          "label": "AI 분야 저서"
+        }
+      ]
+    },
+    {
+      "category": "MCP·업무 자동화",
+      "name": "곽O철",
+      "headline": "MCP Korea 운영 · SKT Gemini Enterprise 도입 교육",
+      "bio": "MCP Korea를 직접 운영하는 MCP 생태계 전문가로, 본 과정의 사내 MCP 서버·커넥터 구축 커리큘럼과 직결되는 실전 노하우 보유. SKT Gemini Enterprise 도입 교육을 진행했으며 AI 통역 서비스 Osay Co-Founder, 지피터스 파트너로 활동 중. SK mySuni·SK Innovation·한화시스템·LG인화원 등 대기업 생성형 AI·업무 자동화 교육 다수 진행.",
+      "expertise": [
+        "MCP",
+        "Gemini Enterprise",
+        "업무 자동화 (n8n·Make)",
+        "생성형 AI 활용",
+        "프롬프트 엔지니어링"
+      ],
+      "experience": [
+        "MCP Korea 운영",
+        "SKT Gemini Enterprise 도입 교육 진행",
+        "SK mySuni·SK Innovation·한화시스템·LG인화원 등 대기업 교육 다수",
+        "AI 통역 서비스 Osay Co-Founder · 지피터스 파트너",
+        "2024 항해99 해커톤 최우수상 · 서울경제진흥원 G밸리 프롬프트 최우수상"
+      ],
+      "metrics": [
+        {
+          "value": "4.6",
+          "label": "강의 만족도 (5.0)"
+        },
+        {
+          "value": "300+",
+          "label": "누적 수강생"
+        },
+        {
+          "value": "2회",
+          "label": "경진대회 최우수상"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SK 그룹 마케팅 직군 AI 에이전트 교육 제안서</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+  :root{
+    --primary:#EE3E4C; --primary-dk:#C92434; --secondary:#EBBAC0;
+    --ink:#111111; --body:#333333; --muted:#6B7280; --faint:#9AA1AC;
+    --border:#EBEBEB; --line:#F0F0F2; --bg:#ffffff; --soft:#FAFAFB; --soft2:#F5F6F8;
+    --blue:#2563EB; --blue-bg:#EEF4FF; --green:#0E9F6E; --green-bg:#E7F6EF;
+    --amber:#B45309; --amber-bg:#FEF3E2; --purple:#7C3AED;
+    --shadow:0 1px 2px rgba(17,17,17,.04),0 10px 30px rgba(17,17,17,.08);
+    --radius:16px;
+    --slide-w:1280px; --slide-h:720px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;overflow:hidden;background:#0a0c11;
+    font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+
+  .stage{position:fixed;inset:0;display:grid;place-items:center}
+  .deck{position:relative;width:var(--slide-w);height:var(--slide-h);transform-origin:center center;
+    box-shadow:0 20px 60px rgba(0,0,0,.45);border-radius:6px;overflow:hidden;background:var(--bg)}
+
+  .slide{position:absolute;inset:0;width:var(--slide-w);height:var(--slide-h);background:var(--bg);
+    overflow:hidden;opacity:0;pointer-events:none;transform:translateX(24px);
+    transition:opacity .4s ease,transform .4s ease}
+  .slide.is-active{opacity:1;pointer-events:auto;transform:translateX(0)}
+  .fit-frame{position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start}
+  .fit-frame.center{justify-content:center}
+  .fit-content{padding:48px 64px;transform-origin:top center}
+  .fit-frame.center .fit-content{transform-origin:center center}
+
+  /* 표지/헤더 타이포 - 가독성 강화 */
+  .sec-num{font-size:13px;font-weight:700;color:var(--faint);letter-spacing:.1em}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;
+    letter-spacing:.05em;color:var(--primary);text-transform:uppercase;margin:10px 0 14px}
+  .kicker::before{content:"";width:24px;height:2px;background:var(--primary);border-radius:2px}
+  h2{font-size:32px;line-height:1.25;color:var(--ink);margin:0 0 10px;font-weight:800;letter-spacing:-.02em}
+  h3{font-size:19px;color:var(--ink);margin:0;font-weight:700}
+  .lead{font-size:16px;color:var(--muted);margin:0 0 22px;max-width:940px;line-height:1.65}
+
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .split{display:grid;grid-template-columns:1.2fr .8fr;gap:22px;align-items:center}
+
+  /* 표지 */
+  .cover{background:radial-gradient(1200px 520px at 82% -12%,#ff5d69 0%,transparent 55%),
+    linear-gradient(135deg,#1a1114 0%,#2a1418 40%,#7a1420 100%);color:#fff}
+  .cover .cover-badge{display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:600;
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);padding:9px 16px;border-radius:999px;
+    letter-spacing:.02em}
+  .cover h1{font-size:50px;line-height:1.18;font-weight:800;margin:24px 0 16px;letter-spacing:-.03em;color:#fff}
+  .cover h1 span{color:#ffd0d4}
+  .cover .sub{font-size:19px;color:rgba(255,255,255,.9);max-width:780px;margin:0 0 32px;line-height:1.55}
+  .cover-meta{display:flex;flex-wrap:wrap;gap:12px 30px;font-size:14px;color:rgba(255,255,255,.75);
+    border-top:1px solid rgba(255,255,255,.18);padding-top:22px}
+  .cover-meta b{color:#fff;font-weight:600}
+  .closing{background:linear-gradient(135deg,#1a1114,#5e1018);color:#fff}
+  .closing h2{color:#fff;font-size:34px}
+  .closing .msg{font-size:18px;color:rgba(255,255,255,.92);max-width:880px;margin:16px 0 28px;line-height:1.6}
+  .closing .sign{display:flex;flex-wrap:wrap;gap:10px 30px;font-size:14.5px;color:rgba(255,255,255,.78);
+    border-top:1px solid rgba(255,255,255,.2);padding-top:22px}
+  .closing .sign b{color:#fff}
+  .cover .kicker,.closing .kicker{color:#ffd0d4}
+  .cover .kicker::before,.closing .kicker::before{background:#ffd0d4}
+
+  /* KPI */
+  .kpi{background:var(--soft);border:1px solid var(--border);border-radius:14px;padding:22px 18px;text-align:center}
+  .kpi .n{font-size:38px;font-weight:800;color:var(--primary);letter-spacing:-.03em;line-height:1}
+  .kpi .n small{font-size:19px;font-weight:700}
+  .kpi .l{font-size:13.5px;color:var(--muted);margin-top:10px;font-weight:500;line-height:1.4}
+
+  /* 칩 */
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+  .chip{font-size:14.5px;font-weight:700;color:var(--ink);background:#fff;border:1px solid var(--border);
+    padding:10px 17px;border-radius:10px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  .chip.big{font-size:15.5px;border-color:#f2c9cd}
+
+  /* 사례 카드 */
+  .case{border:1px solid var(--border);border-radius:14px;padding:22px 24px;background:#fff;position:relative}
+  .case::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:4px;border-radius:4px;background:var(--primary)}
+  .case .ctop{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding-left:14px}
+  .case .co{font-size:19px;font-weight:800;color:var(--ink)}
+  .case .cat{font-size:12px;font-weight:700;color:var(--muted);background:var(--soft2);padding:5px 11px;border-radius:999px;white-space:nowrap}
+  .case .desc{font-size:13.5px;color:var(--body);padding-left:14px;margin:8px 0 14px;line-height:1.55}
+  .metrics{display:flex;flex-wrap:wrap;gap:10px;padding-left:14px}
+  .metric{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:10px 13px;min-width:100px}
+  .metric .mv{font-size:20px;font-weight:800;color:var(--primary-dk);line-height:1}
+  .metric .ml{font-size:11.5px;color:var(--muted);margin-top:6px;line-height:1.35}
+  .taglist{padding-left:14px;margin-top:12px;font-size:12.5px;color:var(--faint);line-height:1.5}
+  .taglist b{color:var(--body);font-weight:600}
+
+  /* 레퍼런스 컬럼 */
+  .refcol{background:var(--soft);border:1px solid var(--border);border-radius:14px;padding:18px 20px}
+  .refcol .refhd{font-size:14px;font-weight:800;color:var(--primary);padding-bottom:10px;margin-bottom:6px;border-bottom:2px solid #f4ccd0}
+  .refcol ul{margin:0;padding:0;list-style:none}
+  .refcol li{font-size:14px;font-weight:600;color:var(--ink);padding:7px 0;border-bottom:1px solid var(--line);line-height:1.45}
+  .refcol li:last-child{border-bottom:none}
+  .refcol li span{font-size:12px;color:var(--muted);font-weight:500}
+
+  /* MVP 카드 */
+  .mvp{border:1px solid var(--border);border-radius:14px;padding:18px 20px;background:linear-gradient(180deg,#fff,#fdfafa)}
+  .mvp .mh{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px}
+  .mvp .idx{flex:none;width:32px;height:32px;border-radius:8px;background:var(--ink);color:#fff;
+    font-size:13.5px;font-weight:800;display:grid;place-items:center}
+  .mvp .mt{font-size:15.5px;font-weight:700;color:var(--ink);line-height:1.4}
+  .mvp .row{font-size:13px;margin:7px 0;display:flex;gap:10px;line-height:1.5}
+  .mvp .row .tag{flex:none;font-size:11.5px;font-weight:700;color:var(--muted);width:42px;padding-top:2px}
+  .mvp .row .val{color:var(--body)}
+  .mvp .row .val.tech{color:var(--blue);font-weight:600}
+  .mvp .row .val.eff{color:var(--green);font-weight:600}
+
+  /* 인용 */
+  .quote{background:linear-gradient(135deg,#fff5f6,#fdeef0);border:1px solid #f4ccd0;border-radius:14px;padding:26px 28px;position:relative}
+  .quote .q{font-size:21px;font-weight:800;color:var(--primary-dk);line-height:1.45;letter-spacing:-.02em}
+  .quote .by{font-size:13px;color:var(--muted);margin-top:12px}
+
+  /* 플로우 */
+  .flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+  .step{flex:1;min-width:160px;background:var(--soft);border:1px solid var(--border);border-radius:12px;padding:16px 18px;position:relative}
+  .step + .step{margin-left:28px}
+  .step + .step::before{content:"→";position:absolute;left:-23px;top:50%;transform:translateY(-50%);color:var(--primary);font-weight:800;font-size:19px}
+  .step .st{font-size:12px;font-weight:700;color:var(--primary);margin-bottom:5px;letter-spacing:.04em}
+  .step .sd{font-size:14.5px;color:var(--ink);font-weight:700;line-height:1.4}
+  .step .ss{font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.5}
+
+  /* 과제 카드 (아이콘 제거, 번호+제목+설명 구조) */
+  .task{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px}
+  .task .tnum{font-size:13px;font-weight:800;color:var(--primary);letter-spacing:.04em}
+  .task .tt{font-size:15px;font-weight:700;color:var(--ink);margin:6px 0 6px;line-height:1.4}
+  .task .td{font-size:12.5px;color:var(--muted);line-height:1.55}
+
+  /* 일반 테이블 */
+  .tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+  .tbl th{background:var(--ink);color:#fff;text-align:left;padding:12px 14px;font-weight:600;font-size:12.5px}
+  .tbl th:first-child{border-radius:8px 0 0 0}.tbl th:last-child{border-radius:0 8px 0 0}
+  .tbl td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl tbody tr:nth-child(even){background:var(--soft)}
+  .tbl .task-c{font-weight:700;color:var(--ink);white-space:nowrap}
+  .pill{display:inline-block;font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:999px;margin:2px 3px 2px 0}
+  .pill.b{background:var(--blue-bg);color:var(--blue)}
+  .pill.r{background:#FEF0F0;color:var(--primary)}
+  .pill.g{background:var(--green-bg);color:var(--green)}
+
+  /* Before / After */
+  .ba-head,.ba{display:grid;grid-template-columns:1.05fr 1.15fr 36px 1.15fr .9fr;gap:12px;align-items:center}
+  .ba-head{font-size:12px;font-weight:700;color:var(--muted);padding:0 4px 10px}
+  .ba-head .h-after{color:var(--primary)}
+  .ba{padding:11px 4px;border-top:1px solid var(--line)}
+  .ba .task-name{font-weight:700;color:var(--ink);font-size:13.5px}
+  .ba .before{background:var(--soft2);border:1px solid var(--border);border-radius:10px;padding:10px 13px;font-size:12.5px;color:var(--muted);line-height:1.5}
+  .ba .arrow{text-align:center;color:var(--primary);font-weight:800;font-size:20px}
+  .ba .after{background:#fff5f6;border:1px solid #f4ccd0;border-radius:10px;padding:10px 13px;font-size:12.5px;color:var(--ink);font-weight:500;line-height:1.5}
+  .ba .gain{text-align:center;font-size:15px;font-weight:800;color:var(--primary-dk);line-height:1.25}
+
+  /* 견적 */
+  .est-total{display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px;background:linear-gradient(135deg,#EE3E4C,#C92434);color:#fff;border-radius:14px;padding:18px 24px;margin-bottom:14px}
+  .est-total .big{font-size:30px;font-weight:800;letter-spacing:-.02em}
+  .est-total .ko{font-size:14px;opacity:.92;margin-top:3px}
+  .est-total .per{margin-left:auto;font-size:13px;font-weight:600;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:9px 16px;border-radius:999px}
+  .est{width:100%;border-collapse:collapse;font-size:12px}
+  .est th{background:var(--ink);color:#fff;padding:9px 10px;text-align:center;font-weight:600;font-size:11.5px;white-space:nowrap}
+  .est th:first-child{border-radius:8px 0 0 0}.est th:last-child{border-radius:0 8px 0 0}
+  .est td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+  .est td.cat{font-weight:800;color:var(--primary);background:var(--soft);font-size:12.5px}
+  .est td.item{text-align:left;font-weight:600;color:var(--ink);font-size:12.5px}
+  .est td.r{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink);font-size:12.5px}
+  .est td.memo{text-align:left;font-size:10.5px;color:var(--muted)}
+  .est tr.sub td{background:var(--soft);font-weight:700;color:var(--ink)}
+  .est tr.total td{background:var(--ink);color:#fff;font-weight:800;font-size:14px}
+  .est tr.total td.r{color:#fff}
+
+  /* 커리큘럼 표 - 가독성 강화 */
+  .prop{width:100%;border-collapse:collapse;font-size:12.5px}
+  .prop th{text-align:left;padding:11px 12px;font-size:12px;font-weight:700;letter-spacing:.03em;color:var(--muted);background:var(--soft);border-bottom:2px solid var(--border);white-space:nowrap}
+  .prop th.c{text-align:center}
+  .prop td{padding:11px 12px;line-height:1.5;border-bottom:1px solid var(--line);vertical-align:middle;font-size:12.5px}
+  .prop td.trk{font-weight:800;color:var(--primary);background:var(--soft);white-space:nowrap;text-align:center;line-height:1.35}
+  .prop td.course{font-weight:700;color:var(--ink)}
+  .prop td.core{color:var(--body);font-size:12px}
+  .prop td.tgt{color:var(--muted);font-size:12px;white-space:nowrap;line-height:1.35}
+  .prop td.hrs{color:var(--primary);font-weight:800;text-align:center;white-space:nowrap;line-height:1.35;font-size:13px}
+  .prop tr.sumrow td{background:#FFF6F2;font-weight:700;color:var(--ink)}
+  .badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap}
+  .badge-red{background:rgba(238,62,76,.12);color:var(--primary-dk)}
+  .badge-blue{background:rgba(37,99,235,.12);color:var(--blue)}
+  .badge-green{background:rgba(14,159,110,.12);color:var(--green)}
+  .badge-purple{background:rgba(124,58,237,.12);color:var(--purple)}
+
+  /* 트랙 카드 */
+  .track{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#fff}
+  .track .th{padding:16px 18px 14px;color:#fff}
+  .track.t1 .th{background:linear-gradient(135deg,#EE3E4C,#C92434)}
+  .track.t2 .th{background:linear-gradient(135deg,#F0736E,#d9524d)}
+  .track.t3 .th{background:linear-gradient(135deg,#8B5CF6,#6D3EE0)}
+  .track.t4 .th{background:linear-gradient(135deg,#2563EB,#1D4FD8)}
+  .track .tk{font-size:12.5px;font-weight:700;opacity:.92;letter-spacing:.04em}
+  .track .tn{font-size:18px;font-weight:800;margin-top:4px}
+  .track .tp{font-size:12.5px;opacity:.94;margin-top:3px}
+  .track .tb{padding:14px 18px;font-size:12.5px;color:var(--body);line-height:1.6}
+
+  /* 왜 우리인가 다크 박스 */
+  .why{background:var(--ink);color:#fff;border-radius:14px;padding:24px}
+  .why h3{color:#fff;margin-bottom:12px;font-size:19px}
+  .why ul{margin:0;padding-left:20px;font-size:14px;color:rgba(255,255,255,.86);line-height:1.7}
+  .why li{margin:9px 0}
+  .why b{color:#ffd0d4}
+
+  /* 강사 카드 */
+  .instructor{display:grid;grid-template-columns:160px 1fr;gap:24px;align-items:start}
+  .instructor .photo{width:160px;height:200px;border-radius:14px;background:linear-gradient(135deg,#f5f5f5,#e5e5e5);border:1px solid var(--border);display:grid;place-items:center;color:var(--muted);font-size:13px;font-weight:600;text-align:center;line-height:1.5;padding:14px}
+  .instructor .meta h3{font-size:24px;color:var(--ink);margin-bottom:6px}
+  .instructor .meta .role{font-size:14px;color:var(--primary);font-weight:700;margin-bottom:14px}
+  .instructor .meta dl{display:grid;grid-template-columns:90px 1fr;gap:8px 14px;font-size:13.5px;margin:0}
+  .instructor .meta dt{color:var(--muted);font-weight:600}
+  .instructor .meta dd{color:var(--ink);margin:0;font-weight:500;line-height:1.55}
+  .instructor .meta .tags{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .instructor .meta .tags .pill{margin:0}
+
+  /* 노트 */
+  .note{font-size:12px;color:var(--faint);margin-top:16px;padding-top:13px;border-top:1px dashed var(--border);line-height:1.55}
+
+  /* 네비게이션 UI */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:center;gap:3px;
+    padding:12px 6vw;opacity:.18;transition:opacity .25s}
+  .nav:hover{opacity:.95}
+  .nav-dot{width:22px;height:3px;padding:0;background:rgba(255,255,255,.4);border:0;border-radius:2px;cursor:pointer;transition:all .2s}
+  .nav-dot.active{width:34px;background:var(--primary)}
+  .nav-dot:hover{background:var(--primary)}
+  .slide-num{position:fixed;right:26px;bottom:20px;z-index:1000;color:rgba(255,255,255,.55);
+    font-size:12px;font-weight:700;letter-spacing:.08em;font-variant-numeric:tabular-nums}
+  .hint{position:fixed;left:26px;bottom:20px;z-index:1000;color:rgba(255,255,255,.32);font-size:11px}
+
+  @media print{
+    @page{ size:A4 landscape; margin:0; }
+    html,body{overflow:visible;background:#fff;height:auto}
+    .stage{position:static;display:block}
+    .deck{transform:none!important;box-shadow:none;border-radius:0;width:auto;height:auto}
+    .nav,.slide-num,.hint{display:none}
+    .slide{position:relative;inset:auto;width:100vw;height:100vh;opacity:1;transform:none;
+      page-break-after:always;break-inside:avoid;transition:none}
+    .slide:last-child{page-break-after:auto}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<div class="nav" id="nav" aria-label="슬라이드 목차"></div>
+<div class="slide-num" id="slideNum" aria-live="polite"></div>
+<div class="hint">← → 이동 · F 전체화면 · Ctrl/⌘+P PDF</div>
+
+<div class="stage">
+  <div class="deck" id="deck">
+
+    <!-- ============ 1. 표지 ============ -->
+    <section class="slide cover">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <span class="cover-badge">SK 그룹 마케팅 직군 &nbsp;×&nbsp; 모두의연구소</span>
+          <h1>Claude Enterprise 기반<br><span>마케팅 에이전트 교육</span></h1>
+          <p class="sub">데이터 분석 → 인사이트 → 보고서까지 한 사이클을 완성하고,<br>각 부서에서 즉시 활용 가능한 마케팅 에이전트를 제작하는 3일 실전 워크샵</p>
+          <div class="cover-meta">
+            <span><b>대상</b> · SK텔레콤·SK하이닉스·SK케미칼 마케팅 직군 30명</span>
+            <span><b>일정</b> · 2026.10.20(화) ~ 10.22(목) / 21시간</span>
+            <span><b>장소</b> · 수송 스퀘어 (SK에코플랜트 본사)</span>
+            <span><b>작성</b> · 모두의연구소 비즈팀</span>
+            <span><b>일자</b> · 2026.08.14</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2. 목차 ============ -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">01 / 목차</span>
+          <p class="kicker">Agenda</p>
+          <h2>제안서 주요 내용</h2>
+          <p class="lead">SK 그룹의 AX 비전에 정합하는 마케팅 AI 에이전트 교육의 전체 설계를 5개 영역으로 정리했습니다.</p>
+
+          <div class="grid g3">
+            <div class="task"><div class="tnum">01 — 02</div><div class="tt">배경 &amp; 과제</div><div class="td">SK 그룹 AX 전략, 1인 1에이전트 비전, 마케팅 조직의 전환 과제</div></div>
+            <div class="task"><div class="tnum">03 — 05</div><div class="tt">실적 &amp; 사례</div><div class="td">모두의연구소 누적 교육 실적, 마케팅 AI 교육 대규모 사례, 실제 산출물</div></div>
+            <div class="task"><div class="tnum">06 — 07</div><div class="tt">적합성 &amp; 기대효과</div><div class="td">SK 요건 × 우리 역량 매핑, 업무 프로세스 Before/After</div></div>
+            <div class="task"><div class="tnum">08 — 11</div><div class="tt">제안 커리큘럼</div><div class="td">3일 21시간 상세 — Day 1 기초, Day 2 심층 분석, Day 3 에이전트 제작</div></div>
+            <div class="task"><div class="tnum">12</div><div class="tt">강사 소개</div><div class="td">주강사 조세희 — 프로필, 전문 영역, 주요 수강 실적</div></div>
+            <div class="task"><div class="tnum">13</div><div class="tt">맺음말</div><div class="td">일정 협의, 담당자 정보 및 향후 진행 안내</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3. 배경 - SK AX 1인 1에이전트 ============ -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">02 / 배경</span>
+          <p class="kicker">왜 지금인가</p>
+          <h2>SK 그룹, "나의 AI"에서 "우리의 AI"로</h2>
+          <p class="lead">최태원 회장은 2026 뉴 이천포럼에서 '1인 1에이전트' 도입을 선언하며, 개인 AI를 넘어 조직 단위 AI로의 진화를 주문했습니다.</p>
+
+          <div class="quote" style="margin-bottom:18px">
+            <div class="q">"360도 전방위로, 전속력으로 AI 전환(AX)에 돌입해야 할 때. 나의 AI에서 우리의 AI로 진화해야 한다."</div>
+            <div class="by">최태원 SK그룹 회장, 2026 New 이천포럼 (2026.6.13)</div>
+          </div>
+
+          <div class="grid g4">
+            <div class="kpi"><div class="n">2,000<small>+</small></div><div class="l">SK텔레콤 마케팅·법무·PR에서 실제 운영 중인 AI 에이전트 수</div></div>
+            <div class="kpi"><div class="n">25<small>개사</small></div><div class="l">에이닷 비즈 확대 도입 대상 SK 그룹 멤버사 (8만 명)</div></div>
+            <div class="kpi"><div class="n">90<small>%</small></div><div class="l">AI 활용 SK 그룹 구성원 비율 — 다음 단계는 '조직 단위 AI'</div></div>
+            <div class="kpi"><div class="n">60<small>%</small></div><div class="l">에이닷 비즈 도입 후 회의록 작성 시간 단축률</div></div>
+          </div>
+
+          <p class="note">출처 · 연합뉴스 2026.6.14 / SK텔레콤 뉴스룸 2025.9.29·2026.3.1 / 동아일보 2026.6.16</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4. 마케팅 직군 4대 과제 ============ -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">03 / 과제</span>
+          <p class="kicker">SK 마케팅 직군의 전환 과제</p>
+          <h2>Claude Enterprise로 풀어야 할 4가지 현업 과제</h2>
+          <p class="lead">3개 계열사 마케팅 부서가 공통으로 직면한 데이터·분석·보고·자동화 과제를 Claude Enterprise 기반 에이전트로 해결합니다.</p>
+
+          <div class="grid g4">
+            <div class="task"><div class="tnum">과제 01</div><div class="tt">시장·고객 데이터 분석</div><div class="td">분산된 시장/고객 데이터를 취합하고 한 건의 인사이트로 도출하는 데 평균 2~3일 소요. Claude Extended Thinking으로 분석 단계를 압축.</div></div>
+            <div class="task"><div class="tnum">과제 02</div><div class="tt">보고서 작성 자동화</div><div class="td">분석 결과를 경영진 보고용 포맷으로 재구성하는 반복 작업. Anthropic 마케팅팀 실증 모델 prep·proofreading·action-items Skills 적용.</div></div>
+            <div class="task"><div class="tnum">과제 03</div><div class="tt">부서별 맞춤 에이전트</div><div class="td">계열사별 마케팅 컨텍스트(SK텔레콤 B2C·SK하이닉스 B2B·SK케미칼 산업재)에 맞춘 Claude Skills 설계 및 현업 배포.</div></div>
+            <div class="task"><div class="tnum">과제 04</div><div class="tt">조직 지식 자산화</div><div class="td">개인 단위 Claude 활용을 넘어 부서 공통 Skill Store로 확장 — SK '우리의 AI' 구상에 직접 기여.</div></div>
+          </div>
+          <p class="note">본 과제는 SK 수요조사 및 사전 인터뷰 시 보완 확정 예정. 1차 제안서 단계에서는 SK텔레콤 공개 사례와 Anthropic 마케팅팀 실증 사례를 기준으로 추정.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 5. 실적 한눈에 ============ -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">04 / 실적</span>
+          <p class="kicker">한눈에 보는 실적</p>
+          <h2>모두의연구소 AI 기업 교육 누적 역량</h2>
+          <p class="lead">2019년부터 축적한 기업 맞춤형 AI 교육 노하우를 SK 그룹 컨텍스트에 맞게 재설계하여 제공합니다.</p>
+
+          <div class="grid g4">
+            <div class="kpi"><div class="n">6<small>년+</small></div><div class="l">AI 기업 교육 전문 운영 (2019~현재)</div></div>
+            <div class="kpi"><div class="n">120<small>+</small></div><div class="l">누적 기업 교육 실적 (재계·공공·대학 포함)</div></div>
+            <div class="kpi"><div class="n">12,000<small>+</small></div><div class="l">누적 교육 인원 (임원·실무자·프리미엄 과정)</div></div>
+            <div class="kpi"><div class="n">30<small>+</small></div><div class="l">보유 강사 풀 (Claude·GPT·Gemini 전문 강사)</div></div>
+          </div>
+
+          <h3 style="margin:22px 0 10px;font-size:17px">주요 고객사 (마케팅·세일즈 AI 교육 실적)</h3>
+          <div class="chips">
+            <span class="chip big">SK SUPEX (IP 실무자)</span>
+            <span class="chip big">SK inc (Gemini Enterprise)</span>
+            <span class="chip big">SK 일렉링크</span>
+            <span class="chip">삼성전자 MX사업부</span>
+            <span class="chip">현대카드·현대커머셜</span>
+            <span class="chip">롯데이커머스</span>
+            <span class="chip">카카오페이·카카오뱅크</span>
+            <span class="chip">LG전자</span>
+            <span class="chip">한화건설·한화오션</span>
+            <span class="chip">대웅제약·녹십자GC</span>
+          </div>
+          <p class="note">실적 수치는 2026.8 기준 내부 집계. 상세 레퍼런스는 별첨 가능.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 6. 대규모 사례 ============ -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">05 / 사례</span>
+          <p class="kicker">대규모 마케팅·AI 교육 사례</p>
+          <h2>동종 실적 — Claude Enterprise / 마케팅 / 대규모 교육</h2>
+          <p class="lead">Claude Enterprise 도입 기업 교육과 대규모 마케팅 조직 교육 경험을 함께 보유하고 있습니다.</p>
+
+          <div class="grid g2">
+            <div class="case">
+              <div class="ctop"><div class="co">SK SUPEX · IP 실무자 Claude 워크숍</div><div class="cat">Claude / 4H</div></div>
+              <div class="desc">SK 그룹 IP 실무자 대상 Claude Skills·Scheduled 활용 업무 에이전트 제작 워크숍. 페어 프롬프팅 방식으로 조별 Skill형 에이전트 산출.</div>
+              <div class="metrics">
+                <div class="metric"><div class="mv">4H</div><div class="ml">단일 워크숍 시간</div></div>
+                <div class="metric"><div class="mv">7팀</div><div class="ml">조별 에이전트 제작</div></div>
+                <div class="metric"><div class="mv">1~2종</div><div class="ml">팀당 완성 에이전트</div></div>
+              </div>
+              <div class="taglist">주요 도구 · <b>Claude Enterprise · Claude Skills · Scheduled Tasks · 프롬프트 엔지니어링 · 페어 프롬프팅</b></div>
+            </div>
+
+            <div class="case">
+              <div class="ctop"><div class="co">현대카드·현대커머셜 · 360명 팀 세미나</div><div class="cat">Codex / 12회차</div></div>
+              <div class="desc">360명 전 직군 대상 LLM 활용 PBL 워크샵. 30명씩 12회차로 운영하며 팀별 AI 적용 과제 정의서·PoC 프로토타입·적용 로드맵 산출.</div>
+              <div class="metrics">
+                <div class="metric"><div class="mv">360명</div><div class="ml">총 교육 인원</div></div>
+                <div class="metric"><div class="mv">12회차</div><div class="ml">차수 운영</div></div>
+                <div class="metric"><div class="mv">14H</div><div class="ml">1회차당 시간</div></div>
+              </div>
+              <div class="taglist">주요 산출 · <b>팀별 AI 적용 과제 정의서 · LLM PoC 프로토타입 · 망분리 환경 적용 로드맵</b></div>
+            </div>
+          </div>
+
+          <p class="note">상세 사례집·강의 평가·산출물 샘플은 별첨 제공 가능. SK 그룹 컨텍스트 반영하여 동종 리퍼런스 추가 제공 예정.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 7. 산출물 MVP ============ -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">06 / 산출물</span>
+          <p class="kicker">실제 산출물 예시</p>
+          <h2>3일 교육 종료 시 확보하는 마케팅 에이전트</h2>
+          <p class="lead">Anthropic 자체 마케팅팀 실증 패턴을 그대로 이식 — 부서별 Claude Skills 에이전트를 교육 내 완성하고 현업에 배포합니다.</p>
+
+          <div class="grid g3">
+            <div class="mvp">
+              <div class="mh"><div class="idx">01</div><div class="mt">시장 분석 에이전트</div></div>
+              <div class="row"><div class="tag">입력</div><div class="val">경쟁사 뉴스, 카테고리 트렌드, 고객 페르소나</div></div>
+              <div class="row"><div class="tag">처리</div><div class="val tech">Claude Extended Thinking + Projects 컨텍스트</div></div>
+              <div class="row"><div class="tag">출력</div><div class="val">주간 시장 인사이트 리포트 (PPT 초안)</div></div>
+              <div class="row"><div class="tag">효과</div><div class="val eff">분석 시간 2~3일 → 2시간</div></div>
+            </div>
+
+            <div class="mvp">
+              <div class="mh"><div class="idx">02</div><div class="mt">보고서 자동화 에이전트</div></div>
+              <div class="row"><div class="tag">입력</div><div class="val">회의록, 캠페인 데이터, 부서 KPI</div></div>
+              <div class="row"><div class="tag">처리</div><div class="val tech">3-Skill 패턴 (prep · proofread · action-items)</div></div>
+              <div class="row"><div class="tag">출력</div><div class="val">경영진용 주간 리포트 + Asana 후속 작업</div></div>
+              <div class="row"><div class="tag">효과</div><div class="val eff">주 1~2일 → 2시간 (Anthropic 실증)</div></div>
+            </div>
+
+            <div class="mvp">
+              <div class="mh"><div class="idx">03</div><div class="mt">캠페인 성과 분석 에이전트</div></div>
+              <div class="row"><div class="tag">입력</div><div class="val">채널별 성과 데이터 (검색·소셜·이메일)</div></div>
+              <div class="row"><div class="tag">처리</div><div class="val tech">/performance-report 패턴 + 벤치마크 비교</div></div>
+              <div class="row"><div class="tag">출력</div><div class="val">채널별 ROI 분석 + 차분 예산 재배분 제안</div></div>
+              <div class="row"><div class="tag">효과</div><div class="val eff">분석 + 대시보드 작성 시간 70% 절감</div></div>
+            </div>
+          </div>
+          <p class="note">산출물 형태는 Claude Skills (Project 내 저장·재사용)로 제작. 사내 Claude Enterprise에 즉시 배포 가능. Anthropic 마케팅팀 / Triple Whale / Austin Lau (Growth Marketer) 실증 패턴 기반.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 8. 적합성 매핑 ============ -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">07 / 적합성</span>
+          <p class="kicker">SK 요건 × 우리 역량</p>
+          <h2>과제별 솔루션 매핑</h2>
+          <p class="lead">SK 수요조건 6개 항목에 대한 모두의연구소 대응 방안을 한눈에 정리했습니다.</p>
+
+          <table class="tbl">
+            <thead><tr><th style="width:25%">SK 요건</th><th style="width:38%">모두의연구소 대응</th><th style="width:37%">근거 / 실적</th></tr></thead>
+            <tbody>
+              <tr><td class="task-c">Claude Enterprise 중심</td><td>Anthropic 공식 마케팅 노하우 기반 커리큘럼 (Skills·Projects·Extended Thinking)</td><td><span class="pill r">Anthropic 마케팅팀 실증</span> <span class="pill b">SK SUPEX 동일 스택</span></td></tr>
+              <tr><td class="task-c">부서별 에이전트 제작</td><td>페어 프롬프팅 + Claude Skills 제작 워크숍 — 팀별 1~2종 완성</td><td><span class="pill r">SK SUPEX 워크숍</span> <span class="pill g">SK텔레콤 2,000개 사례</span></td></tr>
+              <tr><td class="task-c">시장·고객 데이터 분석</td><td>Extended Thinking 기반 다단계 분석 + 벤치마크 비교</td><td><span class="pill b">Triple Whale 실증</span> <span class="pill g">150K 토큰 분석</span></td></tr>
+              <tr><td class="task-c">보고서 작성 자동화</td><td>prep·proofreading·action-items 3-Skill 패턴 직접 이식</td><td><span class="pill r">Anthropic Ian Chan 사례</span></td></tr>
+              <tr><td class="task-c">다계열사 혼성 운영</td><td>계열사별 마케팅 컨텍스트(B2C·B2B·산업재) 맞춤형 실습 과제</td><td><span class="pill b">SK 3개사 개별 맞춤</span></td></tr>
+              <tr><td class="task-c">현업 즉시 적용</td><td>교육 종료 시 배포 가능한 Skill Store 형태 산출물 + 사후 로드맵</td><td><span class="pill g">SK '우리의 AI' 구상 정합</span></td></tr>
+            </tbody>
+          </table>
+          <p class="note">교육일 1~2주 전 사전 인터뷰를 통해 계열사별 세부 마케팅 과제를 반영하여 실습 난이도·컨텍스트를 최종 조정합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 9. 기대효과 Before/After ============ -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">08 / 기대효과</span>
+          <p class="kicker">Before &amp; After</p>
+          <h2>마케팅 업무 프로세스 전환</h2>
+          <p class="lead">교육 이후 부서별 마케팅 업무가 어떻게 바뀌는지 4개 핵심 작업을 기준으로 정리했습니다.</p>
+
+          <div class="ba-head">
+            <div>작업</div><div>Before</div><div></div><div class="h-after">After (Claude 에이전트)</div><div>효과</div>
+          </div>
+
+          <div class="ba">
+            <div class="task-name">시장 트렌드 분석</div>
+            <div class="before">뉴스·보고서·경쟁사 자료 취합, 엑셀 정리, 인사이트 도출까지 2~3일 소요</div>
+            <div class="arrow">→</div>
+            <div class="after">시장 분석 에이전트가 매주 자동 취합·분석, 인사이트 요약 제공</div>
+            <div class="gain">‑90%</div>
+          </div>
+          <div class="ba">
+            <div class="task-name">주간 성과 리포트</div>
+            <div class="before">데이터 웨어하우스 쿼리·검증·슬라이드 제작, 주 1~2일 전담</div>
+            <div class="arrow">→</div>
+            <div class="after">prep·proofreading·action-items Skills로 자동 생성, 검증된 수치</div>
+            <div class="gain">‑85%</div>
+          </div>
+          <div class="ba">
+            <div class="task-name">캠페인 소재 제작</div>
+            <div class="before">광고 소재 1종 제작에 30분, 다양한 사이즈·카피 변형 수작업</div>
+            <div class="arrow">→</div>
+            <div class="after">크리에이티브 변형 에이전트로 1종 제작 30초, 자동 CSV 업로드</div>
+            <div class="gain">‑98%</div>
+          </div>
+          <div class="ba">
+            <div class="task-name">고객 페르소나 분석</div>
+            <div class="before">외부 리서치 의뢰 또는 정성 분석, 분기 1회 수준</div>
+            <div class="arrow">→</div>
+            <div class="after">페르소나 에이전트로 월 단위 자동 갱신, 세그먼트 기회 실시간 탐지</div>
+            <div class="gain">+4×</div>
+          </div>
+          <p class="note">수치는 Anthropic 마케팅팀·Triple Whale·Austin Lau 사례 기반 추정치. SK 현장 데이터로 보정 시 정확도 향상 예정.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 10. 커리큘럼 개요 ============ -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">09 / 커리큘럼</span>
+          <p class="kicker">제안 과정 개요</p>
+          <h2>3일 21시간, 마케팅 에이전트 완성 커리큘럼</h2>
+          <p class="lead">SK 그룹 "1인 1에이전트" 구상에 정합하도록 3단계로 설계했습니다 — 관점 정립, 심층 분석, 에이전트 제작.</p>
+
+          <table class="prop">
+            <thead><tr>
+              <th style="width:9%" class="c">일차</th>
+              <th style="width:21%">메인 테마</th>
+              <th style="width:42%">핵심 학습 내용</th>
+              <th style="width:16%">주요 산출</th>
+              <th style="width:12%" class="c">시간</th>
+            </tr></thead>
+            <tbody>
+              <tr>
+                <td class="trk">Day 1</td>
+                <td class="course">Claude Enterprise 관점 정립 + 마케팅 분석 기초</td>
+                <td class="core">SK AX 컨텍스트 정렬 · Claude Enterprise 기능 개관 (Projects·Skills·Extended Thinking) · 마케팅용 프롬프트 엔지니어링 · 부서 브랜드 컨텍스트 구축 실습</td>
+                <td class="tgt">부서별 Claude Project</td>
+                <td class="hrs">7H</td>
+              </tr>
+              <tr>
+                <td class="trk">Day 2</td>
+                <td class="course">심층 데이터 분석 + 인사이트 도출</td>
+                <td class="core">시장 데이터 분석 (경쟁·트렌드) · 고객 데이터 분석 (페르소나·세그먼테이션) · Extended Thinking 심화 · 부서 실제 데이터 분석 실습 · 시각화·보고서 초안</td>
+                <td class="tgt">인사이트 보고서 초안</td>
+                <td class="hrs">7H</td>
+              </tr>
+              <tr>
+                <td class="trk">Day 3</td>
+                <td class="course">부서별 마케팅 에이전트 제작 + 검증</td>
+                <td class="core">Claude Skills 설계 관점 · 보고서 자동화 에이전트 (Anthropic 3-Skill 패턴) · 마케팅 분석 에이전트 제작 · 페어 프롬프팅 · 조별 발표·피드백 · 현업 적용 로드맵</td>
+                <td class="tgt">배포 가능 Skill 1~2종</td>
+                <td class="hrs">7H</td>
+              </tr>
+              <tr class="sumrow">
+                <td class="trk" colspan="4" style="text-align:right;padding-right:18px">총계</td>
+                <td class="hrs">21H</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="note">일정: 2026.10.20(화) ~ 10.22(목), 09:30~17:30 (점심 1시간 포함). 5인 1조 6개조 구성, 조별 PC 1대 + 보조강사 지원.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 11. Day 1 상세 ============ -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">10 / Day 1</span>
+          <p class="kicker">Day 1 — Foundation · 7H</p>
+          <h2>Claude Enterprise 관점 정립 + 마케팅 분석 기초</h2>
+          <p class="lead">Day 1은 SK 그룹 AX 컨텍스트 정렬부터 시작하여, 마케터가 Claude Enterprise를 도구가 아닌 '협업자'로 다루는 관점을 확립합니다.</p>
+
+          <table class="prop">
+            <thead><tr>
+              <th style="width:9%" class="c">모듈</th>
+              <th style="width:24%">제목</th>
+              <th style="width:48%">핵심 학습 내용</th>
+              <th style="width:11%" class="c">형태</th>
+              <th style="width:8%" class="c">시간</th>
+            </tr></thead>
+            <tbody>
+              <tr><td class="trk">M1</td><td class="course">SK AX 시대의 마케팅 — 왜 "1인 1에이전트"인가</td><td class="core">최태원 회장 AX 선언 · SK텔레콤 2,000개 에이전트 사례 · 에이닷 비즈 + Claude Enterprise 이원 전략 · 마케터의 역할 변화 (실행자→설계자)</td><td class="tgt">강의·토론</td><td class="hrs">1H</td></tr>
+              <tr><td class="trk">M2</td><td class="course">Claude Enterprise 기능 개관</td><td class="core">Projects로 부서 브랜드 컨텍스트 구축 · Skills로 업무 절차 자동화 · Extended Thinking으로 복잡한 분석 · Team Plan 보안·권한 관리</td><td class="tgt">강의·데모</td><td class="hrs">1.5H</td></tr>
+              <tr><td class="trk">M3</td><td class="course">마케팅용 프롬프트 엔지니어링 기초</td><td class="core">역할·맥락·제약·출력 포맷 4요소 · Few-shot 예시 설계 · 마케팅 작업 유형별 프롬프트 템플릿 (페르소나·캠페인·성과 분석)</td><td class="tgt">실습</td><td class="hrs">1.5H</td></tr>
+              <tr><td class="trk">M4</td><td class="course">마케팅 데이터 분석 관점 정립</td><td class="core">시장 데이터 (경쟁·트렌드·카테고리) · 고객 데이터 (행동·태도·페르소나) · 성과 데이터 (캠페인·채널·ROI) — 어떤 질문을 던질 것인가</td><td class="tgt">강의·워크샵</td><td class="hrs">1H</td></tr>
+              <tr><td class="trk">M5</td><td class="course">[실습 1] 부서별 Claude Project 구축</td><td class="core">조별(계열사 단위) 부서 브랜드 보이스·타겟 고객·KPI·금기어를 Project에 입력 · 부서 맞춤 Claude 인스턴스 완성 · 크로스 체크</td><td class="tgt">조별 실습</td><td class="hrs">2H</td></tr>
+              <tr class="sumrow"><td class="trk" colspan="4" style="text-align:right;padding-right:18px">Day 1 소계</td><td class="hrs">7H</td></tr>
+            </tbody>
+          </table>
+          <p class="note">M5 실습 종료 시 각 조는 자기 부서 컨텍스트가 주입된 Claude Project를 보유 — Day 2·3 실습의 기반이 됨.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 12. Day 2 상세 ============ -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">11 / Day 2</span>
+          <p class="kicker">Day 2 — Deep Analysis · 7H</p>
+          <h2>심층 데이터 분석 + 인사이트 도출</h2>
+          <p class="lead">Day 2는 부서 실제 데이터를 Claude로 깊이 분석하고, Anthropic 실증 패턴(Extended Thinking·/performance-report)으로 인사이트를 도출합니다.</p>
+
+          <table class="prop">
+            <thead><tr>
+              <th style="width:9%" class="c">모듈</th>
+              <th style="width:24%">제목</th>
+              <th style="width:48%">핵심 학습 내용</th>
+              <th style="width:11%" class="c">형태</th>
+              <th style="width:8%" class="c">시간</th>
+            </tr></thead>
+            <tbody>
+              <tr><td class="trk">M6</td><td class="course">시장 데이터 분석 — 경쟁·트렌드·카테고리</td><td class="core">경쟁사 보도자료·실적 공시 분석 · 카테고리 트렌드 시계열 추출 · 산업 뉴스 크롤링 결과 요약 · 시장 구도 시각화 프롬프트</td><td class="tgt">강의·실습</td><td class="hrs">1.5H</td></tr>
+              <tr><td class="trk">M7</td><td class="course">고객 데이터 분석 — 페르소나·세그먼테이션</td><td class="core">고객 리뷰·CS 데이터·인터뷰 정성 분석 · B2C/B2B 페르소나 생성 · 고객 여정 단계별 페인포인트 도출 · 세그먼트 기회 매트릭스</td><td class="tgt">강의·실습</td><td class="hrs">1.5H</td></tr>
+              <tr><td class="trk">M8</td><td class="course">Extended Thinking으로 복잡한 인사이트 도출</td><td class="core">다단계 추론이 필요한 마케팅 질문 설계 (예: "왜 Q3 이탈이 늘었나") · Claude의 사고 과정 읽기 · 인사이트 검증·보정 루프</td><td class="tgt">강의·실습</td><td class="hrs">1H</td></tr>
+              <tr><td class="trk">M9</td><td class="course">[실습 2] 부서 실제 데이터로 인사이트 도출</td><td class="core">각 조가 가져온 실제 (또는 가명처리) 마케팅 데이터로 M6~M8 패턴 적용 · 부서별 핵심 인사이트 3개 도출 · 강사 1:1 리뷰</td><td class="tgt">조별 실습</td><td class="hrs">2H</td></tr>
+              <tr><td class="trk">M10</td><td class="course">분석 결과 시각화 및 보고서 초안</td><td class="core">/performance-report 패턴 · 메트릭 대시보드 자동 생성 · Word/PPT 초안 작성 · 청중(경영진·실무자) 맞춤 메시지 설계</td><td class="tgt">강의·실습</td><td class="hrs">1H</td></tr>
+              <tr class="sumrow"><td class="trk" colspan="4" style="text-align:right;padding-right:18px">Day 2 소계</td><td class="hrs">7H</td></tr>
+            </tbody>
+          </table>
+          <p class="note">M9 실습용 데이터는 사전 인터뷰 시 확보. 보안 민감정보는 가명처리된 더미 데이터로 대체 가능.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 13. Day 3 상세 ============ -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">12 / Day 3</span>
+          <p class="kicker">Day 3 — Agent Building · 7H</p>
+          <h2>부서별 마케팅 에이전트 제작 + 검증</h2>
+          <p class="lead">Day 3는 Day 1·2에서 확보한 컨텍스트·인사이트를 Claude Skills 에이전트로 완성하고, 조별 배포 가능 산출물로 제작합니다.</p>
+
+          <table class="prop">
+            <thead><tr>
+              <th style="width:9%" class="c">모듈</th>
+              <th style="width:24%">제목</th>
+              <th style="width:48%">핵심 학습 내용</th>
+              <th style="width:11%" class="c">형태</th>
+              <th style="width:8%" class="c">시간</th>
+            </tr></thead>
+            <tbody>
+              <tr><td class="trk">M11</td><td class="course">Claude Skills — 에이전트 설계 관점</td><td class="core">Skill = 자연어로 저장하는 반복 워크플로 · 입력·처리·출력 명세서 작성 · "한 번 만들어 계속 쓴다" 원칙 · Anthropic 마케팅팀 3-Skill 패턴 해부</td><td class="tgt">강의·데모</td><td class="hrs">1H</td></tr>
+              <tr><td class="trk">M12</td><td class="course">보고서 자동화 에이전트 제작</td><td class="core">prep skill (조립) · proofreading skill (수치 검증) · action-items skill (후속 작업) — 3-Skill 패턴 직접 제작 · 부서 KPI에 맞춘 변형</td><td class="tgt">실습</td><td class="hrs">1.5H</td></tr>
+              <tr><td class="trk">M13</td><td class="course">마케팅 분석 에이전트 제작</td><td class="core">캠페인 성과 분석 / 캠페인 소재 생성 / 페르소나 갱신 — 부서 우선 과제에 따라 1종 선택 제작 · 발표용 산출물 포맷팅</td><td class="tgt">실습</td><td class="hrs">1.5H</td></tr>
+              <tr><td class="trk">M14</td><td class="course">[실습 3] 페어 프롬프팅 부서별 에이전트</td><td class="core">제작팀(2명)·검수팀(3명) 역할 교대 구조 · PC 1대로 Skill 제작·검증·개선 사이클 · 강사 실시간 피드백 · 부서별 최종 에이전트 1~2종 완성</td><td class="tgt">조별 실습</td><td class="hrs">2H</td></tr>
+              <tr><td class="trk">M15</td><td class="course">조별 발표·피드백 + 현업 적용 로드맵</td><td class="core">완성 에이전트 시연 · AI 검토자 마인드셋 (초안은 AI, 판단은 사람) · 사후 30/60/90일 적용 로드맵 · Skill Store 확장 방안</td><td class="tgt">발표·정리</td><td class="hrs">1H</td></tr>
+              <tr class="sumrow"><td class="trk" colspan="4" style="text-align:right;padding-right:18px">Day 3 소계</td><td class="hrs">7H</td></tr>
+            </tbody>
+          </table>
+          <p class="note">교육 종료 시 각 조는 사내 Claude Enterprise Project에 배포 가능한 Skill 에이전트 1~2종과 운영 매뉴얼을 확보. SK '우리의 AI' 구상에 직접 기여하는 자산.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 14. 왜 우리인가 ============ -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">13 / 차별성</span>
+          <p class="kicker">왜 모두의연구소인가</p>
+          <h2>SK 그룹 마케팅 교육의 4가지 차별 포인트</h2>
+          <p class="lead">단순 Claude 사용법 교육이 아닌, SK 그룹 AX 비전과 직결되는 '조직 단위 AI 자산화'에 집중합니다.</p>
+
+          <div class="split">
+            <table class="tbl">
+              <thead><tr><th>차별 항목</th><th>모두의연구소 제안</th></tr></thead>
+              <tbody>
+                <tr><td class="task-c">SK 비전 정합성</td><td>최태원 회장 '1인 1에이전트' 구상에 정합 — 교육 결과물이 SK텔레콤 2,000개 에이전트 모델의 타 계열사 확장 사례가 됨</td></tr>
+                <tr><td class="task-c">Anthropic 원전 노하우</td><td>Anthropic 자체 마케팅팀 실증 패턴(Ian Chan·Annabel Custer·Austin Lau)을 커리큘럼에 직접 이식</td></tr>
+                <tr><td class="task-c">동종 실적 보유</td><td>SK SUPEX IP 실무자 워크숍 운영 경험 + SK 계열 Gemini Enterprise 교육 다수 — SK 컨텍스트 숙지</td></tr>
+                <tr><td class="task-c">배포 가능 산출물</td><td>교육 내 Claude Skills 에이전트 1~2종 완성, 사내 Claude Enterprise에 즉시 배포 — 일상업무 에이닷 비즈와 심층 Claude의 이원 구조 완성</td></tr>
+                <tr><td class="task-c">강사 검증</td><td>주강사 조세희 — 내정 단계, SK 요건에 맞춘 강사 풀 백업 체계</td></tr>
+              </tbody>
+            </table>
+
+            <div class="why">
+              <h3>SUPEX적 가치 창출</h3>
+              <ul>
+                <li><b>1인 1에이전트 실현</b> — 교육 직후 각 마케터가 1종 이상 보유</li>
+                <li><b>조직 자산화</b> — 부서 Skill Store로 확장</li>
+                <li><b>SK 3개사 맞춤</b> — B2C·B2B·산업재 컨텍스트 개별 적용</li>
+                <li><b>사후 로드맵</b> — 30/60/90일 현업 적용 가이드 제공</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 15. 강사 소개 ============ -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">14 / 강사</span>
+          <p class="kicker">주강사 소개</p>
+          <h2>조세희 강사 (내정)</h2>
+          <p class="lead">본 교육은 SK 요건에 가장 적합한 강사를 내정하여, 사전 이력서 확정 후 최종 안내 예정입니다.</p>
+
+          <div class="instructor">
+            <div class="photo">강사 이력서<br>사진 영역<br><br>(별도 첨부 PDF)</div>
+            <div class="meta">
+              <h3>조세희 강사</h3>
+              <div class="role">AI 마케팅 · Claude Enterprise 전문 강사 (내정)</div>
+              <dl>
+                <dt>전문 영역</dt>
+                <dd>Claude Enterprise 활용, 마케팅 데이터 분석, AI 에이전트 설계, 프롬프트 엔지니어링</dd>
+                <dt>주요 경력</dt>
+                <dd>기업 마케팅 AI 교육 다수 · Claude Skills 기반 부서 에이전트 제작 워크숍 진행</dd>
+                <dt>강의 특징</dt>
+                <dd>현업 실습 중심 · 페어 프롬프팅 방식 · 부서별 맞춤 컨텍스트 설계</dd>
+                <dt>이력서</dt>
+                <dd>별첨 PDF (Google Drive 공유, /add-instructor-recommendation 단계에서 content.json에 상세 프로필 반영 예정)</dd>
+              </dl>
+              <div class="tags">
+                <span class="pill r">Claude Enterprise</span>
+                <span class="pill b">마케팅 데이터 분석</span>
+                <span class="pill g">AI 에이전트 설계</span>
+                <span class="pill b">프롬프트 엔지니어링</span>
+                <span class="pill g">페어 프롬프팅</span>
+              </div>
+            </div>
+          </div>
+          <p class="note">강사 이력서는 SK 담당자와 사전 협의를 통해 최종 확정. 보조강사 1명(조별 라우팅·실습 지원)이 별도 배정되어 30명/6조 운영을 지원합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 16. 맺음말 ============ -->
+    <section class="slide closing">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <p class="kicker">맺음말</p>
+          <h2>SK 마케팅 조직의 "우리의 AI"를 함께 완성하겠습니다</h2>
+          <p class="msg">최태원 회장이 제시한 '1인 1에이전트'는 이제 SK 그룹 전체의 실행 과제입니다. 본 교육은 SK텔레콤이 검증한 2,000개 에이전트 모델을 마케팅 부서로 확장하는 첫 걸음이 될 것입니다. 모두의연구소는 Anthropic이 실증한 마케팅 노하우와 SK 그룹 컨텍스트에 대한 이해를 결합해, 3일 안에 배포 가능한 마케팅 에이전트를 완성하겠습니다.</p>
+          <div class="sign">
+            <span><b>모두의연구소</b> · 비즈팀 · 사업PM</span>
+            <span><b>모두의연구소 기업교육팀</b></span>
+            <span>modu.biz@modulabs.co.kr</span>
+            <span><b>담당</b> · SK 그룹 마케팅 교육 제안 (이상진 담당자)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  const deck   = document.getElementById('deck');
+  const nav    = document.getElementById('nav');
+  const numEl  = document.getElementById('slideNum');
+  const slides = Array.from(deck.querySelectorAll('.slide'));
+  const total  = slides.length;
+  let current  = 0;
+
+  function fitStage(){
+    const k = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+    deck.style.transform = 'scale(' + k + ')';
+  }
+
+  function fitContent(slide){
+    const frame = slide.querySelector('.fit-frame');
+    const content = slide.querySelector('.fit-content');
+    if(!frame || !content) return;
+    content.style.transform = 'none';
+    const avail = frame.clientHeight;
+    const need  = content.scrollHeight;
+    if(need > avail){
+      content.style.transform = 'scale(' + (avail / need).toFixed(4) + ')';
+    }
+  }
+
+  slides.forEach((slide, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot';
+    dot.type = 'button';
+    dot.title = '슬라이드 ' + (i + 1);
+    dot.addEventListener('click', () => go(i));
+    nav.appendChild(dot);
+  });
+  const dots = Array.from(nav.querySelectorAll('.nav-dot'));
+
+  function go(i){
+    if(i < 0 || i >= total) return;
+    slides[current].classList.remove('is-active');
+    dots[current].classList.remove('active');
+    current = i;
+    slides[current].classList.add('is-active');
+    dots[current].classList.add('active');
+    numEl.textContent = (current + 1) + ' / ' + total;
+    fitContent(slides[current]);
+  }
+
+  window.addEventListener('resize', () => { fitStage(); fitContent(slides[current]); });
+  window.addEventListener('load', () => { slides.forEach(fitContent); });
+  window.addEventListener('beforeprint', () => slides.forEach(fitContent));
+
+  document.addEventListener('keydown', e => {
+    if(e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' '){ e.preventDefault(); go(current + 1); }
+    if(e.key === 'ArrowLeft'  || e.key === 'ArrowUp'){ e.preventDefault(); go(current - 1); }
+    if(e.key === 'Home'){ e.preventDefault(); go(0); }
+    if(e.key === 'End'){ e.preventDefault(); go(total - 1); }
+    if(e.key.toLowerCase() === 'f'){
+      if(!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+
+  fitStage();
+  go(0);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+/* 대덕전자 전용 오버라이드 — 강사 섹션 페이지에 푸터를 함께 안착 */
+body { padding-bottom: 24px; }
+.footer { margin-top: 14px; }
+.instructor-card { padding-bottom: 16px; }
+.instructor-metrics { margin-top: 14px; }
+/* 강사 소개 문단 구분(\n\n)이 렌더에 반영되도록 */
+.instructor-bio { white-space: pre-line; }

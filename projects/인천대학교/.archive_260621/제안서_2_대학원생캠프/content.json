@@ -1,0 +1,112 @@
+{
+  "title": "인천대학교 바이브코딩 캠프",
+  "subtitle": "AI 엔지니어링부터 풀스택 개발까지, 바이브코딩으로 앱 하나 완성하기",
+  "info": {
+    "keyword": "바이브코딩 · AI 엔지니어링 · 풀스택 개발\n프론트엔드 · 백엔드 · 데이터베이스 · 보안",
+    "ax_stage": "2단계 (실무 적용)",
+    "target": "대학원생 (전공 무관)",
+    "duration": "총 18시간 (6시간 × 3일)"
+  },
+  "intro": "본 프로그램은 인천대학교 대학원생을 대상으로 바이브코딩으로 실제 애플리케이션 하나를 완성하는 집중 캠프입니다. Part 1에서는 AI 엔지니어링 기초(프롬프트·컨텍스트·하네스 엔지니어링)를 다져 바이브코딩의 효율을 극대화하고, Part 2에서는 개발 레이어를 하나씩 쌓아가며 풀스택 앱을 완성합니다. AI 활용 핵심 기능부터 프론트엔드, 백엔드, 데이터베이스, 보안까지 전 과정을 바이브코딩으로 진행하여, 코딩 경험이 없어도 완성된 앱을 만들 수 있습니다.",
+  "objective": "<ul><li><b>AI 엔지니어링 기초</b> — 프롬프트·컨텍스트·하네스 엔지니어링을 통해 바이브코딩의 효율을 극대화하는 기법 습득</li><li><b>바이브코딩 풀스택 개발</b> — 프론트엔드, 백엔드, 데이터베이스, 보안 레이어를 바이브코딩으로 구현</li><li><b>LangChain 실무 연계</b> — PromptTemplate, Agent 등 LangChain 핵심 컴포넌트 체험</li><li><b>CLI 기반 AI 코딩</b> — OpenCode + GLM API로 터미널 환경 AI 코딩 경험</li><li><b>완성된 앱 배포</b> — 3일간 구축한 풀스택 앱을 실제 배포까지 경험</li></ul>",
+  "tech_stack": ["Google AI Studio", "Cursor", "Antigravity", "Perplexity", "OpenCode", "GLM API", "n8n"],
+  "infrastructure": [
+    "참여자 개인 노트북 지참 (실습 환경)",
+    "Wi-Fi 및 인터넷 접속 환경",
+    "Google AI Studio 무료 계정 사전 가입",
+    "Cursor 무료 계정 사전 설치",
+    "GLM API 계정 사전 가입 (Coding Plan Lite, $3/월)",
+    "OpenCode 사전 설치 (오픈소스 CLI)",
+    "Python 3.10+ 설치 (LangChain 실습용)",
+    "빔프로젝터 및 강의실 환경 (대학 측 제공)"
+  ],
+  "use_simple_track_label": false,
+  "curriculum_title": "바이브코딩 캠프: AI 엔지니어링 + 풀스택 개발",
+  "tracks": [
+    {
+      "track_id": "1",
+      "track_name": "바이브코딩 캠프",
+      "course_title": "겨울방학 집중 바이브코딩 캠프",
+      "target": "대학원생 (전공 무관)",
+      "duration": "총 18시간 (6시간 × 3일)",
+      "tools": ["Google AI Studio", "Cursor", "Antigravity", "Perplexity", "OpenCode", "GLM API", "n8n"],
+      "modules": [
+        {
+          "module_name": "Day 1 Part 1: 프롬프트 엔지니어링 심화",
+          "duration": "3시간",
+          "items": [
+            "<b>바이브코딩과 AI 엔지니어링</b> — 바이브코딩의 한계를 넘는 AI 엔지니어링의 3단계(프롬프트→컨텍스트→하네스) 개요",
+            "<b>Chain-of-Thought와 Few-shot</b> — 단계별 추론 유도(CoT), 예시 기반 학습 설계, 구조화된 출력 제어(JSON Mode)",
+            "<b>고급 프롬프트 설계 실습</b> — Google AI Studio + Cursor로 프롬프트 작성→검증→최적화 반복, 페르소나 설계",
+            "<b>멀티 에이전트 프롬프팅</b> — 역할 분담 기반 다중 AI 협업, 토론·비평·개선 루프, 프롬프트 품질 관리",
+            "<b>LangChain PromptTemplate</b> — ChatPromptTemplate, FewShotChatMessagePromptTemplate으로 재사용 가능한 템플릿 작성",
+            "<b>바이브코딩 프롬프트 전략</b> — 개발 태스크(프론트/백/DB)에 최적화된 프롬프트 패턴 정리"
+          ]
+        },
+        {
+          "module_name": "Day 1 Part 2: 컨텍스트 & 하네스 엔지니어링",
+          "duration": "3시간",
+          "items": [
+            "<b>컨텍스트 엔지니어링</b> — 컨텍스트 윈도우 이해, RAG(검색 증강 생성) 기초, ReAct 패턴(Thought→Action→Observation)",
+            "<b>LangChain 실습</b> — OutputParser(JsonOutputParser, PydanticOutputParser), Tool Calling Agent 기본 체험",
+            "<b>하네스 엔지니어링 기초</b> — AI 워크플로우 자동화 원리, 에이전트 아키텍처, 도구 통합 패턴",
+            "<b>CLI 코딩 환경 입문</b> — OpenCode 설치, GLM API 연동, 터미널에서 AI 코딩 첫 체험",
+            "<b>n8n 자동화 체험</b> — 노코드 자동화로 AI API 연동 파이프라인 구축, 반복 업무 자동화 실습",
+            "<b>Day 1 정리: AI 엔지니어링 툴킷 확보</b> — 학습한 기법으로 개발 프로젝트에 즉시 활용 가능한 프롬프트·컨텍스트 도구 정리"
+          ]
+        },
+        {
+          "module_name": "Day 2 Part 1: AI 활용 핵심 기능 + 프론트엔드",
+          "duration": "3시간",
+          "items": [
+            "<b>바이브코딩 개발 레이어 개요</b> — AI 핵심기능→프론트엔드→백엔드→DB→보안, 레이어별 역할과 바이브코딩 전략",
+            "<b>AI 핵심 기능 구현</b> — 바이브코딩으로 챗봇 API 연동, 텍스트 생성/요약, 이미지 처리 기능 구현",
+            "<b>LangChain으로 AI 파이프라인</b> — Sequential Chains로 다단계 AI 처리, AgentExecutor로 도구 통합 에이전트 구축",
+            "<b>프론트엔드 바이브코딩</b> — v0와 Cursor로 UI 컴포넌트 생성, 반응형 레이아웃, 사용자 인터페이스 설계",
+            "<b>프론트엔드-백엔드 연동 설계</b> — API 호출 구조 설계, 상태 관리 기초, 데이터 흐름 기획",
+            "<b>프로토타입 v1 완성</b> — AI 기능이 탑재된 프론트엔드 프로토타입을 바이브코딩으로 완성"
+          ]
+        },
+        {
+          "module_name": "Day 2 Part 2: 백엔드 개발",
+          "duration": "3시간",
+          "items": [
+            "<b>백엔드 바이브코딩</b> — Cursor와 OpenCode로 서버/API 엔드포인트 생성, REST API 설계 기초",
+            "<b>API 라우팅과 비즈니스 로직</b> — 바이브코딩으로 CRUD 엔드포인트 구현, 데이터 처리 로직 작성",
+            "<b>AI API 연동</b> — GLM API와 OpenAI API를 백엔드에 통합, 프롬프트 체인을 API로 노출",
+            "<b>인증 기초</b> — 바이브코딩으로 기본 로그인/회원가입 기능 구현, JWT 토큰 개념",
+            "<b>에러 처리와 로깅</b> — 바이브코딩으로 예외 처리, API 에러 응답, 로깅 설정",
+            "<b>프론트엔드-백엔드 통합</b> — Day 2 Part 1에서 만든 프론트엔드와 백엔드를 연동하여 동작하는 앱 완성"
+          ]
+        },
+        {
+          "module_name": "Day 3 Part 1: 데이터베이스 + 보안",
+          "duration": "3시간",
+          "items": [
+            "<b>데이터베이스 바이브코딩</b> — 바이브코딩으로 DB 스키마 설계, 테이블 생성, CRUD 쿼리 작성",
+            "<b>ORM과 데이터 모델링</b> — 바이브코딩으로 ORM 모델 정의, 관계 설정, 마이그레이션 실행",
+            "<b>백엔드-DB 연동</b> — API 엔드포인트에 DB 연동, 데이터 영속성 확보",
+            "<b>보안 기본</b> — API 키 관리, 환경 변수 설정, 입력 검증(Validation), SQL 인젝션 방지 기초",
+            "<b>인증/인가 보안</b> — 비밀번호 해싱, 세션 관리, 권한 제어 기초를 바이브코딩으로 구현",
+            "<b>배포 준비</b> — 환경 변수 정리, 프로덕션 설정, 배포 플랫폼(Vercel/Render) 선택"
+          ]
+        },
+        {
+          "module_name": "Day 3 Part 2: 종합 풀스택 프로젝트",
+          "duration": "3시간",
+          "items": [
+            "<b>풀스택 앱 완성</b> — 프론트엔드 + 백엔드 + DB + 보안이 통합된 바이브코딩 앱 최종 완성",
+            "<b>AI 기능 고도화</b> — Day 1에서 학습한 AI 엔지니어링 기법(CoT, RAG, Agent)을 앱에 통합",
+            "<b>테스트와 디버깅</b> — 바이브코딩으로 테스트 코드 생성, 버그 수정, 성능 개선",
+            "<b>배포 실습</b> — 완성된 앱을 실제 클라우드에 배포, 공개 URL 확보",
+            "<b>팀별 발표</b> — 각 팀이 완성한 풀스택 바이브코딩 앱 시연, 개발 과정과 AI 활용 전략 발표",
+            "<b>회고와 다음 단계</b> — 바이브코딩 경험 공유, 해커톤 준비 방안, 지속 개발 로드맵 수립"
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "<ul><li><b>완성된 풀스택 앱</b>: 프론트엔드+백엔드+DB+보안이 통합된 바이브코딩 앱</li><li><b>AI 엔지니어링 설계서</b>: 프롬프트·컨텍스트·하네스 엔지니어링 적용 결과물</li><li><b>배포된 앱 URL</b>: 클라우드에 배포된 실제 동작 앱</li><li><b>팀별 발표 자료</b>: 개발 과정, AI 활용 전략, 회고 정리</li><li>전 과정 수료증 발급</li></ul>",
+  "schedule_message": "<p><b>📅 Day 1: AI 엔지니어링 기초</b> (6시간)</p><p>프롬프트 심화 + 컨텍스트 & 하네스 엔지니어링 + CLI 입문</p><br><p><b>📅 Day 2: 바이브코딩 개발 레이어 ①</b> (6시간)</p><p>AI 핵심 기능 + 프론트엔드 + 백엔드 바이브코딩</p><br><p><b>📅 Day 3: 바이브코딩 개발 레이어 ②</b> (6시간)</p><p>데이터베이스 + 보안 + 종합 풀스택 프로젝트 + 배포</p><br><p><i>* 각 일정별 구체적인 날짜는 협의 후 확정됩니다.</i></p>",
+  "section_07_title": "캠프 일정 및 운영 안내"
+}

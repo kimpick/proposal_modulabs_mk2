@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>직접 해보는 가이드 — AI 토큰 최적화</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+  :root{--primary:#EE3E4C;--primary-dk:#C92434;--ink:#111;--body:#333;--muted:#5B6270;--faint:#8A919C;
+        --border:#E4E4E8;--line:#F0F0F2;--soft:#FAFAFB;--soft2:#F5F6F8}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#fff;color:var(--body);
+    font-family:'Pretendard','Malgun Gothic','맑은 고딕',-apple-system,'Segoe UI',sans-serif;
+    line-height:1.55;letter-spacing:-.01em;-webkit-font-smoothing:antialiased}
+  .page{width:210mm;min-height:297mm;margin:0 auto;padding:14mm 15mm;page-break-after:always}
+  .page:last-child{page-break-after:auto}
+  .hd{border-bottom:2.5px solid var(--primary);padding-bottom:10px;margin-bottom:14px}
+  .hd h1{font-size:21px;font-weight:800;color:var(--ink);margin:0 0 5px;letter-spacing:-.02em}
+  .hd .sub{font-size:12.5px;color:var(--muted)}
+  h2{font-size:14.5px;font-weight:800;color:var(--ink);margin:17px 0 8px;padding-left:8px;border-left:3px solid var(--primary)}
+  h2 .n{color:var(--primary);margin-right:5px}
+  h2:first-of-type{margin-top:0}
+  h3{font-size:12.5px;font-weight:800;color:var(--muted);margin:11px 0 5px;letter-spacing:.02em}
+  p{font-size:13px;margin:6px 0}
+  table{width:100%;border-collapse:collapse;font-size:12.5px;margin:7px 0}
+  th{background:var(--ink);color:#fff;text-align:left;padding:7px 9px;font-weight:600;font-size:12px}
+  td{padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  tbody tr:nth-child(even){background:var(--soft)}
+  td.k{font-weight:700;color:var(--ink);white-space:nowrap}
+  ol,ul{font-size:13px;margin:6px 0;padding-left:20px}
+  li{margin:4px 0}
+  .card{background:var(--soft);border:1px solid var(--border);border-radius:9px;padding:11px 13px;margin:8px 0}
+  .fill{display:inline-block;min-width:90px;border-bottom:1.5px solid var(--faint);height:19px}
+  .frame td{border:1px solid var(--border);padding:6px 9px;height:26px;background:#fff}
+  .frame td.lbl{background:var(--soft2);font-weight:700;color:var(--ink);white-space:nowrap;width:110px;height:auto}
+  .ex{background:#FFF6F7;border:1px solid #F4CCD0;border-radius:9px;padding:11px 13px;font-size:12.5px;margin:8px 0}
+  .ex b{color:var(--primary-dk)}
+  .ft{margin-top:16px;padding-top:11px;border-top:1px dashed var(--border);font-size:11px;color:var(--faint);line-height:1.5}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media print{@page{size:A4;margin:0}.page{margin:0}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="hd">
+    <h1>직접 해보는 가이드</h1>
+    <div class="sub">세미나 이후 5분 안에 해볼 수 있는 세 가지 &middot; 측정 · 절감 · 재사용</div>
+  </div>
+
+  <table>
+    <thead><tr><th style="width:34px">#</th><th>과제</th><th style="width:64px">소요</th><th style="width:38%">얻는 것</th></tr></thead>
+    <tbody>
+      <tr><td class="k">1</td><td>잔량 확인하고 하루 사용 기준 계산</td><td>2분</td><td>월말까지 버틸지 판단하는 기준</td></tr>
+      <tr><td class="k">2</td><td>반복 업무 하나를 지시문으로 등록</td><td>2분</td><td>매번 배경을 다시 쓰지 않게 됨</td></tr>
+      <tr><td class="k">3</td><td>길어진 대화를 요약해 새 대화로 옮기기</td><td>1분</td><td>누적된 분량을 버리고 다시 시작</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="n">과제 1</span>잔량 확인하고 하루 사용 기준 계산</h2>
+  <h3>찾아야 할 항목 세 가지</h3>
+  <table>
+    <thead><tr><th style="width:150px">항목</th><th>무엇을 뜻하는가</th></tr></thead>
+    <tbody>
+      <tr><td class="k">월간 크레딧</td><td>내 티어에 부여된 한 달치 총량입니다. 티어에 따라 다릅니다.</td></tr>
+      <tr><td class="k">이번 달 사용량</td><td>1일 리셋 이후 지금까지 쓴 양입니다. 월간 크레딧에서 빼면 잔량입니다.</td></tr>
+      <tr><td class="k">리셋일</td><td>매월 1일입니다. 남은 근무일을 세는 기준이 됩니다.</td></tr>
+    </tbody>
+  </table>
+  <div class="card">
+    <b style="font-size:13px">계산</b>
+    <p style="margin:7px 0 0">월간 크레딧 <span class="fill"></span> &divide; 이번 달 근무일 <span class="fill"></span> = <b>하루 사용 기준</b> <span class="fill"></span></p>
+    <p style="margin:5px 0 0">오늘 잔량 <span class="fill"></span> &divide; 남은 근무일 <span class="fill"></span> = <b>남은 하루 여력</b> <span class="fill"></span></p>
+  </div>
+  <h3>판단 기준</h3>
+  <ul>
+    <li><b>남은 하루 여력이 하루 사용 기준보다 크다</b> — 지금 속도를 유지해도 됩니다.</li>
+    <li><b>비슷하다</b> — 무거운 작업 한 건이 균형을 깨뜨릴 수 있습니다. 큰 작업 전에 한 번 더 확인하십시오.</li>
+    <li><b>작다</b> — 이미 기준을 넘겨 쓰고 있습니다. 일상 업무를 표준 &middot; 경량 모델로 내리고 무거운 작업은 이월을 검토하십시오.</li>
+  </ul>
+
+  <h2><span class="n">과제 2</span>반복 업무 하나를 지시문으로 등록</h2>
+  <h3>등록 대상을 고르는 기준 — 셋 다 해당하면 최우선</h3>
+  <ul>
+    <li>주 1회 이상 반복한다</li>
+    <li>결과물의 형식이 고정되어 있다</li>
+    <li>매번 같은 배경 설명을 붙여넣고 있다</li>
+  </ul>
+  <h3>하네스 3층 구조 — 한 번 등록하는 것과 매번 넣는 것을 구분</h3>
+  <table>
+    <thead><tr><th style="width:100px">층</th><th>담기는 것</th><th style="width:82px">주기</th></tr></thead>
+    <tbody>
+      <tr><td class="k">시스템 지시문</td><td>역할, 지켜야 할 규칙, 하지 말 것</td><td>한 번 등록</td></tr>
+      <tr><td class="k">업무 서식</td><td>산출물 형식과 좋은 예시</td><td>한 번 등록</td></tr>
+      <tr><td class="k">이번 요청</td><td>이번 자료와 이번 지시만</td><td>매번</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="page">
+  <p>매번 넣는 것이 마지막 한 층뿐이라 입력 분량이 줄고, 형식을 다시 설명하는 왕복도 사라집니다.</p>
+  <h3>3층 틀</h3>
+  <table class="frame">
+    <tbody>
+      <tr><td class="lbl">시스템 지시문</td><td></td></tr>
+      <tr><td class="lbl">업무 서식</td><td></td></tr>
+      <tr><td class="lbl">이번 요청</td><td></td></tr>
+    </tbody>
+  </table>
+  <div class="ft">
+    사내 서비스 구성이 확인되면 각 항목을 어느 화면에서 찾고 어디에 등록하는지 화면 안내를 포함해 드립니다. 확인 전에는 항목 이름과 순서로만 안내합니다.
+  </div>
+
+  <div class="ex">
+    <b>과제 2 작성 예시 — 주간 보고 초안, 3층으로 나누면</b> <span style="color:var(--faint);font-weight:400">(대괄호 안은 각자 값으로 바꿔 쓰십시오)</span><br>
+    <b>시스템 지시문</b> 우리 팀 주간 보고 초안을 쓰는 담당자. 팀은 [팀명], 보고 대상은 [대상]. 내역에 없는 내용을 추측해 채우지 말 것. 수치는 준 것만 쓸 것.<br>
+    <b>업무 서식</b> 진행 &middot; 이슈 &middot; 다음 주 계획 세 항목. 각 항목 3줄 이내. 표 없이 문장으로.<br>
+    <b>이번 요청</b> 이번 주 진행 내역을 항목 나열로 준다.
+  </div>
+
+  <h2><span class="n">과제 3</span>길어진 대화를 요약해 새 대화로 옮기기</h2>
+  <p>지금 열려 있는 가장 긴 대화를 하나 고릅니다. 아래 네 가지만 옮기고 나머지는 버립니다.</p>
+  <div class="two">
+    <div class="card">
+      <b style="font-size:13px;color:var(--primary-dk)">옮길 것</b>
+      <ul style="margin:6px 0 0">
+        <li>지금까지의 결론</li>
+        <li>확정한 결정 사항</li>
+        <li>아직 안 풀린 항목</li>
+        <li>원하는 결과 형식</li>
+      </ul>
+    </div>
+    <div class="card">
+      <b style="font-size:13px;color:var(--faint)">버릴 것</b>
+      <ul style="margin:6px 0 0">
+        <li>중간에 오간 시행착오</li>
+        <li>이미 반영된 중복 자료</li>
+      </ul>
+    </div>
+  </div>
+  <p style="margin-top:9px"><b>옮기기 전과 후</b> — 옮기기 전에는 매 질문마다 그 대화의 처음부터 다시 계산됩니다. 옮긴 뒤에는 결론 몇 줄에서 다시 시작하므로, 같은 질문을 해도 차감이 크게 줄어듭니다.</p>
+
+  <h2>참고 — 작업 성격별 모델 &middot; 절감 지점별 방법</h2>
+  <div class="two">
+    <table>
+      <thead><tr><th>작업 성격</th><th style="width:40%">권장</th></tr></thead>
+      <tbody>
+        <tr><td>단순 조회 &middot; 번역 &middot; 요약 &middot; 형식 변환</td><td>경량 모델, 대화창</td></tr>
+        <tr><td>일상 문서 작성 &middot; 일반 분석 &middot; 질의응답</td><td><b>표준 모델</b> — 대부분</td></tr>
+        <tr><td>난도 높은 판단 &middot; 문서 설계 &middot; 최종 검토</td><td>고성능 모델</td></tr>
+        <tr><td>여러 단계를 스스로 처리하는 방식</td><td>목적이 분명할 때만</td></tr>
+      </tbody>
+    </table>
+    <table>
+      <thead><tr><th style="width:30%">줄이는 지점</th><th>구체적인 방법</th></tr></thead>
+      <tbody>
+        <tr><td class="k">입력</td><td>절만 첨부, 요약본만 붙이기, 인사말 생략</td></tr>
+        <tr><td class="k">출력</td><td>분량·형식 먼저 지정, 고칠 부분만 지정</td></tr>
+        <tr><td class="k">컨텍스트</td><td>결정만 옮기기, 안 쓰는 첨부 빼기, 새로 시작</td></tr>
+        <tr><td class="k">세션</td><td>한 대화 한 작업, 주제 바뀌면 새 대화, 끝난 작업은 닫기</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="page">
+  <h2>내 업무 매트릭스</h2>
+  <p>내가 자주 하는 업무를 활용도와 소모 강도로 나눠보면 어디에 먼저 손을 대야 할지 보입니다. 위 두 행은 예시이며, 아래 빈 행에 각자 업무를 채웁니다.</p>
+  <table>
+    <thead><tr><th>업무</th><th style="width:76px">AI 활용도</th><th style="width:76px">소모 강도</th><th style="width:32%">권장 모델과 방식</th></tr></thead>
+    <tbody>
+      <tr><td>주간 &middot; 월간 보고 초안</td><td>높음</td><td>중간</td><td>표준 모델 + 등록한 지시문</td></tr>
+      <tr><td>회의록 정리 &middot; 요약</td><td>높음</td><td>낮음</td><td>경량 모델</td></tr>
+      <tr><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+  <ul>
+    <li><b>활용도 높고 소모 강도 높은 칸</b> — 여기가 우선 손볼 곳입니다.</li>
+    <li><b>활용도 높고 소모 강도 낮은 칸</b> — 이미 잘 쓰고 있는 영역입니다. 경량 모델로 유지합니다.</li>
+    <li><b>활용도 낮고 소모 강도 높은 칸</b> — 정말 필요한 작업인지 먼저 확인합니다.</li>
+  </ul>
+
+  <h2>자주 나오는 질문</h2>
+  <h3>요약해서 옮기면 품질이 떨어지지 않습니까</h3>
+  <p>오히려 안정적입니다 — 대화가 길어지면 도구가 앞의 지시를 놓치기 쉬운데, 결론만 새로 정리하면 지시가 다시 선명해집니다.</p>
+  <h3>경량 모델과 자동 처리 방식은 언제 씁니까</h3>
+  <p>번역 &middot; 요약처럼 판단보다 변환에 가까운 작업은 경량 모델로 충분합니다. 여러 단계를 맡기는 방식은 소모가 크므로 목적이 분명할 때만, 잔량이 적으면 다음 달로 이월하십시오.</p>
+
+  <div class="ft">
+    이 자료는 절감률 수치를 제시하지 않습니다. 모델 &middot; 이용 방식별 소모 강도는 업계 자료 기준의 상대 비교이며, 사내 크레딧 환산 비율이 확정되면 사내 값으로 대체합니다.<br>
+    잔량 확인 경로와 지시문 등록 위치는 사내 AI 서비스 구성에 따라 다릅니다. 사내 서비스 이용 문의는 고객사 담당 부서에, 교육 내용 문의는 모두의연구소 비즈팀 사업PM 강은숙(es.kang@modulabs.co.kr)에게 해 주십시오.
+  </div>
+</div>
+
+</body>
+</html>

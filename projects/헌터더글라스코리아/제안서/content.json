@@ -1,0 +1,180 @@
+{
+  "title": "헌터더글라스코리아 MS Copilot 실무 활용 과정",
+  "subtitle": "전사 비개발 실무자를 위한 AI 업무 생산성 극대화 교육 · 16시간",
+  "info": {
+    "keyword": "MS Copilot · 문서 생산성 · 협업 자동화 · AI 에이전트",
+    "ax_stage": "2단계 (AI 업무 실무 적용)",
+    "target": "헌터더글라스코리아 전사 비개발 실무자 (8명)",
+    "duration": "총 16시간 (4일 × 4시간) / 2026년 6~7월 오후 시간 진행"
+  },
+  "intro": "본 과정은 Microsoft 365 Copilot을 활용하여 실무자가 문서 작성, 데이터 분석, 프레젠테이션 제작 등 핵심 업무 시간을 획기적으로 단축하고 생산성을 극대화하는 실무 밀착형 교육입니다.<br/><br/>단순한 기능 소개를 넘어, Word, Excel, PowerPoint, Outlook, Teams 등 각 애플리케이션별 최적화된 프롬프트 엔지니어링 기법을 학습합니다. 각 오피스 프로그램의 핵심 기능과 AI의 시너지를 통해 즉시 쓸 수 있는 실무 역량을 갖춥니다.<br/><br/>과정의 마지막에는 '나만의 에이전트(Custom Agent)'를 직접 기획·제작하는 미니 프로젝트를 통해, 반복 업무를 자동화하고 동료와 협업할 수 있는 AI 비서를 구축합니다.",
+  "objective": "<ul><li>Microsoft 365 Copilot을 자유자재로 활용하여 문서 작성·데이터 분석·협업 업무의 효율을 높인다.</li><li>Word, Excel, PowerPoint, OneNote, Outlook, Teams 각 앱에 최적화된 프롬프트 전략을 습득한다.</li><li>나만의 맞춤형 AI 에이전트(Custom Agent)를 직접 기획·제작하여 실무에 즉시 적용 가능한 자동화 환경을 구축한다.</li></ul>",
+  "tech_stack": [
+    "Microsoft 365 Copilot",
+    "Word",
+    "Excel",
+    "PowerPoint",
+    "OneNote",
+    "Outlook",
+    "Teams",
+    "Copilot Studio (Agents)"
+  ],
+  "infrastructure": [
+    "실습용 노트북 1인 1대 (Microsoft 365 접속 가능)",
+    "Microsoft 365 계정 (Business 또는 Enterprise)",
+    "Microsoft 365 Copilot 라이선스 (유료, 사전 발급 필요)",
+    "사내 교육장 오프라인 진행 (8명 소규모 집중 교육)"
+  ],
+  "use_simple_track_label": true,
+  "curriculum_title": "상세 커리큘럼",
+  "curriculum_format": "track",
+  "tracks": [
+    {
+      "track_id": "01",
+      "track_name": "Day 1",
+      "course_title": "Copilot 입문 & 문서 작성",
+      "target": "전사 비개발 실무자",
+      "duration": "4시간",
+      "tools": [
+        "Microsoft 365 Copilot",
+        "Word"
+      ],
+      "modules": [
+        {
+          "module_name": "Copilot 도구 소개",
+          "duration": "1H",
+          "items": [
+            "생성형 AI와 Microsoft 365 Copilot 도구 소개 및 장점·차별점",
+            "Copilot 환경 설정 및 기본 사용법 학습",
+            "최종 제작할 나만의 Agent에 대한 개념 학습"
+          ]
+        },
+        {
+          "module_name": "Copilot + Word",
+          "duration": "3H",
+          "items": [
+            "Word 핵심 기능 및 Copilot 통합 이점 실습",
+            "사업 기획안·보고서 초안 작성 및 효과적인 프롬프트 전략",
+            "문서 스타일 자동 적용, 요약·번역·재작성 활용",
+            "Copilot 사용 시 주의사항 (정확성 검증, 데이터 보안)"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "02",
+      "track_name": "Day 2",
+      "course_title": "데이터 분석 & 프레젠테이션",
+      "target": "전사 비개발 실무자",
+      "duration": "4시간",
+      "tools": [
+        "Excel",
+        "PowerPoint"
+      ],
+      "modules": [
+        {
+          "module_name": "Copilot + Excel",
+          "duration": "2H",
+          "items": [
+            "Excel 핵심 기능 및 실무 자주 사용 함수 생성",
+            "사내 데이터를 Table 형태로 정제 후 자연어 필터링·정렬·인사이트 추출",
+            "데이터 요약 및 통계 값 차트·그래프 시각화"
+          ]
+        },
+        {
+          "module_name": "Copilot + PowerPoint",
+          "duration": "2H",
+          "items": [
+            "PowerPoint 핵심 기능 및 주제별 목차·스토리라인 생성",
+            "Word 문서 기반 프레젠테이션 자동 변환 및 이미지 생성으로 디자인 고도화",
+            "대본 생성을 활용한 발표 준비 및 자동화"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "03",
+      "track_name": "Day 3",
+      "course_title": "협업 도구 자동화",
+      "target": "전사 비개발 실무자",
+      "duration": "4시간",
+      "tools": [
+        "OneNote",
+        "Outlook",
+        "Teams"
+      ],
+      "modules": [
+        {
+          "module_name": "Copilot + OneNote",
+          "duration": "1H",
+          "items": [
+            "OneNote 핵심 기능 및 섹션·페이지 구성을 통한 데이터 구조화",
+            "회의 메모 기반 회의록 정리, To-do 리스트 생성",
+            "기업 자료 기반 개인용 검색 엔진 활용 실습"
+          ]
+        },
+        {
+          "module_name": "Copilot + Outlook",
+          "duration": "1.5H",
+          "items": [
+            "Outlook 핵심 기능 및 메일 스레드 요약·중요 메일 우선순위 파악",
+            "톤앤매너를 반영한 메일 초안 작성 및 변환",
+            "명확성·감정 상태·문법 등 내용 검토 자동화"
+          ]
+        },
+        {
+          "module_name": "Copilot + Teams",
+          "duration": "1.5H",
+          "items": [
+            "Teams 핵심 기능 및 실시간 회의 내용 파악·논의점 정리",
+            "회의 녹취록 기반 회의록 생성 및 일정 추출",
+            "파일·일정·메일 등 사내 데이터 통합 검색"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "04",
+      "track_name": "Day 4",
+      "course_title": "맞춤형 AI 에이전트 구축",
+      "target": "전사 비개발 실무자",
+      "duration": "4시간",
+      "tools": [
+        "Copilot Studio (Agents)"
+      ],
+      "modules": [
+        {
+          "module_name": "에이전트 설계 기획",
+          "duration": "1H",
+          "items": [
+            "BizChat / Copilot Studio 소개 및 에이전트 핵심 메뉴·기능 학습",
+            "나만의 에이전트 활용 시나리오 기획 및 주제 선정",
+            "챗봇 생성형 답변 구조 및 트리거 설계"
+          ]
+        },
+        {
+          "module_name": "미니 프로젝트 — 에이전트 제작",
+          "duration": "2H",
+          "items": [
+            "MS Copilot Studio를 활용한 나만의 에이전트 직접 제작",
+            "트리거 설정·답변 흐름 구성·사내 데이터 연동 실습",
+            "강사 순회 코칭 및 개별 피드백"
+          ]
+        },
+        {
+          "module_name": "사내 배포 및 성과 공유",
+          "duration": "1H",
+          "items": [
+            "완성된 에이전트 사내 배포 및 게시 실습",
+            "팀별 제작 에이전트 발표 및 공유",
+            "지속 활용을 위한 Copilot 업무 적용 가이드 정리"
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "<ul><li>Copilot 기반 실무 문서 산출물 1종 (보고서·기획서·프레젠테이션 중 선택)</li><li>나만의 맞춤형 AI 에이전트(Custom Agent) 1건 (사내 배포 가능)</li></ul>",
+  "pdf_filename": "[모두의연구소]헌터더글라스코리아_MSCopilot_실무활용_제안서",
+  "section_07_title": "운영 및 일정 안내",
+  "schedule_message": "<p><b>교육 일정</b>: 2026년 6~7월 중 4일 (일정 협의 필요)</p><p><b>운영 형태</b>: 사내 교육장 오프라인 · 오후 4시간씩 진행</p><p><b>참가 인원</b>: 8명 (소규모 집중 교육)</p><p><b>사전 준비</b>: Microsoft 365 Copilot 라이선스 사전 발급 필요 (Business/Enterprise 계정)</p><p><b>선수 조건</b>: Microsoft 365 기본 사용 경험 (Word·Excel·Outlook 사용 가능 수준)</p>"
+}

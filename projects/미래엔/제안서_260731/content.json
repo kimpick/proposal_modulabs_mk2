@@ -1,0 +1,135 @@
+{
+  "title": "미래엔 AI 개발자 심화 교육 제안",
+  "subtitle": "하네스 엔지니어링 실전 · 심화 — Claude Code · Codex 기반 에이전틱 개발 워크플로우",
+  "pdf_filename": "[모두의연구소]미래엔_AI개발자_심화교육_제안서",
+  "info": {
+    "keyword": "하네스 엔지니어링 심화\n에이전틱 코딩 실전\nClaude Code · Codex 심화 활용",
+    "ax_stage": "AI 활용 개발자 → 에이전틱 워크플로우 설계자",
+    "target": "미래엔 개발자 (백엔드 · 프론트엔드 · 보안 · 에듀테크) 28명",
+    "duration": "4일 심화 종합 과정 (28H · 1일 7H)"
+  },
+  "intro": "본 제안은 이미 <b>Claude Max · Codex</b>를 실무에서 사용 중인 미래엔 개발자 28명(백엔드 · 프론트엔드 · 보안 · 에듀테크)을 위한 <b>중급~심화 과정</b>입니다. 도구 소개(입문)는 최소화하고, <b>Claude Code Agent 심화 — Sub-agents · Skills · Hooks · MCP · Permissions</b>를 중심축으로 컨텍스트 엔지니어링부터 CI/CD 통합 · 보안 하네스까지 재구성했습니다.\n\n<b>4일 심화 종합 과정 (총 28H · 1일 7H)</b>: 컨텍스트 엔지니어링 심화(Day 1) → MCP · 멀티에이전트 아키텍처(Day 2) → Sub-agents/Skills/Hooks/CI-CD 통합(Day 3) → 보안 하네스 · 직군별 실전(Day 4)로 이어지는 종합 과정입니다. 마지막 날은 4개 직군(백엔드/프론트엔드/보안/에듀테크)별 실전 프로젝트로 마무리합니다.\n\n실습은 미래엔이 이미 보유한 <b>Claude Max · Codex CLI</b> 기반으로 진행되며, <b>실전 하네스 도입 사례</b>를 케이스 스터디로 상세히 다룹니다.",
+  "objective": "<ul><li><b>Claude Code Agent 심화 활용</b>: Sub-agents · Skills · Hooks · Slash Commands · Permissions를 <b>팀·조직 하네스 관점</b>으로 재정의, 개인 실습을 조직 파이프라인 수준으로 확장</li><li><b>컨텍스트 엔지니어링 실전</b>: CLAUDE.md · AGENTS.md · Skills · 커스텀 MCP 서버 조합으로 사내 지식 · API · 코드베이스를 자율 조회하는 에이전트 환경 구축</li><li><b>Sub-agents 멀티에이전트 & CI/CD 통합</b>: Architect → Coder → Reviewer → Tester 역할 분업, GitHub Actions + Claude Code headless로 이슈 스캐폴딩 · 자동 리뷰 · 역PR 파이프라인화</li><li><b>Claude Code 보안 하네스</b>: Hooks 기반 정책 자동 차단, Permissions allow/deny 매트릭스, MCP 스코프 · 승인 전략, 프롬프트 인젝션 방어, SAST/DAST 통합</li><li><b>직군별 실전 케이스</b>: 백엔드(API 리팩토링 · CI/CD) · 프론트엔드(디자인 시스템 · 컴포넌트 생성) · 보안(SAST 파이프라인 · 정책 자동화) · 에듀테크(콘텐츠 · LMS 자동화)</li></ul>",
+  "tech_stack": [
+    "Claude Code (Max) — Sub-agents",
+    "Claude Code — Skills",
+    "Claude Code — Hooks & Slash Commands",
+    "Claude Code — Permissions & MCP 스코프",
+    "Codex CLI",
+    "Claude Desktop",
+    "MCP (Model Context Protocol)",
+    "GitHub Actions"
+  ],
+  "infrastructure": [
+    "개발자 노트북 (macOS / Linux / WSL) — Node.js 18+, VS Code, Git 사전 설치",
+    "미래엔 자체 보유 <b>Claude Max · Codex CLI 계정</b> 활용 (별도 계정 지원 불필요)",
+    "사내 교육장 (미래엔 대관), 그룹당 12~14명 권장",
+    "주강사 1인 운영 기본 — 실습 난이도 및 진행 상황에 따라 보조강사 투입 결정",
+    "교육 1주일 전 실습 환경 세팅 가이드 배포, 사전 CLAUDE.md · AGENTS.md 초안 준비"
+  ],
+  "use_simple_track_label": false,
+  "curriculum_title": "4일 심화 종합 과정 (총 28시간 · 1일 7시간)",
+  "tracks": [
+    {
+      "track_id": "01",
+      "track_name": "Claude Code Agent 심화 · 4일 종합 과정",
+      "course_title": "컨텍스트 엔지니어링 → 멀티에이전트 → CI/CD → 보안 · 직군별 실전 프로젝트",
+      "target": "미래엔 개발자 (백엔드 · 프론트엔드 · 보안 · 에듀테크) — Claude Code · Codex 사용 경험 있는 중급 이상",
+      "duration": "4일 (총 28시간, 1일 7시간 · 회차별 2~4주 분산 권장)",
+      "tools": [
+        "Claude Code (Max) — Sub-agents",
+        "Claude Code — Skills",
+        "Claude Code — Hooks & Slash Commands",
+        "Claude Code — Permissions & MCP 스코프",
+        "Codex CLI",
+        "Claude Desktop",
+        "MCP (Model Context Protocol)",
+        "GitHub Actions"
+      ],
+      "modules": [
+        {
+          "module_name": "Day 1 · 컨텍스트 엔지니어링",
+          "duration": "7H",
+          "items": [
+            "<b>에이전틱 코딩 패러다임 재정의 (1H)</b> — Vibe vs Agentic Coding, 하네스 엔지니어링 개념, Claude Code·Codex를 <b>팀 파이프라인 노드</b>로 재해석",
+            "<b>Claude Code · Codex 심화 비교 (1.5H)</b> — 도구별 강점·한계와 조합 전략, 워크로드별 선택 매트릭스, 실전 벤치마크 케이스",
+            "<b>컨텍스트 엔지니어링 실전 (2.5H)</b> — CLAUDE.md·AGENTS.md 계층 설계, Skills 자산화, <b>실습: 미래엔용 3종 세트 초안</b>",
+            "<b>사례 스터디 · 팀 하네스 진단 (2H)</b> — 실전 사례 분석, 팀 워크플로우 성숙도 진단 → <b>산출물: 진단서 + 3종 세트 초안</b>"
+          ]
+        },
+        {
+          "module_name": "Day 2 · MCP · 멀티에이전트",
+          "duration": "7H",
+          "items": [
+            "<b>MCP 심화 · 사내 도구 통합 (2H)</b> — 공식 MCP 서버(GitHub·Notion·Slack·DB) 연동, <b>커스텀 MCP 서버 개발</b>, 보안 스코프 설계",
+            "<b>멀티에이전트 아키텍처 (2H)</b> — Reflection·Planning·Multi-Agent 비교, Architect→Coder→Reviewer→Tester 분업, 엔트로피 통제",
+            "<b>구조적 제약 설계 (1.5H)</b> — Linter·Custom Slash Commands로 행동 범위 통제, 컨벤션 위반 롤백, 자율성 vs 안정성",
+            "<b>실습 랩 (1.5H)</b> — 미래엔 실무 1건 선정 → MCP 연동 멀티에이전트 파이프라인 설계·프로토타입 → <b>산출물: 설계 청사진</b>"
+          ]
+        },
+        {
+          "module_name": "Day 3 · Sub-agents · CI/CD",
+          "duration": "7H",
+          "items": [
+            "<b>Sub-agents 심화 (2H)</b> — YAML frontmatter·tool 허용 범위 정의, 병렬 실행·컨텍스트 격리, <b>실습: 리뷰어/테스터 2종 제작</b>",
+            "<b>Skills 자산화 (1.5H)</b> — description 최적화·자동 트리거링, 개인 vs 팀 공유 전략, <b>실습: 코딩 컨벤션 자동 적용 Skill</b>",
+            "<b>Hooks &amp; Slash Commands (1.5H)</b> — PreToolUse·PostToolUse·Stop 훅 설계, /review 커스텀 커맨드, 정책·감사로그 자동화",
+            "<b>CI/CD 통합 실습 (2H)</b> — headless(-p) + GitHub Actions, 이슈 스캐폴딩·PR 자동 리뷰·역PR → <b>산출물: 통합 워크플로우</b>"
+          ]
+        },
+        {
+          "module_name": "Day 4 · 보안 · 직군별 실전",
+          "duration": "7H",
+          "items": [
+            "<b>Permissions &amp; MCP 스코프 (1.5H)</b> — allow·deny 매트릭스 설계, Bash·Edit·Write 권한 분리, <b>실습: 프로젝트별 권한 매트릭스</b>",
+            "<b>Hooks 보안 정책 · 인젝션 방어 (1.5H)</b> — 위험 명령 자동 차단, 민감 파일 감시, 컨텍스트 오염 방어, SAST/DAST 통합",
+            "<b>직군별 실전 프로젝트 (3H)</b> <br>• 백엔드: API 리팩토링 Sub-agent <br>• 프론트엔드: 컴포넌트 생성 Skill <br>• 보안: SAST Hook <br>• 에듀테크: LMS MCP",
+            "<b>발표 + 도입 로드맵 (1H)</b> — 직군별 5분 발표·피어리뷰, 30/60/90일 도입 로드맵 → <b>산출물: 파이프라인 + 정책 세트</b>"
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "<ul><li><b>Day 1</b> · 팀 하네스 성숙도 진단서 + CLAUDE.md · AGENTS.md · Skills 3종 세트 초안</li><li><b>Day 2</b> · MCP 연동 멀티에이전트 하네스 설계 청사진 + 커스텀 MCP 서버 프로토타입</li><li><b>Day 3</b> · Sub-agents 2종 + 팀 Skill + Hooks 정책 + CI/CD 통합 워크플로우</li><li><b>Day 4</b> · 직군별 실전 파이프라인(백엔드/프론트엔드/보안/에듀테크) + Permissions/Hooks 정책 세트 + 미래엔 맞춤 AI 개발 정책 초안 + 30/60/90일 도입 로드맵</li></ul>",
+  "show_instructors": true,
+  "instructors": [
+    {
+      "category": "Claude Code Agent 심화 · 개발자 대상 교육",
+      "name": "석*희",
+      "headline": "5년+ 백엔드 엔지니어링 · 보안 배경 / 랭그래프 기반 에이전트 오케스트레이션 실무 전문",
+      "bio": "무신사 검색플랫폼팀 · 써머스플랫폼 검색엔진팀에서 대규모 트래픽 대응, Elasticsearch 최적화, Kafka 기반 실시간 데이터 파이프라인을 설계·운영한 백엔드 엔지니어 출신 강사입니다. 커리어 초기 2~3년간 방화벽·침입방지시스템 등 네트워크 보안 엔지니어로 근무해 <b>보안 관점의 코드 리뷰·정책 설계</b>에 강점이 있으며, 최근에는 <b>LangGraph 기반 에이전틱 RAG · AI 모니터링 지표 연동 · 노코드 자동화(n8n · Make)</b> 세미나를 진행하는 등 에이전트 오케스트레이션 최신 트렌드를 실무·강의에 적극 반영하고 있습니다. KB국민은행 신입사원 자바 백엔드 교육을 <b>평가 5점(만점)</b>으로 마무리한 실무 밀착형 강의력을 갖추고 있어, 미래엔 백엔드·보안 직군 중심의 Claude Code Sub-agents · Hooks · CI/CD 통합 실습을 자연스럽게 이끌 수 있습니다.",
+      "expertise": [
+        "Java · Spring Boot · MSA 백엔드 아키텍처",
+        "Elasticsearch · Kafka · Redis · Kubernetes 실무",
+        "네트워크 보안 · 방화벽 · IPS 백그라운드",
+        "LangGraph 기반 에이전틱 RAG · AI 모니터링",
+        "GPT 프롬프트 · 노코드 자동화 (n8n · Make)"
+      ],
+      "experience": [
+        "KB국민은행 신입사원 자바 백엔드 교육 (2025.1~2) — Java · Spring Boot · MSA · Redis · JPA 커리큘럼 설계 및 진행, 평가 5점(만점)",
+        "무신사 검색플랫폼팀 백엔드 엔지니어 (2022~2023) — 블랙프라이데이 트래픽 대응, Elasticsearch 7→8 업그레이드, Prometheus·Grafana 실시간 모니터링 자동화",
+        "써머스플랫폼 검색엔진팀 (2019~2022) — Kafka 기반 실시간 데이터 수집·인덱싱, 검색 속도 40% 개선",
+        "크로니아이티 네트워크 보안 엔지니어 (2013~2018) — 공공기관·기업 방화벽·침입방지시스템 구축",
+        "커뮤니티 세미나 진행 — GPT 프롬프트 실무 활용, n8n · Make 노코드 자동화",
+        "TCP School 온라인 강의 (웹·자바·AI 입문) · 경기도청 거꾸로교실 오프라인 강의"
+      ],
+      "metrics": [
+        {
+          "value": "5.0",
+          "label": "KB국민은행 강의 평가"
+        },
+        {
+          "value": "10년+",
+          "label": "백엔드 · 보안 경력"
+        },
+        {
+          "value": "5년+",
+          "label": "대규모 트래픽 백엔드 실무"
+        }
+      ]
+    }
+  ],
+  "instructor_note": "※ 강사는 후보군이며, 최종 강사는 미래엔과 협의 후 확정합니다. 실습 난이도 및 직군 구성에 따라 보조강사(프론트엔드 또는 에듀테크 도메인) 매칭도 별도 제안 가능합니다.",
+  "section_07_title": "운영 안내",
+  "schedule_message": "<div style='text-align: left; color: #333;'><p style='margin-bottom: 12px;'><b>교육 과정 구성 안내</b></p><table class='curriculum-table' style='margin-bottom: 20px;'><thead><tr><th style='width: 12%;'>기간</th><th style='width: 12%;'>시간</th><th style='width: 28%;'>핵심 도구</th><th>주요 커버리지</th></tr></thead><tbody><tr><td>4일<br>(1일 7H)</td><td>총 28H</td><td>Claude Code (Sub-agents · Skills · Hooks · Permissions) · Codex · MCP · GitHub Actions</td><td>Day 1 컨텍스트 엔지니어링 → Day 2 MCP · 멀티에이전트 → Day 3 Sub-agents/Skills/Hooks · CI/CD → Day 4 보안 하네스 · 직군별 실전</td></tr></tbody></table><p style='margin-bottom: 8px;'><b>운영 조건</b></p><ul style='margin-top: 0; margin-bottom: 16px;'><li><b>인원 · 그룹</b>: 총 28명 → 12~14명 기준 2개 그룹 병렬 진행 또는 1개 그룹 통합 진행 협의</li><li><b>강사 구성</b>: 주강사 1인 기본, Day 4(직군별 실전) 또는 실습 난이도가 높은 경우 보조강사 투입 검토</li><li><b>실습 인프라</b>: 미래엔 자체 보유 Claude Max · Codex CLI 활용, 별도 계정 지원 불필요</li><li><b>교육장 · 운영</b>: 사내 교육장 미래엔 대관, 운영 지원은 미래엔 담당자 진행 (모두연 별도 운영 인력 미포함)</li><li><b>사전 세팅</b>: 교육 1주일 전 실습 환경 세팅 가이드 배포, CLAUDE.md · AGENTS.md 초안 사전 준비 권장</li><li><b>회차 분산</b>: 4일 과정은 2~4주 분산 권장 (연속 4일 또는 주 1일 4주)</li><li><b>사전 진단 권장</b>: 첫 회차 전 CLAUDE.md · AGENTS.md 사용 여부 · Claude Code · Codex 활용 깊이를 짧게 확인해 세부 난이도 조정</li></ul></div>"
+}

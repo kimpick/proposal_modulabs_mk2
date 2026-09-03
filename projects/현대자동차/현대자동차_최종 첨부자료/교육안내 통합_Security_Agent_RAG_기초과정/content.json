@@ -1,0 +1,145 @@
+{
+  "type": "guide",
+  "pdf_filename": "[모두의연구소]교육안내_Security_Agent_RAG_기초과정",
+  "title": "Security Agent & RAG 기초 교육 안내",
+  "subtitle": "현대자동차 차량사이버보안개발팀 · 2026년 5~6월 · 총 70시간 집중 과정",
+  "info": {
+    "target": "차량사이버보안개발팀 개발자 및 보안 실무진",
+    "duration": "총 70시간 (1차 교육 35H + 현업 미션 + 2차 교육 35H)",
+    "period": "1차 2026.05.18~05.22 / 2차 2026.06.08~06.12",
+    "venue": "추후 확정 (변경 가능)"
+  },
+  "intro": "본 과정은 실제 업무 환경(MS Office·Confluence 중심 지식 자산)을 기준으로 Agentic RAG와 Autonomous Security Agent를 단계적으로 구축하는 실무형 교육이며, 1차 교육(5일)에서는 RAG 파이프라인 설계·고도화와 메모리 아키텍처를, 중간 2주차에는 현업 미션을 수행한 뒤, 2차 교육(5일)에서 보안 자동화 에이전트의 실행·통제·검증까지 연결합니다.",
+  "objective": "<ul><li>MS Office·Confluence 기반 사내 지식 자산으로 Agentic RAG 파이프라인을 설계·구현할 수 있다.</li><li>Hybrid / Router-First / Multi Query / Re-Ranking / Self-RAG 등 최신 RAG 패턴을 환경 적합성 관점에서 적용할 수 있다.</li><li>Memory Architecture &amp; Governance와 Retriever Routing for Memory를 기반으로 HITL 통제 구조를 설계할 수 있다.</li><li>CVE / KEV / EPSS 기반 Threat Intelligence와 Adaptive Red Teaming을 결합한 Autonomous Security Agent PoC를 완성할 수 있다.</li></ul>",
+  "schedule_blocks": [
+    {
+      "label": "1차 교육",
+      "period": "2026-05-18 (월) ~ 2026-05-22 (금)",
+      "hours": "1일 7시간 × 5일 = 35시간",
+      "theme": "AI App &amp; Agentic RAG 집중 과정",
+      "note": "RAG 파이프라인 설계 · 고도화 · 메모리 아키텍처"
+    },
+    {
+      "label": "중간 현업 미션",
+      "period": "2026-05-25 (월) ~ 2026-06-05 (금) · 약 2주",
+      "hours": "자기주도 수행",
+      "theme": "현업 데이터 기반 Agentic RAG 적용 미션",
+      "note": "2차 교육 Day 1 미션 리뷰(독립 세션)로 연결"
+    },
+    {
+      "label": "2차 교육",
+      "period": "2026-06-08 (월) ~ 2026-06-12 (금)",
+      "hours": "1일 7시간 × 5일 = 35시간",
+      "theme": "Autonomous Security Agent 집중 과정",
+      "note": "보안 자동화 에이전트 설계 · 통제 · 검증 · PoC"
+    }
+  ],
+  "tech_stack": [
+    "Python",
+    "LangChain",
+    "LangGraph",
+    "Vector DB",
+    "RAGAS",
+    "Claude Code",
+    "OpenClaw",
+    "CVE/KEV/EPSS",
+    "HITL Policy Engine"
+  ],
+  "infrastructure": [
+    "실습용 노트북 1인 1대 (Python 개발환경, VS Code 권장)",
+    "외부 LLM API 접근 가능한 네트워크 환경",
+    "MS Office 및 Confluence 샘플 데이터(또는 가명화 데이터) 제공",
+    "OpenClaw 실습용 샌드박스 환경",
+    "보안 테스트베드(모사 웹서비스) 및 실습 계정"
+  ],
+  "curriculum_table": [
+    {"day": "Day 1", "date": "2026-05-18 (월)", "theme": "AI App & Agentic RAG 기초", "sessions": [
+      {"time": "10:00 ~ 12:00", "title": "LLM 생태계 및 실습 환경세팅", "content": "생성형 AI 트렌드, LLM 작동 원리 및 주요 API 연동, 실습 환경 세팅(Python, Claude Code)", "hours": "2H"},
+      {"time": "13:00 ~ 15:00", "title": "LangChain 컴포넌트", "content": "PromptTemplate, LLM, Output Parser의 이해 및 기본 결합 실습", "hours": "2H"},
+      {"time": "15:00 ~ 18:00", "title": "LCEL 파이프라인 설계", "content": "LCEL(LangChain Expression Language) 문법 체화 및 다중 체인 구축", "hours": "3H"}
+    ]},
+    {"day": "Day 2", "date": "2026-05-19 (화)", "theme": "데이터 연동형 RAG 파이프라인", "sessions": [
+      {"time": "10:00 ~ 12:00", "title": "RAG 파이프라인 구조", "content": "Document Loader · Text Splitter · Embedding 역할 이해, MS Office / Confluence 파싱 최적화", "hours": "2H"},
+      {"time": "13:00 ~ 15:00", "title": "Vector DB 적재", "content": "사내 보안 규정 샘플 텍스트 전처리 및 Vector DB 구축", "hours": "2H"},
+      {"time": "15:00 ~ 18:00", "title": "기초 검색 및 유사도 질의응답", "content": "Similarity Search 구현 및 LLM과 연동한 답변 생성 실습", "hours": "3H"}
+    ]},
+    {"day": "Day 3", "date": "2026-05-20 (수)", "theme": "RAG 고도화 및 최적화", "sessions": [
+      {"time": "10:00 ~ 12:00", "title": "청킹 및 하이브리드 검색", "content": "데이터 특성별 Chunking 전략 · Hybrid Retrieval(Sparse BM25 + Dense) 구축", "hours": "2H"},
+      {"time": "13:00 ~ 15:00", "title": "고급 쿼리 및 Re-Ranking", "content": "Multi Query 적용 · LLM Re-Ranking 중심의 RAG 파이프라인 실습", "hours": "2H"},
+      {"time": "15:00 ~ 18:00", "title": "성능 평가 (RAGAS)", "content": "RAGAS 프레임워크 기반 검색 및 생성 품질 평가", "hours": "3H"}
+    ]},
+    {"day": "Day 4", "date": "2026-05-21 (목)", "theme": "Agentic RAG 및 메모리 아키텍처", "sessions": [
+      {"time": "10:00 ~ 12:00", "title": "LangGraph & 메모리 설계", "content": "StateGraph · Node · Edge · State 관리 등 순환형 워크플로우 핵심 · Memory Architecture 기초(세션/단기 메모리, Graph RAG 개념)", "hours": "2H"},
+      {"time": "13:00 ~ 15:00", "title": "Router-First & 멀티 리트리버", "content": "Dynamic Retrieval Routing — 사용자 의도에 따른 정책/위협정보 멀티 리트리버 분기 실습", "hours": "2H"},
+      {"time": "15:00 ~ 18:00", "title": "Iterative / Self-RAG", "content": "답변 품질 저하 시 스스로 쿼리를 수정해 재검색하는 자기 피드백(Self-RAG) 루프 구현", "hours": "3H"}
+    ]},
+    {"day": "Day 5", "date": "2026-05-22 (금)", "theme": "Agentic RAG 내부 프로젝트", "sessions": [
+      {"time": "10:00 ~ 11:00", "title": "프로젝트 킥오프", "content": "HKMC 내부 아젠다 기반 요구사항 분석 및 아키텍처 설계", "hours": "1H"},
+      {"time": "11:00 ~ 15:00", "title": "파이프라인 개발", "content": "Claude Code 등 코딩 에이전트를 활용한 Agentic RAG 코드 작성", "hours": "3H"},
+      {"time": "15:00 ~ 18:00", "title": "디버깅 및 리뷰", "content": "파이프라인 디버깅, Hallucination 통제 점검 및 개별 피드백", "hours": "3H"}
+    ]},
+    {"day": "Day 6", "date": "2026-06-08 (월)", "theme": "미션 리뷰 · Security by Design", "sessions": [
+      {"time": "10:00 ~ 12:00", "title": "2주차 미션 리뷰", "content": "2주차 현업 미션 산출물 공유 및 트러블슈팅 (독립 세션)", "hours": "2H"},
+      {"time": "13:00 ~ 14:00", "title": "Security by Design", "content": "Claude Code CLI 설정 및 코드베이스 논리적 취약점 실시간 분석 실습", "hours": "1H"},
+      {"time": "14:00 ~ 15:00", "title": "보안 정책 주입 (Policy)", "content": "CLAUDE.md를 활용한 사내 보안 가이드라인(ASIL 등) 에이전트 강제 주입", "hours": "1H"},
+      {"time": "15:00 ~ 18:00", "title": "보안 코딩 점검 (SAST)", "content": "PR 단계를 가정한 정적 분석(SAST) 에이전트 파이프라인 구현", "hours": "3H"}
+    ]},
+    {"day": "Day 7", "date": "2026-06-09 (화)", "theme": "OpenClaw 기반 실행 자동화", "sessions": [
+      {"time": "10:00 ~ 12:00", "title": "OpenClaw 환경 제어", "content": "OpenClaw 샌드박스 내 브라우저 및 터미널 자동 제어 기초", "hours": "2H"},
+      {"time": "13:00 ~ 15:00", "title": "커스텀 Skill(플러그인) 제작", "content": "기존 보안 스캐너(Nmap 등) 호출 Python 스크립트화, 환경/도구 맥락 유지 로직", "hours": "2H"},
+      {"time": "15:00 ~ 18:00", "title": "툴 실행 및 로그 해석", "content": "에이전트의 보안 툴 자율 실행, DAST/Fuzzing 결과 로그 파싱 로직", "hours": "3H"}
+    ]},
+    {"day": "Day 8", "date": "2026-06-10 (수)", "theme": "중앙 통제소 · 메모리 통제", "sessions": [
+      {"time": "10:00 ~ 12:00", "title": "중앙 통제소(Router) 설계", "content": "LangGraph를 통한 분석 에이전트(Claude) + 실행 에이전트(OpenClaw) 오케스트레이션 · Secure Tool-augmented RAG", "hours": "2H"},
+      {"time": "13:00 ~ 15:00", "title": "Risk-aware HITL 구현", "content": "Risk-aware Memory Filter 적용 · 위험 명령 제안 시 관리자 승인(HITL) 강제", "hours": "2H"},
+      {"time": "15:00 ~ 16:00", "title": "데이터 파이프라인 통합", "content": "분석 결과가 실행 에이전트 입력으로 흐르는 Multi-agent State 연동 실습", "hours": "1H"},
+      {"time": "16:00 ~ 18:00", "title": "장기 메모리(Audit) 적재", "content": "세션 종료 시 Provenance/Audit Log(승인 이력·결정 사유)를 Vector + KV에 적재", "hours": "2H"}
+    ]},
+    {"day": "Day 9", "date": "2026-06-11 (목)", "theme": "Threat Intelligence 결합 보안 에이전트", "sessions": [
+      {"time": "10:00 ~ 12:00", "title": "정보 수집 (Recon)", "content": "타깃 시스템 대상 포트 자동화 스캐닝, 엔드포인트 도출 및 공격 표면 식별", "hours": "2H"},
+      {"time": "13:00 ~ 15:00", "title": "취약점 시나리오 추론", "content": "수집 데이터와 CVE/KEV/EPSS 동적 조회·상관 분석 기반 취약점 시나리오 도출", "hours": "2H"},
+      {"time": "15:00 ~ 18:00", "title": "모의 해킹 (Exploit)", "content": "OpenClaw 기반 시뮬레이션 공격 페이로드 전송·검증, Self-Reflective Pentest", "hours": "3H"}
+    ]},
+    {"day": "Day 10", "date": "2026-06-12 (금)", "theme": "통합 PoC 실행 및 최종 리뷰", "sessions": [
+      {"time": "10:00 ~ 11:00", "title": "PoC 시나리오 킥오프", "content": "모사 웹서비스 타깃 환경 구성 점검 및 점검 시나리오 배포", "hours": "1H"},
+      {"time": "11:00 ~ 14:00", "title": "통합 에이전트 런칭 및 모니터링", "content": "보안 정책 · TI · 메모리가 모두 결합된 전체 파이프라인 실행 및 디버깅", "hours": "3H"},
+      {"time": "14:00 ~ 18:00", "title": "리포팅 및 회고 (Wrap-up)", "content": "에이전트가 작성한 자동화 보고서 리뷰, 보안 한계점 도출, 도입 전략 토의, 종합 Q&amp;A", "hours": "3H"}
+    ]}
+  ],
+  "venue_info": "<b>교육 장소는 현재 미확정 상태이며 확정 시 별도 안내드립니다.</b><br>장소는 변경될 수 있으며, 1차·2차 교육이 각기 다른 장소에서 운영될 수 있습니다. 실습 환경(네트워크·좌석·장비) 사전 점검은 D-3까지 완료됩니다.",
+  "instructors": [
+    {
+      "label": "기초 강사 A",
+      "role": "ML Engineer / 생성형 AI · LLM 교육 전문",
+      "summary": "Blue Penguin CEO로 딥러닝·생성형 AI 강의 및 제품 개발을 병행. LG AI Research에서 AI Loop Music Generation·AI Human 'Tilda' 연구 참여, 모두의연구소 Rubato Lab에서 음악 정보 검색(MIR) 연구 진행.",
+      "expertise": ["LLM · LangChain", "Generative AI", "PyTorch · TensorFlow", "기업 DL 교육", "Python"],
+      "experience": ["Multi Campus · LLM with Langchain (2024)", "KT Research Center · Stable Diffusion (2023)", "삼성디스플레이 · 삼성전기 · LG전자 딥러닝 교육 다수"]
+    },
+    {
+      "label": "기초 강사 B",
+      "role": "LLM RAG · 온디바이스 AI 엔지니어",
+      "summary": "삼성전자 LLM RAG SW 및 온디바이스 AI 엔지니어(2024~). 자동차 IVI AP/BSP 소프트웨어 Technical Program Manager 경력(2019~2023)으로 차량 도메인 이해도 보유. 성균관대 기술경영학 박사과정.",
+      "expertise": ["LLM · RAG", "On-device AI / Edge AI", "Automotive (IVI · BSP)", "임베디드 머신러닝", "Swift · Python · C/C++"],
+      "experience": ["저서 『코파일럿이 온다』(2024, 공저)", "역서 『딥러닝의 정석』 (2024, 2판)", "모두의연구소 · 성균관대 · 법무법인 세종 등 AI 세미나 다수", "Huggingface 글로벌 챌린지 해커톤 우승"]
+    },
+    {
+      "label": "기초 강사 C",
+      "role": "AI 연구소장 / RAG 챗봇 · 자율 이동체",
+      "summary": "㈜루커스 연구소장. LG전자 · Intel · 드림에이스 · 스프링클라우드 등 임베디드~클라우드~AI 전 영역 경력. RAG 챗봇·멀티 에이전트 솔루션 개발 경험, 자율주행 소프트웨어 스택(Autoware, Apollo) 및 AMR/AGV 개발 이력.",
+      "expertise": ["RAG · Multi-Agent 챗봇", "자율주행 / AMR · AGV", "MLOps · 데이터 엔지니어링", "Edge AI · 임베디드", "Docker · Kubernetes"],
+      "experience": ["한국기술교육대학교 MOOC · 인공지능 서비스/모델/데이터셋 강의", "KDT 국비지원 AI 개발자 양성 과정 다수", "SK C&C · 골프존 · 철강협회 · 정보산업연합회 기업교육"]
+    }
+  ],
+  "instructor_note": "※ 강사진은 현재 미확정 상태이며, 일정별 강사 확정 후 강사 이력을 재공유할 예정입니다.",
+  "preparation": [
+    {"target": "수강생", "items": [
+      "실습용 노트북 지참 (Python 3.10+, VS Code 권장)",
+      "Claude Code · LLM API 키 발급 및 사전 접속 확인",
+      "기초 Python 문법 · Git 사용 경험 사전 숙지 권장",
+      "사내 MS Office / Confluence 샘플 문서 2~3종 사전 파악"
+    ]}
+  ],
+  "preparation_note": "※ 상기 내용은 참고용이며, 확정된 상세 준비사항은 교육 시작 전 별도 안내드릴 예정입니다.",
+  "advanced_notice": "<b>심화 과정 안내</b> — 본 기초 과정 수료자 중 심화 대상 개발자를 위해 <b>2026년 하반기</b>에 <b>AI Agent 심화 과정(10일 × 7시간, 총 70시간, 캡스톤 중심)</b>이 별도 운영될 예정입니다. Advanced RAG · MCP 서버 · LangGraph Orchestration · Memory Governance · Adaptive Red Teaming · 사내 Working Group 과제(Chatbot · 검증 자동화 · Jira 분석 · 기능안전 사양) 캡스톤 4팀 등이 포함되며, 세부 일정과 대상자 선발 기준은 기초 과정 종료 후 별도 안내드립니다.",
+  "output": "<ul><li>사내 데이터(MS Office / Confluence) 연동 Agentic RAG 파이프라인 구현 결과 1건</li><li>Threat Intelligence(CVE/KEV/EPSS) 결합형 취약점 시나리오 분석 파이프라인 1건</li><li>OpenClaw 기반 Autonomous Security Agent PoC 및 자동화 보안 점검 리포트 1건</li><li>Memory Governance, HITL 승인 체계, Audit Log를 포함한 운영 설계 문서 1건</li></ul>"
+}

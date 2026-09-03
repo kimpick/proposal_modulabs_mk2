@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<style>
+{{ css }}
+
+/* ── guide 전용 추가 스타일 ── */
+
+/* 일정 타임라인 블록 */
+.schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+}
+.schedule-card {
+    border: 1px solid #EBEBEB;
+    border-top: 3px solid #EE3E4C;
+    border-radius: 10px;
+    padding: 16px 18px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+.schedule-card.sc-mid {
+    border-top-color: #9CA3AF;
+    background: #fafafa;
+}
+.sc-label {
+    font-size: 10px;
+    font-weight: 800;
+    color: #EE3E4C;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+}
+.schedule-card.sc-mid .sc-label { color: #6B7280; }
+.sc-period {
+    font-size: 13px;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 4px;
+    word-break: keep-all;
+}
+.sc-hours {
+    font-size: 11px;
+    color: #777;
+    margin-bottom: 8px;
+}
+.sc-theme {
+    font-size: 12px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 4px;
+    line-height: 1.5;
+    word-break: keep-all;
+}
+.sc-note {
+    font-size: 11px;
+    color: #888;
+    line-height: 1.55;
+    word-break: keep-all;
+}
+
+/* Day 커리큘럼 테이블 */
+.day-block {
+    border: 1px solid #EBEBEB;
+    border-radius: 10px;
+    margin-bottom: 14px;
+    overflow: hidden;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+.day-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding: 12px 18px;
+    background: #fafafa;
+    border-bottom: 1px solid #EBEBEB;
+}
+.day-num {
+    font-size: 11px;
+    font-weight: 800;
+    color: #EE3E4C;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+}
+.day-date {
+    font-size: 11px;
+    color: #777;
+    white-space: nowrap;
+}
+.day-theme {
+    font-size: 13px;
+    font-weight: 800;
+    color: #111;
+    word-break: keep-all;
+}
+.day-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+.day-table td {
+    padding: 10px 16px;
+    vertical-align: top;
+    border-top: 1px solid #F3F3F3;
+    line-height: 1.6;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.day-table tr:first-child td { border-top: none; }
+.dt-time {
+    width: 110px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #555;
+    white-space: nowrap;
+}
+.dt-title {
+    width: 170px;
+    font-weight: 700;
+    color: #111;
+    word-break: keep-all;
+}
+.dt-content { color: #333; }
+.dt-hours {
+    width: 40px;
+    text-align: right;
+    font-size: 11px;
+    font-weight: 800;
+    color: #aaa;
+    white-space: nowrap;
+}
+
+/* 강사 프로필 카드 */
+.instructor-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 12px;
+    margin-bottom: 12px;
+}
+.instructor-card {
+    border: 1px solid #EBEBEB;
+    border-left: 4px solid #EE3E4C;
+    border-radius: 10px;
+    padding: 16px 20px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+.ic-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+.ic-label {
+    font-size: 10px;
+    font-weight: 800;
+    color: #EE3E4C;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+.ic-role {
+    font-size: 13px;
+    font-weight: 800;
+    color: #111;
+    word-break: keep-all;
+}
+.ic-summary {
+    font-size: 12px;
+    color: #333;
+    line-height: 1.7;
+    margin-bottom: 10px;
+    word-break: keep-all;
+}
+.ic-section-label {
+    font-size: 10px;
+    font-weight: 800;
+    color: #888;
+    letter-spacing: 0.05em;
+    margin: 4px 0;
+}
+.ic-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 8px;
+}
+.ic-chip {
+    border: 1px solid #EBEBEB;
+    border-radius: 50px;
+    padding: 3px 10px;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #333;
+    background: #fff;
+}
+.ic-exp {
+    font-size: 11.5px;
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+    padding-left: 16px;
+}
+.ic-exp li { margin-bottom: 2px; }
+
+.instructor-note {
+    font-size: 11px;
+    color: #888;
+    line-height: 1.6;
+    padding: 10px 14px;
+    background: #fafafa;
+    border-radius: 8px;
+}
+
+/* 사전 준비 */
+.prep-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+.prep-card {
+    border: 1px solid #EBEBEB;
+    border-radius: 10px;
+    padding: 16px 20px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+.prep-target {
+    font-size: 11px;
+    font-weight: 800;
+    color: #EE3E4C;
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+}
+.prep-card ul {
+    margin: 0;
+    padding-left: 16px;
+}
+.prep-card li {
+    font-size: 12px;
+    color: #333;
+    line-height: 1.7;
+    margin-bottom: 4px;
+    word-break: keep-all;
+}
+
+/* 장소 / 심화 안내 박스 */
+.notice-box {
+    border: 1px solid #EBEBEB;
+    border-left: 4px solid #EBBAC0;
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-size: 12.5px;
+    line-height: 1.75;
+    color: #333;
+    margin-bottom: 24px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    word-break: keep-all;
+}
+
+/* info-grid 확장 (2x2) */
+.info-grid-2x2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 30px 0 40px 0;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <div class="header-text">모두의연구소 AI교육 안내 2026</div>
+    <h1 class="title">{{ data.title }}</h1>
+    <p class="subtitle">{{ data.subtitle }}</p>
+</div>
+
+<div class="info-grid-2x2">
+    <div class="info-box"><div class="info-label">교육 대상</div><div class="info-value">{{ data.info.target }}</div></div>
+    <div class="info-box"><div class="info-label">총 시간 · 구성</div><div class="info-value">{{ data.info.duration }}</div></div>
+    <div class="info-box"><div class="info-label">교육 기간</div><div class="info-value">{{ data.info.period }}</div></div>
+    <div class="info-box"><div class="info-label">교육 장소</div><div class="info-value">{{ data.info.venue }}</div></div>
+</div>
+
+<div class="section-title"><span class="section-num">01</span>과정 개요</div>
+<div class="content-box">{{ data.intro }}</div>
+
+<div class="section-title"><span class="section-num">02</span>교육 목표</div>
+<div class="content-box">{{ data.objective }}</div>
+
+<div class="section-title"><span class="section-num">03</span>교육 일정 요약</div>
+<div class="schedule-grid">
+    {% for block in data.schedule_blocks %}
+    <div class="schedule-card{% if block.label == '중간 현업 미션' %} sc-mid{% endif %}">
+        <div class="sc-label">{{ block.label }}</div>
+        <div class="sc-period">{{ block.period }}</div>
+        <div class="sc-hours">{{ block.hours }}</div>
+        <div class="sc-theme">{{ block.theme }}</div>
+        <div class="sc-note">{{ block.note }}</div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="section-title"><span class="section-num">04</span>상세 커리큘럼</div>
+{% for day in data.curriculum_table %}
+<div class="day-block">
+    <div class="day-header">
+        <div class="day-num">{{ day.day }}</div>
+        <div class="day-date">{{ day.date }}</div>
+        <div class="day-theme">{{ day.theme }}</div>
+    </div>
+    <table class="day-table">
+        {% for s in day.sessions %}
+        <tr>
+            <td class="dt-time">{{ s.time }}</td>
+            <td class="dt-title">{{ s.title }}</td>
+            <td class="dt-content">{{ s.content | safe }}</td>
+            <td class="dt-hours">{{ s.hours }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endfor %}
+
+<div style="display: flex; gap: 40px; page-break-inside: avoid; break-inside: avoid;">
+    <div style="flex: 1;">
+        <div class="section-title"><span class="section-num">05</span>핵심 기술 스택</div>
+        <div class="tech-container">
+            {% for t in data.tech_stack %}<div class="tech-badge">{{ t }}</div>{% endfor %}
+        </div>
+    </div>
+    <div style="flex: 1.4;">
+        <div class="section-title"><span class="section-num">06</span>필요 인프라</div>
+        <div class="infra-box">
+            <ul>{% for i in data.infrastructure %}<li><span>{{ i }}</span></li>{% endfor %}</ul>
+        </div>
+    </div>
+</div>
+
+<div style="page-break-inside: avoid; break-inside: avoid;">
+    <div class="section-title"><span class="section-num">07</span>교육 장소 안내</div>
+    <div class="notice-box">{{ data.venue_info | safe }}</div>
+</div>
+
+<div class="section-title"><span class="section-num">08</span>강사진 소개</div>
+<div class="instructor-grid">
+    {% for ins in data.instructors %}
+    <div class="instructor-card">
+        <div class="ic-head">
+            <div class="ic-label">{{ ins.label }}</div>
+            <div class="ic-role">{{ ins.role }}</div>
+        </div>
+        <div class="ic-summary">{{ ins.summary }}</div>
+        <div class="ic-section-label">전문 분야</div>
+        <div class="ic-chips">{% for k in ins.expertise %}<span class="ic-chip">{{ k }}</span>{% endfor %}</div>
+        <div class="ic-section-label">주요 이력 / 강의 경험</div>
+        <ul class="ic-exp">{% for e in ins.experience %}<li>{{ e }}</li>{% endfor %}</ul>
+    </div>
+    {% endfor %}
+</div>
+<div class="instructor-note">{{ data.instructor_note | safe }}</div>
+
+<div class="section-title"><span class="section-num">09</span>사전 준비 안내</div>
+<div class="prep-grid">
+    {% for p in data.preparation %}
+    <div class="prep-card">
+        <div class="prep-target">{{ p.target }} 준비사항</div>
+        <ul>{% for item in p['items'] %}<li>{{ item }}</li>{% endfor %}</ul>
+    </div>
+    {% endfor %}
+</div>
+{% if data.preparation_note %}<div class="instructor-note" style="margin-bottom: 24px;">{{ data.preparation_note | safe }}</div>{% endif %}
+
+<div style="page-break-inside: avoid; break-inside: avoid;">
+    <div class="section-title"><span class="section-num">10</span>기대 산출물</div>
+    <div class="content-box">{{ data.output }}</div>
+</div>
+
+<div style="page-break-inside: avoid; break-inside: avoid;">
+    <div class="section-title"><span class="section-num">11</span>심화 과정 안내</div>
+    <div class="notice-box">{{ data.advanced_notice | safe }}</div>
+</div>
+
+<div class="footer">
+    &copy; 2026 MODULABS &mdash; 모두의연구소 AI 기업교육 안내서
+</div>
+
+</body>
+</html>

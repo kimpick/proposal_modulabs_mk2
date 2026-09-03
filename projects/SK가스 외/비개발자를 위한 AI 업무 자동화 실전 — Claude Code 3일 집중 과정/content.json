@@ -1,0 +1,181 @@
+{
+  "title": "하네스 엔지니어링 기반 AI 업무 자동화",
+  "subtitle": "비개발자를 위한 하네스 엔지니어링 — Claude Code로 구현하는 업무 자동화",
+  "pdf_title": "하네스 엔지니어링 기반 AI 업무 자동화",
+  "info": {
+    "keyword": "바이브코딩.AI코딩",
+    "ax_stage": "Level 4 — AI 에이전트 도입",
+    "target": "AI로 반복 업무를 자동화 시스템을 만들고 싶은 비개발자 실무자",
+    "duration": "24시간"
+  },
+  "intro": "반복 업무를 AI로 자동화하는 시대가 왔지만, 비개발자는 어디서부터 시작해야 할지 막막한 경우가 많습니다. 본 과정은 코딩 경험이 없는 실무자가 Claude Code를 활용해 자신의 업무를 직접 자동화할 수 있도록 설계된 3일 집중 과정입니다.\n\n1일차에는 AI 품질을 결정하는 환경 설계 원칙(Context Engineering, Harness Engineering, AI Fluency 4E 프레임워크)을 학습하고, 2~3일차에는 Claude Code(또는 Codex) 기반으로 실제 파일·데이터 처리 자동화를 직접 구현합니다. 마지막 4시간은 아이디어톤과 MVP 제작으로 마무리되어, 수강 후 즉시 현업에 적용 가능한 자동화 도구를 손에 쥐고 돌아갈 수 있습니다.",
+  "objective": "Claude Code 기반 AI 환경 설계부터 업무 자동화 구현까지, 비개발자도 반복 업무를 스스로 자동화할 수 있는 실전 역량을 확보합니다.",
+  "tech_stack": [
+    "Claude Code",
+    "Codex",
+    "Context Engineering",
+    "Harness Engineering",
+    "Agent Skills(SKILL.md)"  ],
+  "infrastructure": [
+    "Claude Pro 또는 Team 플랜 (Claude.ai Projects 실습)",
+    "Claude Code 설치 환경 (macOS / Linux / Windows WSL)",
+    "Google Sheets·Slack 계정 (3일차 외부 도구 연동)"
+  ],
+  "tracks": [
+    {
+      "track_id": "01",
+      "track_name": "AI 환경 설계 입문",
+      "course_title": "AI 품질을 결정하는 Context & Harness 설계",
+      "target": "AI 협업 품질을 안정화하고 싶은 비개발자 실무자",
+      "duration": "8H",
+      "tools": [
+        "Claude.ai Projects",
+        "Claude Code",
+        "Agent Skills"
+      ],
+      "modules": [
+        {
+          "module_name": "AI 품질을 결정하는 환경 설계 — 3단계 구조 이해",
+          "duration": "2H",
+          "items": [
+            "AI가 잘하는 것과 못하는 것의 경계 파악 및 비판적 검토 태도 형성",
+            "효과적·효율적·윤리적·안전한 AI 협업을 위한 4E 프레임워크 이해 (Anthropic AI Fluency)",
+            "프롬프트 → 컨텍스트 → 하네스, 3단계 환경 설계 구조 파악",
+            "실습 주제 예시: 업무에서 AI 답변이 들쭉날쭉했던 프롬프트 사례 발굴 및 4E 기준으로 원인 분석"
+          ]
+        },
+        {
+          "module_name": "AI용 업무 매뉴얼 설계 — Context Engineering 개념 및 실습",
+          "duration": "2H",
+          "items": [
+            "컨텍스트 = AI용 업무 매뉴얼(배경·기준·톤 지침서)의 필요성 이해",
+            "컨텍스트 없는 AI vs. 컨텍스트 있는 AI 품질 차이 비교 실험",
+            "실습 주제 예시: Claude.ai Projects — 팀 문서 기준 탑재 전후 동일 질문 결과 직접 확인"
+          ]
+        },
+        {
+          "module_name": "내 업무용 컨텍스트 문서 작성 실습",
+          "duration": "2H",
+          "items": [
+            "비개발자가 설계할 수 있는 3단계 컨텍스트 구조 이해",
+            "컨텍스트 문서 작성법과 업무 적용 원칙",
+            "실습 주제 예시"
+          ]
+        },
+        {
+          "module_name": "AI 오류 방지 구조 설계 — Harness Engineering & 인사이트 정리",
+          "duration": "2H",
+          "items": [
+            "하네스의 3요소(권한·검증·안전망) 개념과 역할 이해",
+            "Agent Skills(SKILL.md) — Claude Code가 상황에 맞게 자동 적용하는 재사용 가능 업무 지침 개념",
+            "실습 주제 예시: 계약서 검토 자동화용 SKILL.md 작성 및 Claude Code 적용 흐름 체험"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "02",
+      "track_name": "업무 자동화 입문",
+      "course_title": "Claude Code 기반 반복 업무 자동화 설계와 구현",
+      "target": "반복 업무를 직접 자동화하고 싶은 기획·운영·HR·영업 실무자",
+      "duration": "8H",
+      "tools": [
+        "Claude Code",
+        "Codex",
+        "Excel",
+        "파일 자동화"
+      ],
+      "modules": [
+        {
+          "module_name": "AI 업무 자동화 개념 & Claude Code 환경 설정",
+          "duration": "2H",
+          "items": [
+            "Claude Cowork 태스크 루프 — AI와 실제 파일·프로젝트를 단계적으로 다루는 협업 흐름 이해",
+            "AI 기반 업무 자동화 개념과 실무 적용 범위",
+            "Claude Code(또는 Codex) 설치 및 기본 명령어 구조 이해",
+            "실습 주제 예시: Claude Code 설치 후 사내 보고서 폴더 내 파일 목록 자동 출력 첫 명령 실행"
+          ]
+        },
+        {
+          "module_name": "반복 업무 분석 & 자동화 워크플로우 설계 실습",
+          "duration": "2H",
+          "items": [
+            "반복·소모적 업무 식별 기준 및 자동화 적합성 판단 방법",
+            "자연어로 자동화 작업을 지시하는 프롬프트 구조 설계",
+            "실습 주제 예시: 영업 보고서 취합·회의록 정리·데이터 입력 등 반복 업무 자동화 후보 목록 작성 및 우선순위 선정"
+          ]
+        },
+        {
+          "module_name": "Claude Code 기반 자동화 스크립트 실습",
+          "duration": "2H",
+          "items": [
+            "Claude Code로 파일·데이터 처리 자동화 구현",
+            "AI와 대화하며 자동화 로직을 반복 수정하는 이터레이션 전략",
+            "실습 주제 예시: 사업 관리 엑셀 데이터 자동 정리 및 팀 배포용 주간 현황 보고서 자동 생성"
+          ]
+        },
+        {
+          "module_name": "자동화 결과물 검증 및 오류 대응 실습",
+          "duration": "2H",
+          "items": [
+            "자동화 결과물 검증 기준 설정 및 품질 확인 방법",
+            "오류 발생 시 Claude Code와 함께 디버깅하는 실전 패턴",
+            "실습 주제 예시: 사업 관리 보고서 자동화 스크립트 오류 원인 파악 및 수정 후 재실행"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "03",
+      "track_name": "업무 자동화 심화 & 아이디어톤 MVP",
+      "course_title": "외부 도구 연동 자동화와 팀별 MVP 제작",
+      "target": "팀 단위 자동화 과제를 발굴하고 현업 적용 MVP를 만들고 싶은 실무자",
+      "duration": "8H",
+      "tools": [
+        "Claude Code",
+        "Google Sheets",
+        "Slack",
+        "Subagent"
+      ],
+      "modules": [
+        {
+          "module_name": "자동화 심화 — 데이터 처리 & 외부 도구 연동",
+          "duration": "2H",
+          "items": [
+            "Google Sheets·이메일·슬랙 등 외부 도구 연동 자동화 구현",
+            "서브에이전트(Subagent) — 복잡한 업무를 Claude Code가 단계별로 위임·처리하는 구조 이해",
+            "실습 주제 예시: 주간 영업 실적 Google Sheets 수집 → 정리 → 팀 공유용 실적 보고서 초안 자동 생성"
+          ]
+        },
+        {
+          "module_name": "실전 케이스 스터디 & 트러블슈팅",
+          "duration": "2H",
+          "items": [
+            "직무별 업무 자동화 실무 케이스 분석(HR·운영·마케팅 등)",
+            "Claude Code / Codex 활용 한계와 현명한 적용 범위 인식",
+            "실습 주제 예시: 수강생 본인 자동화 스크립트 오류 원인 파악 및 Claude Code 활용 해결"
+          ]
+        },
+        {
+          "module_name": "아이디어톤 — 자동화 과제 발굴 & MVP 기획",
+          "duration": "1H",
+          "items": [
+            "팀 구성 및 해결할 반복 업무 문제 정의",
+            "Claude Code 기반 자동화 MVP 기획서 작성: 무엇을 / 누가 / 어떻게 자동화할 것인가",
+            "실습 주제 예시: 주간 보고서 자동 생성·고객 문의 자동 분류·업무 일정 알림 자동화 중 팀 MVP 과제 선정 및 기획서 작성"
+          ]
+        },
+        {
+          "module_name": "자동화 MVP 제작 & 데모데이 발표",
+          "duration": "3H",
+          "items": [
+            "팀별 Claude Code로 자동화 MVP 제작 및 강사 순회 피드백",
+            "팀별 MVP 시연 및 3분 발표·상호 피드백",
+            "실습 주제 예시: 영업팀 주간 보고서 자동화 도구, 인사 데이터 정리 파이프라인, 미팅 후 액션 아이템 자동 추출·발송"
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "<ul style=\"margin:0; padding-left:20px; line-height: 1.9;\"><li>내 업무용 AI 컨텍스트 문서 및 SKILL.md 업무 지침서</li><li>반복 업무 자동화 후보 목록 및 우선순위 기획서</li><li>Claude Code 기반 파일·데이터 처리 자동화 스크립트 초안</li><li>팀별 자동화 MVP</li></ul>"
+}

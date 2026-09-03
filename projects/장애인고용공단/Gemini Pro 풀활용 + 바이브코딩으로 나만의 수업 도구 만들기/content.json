@@ -1,0 +1,157 @@
+{
+  "title": "Gemini 활용 교육 - 기초/디자인 + 바이브코딩 트랙",
+  "subtitle": "이공계 직업훈련 교사를 위한 AI 교수 도구 활용 및 수업용 웹앱 MVP 제작 실전 과정",
+  "pdf_title": "Gemini Pro 풀활용 + 바이브코딩 수업 도구 만들기",
+  "info": {
+    "keyword": "생성형AI",
+    "ax_stage": "Level 1",
+    "target": "이공계(전기전자·기계·정보) 전공 직업훈련 교사 및 강사",
+    "duration": "총 20시간"
+  },
+  "intro": "생성형 AI가 교육 현장에 본격 도입되는 지금, 직업훈련 교사에게 필요한 것은 단순한 AI 사용법이 아니라 수업에 바로 쓸 수 있는 나만의 도구를 직접 만드는 역량입니다. 이 과정은 Gemini Pro 내 다양한 툴을 활용해 학습 자료 자동화, AI 조교 설계, 교육용 비주얼 제작을 익히는 기초·디자인 트랙과, Antigravity 바이브코딩으로 전공 개념 시뮬레이터·실습 가이드 등 수업용 웹앱 MVP를 직접 제작하는 심화 트랙으로 구성됩니다. 모든 모듈은 이론보다 실습 중심으로 운영되며, 수강생은 매 모듈마다 현장에서 즉시 활용 가능한 결과물을 가져갑니다.",
+  "objective": "Gemini Pro 핵심 기능과 Antigravity 바이브코딩을 통해 이공계 직업훈련 교사가 AI 기반 수업 콘텐츠와 수업용 웹앱 MVP를 스스로 설계·제작·배포할 수 있는 실전 역량을 확보합니다.",
+  "tech_stack": [
+    "Gemini Pro",
+    "NotebookLM",
+    "Gems",
+    "Nano Banana",
+    "Antigravity",
+    "바이브코딩"  ],
+  "infrastructure": [
+    "Google AI Pro 유료 플랜 (NotebookLM Plus·Gemini Pro·Antigravity 포함)",
+    "Canva 무료 계정 (후편집 실습용)",
+    "수강생 개인 노트북"
+  ],
+  "tracks": [
+    {
+      "track_id": "01",
+      "track_name": "[기초/디자인] Gemini Pro 핵심 기능 및 이미지 생성",
+      "course_title": "Gemini Pro 생태계로 만드는 AI 교수 콘텐츠와 교육용 비주얼",
+      "target": "이공계 직업훈련 교사 및 강사",
+      "duration": "10시간",
+      "tools": [
+        "NotebookLM",
+        "Gems",
+        "Gemini Pro",
+        "Imagen 3",
+        "Canva"
+      ],
+      "modules": [
+        {
+          "module_name": "NotebookLM으로 학습 자료 자동화하기",
+          "duration": "2.0H",
+          "items": [
+            "PDF·영상·웹페이지 멀티모달 소스 업로드 및 분석",
+            "오디오 오버뷰(팟캐스트형 요약) 자동 생성",
+            "실습 주제 예시: 단원별 학습 가이드·퀴즈·요약본 자동 생성"
+          ]
+        },
+        {
+          "module_name": "Gems로 나만의 AI 조교 설계하기",
+          "duration": "2.0H",
+          "items": [
+            "Gems 개념 및 역할·지식베이스·말투 설정 방법",
+            "교과목 전용 AI 조교 프롬프트 설계 원리",
+            "실습 주제 예시: 담당 교과 전용 Gem 제작 및 학생 Q&A 시나리오 테스트"
+          ]
+        },
+        {
+          "module_name": "SNS·마케팅 콘텐츠 비주얼 생성",
+          "duration": "2.0H",
+          "items": [
+            "Gemini 기반 이미지 생성 원리 및 프롬프트 구조",
+            "스타일·분위기·구도 지정으로 퀄리티 높이는 방법",
+            "실습 주제 예시: 수업 홍보용 인스타그램 카드뉴스·유튜브 썸네일 3종 제작"
+          ]
+        },
+        {
+          "module_name": "교육 자료·발표용 비주얼 생성",
+          "duration": "2.0H",
+          "items": [
+            "교과 개념 삽화·인포그래픽·다이어그램 생성",
+            "저작권 없는 교육용 이미지 프롬프트 전략",
+            "실습 주제 예시: 단원 개념 설명 삽화 세트 제작 및 수업 PPT 비주얼 완성"
+          ]
+        },
+        {
+          "module_name": "디지털 굿즈·개인 브랜딩 이미지 제작",
+          "duration": "2.0H",
+          "items": [
+            "스티커·이모티콘·클래스 굿즈 디자인 생성 방법",
+            "일관된 스타일 유지 프롬프트 기법 및 Canva 연계 후편집",
+            "실습 주제 예시: 교사 캐릭터·마스코트 제작 및 클래스 스티커 디자인 세트 완성"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "02",
+      "track_name": "[심화] 바이브코딩으로 하는 수업 도구 개발",
+      "course_title": "Antigravity로 제작하는 전공 특화 수업용 웹앱 MVP",
+      "target": "이공계 직업훈련 교사 및 강사",
+      "duration": "10시간",
+      "tools": [
+        "Antigravity",
+        "Google AI Pro",
+        "바이브코딩",
+        "웹앱 개발",
+        "MVP/PBL"
+      ],
+      "modules": [
+        {
+          "module_name": "바이브코딩 개념과 Antigravity 소개",
+          "duration": "1H",
+          "items": [
+            "바이브코딩 개념 및 등장 배경, Antigravity 소개",
+            "웹앱 기초 개념 이해 (프론트엔드·백엔드·API·배포·서버리스)",
+            "Fast 모드 vs Planning 모드 비교 및 특징"
+          ]
+        },
+        {
+          "module_name": "Antigravity 환경 설정 및 첫 실행",
+          "duration": "1H",
+          "items": [
+            "Google AI Pro 환경 설정 및 Antigravity 인터페이스 익히기",
+            "첫 번째 명령 실행 및 결과 확인",
+            "실습 주제 예시: 간단한 버튼·입력창 포함 페이지 생성 및 배포까지 전 과정 체험"
+          ]
+        },
+        {
+          "module_name": "훈련 현장 비효율 분석 및 웹앱 제작 영역 설계",
+          "duration": "1H",
+          "items": [
+            "이공계 훈련 현장의 반복·소모 업무 목록화 워크샵",
+            "Antigravity로 웹앱화 가능한 영역 매핑 및 우선순위 선정",
+            "실습 주제 예시: 전기전자·기계·정보 훈련과목별 웹앱 아이디어 발굴"
+          ]
+        },
+        {
+          "module_name": "로직 포함 웹앱 제작 실습",
+          "duration": "3H",
+          "items": [
+            "Antigravity 에이전트 워크플로우 이해 (계획 → 코딩 → 테스트 → 검증)",
+            "계산 로직·단계형 UI·상태 관리가 포함된 수업 보조 웹앱 제작 실습",
+            "실습 주제 예시: 전기 저항 계산기 웹앱, 실습 절차 단계별 인터랙티브 가이드 제작"
+          ]
+        },
+        {
+          "module_name": "수업용 웹앱 MVP 제작 미니 프로젝트",
+          "duration": "3H",
+          "items": [
+            "훈련 현장 실제 문제를 해결하는 웹앱 MVP를 Antigravity로 기획·제작",
+            "문제 정의 → 설계 → 바이브코딩 → 테스트 PBL 사이클로 핵심 기능만 구현하는 MVP 완성"
+          ]
+        },
+        {
+          "module_name": "웹앱 시연 및 현장 적용 계획 수립",
+          "duration": "1H",
+          "items": [
+            "제작 웹앱 MVP 시연(팀별 공유) 및 동료 피드백",
+            "향후 훈련 현장 도입 방안 및 개선 아이디어 정리"
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "<b>트랙 1 · [기초/디자인] Gemini Pro 핵심 기능 및 이미지 생성 (10H)</b><table style='width:100%;border-collapse:collapse;margin:10px 0 20px;font-size:13px;line-height:1.6;'><tr style='background:#f5f5f5;'><th style='border:1px solid #ddd;padding:8px 10px;text-align:left;width:30%;'>산출물</th><th style='border:1px solid #ddd;padding:8px 10px;text-align:left;'>설명</th></tr><tr><td style='border:1px solid #ddd;padding:8px 10px;'><b>교과 전용 AI 조교 Gem</b></td><td style='border:1px solid #ddd;padding:8px 10px;'>담당 과목의 지식베이스를 학습한 나만의 AI 조교. 학생 질문에 일관된 톤으로 답변하고, 반복 설명 업무를 대신함</td></tr><tr><td style='border:1px solid #ddd;padding:8px 10px;'><b>수업 비주얼 패키지</b></td><td style='border:1px solid #ddd;padding:8px 10px;'>단원별 개념 삽화, 수업 PPT 배경, 인스타그램 카드뉴스, 유튜브 썸네일까지 저작권 걱정 없이 Gemini로 직접 생성한 이미지 세트</td></tr><tr><td style='border:1px solid #ddd;padding:8px 10px;'><b>클래스 브랜딩 굿즈 세트</b></td><td style='border:1px solid #ddd;padding:8px 10px;'>교사 캐릭터·마스코트 이미지, 수업용 스티커·이모티콘 디자인. 학습 동기 부여 및 학급 정체성 형성에 활용 가능</td></tr></table><b>트랙 2 · [심화] 바이브코딩으로 하는 수업 도구 개발 (10H)</b><table style='width:100%;border-collapse:collapse;margin-top:10px;font-size:13px;line-height:1.6;'><tr style='background:#f5f5f5;'><th style='border:1px solid #ddd;padding:8px 10px;text-align:left;width:25%;'>산출물</th><th style='border:1px solid #ddd;padding:8px 10px;text-align:left;width:38%;'>기능 구성</th><th style='border:1px solid #ddd;padding:8px 10px;text-align:left;'>이런 상황에 씁니다</th></tr><tr><td style='border:1px solid #ddd;padding:8px 10px;'><b>전공 개념 인터랙티브 시뮬레이터</b></td><td style='border:1px solid #ddd;padding:8px 10px;'>- 슬라이더·입력값 조작 → 전류·전압·저항 등 계산값 실시간 변화 시각화<br>- 공식 표시 + 그래프 연동으로 개념과 수치 동시 확인<br>- 전기전자·기계·정보 등 전공별 커스텀 가능한 구조</td><td style='border:1px solid #ddd;padding:8px 10px;'>추상적인 전공 개념을 말로 설명하기 어려울 때, 학생이 직접 값을 바꿔보며 원리를 체감하게 하고 싶을 때</td></tr><tr><td style='border:1px solid #ddd;padding:8px 10px;'><b>실습 절차 인터랙티브 가이드</b></td><td style='border:1px solid #ddd;padding:8px 10px;'>- 실습 단계별 텍스트·이미지·주의사항 순차 표시<br>- 단계 완료 체크 → 다음 단계 잠금 해제 구조<br>- 오류 발생 시 대처법 팝업 및 처음부터 다시 시작 옵션</td><td style='border:1px solid #ddd;padding:8px 10px;'>실습 중 교사가 모든 학생을 동시에 케어하기 어려울 때, 학생이 스스로 절차를 확인하며 자기주도 실습이 가능하도록</td></tr></table>"
+}

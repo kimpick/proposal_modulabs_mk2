@@ -1,0 +1,326 @@
+- application [ref=e1]:
+  - iframe [ref=e2]:
+    
+  - iframe [ref=e3]:
+    
+  - banner "Menu bar" [ref=e4]:
+    - generic [ref=e7]:
+      - link "Sheets home" [ref=e9] [cursor=pointer]:
+        - /url: https://docs.google.com/spreadsheets/u/0/?pli=1&authuser=0&usp=sheets_web
+      - generic [ref=e16]:
+        - generic "[모두의연구소] AI 기업교육 커리큘럼_초안" [ref=e18]:
+          - generic [ref=e19]:
+            - generic: "[모두의연구소] AI 기업교육 커리큘럼_초안"
+            - textbox "Rename" [ref=e21]: "[모두의연구소] AI 기업교육 커리큘럼_초안"
+          - generic [ref=e22]:
+            - button "Shared externally" [ref=e24] [cursor=pointer]
+            - checkbox "Star" [ref=e28] [cursor=pointer]
+            - button "Move" [ref=e32] [cursor=pointer]
+            - 'button "Document status: Saved to Drive." [ref=e2564]'
+        - generic [ref=e43]:
+          - button "Last edit was 2 minutes ago" [ref=e3320] [cursor=pointer]
+          - button "Show all comments" [ref=e49] [cursor=pointer]
+          - button "Join a call here or present this tab to the call" [ref=e53] [cursor=pointer]
+          - generic [ref=e58]:
+            - button "Share. 모두의연구소. Anyone in this group with the link can open" [ref=e59] [cursor=pointer]: Share
+            - button "Quick sharing actions" [ref=e61] [cursor=pointer]
+          - generic [ref=e64]:
+            - generic:
+              - button "Ask Gemini" [ref=e67] [cursor=pointer]:
+                - img [ref=e70]
+              - tooltip [ref=e73]: Ask Gemini
+          - 'button "Google Account: 김영광 (yk.kim@modulabs.co.kr)" [ref=e76] [cursor=pointer]':
+            - img [ref=e77]
+    - generic [ref=e78]:
+      - menubar [ref=e80]:
+        - menuitem "File" [ref=e81] [cursor=pointer]
+        - menuitem "Edit" [ref=e82] [cursor=pointer]
+        - menuitem "View" [ref=e83] [cursor=pointer]
+        - menuitem "Insert" [ref=e84] [cursor=pointer]
+        - menuitem "Format" [ref=e85] [cursor=pointer]
+        - menuitem "Data" [ref=e86] [cursor=pointer]
+        - menuitem "Tools" [ref=e87] [cursor=pointer]
+        - menuitem "Gemini" [ref=e88] [cursor=pointer]
+        - menuitem "Extensions" [ref=e89] [cursor=pointer]
+        - menuitem "Help" [ref=e90] [cursor=pointer]
+        - button "🛠️ 텍스트 도구" [ref=e91] [cursor=pointer]
+      - generic [ref=e92]:
+        - generic [ref=e93]:
+          - toolbar "Search the menus (Alt+/)" [ref=e94]:
+            - combobox "Menus" [ref=e96]
+          - toolbar "Main" [ref=e97]:
+            - button "Undo (Ctrl+Z)" [ref=e98] [cursor=pointer]
+            - button "Redo (Ctrl+Y)" [ref=e103] [cursor=pointer]
+            - button "Print (Ctrl+P)" [ref=e108] [cursor=pointer]
+            - button "Paint format" [ref=e113] [cursor=pointer]
+            - combobox "Zoom" [ref=e118] [cursor=pointer]:
+              - option "Zoom list. 100% selected." [selected] [ref=e121]:
+                - textbox "Zoom" [ref=e122]: 100%
+            - separator [disabled] [ref=e126]
+            - button "Format as currency" [ref=e127] [cursor=pointer]:
+              - generic [ref=e129]: ₩
+            - button "Format as percent" [ref=e130] [cursor=pointer]:
+              - generic [ref=e132]: "%"
+            - button "Decrease decimal places" [ref=e133] [cursor=pointer]
+            - button "Increase decimal places" [ref=e138] [cursor=pointer]
+            - button "More formats" [ref=e143] [cursor=pointer]:
+              - generic [ref=e146]: "123"
+            - separator [disabled] [ref=e147]
+            - listbox "Font" [ref=e148] [cursor=pointer]:
+              - option "Font list. Noto Sans KR selected." [selected] [ref=e1022]: Noto Sans KR
+            - separator [disabled] [ref=e155]
+            - button "Decrease font size (Ctrl+Shift+comma)" [ref=e156] [cursor=pointer]
+            - combobox "Font size" [ref=e161] [cursor=pointer]:
+              - option "Font size list. 10 selected." [selected] [ref=e164]:
+                - textbox "Font size" [ref=e165]: "10"
+            - button "Increase font size (Ctrl+Shift+period)" [ref=e166] [cursor=pointer]
+            - separator [disabled] [ref=e171]
+            - button "Bold (Ctrl+B)" [ref=e172] [cursor=pointer]
+            - button "Italic (Ctrl+I)" [ref=e177] [cursor=pointer]
+            - button "Strikethrough (Alt+Shift+5)" [ref=e182] [cursor=pointer]
+            - button "Text color" [ref=e187] [cursor=pointer]
+            - separator [disabled] [ref=e194]
+            - button "More" [ref=e195] [cursor=pointer]
+        - toolbar "Mode and view" [ref=e202]:
+          - button "Hide the menus (Ctrl+Shift+F)" [ref=e203] [cursor=pointer]
+    - generic [ref=e208]:
+      - complementary "Side panel" [ref=e209]:
+        - tablist [ref=e211]:
+          - tab "Calendar"
+          - tab "Keep"
+          - tab "Tasks"
+          - tab "Contacts"
+          - tab "Maps"
+          - separator [disabled] [ref=e217]
+          - tab "Get Add-ons"
+      - generic:
+        - button "Hide side panel":
+          - img [ref=e220] [cursor=pointer]
+    - generic [ref=e225]:
+      - generic "Name box (Ctrl + J)" [ref=e226]:
+        - textbox [ref=e227]: A1
+        - button "Name box menu button. Select one of the menu items to navigate to its corresponding named range." [ref=e229] [cursor=pointer]
+      - textbox [ref=e242]
+  - navigation "Sheet tab bar" [ref=e290]:
+    - toolbar [ref=e291]:
+      - button "Add Sheet" [ref=e292] [cursor=pointer]
+      - button "All Sheets" [ref=e297] [cursor=pointer]
+    - toolbar [ref=e306]:
+      - button "1. 카테고리" [ref=e2604] [cursor=pointer]:
+        - generic [ref=e2608]: 1. 카테고리
+      - button "2 2. 레퍼런스" [ref=e2612] [cursor=pointer]:
+        - generic [ref=e2615]:
+          - generic [ref=e2616]:
+            - img [ref=e2617]
+            - generic [ref=e2619]: "2"
+          - generic [ref=e2620]: 2. 레퍼런스
+      - button "전체 커리큘럼" [ref=e2624] [cursor=pointer]:
+        - generic [ref=e2628]: 전체 커리큘럼
+      - button "양식" [ref=e2632] [cursor=pointer]:
+        - generic [ref=e2636]: 양식
+      - button "양식의 사본" [expanded] [ref=e2640]:
+        - generic [ref=e2644]: 양식의 사본
+      - button "인천대_입문" [ref=e2648] [cursor=pointer]:
+        - generic [ref=e2652]: 인천대_입문
+      - button "양식(생-전-1-007)" [ref=e2656] [cursor=pointer]:
+        - generic [ref=e2660]: 양식(생-전-1-007)
+      - button "자-관-3-001" [ref=e2664] [cursor=pointer]:
+        - generic [ref=e2668]: 자-관-3-001
+      - button "R-개-4-001" [ref=e2672] [cursor=pointer]:
+        - generic [ref=e2676]: R-개-4-001
+      - button "생-전-1-007" [ref=e2680] [cursor=pointer]:
+        - generic [ref=e2684]: 생-전-1-007
+      - button "생-관-1-001" [ref=e2688] [cursor=pointer]:
+        - generic [ref=e2692]: 생-관-1-001
+      - button "생-전-1-006" [ref=e2696] [cursor=pointer]:
+        - generic [ref=e2700]: 생-전-1-006
+      - button "R-개-2-003" [ref=e2704] [cursor=pointer]:
+        - generic [ref=e2708]: R-개-2-003
+      - button "자-전-1-002" [ref=e2712] [cursor=pointer]:
+        - generic [ref=e2716]: 자-전-1-002
+      - button "기-개-2-002" [ref=e2720] [cursor=pointer]:
+        - generic [ref=e2724]: 기-개-2-002
+      - button "바-전-1-002" [ref=e2728] [cursor=pointer]:
+        - generic [ref=e2732]: 바-전-1-002
+      - button "생-전-1-005" [ref=e2736] [cursor=pointer]:
+        - generic [ref=e2740]: 생-전-1-005
+      - button "기-개-2-001" [ref=e2744] [cursor=pointer]:
+        - generic [ref=e2748]: 기-개-2-001
+      - button "생-전-2-004" [ref=e2752] [cursor=pointer]:
+        - generic [ref=e2756]: 생-전-2-004
+      - button "자-전-1-001" [ref=e2760] [cursor=pointer]:
+        - generic [ref=e2764]: 자-전-1-001
+      - button "샘플" [ref=e2768] [cursor=pointer]:
+        - generic [ref=e2772]: 샘플
+      - button "생-전-1-004" [ref=e2776] [cursor=pointer]:
+        - generic [ref=e2780]: 생-전-1-004
+      - button "자-개-4-001" [ref=e2784] [cursor=pointer]:
+        - generic [ref=e2788]: 자-개-4-001
+      - button "R-개-3-001" [ref=e2792] [cursor=pointer]:
+        - generic [ref=e2796]: R-개-3-001
+      - button "R-개-2-002" [ref=e2800] [cursor=pointer]:
+        - generic [ref=e2804]: R-개-2-002
+      - button "기-전-2-001" [ref=e2808] [cursor=pointer]:
+        - generic [ref=e2812]: 기-전-2-001
+      - button "바-개-1-001" [ref=e2816] [cursor=pointer]:
+        - generic [ref=e2820]: 바-개-1-001
+      - button "바-대-1-001" [ref=e2824] [cursor=pointer]:
+        - generic [ref=e2828]: 바-대-1-001
+      - button "바-전-3-001" [ref=e2832] [cursor=pointer]:
+        - generic [ref=e2836]: 바-전-3-001
+      - button "바-전-2-002" [ref=e2840] [cursor=pointer]:
+        - generic [ref=e2844]: 바-전-2-002
+      - button "생-전-1-001" [ref=e2848] [cursor=pointer]:
+        - generic [ref=e2852]: 생-전-1-001
+      - button "생-전-1-002" [ref=e2856] [cursor=pointer]:
+        - generic [ref=e2860]: 생-전-1-002
+      - button "생-전-1-003" [ref=e2864] [cursor=pointer]:
+        - generic [ref=e2868]: 생-전-1-003
+      - button "생-전-2-001" [ref=e2872] [cursor=pointer]:
+        - generic [ref=e2876]: 생-전-2-001
+      - button "생-전-2-002" [ref=e2880] [cursor=pointer]:
+        - generic [ref=e2884]: 생-전-2-002
+      - button "생-전-2-003" [ref=e2888] [cursor=pointer]:
+        - generic [ref=e2892]: 생-전-2-003
+      - button "자-개-2-001" [ref=e2896] [cursor=pointer]:
+        - generic [ref=e2900]: 자-개-2-001
+      - button "바-전-1-001" [ref=e2904] [cursor=pointer]:
+        - generic [ref=e2908]: 바-전-1-001
+      - button "바-전-2-001" [ref=e2912] [cursor=pointer]:
+        - generic [ref=e2916]: 바-전-2-001
+      - button "R-개-2-001" [ref=e2920] [cursor=pointer]:
+        - generic [ref=e2924]: R-개-2-001
+      - button "R-전-1" [ref=e2928] [cursor=pointer]:
+        - generic [ref=e2932]: R-전-1
+      - button "마케팅" [ref=e2936] [cursor=pointer]:
+        - generic [ref=e2940]: 마케팅
+      - button "경영" [ref=e2944] [cursor=pointer]:
+        - generic [ref=e2948]: 경영
+      - button "HR/인재양성" [ref=e2952] [cursor=pointer]:
+        - generic [ref=e2956]: HR/인재양성
+      - button "고객서비스" [ref=e2960] [cursor=pointer]:
+        - generic [ref=e2964]: 고객서비스
+      - button "행정/공공 서비스" [ref=e2968] [cursor=pointer]:
+        - generic [ref=e2972]: 행정/공공 서비스
+      - button "생산/제조" [ref=e2976] [cursor=pointer]:
+        - generic [ref=e2980]: 생산/제조
+      - button "교통/물류" [ref=e2984] [cursor=pointer]:
+        - generic [ref=e2988]: 교통/물류
+      - button "건설/건축" [ref=e2992] [cursor=pointer]:
+        - generic [ref=e2996]: 건설/건축
+      - button "보안" [ref=e3000] [cursor=pointer]:
+        - generic [ref=e3004]: 보안
+      - button "클로드코드" [ref=e3008] [cursor=pointer]:
+        - generic [ref=e3012]: 클로드코드
+      - button "전주대*카카오엔터" [ref=e3016] [cursor=pointer]:
+        - generic [ref=e3020]: 전주대*카카오엔터
+      - button "한화시스템_2차의 사본" [ref=e3024] [cursor=pointer]:
+        - generic [ref=e3028]: 한화시스템_2차의 사본
+      - button "한림대_2차의 사본" [ref=e3032] [cursor=pointer]:
+        - generic [ref=e3036]: 한림대_2차의 사본
+      - button "한국기계연구원의 사본" [ref=e3040] [cursor=pointer]:
+        - generic [ref=e3044]: 한국기계연구원의 사본
+      - button "부산외대의 사본" [ref=e3048] [cursor=pointer]:
+        - generic [ref=e3052]: 부산외대의 사본
+      - button "카카오AIC의 사본" [ref=e3056] [cursor=pointer]:
+        - generic [ref=e3060]: 카카오AIC의 사본
+      - button "제주대학교의 사본" [ref=e3064] [cursor=pointer]:
+        - generic [ref=e3068]: 제주대학교의 사본
+      - button "카카오페이의 사본" [ref=e3072] [cursor=pointer]:
+        - generic [ref=e3076]: 카카오페이의 사본
+      - button "이의고의 사본" [ref=e3080] [cursor=pointer]:
+        - generic [ref=e3084]: 이의고의 사본
+      - button "한미글로벌의 사본" [ref=e3088] [cursor=pointer]:
+        - generic [ref=e3092]: 한미글로벌의 사본
+      - button "Ref_아이펠의 사본" [ref=e3096] [cursor=pointer]:
+        - generic [ref=e3100]: Ref_아이펠의 사본
+      - button "아이엠유페이의 사본" [ref=e3104] [cursor=pointer]:
+        - generic [ref=e3108]: 아이엠유페이의 사본
+      - button "한화시스템_2차의 사본 1" [ref=e3112] [cursor=pointer]:
+        - generic [ref=e3116]: 한화시스템_2차의 사본 1
+      - button "한화시스템_2차_v2의 사본" [ref=e3120] [cursor=pointer]:
+        - generic [ref=e3124]: 한화시스템_2차_v2의 사본
+      - button "서울신용보증재단의 사본" [ref=e3128] [cursor=pointer]:
+        - generic [ref=e3132]: 서울신용보증재단의 사본
+      - button "웰컴저축은행의 사본" [ref=e3136] [cursor=pointer]:
+        - generic [ref=e3140]: 웰컴저축은행의 사본
+      - button "SKT_2차의 사본" [ref=e3144] [cursor=pointer]:
+        - generic [ref=e3148]: SKT_2차의 사본
+      - button "SKT_3차의 사본" [ref=e3152] [cursor=pointer]:
+        - generic [ref=e3156]: SKT_3차의 사본
+      - button "코웨이USA의 사본" [ref=e3160] [cursor=pointer]:
+        - generic [ref=e3164]: 코웨이USA의 사본
+      - button "SK inc의 사본" [ref=e3168] [cursor=pointer]:
+        - generic [ref=e3172]: SK inc의 사본
+      - button "수원대의 사본" [ref=e3176] [cursor=pointer]:
+        - generic [ref=e3180]: 수원대의 사본
+      - button "SK inc_v2의 사본" [ref=e3184] [cursor=pointer]:
+        - generic [ref=e3188]: SK inc_v2의 사본
+      - button "SK inc_v3의 사본" [ref=e3192] [cursor=pointer]:
+        - generic [ref=e3196]: SK inc_v3의 사본
+      - button "SK inc_v4의 사본" [ref=e3200] [cursor=pointer]:
+        - generic [ref=e3204]: SK inc_v4의 사본
+      - button "SK inc_v5의 사본" [ref=e3208] [cursor=pointer]:
+        - generic [ref=e3212]: SK inc_v5의 사본
+      - button "SK inc_v6의 사본" [ref=e3216] [cursor=pointer]:
+        - generic [ref=e3220]: SK inc_v6의 사본
+      - button "SK inc_v7" [ref=e3224] [cursor=pointer]:
+        - generic [ref=e3228]: SK inc_v7
+      - button "SK일렉링크의 사본" [ref=e3232] [cursor=pointer]:
+        - generic [ref=e3236]: SK일렉링크의 사본
+      - button "한림대학교 2차_레퍼런스의 사본" [ref=e3240] [cursor=pointer]:
+        - generic [ref=e3244]: 한림대학교 2차_레퍼런스의 사본
+      - button "카카오뱅크의 사본" [ref=e3248] [cursor=pointer]:
+        - generic [ref=e3252]: 카카오뱅크의 사본
+      - button "LG전자 VS사업본부의 사본" [ref=e3256] [cursor=pointer]:
+        - generic [ref=e3260]: LG전자 VS사업본부의 사본
+      - button "수원대학교의 사본" [ref=e3264] [cursor=pointer]:
+        - generic [ref=e3268]: 수원대학교의 사본
+      - button "이화여대_v1의 사본" [ref=e3272] [cursor=pointer]:
+        - generic [ref=e3276]: 이화여대_v1의 사본
+      - button "이화여대_v2의 사본" [ref=e3280] [cursor=pointer]:
+        - generic [ref=e3284]: 이화여대_v2의 사본
+      - button "LX판토스_3차의 사본" [ref=e3288] [cursor=pointer]:
+        - generic [ref=e3292]: LX판토스_3차의 사본
+      - button "한국산업기술진흥협회의 사본" [ref=e3296] [cursor=pointer]:
+        - generic [ref=e3300]: 한국산업기술진흥협회의 사본
+      - button "풀무원의 사본" [ref=e3304] [cursor=pointer]:
+        - generic [ref=e3308]: 풀무원의 사본
+      - button "카카오 안산 임팩트의 사본" [ref=e3312] [cursor=pointer]:
+        - generic [ref=e3316]: 카카오 안산 임팩트의 사본
+    - toolbar [ref=e1007]:
+      - button "Scroll left" [disabled] [ref=e1008]
+      - button "Scroll right" [ref=e1013] [cursor=pointer]
+  - generic [ref=e1018]:
+    - textbox [active]
+  - link "Turn on screen reader support" [ref=e1019] [cursor=pointer]:
+    - /url: "#"
+  - textbox [ref=e1020]
+  - region [ref=e1021]: To enable screen reader support, press Ctrl+Alt+Z To learn about keyboard shortcuts, press Ctrl+slash
+  - region
+  - menu [ref=e3321]:
+    - menuitem "Delete" [ref=e3322] [cursor=pointer]:
+      - generic [ref=e3323]: Delete
+    - menuitem "Duplicate" [ref=e3324] [cursor=pointer]:
+      - generic [ref=e3325]: Duplicate
+    - menuitem "Copy to ►" [ref=e3326] [cursor=pointer]:
+      - generic [ref=e3327]:
+        - text: Copy to
+        - generic [ref=e3328]: ►
+    - menuitem "Rename" [ref=e3329] [cursor=pointer]:
+      - generic [ref=e3330]: Rename
+    - menuitem "Change color ►" [ref=e3331] [cursor=pointer]:
+      - generic [ref=e3332]:
+        - text: Change color
+        - generic [ref=e3333]: ►
+    - menuitem "Protect sheet" [ref=e3334] [cursor=pointer]:
+      - generic [ref=e3335]: Protect sheet
+    - menuitem "Hide sheet" [ref=e3336] [cursor=pointer]:
+      - generic [ref=e3337]: Hide sheet
+    - menuitem "View comments" [disabled] [ref=e3338]:
+      - generic [ref=e3339]: View comments
+    - separator [disabled] [ref=e3340]
+    - menuitem "Move right" [ref=e3341] [cursor=pointer]:
+      - generic [ref=e3342]: Move right
+    - menuitem "Move left" [ref=e3343] [cursor=pointer]:
+      - generic [ref=e3344]: Move left

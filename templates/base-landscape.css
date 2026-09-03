@@ -1,0 +1,57 @@
+/* ═══════════════════════════════════════════════════════════
+   가로(A4 Landscape) 오버라이드 레이어 (base-landscape.css)
+   ─ base.css 뒤에 이어붙는 전용 파일. 색상·폰트·컴포넌트 스타일은
+     base.css를 그대로 상속하고, 페이지 방향/폭 관련만 재정의한다.
+   ─ 적용 조건: content.json에 "orientation": "landscape"
+   ─ Edge Headless는 @page를 무시하므로 가로 출력은 Chrome 필수
+   ═══════════════════════════════════════════════════════════ */
+
+/* 전 페이지 일관 여백은 @page margin으로 잡는다.
+   (body padding 상/하는 첫/마지막 페이지에만 적용되므로 사용 금지) */
+@page {
+    size: A4 landscape;
+    margin: 10mm 12mm;
+}
+
+* , *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+
+/* 좌우 보조 여백만 body padding으로 (상/하는 @page margin 담당) */
+body {
+    padding: 20px 40px;
+}
+
+/* ─ 모듈 박스: 좌측 모듈명 칸 확장 ─ */
+.module-left {
+    width: 180px;
+}
+.module-title-head {
+    padding-right: 48px;
+}
+.module-right ul {
+    padding-right: 48px;
+}
+
+/* ─ 스프레드시트형 커리큘럼 테이블: 열 폭 확장 ─ */
+.curriculum-course {
+    width: 260px;
+}
+.curriculum-module {
+    width: 300px;
+}
+.curriculum-time {
+    width: 90px;
+}
+
+/* ─ 산문 박스: 가로 폭에서 줄 길이 완화 ─ */
+.content-box {
+    padding: 24px 36px;
+}
+
+/* ─ 푸터: 가로판은 페이지 높이가 낮아 여백을 줄여 고아 페이지 방지 ─ */
+.footer {
+    margin-top: 16px;
+    padding-top: 12px;
+}

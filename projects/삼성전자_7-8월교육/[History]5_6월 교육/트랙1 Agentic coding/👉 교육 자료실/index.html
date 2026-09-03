@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>미국 여행 가이드 — Premium Travel Magazine</title>
+<style>
+:root {
+  --navy: #0F1B3D;
+  --navy-soft: #2A3A6B;
+  --cream: #FAF6EF;
+  --sky: #C7DBEA;
+  --orange: #E08B4C;
+  --gray-soft: #E8E4DC;
+  --shadow-soft: 0 8px 24px rgba(15,27,61,0.06);
+  --radius-card: 20px;
+  --font-serif: Georgia, 'Times New Roman', serif;
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-sans); background: var(--cream); color: var(--navy); line-height: 1.6; }
+
+/* NAV */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(250,246,239,0.88);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--gray-soft);
+}
+nav {
+  max-width: 1200px; margin: 0 auto; padding: 0 24px;
+  height: 64px; display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-family: var(--font-serif); font-size: 1.4rem; font-weight: 700;
+  color: var(--navy); text-decoration: none; white-space: nowrap;
+}
+.nav-logo span { color: var(--orange); }
+.nav-links {
+  display: flex; align-items: center; gap: 4px; list-style: none;
+  overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+}
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-links a {
+  text-decoration: none; color: var(--navy-soft); font-size: 0.82rem;
+  font-weight: 600; padding: 6px 13px; border-radius: 20px;
+  white-space: nowrap; transition: all .3s ease;
+}
+.nav-links a:hover, .nav-links a.active { background: var(--navy); color: var(--cream); }
+
+/* LAYOUT */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.section-header { margin-bottom: 48px; display: flex; align-items: flex-start; gap: 16px; }
+.section-header h2 {
+  font-family: var(--font-serif); font-size: clamp(1.8rem, 3vw, 2.6rem);
+  color: var(--navy); line-height: 1.2;
+}
+.accent-line { width: 4px; height: 48px; background: var(--orange); border-radius: 2px; flex-shrink: 0; margin-top: 4px; }
+.section-sub { color: var(--navy-soft); font-size: 0.95rem; margin-top: 8px; opacity: 0.8; }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* CITIES */
+#cities { padding: 96px 0; padding-top: 128px; }
+.filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
+.filter-btn {
+  padding: 8px 20px; border: 2px solid var(--gray-soft); border-radius: 50px;
+  background: white; color: var(--navy-soft); font-size: 0.85rem; font-weight: 600;
+  cursor: pointer; transition: all .3s ease;
+}
+.filter-btn:hover { border-color: var(--navy); color: var(--navy); }
+.filter-btn.active { background: var(--navy); border-color: var(--navy); color: var(--cream); }
+.cities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+.city-card {
+  background: white; border-radius: var(--radius-card); overflow: hidden;
+  box-shadow: var(--shadow-soft); border: 1px solid var(--gray-soft);
+  transition: all .3s ease;
+}
+.city-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(15,27,61,0.1); }
+.city-card.hidden { display: none; }
+.city-visual {
+  height: 156px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem;
+}
+.city-card[data-city="new-york"] .city-visual { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); }
+.city-card[data-city="los-angeles"] .city-visual { background: linear-gradient(135deg, #f5af19 0%, #f12711 100%); }
+.city-card[data-city="san-francisco"] .city-visual { background: linear-gradient(135deg, #c94b4b 0%, #4b134f 100%); }
+.city-card[data-city="las-vegas"] .city-visual { background: linear-gradient(135deg, #232526 0%, #414345 100%); }
+.city-card[data-city="grand-canyon"] .city-visual { background: linear-gradient(135deg, #d4681a 0%, #8B4513 100%); }
+.city-card[data-city="miami"] .city-visual { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+.city-content { padding: 24px; }
+.city-badge {
+  display: inline-block; padding: 4px 12px; border-radius: 20px;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em;
+  text-transform: uppercase; margin-bottom: 12px;
+}
+.badge-city { background: rgba(42,58,107,0.1); color: var(--navy-soft); }
+.badge-nature { background: rgba(56,239,125,0.15); color: #1a7a4a; }
+.badge-entertainment { background: rgba(224,139,76,0.18); color: #7a3f10; }
+.city-name { font-family: var(--font-serif); font-size: 1.45rem; color: var(--navy); margin-bottom: 8px; }
+.city-desc { font-size: 0.875rem; color: var(--navy-soft); line-height: 1.6; margin-bottom: 16px; }
+.city-highlights { display: flex; gap: 8px; flex-wrap: wrap; }
+.highlight-chip {
+  padding: 4px 10px; background: var(--cream); border-radius: 12px;
+  font-size: 0.75rem; color: var(--navy-soft); border: 1px solid var(--gray-soft);
+}
+
+/* ITINERARY */
+#itinerary { padding: 96px 0; background: white; }
+.timeline { position: relative; max-width: 800px; margin: 0 auto; }
+.timeline::before {
+  content: ''; position: absolute; left: 40px; top: 0; bottom: 0;
+  width: 2px; background: var(--gray-soft);
+}
+.timeline-item { display: flex; gap: 32px; padding: 0 0 48px; }
+.timeline-day { flex-shrink: 0; width: 80px; text-align: center; }
+.day-dot {
+  width: 40px; height: 40px; border-radius: 50%; background: var(--navy); color: var(--cream);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.78rem; margin: 0 auto 8px; position: relative; z-index: 1;
+}
+.day-label { font-size: 0.68rem; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: 0.05em; }
+.timeline-content {
+  flex: 1; background: var(--cream); border-radius: var(--radius-card);
+  padding: 24px; border: 1px solid var(--gray-soft); margin-top: 6px;
+}
+.timeline-content h3 { font-family: var(--font-serif); font-size: 1.15rem; color: var(--navy); margin-bottom: 8px; }
+.timeline-content p { font-size: 0.875rem; color: var(--navy-soft); line-height: 1.65; }
+.timeline-activities { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.activity-tag { padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
+.tag-travel { background: rgba(199,219,234,0.55); color: var(--navy-soft); }
+.tag-sightseeing { background: rgba(224,139,76,0.15); color: #7a3f10; }
+.tag-food { background: rgba(56,239,125,0.15); color: #1a7a4a; }
+.tag-rest { background: rgba(42,58,107,0.1); color: var(--navy-soft); }
+
+/* BUDGET */
+#budget { padding: 96px 0; }
+.budget-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; }
+.budget-item { background: var(--cream); border-radius: var(--radius-card); padding: 24px; border: 1px solid var(--gray-soft); }
+.budget-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.budget-title { display: flex; align-items: center; gap: 10px; }
+.budget-icon { font-size: 1.4rem; }
+.budget-name { font-weight: 700; font-size: 0.95rem; color: var(--navy); }
+.budget-range { font-size: 0.78rem; color: var(--navy-soft); font-weight: 500; }
+.budget-bar-wrap { background: var(--gray-soft); border-radius: 6px; height: 8px; overflow: hidden; margin-bottom: 10px; }
+.budget-bar { height: 100%; border-radius: 6px; background: linear-gradient(90deg, var(--navy) 0%, var(--navy-soft) 100%); }
+.budget-note { font-size: 0.78rem; color: var(--navy-soft); opacity: 0.75; line-height: 1.55; }
+
+/* TIPS */
+#tips { padding: 96px 0; background: white; }
+.tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+.tip-card {
+  background: white; border-radius: var(--radius-card); padding: 28px;
+  box-shadow: var(--shadow-soft); border: 1px solid var(--gray-soft); transition: all .3s ease;
+}
+.tip-card:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(15,27,61,0.09); }
+.tip-icon { font-size: 2rem; margin-bottom: 10px; display: block; }
+.tip-tag {
+  display: inline-block; margin-bottom: 10px; padding: 2px 10px; border-radius: 12px;
+  background: var(--sky); color: var(--navy-soft); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em;
+}
+.tip-card h3 { font-weight: 700; font-size: 1rem; color: var(--navy); margin-bottom: 8px; }
+.tip-card p { font-size: 0.875rem; color: var(--navy-soft); line-height: 1.65; }
+
+/* FAQ */
+#faq { padding: 96px 0; }
+.faq-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+.faq-item { border: 1px solid var(--gray-soft); border-radius: var(--radius-card); overflow: hidden; background: var(--cream); }
+.faq-question {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 24px; background: none; border: none; cursor: pointer;
+  text-align: left; font-size: 0.95rem; font-weight: 700; color: var(--navy);
+  gap: 16px; font-family: var(--font-sans); transition: background .2s ease;
+}
+.faq-question:hover { background: rgba(15,27,61,0.03); }
+.faq-question[aria-expanded="true"] { color: var(--orange); }
+.faq-chevron {
+  flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+  border: 2px solid var(--gray-soft); display: flex; align-items: center;
+  justify-content: center; font-size: 0.75rem; transition: all .3s ease; color: var(--navy-soft);
+  line-height: 1;
+}
+.faq-question[aria-expanded="true"] .faq-chevron { border-color: var(--orange); color: var(--orange); transform: rotate(180deg); }
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
+.faq-answer-inner { padding: 0 24px 20px; font-size: 0.875rem; color: var(--navy-soft); line-height: 1.75; }
+
+/* FOOTER */
+footer { background: var(--navy); color: var(--sky); padding: 56px 0; text-align: center; }
+.footer-logo { font-family: var(--font-serif); font-size: 1.6rem; color: var(--cream); margin-bottom: 16px; }
+.footer-logo span { color: var(--orange); }
+.footer-desc { font-size: 0.85rem; opacity: 0.6; line-height: 1.7; max-width: 480px; margin: 0 auto 24px; }
+.footer-copyright { font-size: 0.78rem; opacity: 0.38; border-top: 1px solid rgba(199,219,234,0.12); padding-top: 24px; margin-top: 8px; }
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  #cities { padding: 96px 0 64px; }
+  #itinerary, #budget, #faq, #tips { padding: 64px 0; }
+  .section-header { margin-bottom: 32px; }
+  .timeline::before { left: 20px; }
+  .timeline-day { width: 48px; }
+  .day-dot { width: 32px; height: 32px; font-size: 0.7rem; }
+  .timeline-item { gap: 20px; }
+  .budget-header { flex-direction: column; align-items: flex-start; gap: 4px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#cities" class="nav-logo">USA<span>Travel</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#cities">도시 탐색</a></li>
+      <li><a href="#itinerary">7일 추천 일정</a></li>
+      <li><a href="#budget">예산 가이드</a></li>
+      <li><a href="#tips">여행 팁</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+<!-- CITIES -->
+<section id="cities">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="accent-line"></div>
+      <div>
+        <h2>도시 탐색</h2>
+        <p class="section-sub">카테고리로 원하는 여행지를 찾아보세요</p>
+      </div>
+    </div>
+    <div class="filter-tabs reveal">
+      <button class="filter-btn active" data-filter="all">전체 보기</button>
+      <button class="filter-btn" data-filter="city">도시</button>
+      <button class="filter-btn" data-filter="nature">자연</button>
+      <button class="filter-btn" data-filter="entertainment">엔터테인먼트</button>
+    </div>
+    <div class="cities-grid" id="citiesGrid">
+
+      <div class="city-card reveal" data-city="new-york" data-category="city">
+        <div class="city-visual">🗽</div>
+        <div class="city-content">
+          <span class="city-badge badge-city">도시</span>
+          <h3 class="city-name">뉴욕 New York</h3>
+          <p class="city-desc">세계의 수도라 불리는 뉴욕. 맨해튼의 스카이라인, 센트럴파크의 여유, 브로드웨이의 감동이 한 도시에 모두 담겨 있습니다.</p>
+          <div class="city-highlights">
+            <span class="highlight-chip">타임스퀘어</span>
+            <span class="highlight-chip">센트럴파크</span>
+            <span class="highlight-chip">브로드웨이</span>
+            <span class="highlight-chip">메트로폴리탄 미술관</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="city-card reveal" data-city="los-angeles" data-category="city">
+        <div class="city-visual">🌴</div>
+        <div class="city-content">
+          <span class="city-badge badge-city">도시</span>
+          <h3 class="city-name">로스앤젤레스 LA</h3>
+          <p class="city-desc">꿈과 햇살의 도시 LA. 할리우드의 영화 속 세계, 베니스 비치의 자유로운 분위기, 그리고 세계 최고의 식문화가 기다립니다.</p>
+          <div class="city-highlights">
+            <span class="highlight-chip">할리우드</span>
+            <span class="highlight-chip">그리피스 천문대</span>
+            <span class="highlight-chip">베니스 비치</span>
+            <span class="highlight-chip">게티 센터</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="city-card reveal" data-city="san-francisco" data-category="city">
+        <div class="city-visual">🌉</div>
+        <div class="city-content">
+          <span class="city-badge badge-city">도시</span>
+          <h3 class="city-name">샌프란시스코 SF</h3>
+          <p class="city-desc">언덕 위의 도시, 기술과 문화의 교차점. 골든 게이트 브릿지의 웅장함과 피셔맨스 워프의 낭만이 어우러진 곳.</p>
+          <div class="city-highlights">
+            <span class="highlight-chip">골든 게이트 브릿지</span>
+            <span class="highlight-chip">알카트라즈</span>
+            <span class="highlight-chip">피셔맨스 워프</span>
+            <span class="highlight-chip">케이블카</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="city-card reveal" data-city="las-vegas" data-category="entertainment">
+        <div class="city-visual">🎰</div>
+        <div class="city-content">
+          <span class="city-badge badge-entertainment">엔터테인먼트</span>
+          <h3 class="city-name">라스베가스 Las Vegas</h3>
+          <p class="city-desc">사막 위에 세워진 불야성의 도시. 화려한 쇼와 카지노, 세계적인 레스토랑이 가득한 비일상적 경험의 정점.</p>
+          <div class="city-highlights">
+            <span class="highlight-chip">더 스트립</span>
+            <span class="highlight-chip">시르크 뒤 솔레이</span>
+            <span class="highlight-chip">프리몬트 스트리트</span>
+            <span class="highlight-chip">프리미엄 쇼핑</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="city-card reveal" data-city="grand-canyon" data-category="nature">
+        <div class="city-visual">🏜️</div>
+        <div class="city-content">
+          <span class="city-badge badge-nature">자연</span>
+          <h3 class="city-name">그랜드캐년 Grand Canyon</h3>
+          <p class="city-desc">지구 최대의 협곡. 수억 년의 시간이 새겨진 붉은 절벽 앞에서 인간의 작음을 실감하게 되는 경이로운 자연 유산.</p>
+          <div class="city-highlights">
+            <span class="highlight-chip">사우스 림</span>
+            <span class="highlight-chip">밝은 천사 트레일</span>
+            <span class="highlight-chip">마더 포인트</span>
+            <span class="highlight-chip">스카이워크</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="city-card reveal" data-city="miami" data-category="nature">
+        <div class="city-visual">🏖️</div>
+        <div class="city-content">
+          <span class="city-badge badge-nature">자연</span>
+          <h3 class="city-name">마이애미 Miami</h3>
+          <p class="city-desc">라틴의 열기와 카리브해의 바람이 만나는 곳. 새하얀 모래사장, 다채로운 아트 씬, 활기찬 나이트라이프가 공존합니다.</p>
+          <div class="city-highlights">
+            <span class="highlight-chip">사우스 비치</span>
+            <span class="highlight-chip">아트 바젤</span>
+            <span class="highlight-chip">에버글레이즈</span>
+            <span class="highlight-chip">리틀 아바나</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ITINERARY -->
+<section id="itinerary">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="accent-line"></div>
+      <div>
+        <h2>7일 추천 일정</h2>
+        <p class="section-sub">도시와 자연을 균형 있게 담은 황금 루트</p>
+      </div>
+    </div>
+    <div class="timeline">
+
+      <div class="timeline-item reveal">
+        <div class="timeline-day">
+          <div class="day-dot">D1</div>
+          <div class="day-label">뉴욕</div>
+        </div>
+        <div class="timeline-content">
+          <h3>뉴욕 도착 &amp; 맨해튼 입성</h3>
+          <p>JFK 또는 뉴어크 공항 도착 후 호텔 체크인. 저녁에는 타임스퀘어의 화려한 야경을 감상하고 주변 레스토랑에서 첫 식사를 즐깁니다.</p>
+          <div class="timeline-activities">
+            <span class="activity-tag tag-travel">✈️ 입국</span>
+            <span class="activity-tag tag-sightseeing">🌃 타임스퀘어</span>
+            <span class="activity-tag tag-rest">🏨 체크인</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-day">
+          <div class="day-dot">D2</div>
+          <div class="day-label">뉴욕</div>
+        </div>
+        <div class="timeline-content">
+          <h3>뉴욕 심층 탐방</h3>
+          <p>오전 센트럴파크 산책 → 메트로폴리탄 미술관 관람 → 오후 브루클린 브릿지 도보 → 하이라인 파크 → 저녁 브로드웨이 공연.</p>
+          <div class="timeline-activities">
+            <span class="activity-tag tag-sightseeing">🏛️ 메트로폴리탄</span>
+            <span class="activity-tag tag-sightseeing">🌉 브루클린 브릿지</span>
+            <span class="activity-tag tag-food">🎭 브로드웨이</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-day">
+          <div class="day-dot">D3</div>
+          <div class="day-label">LA</div>
+        </div>
+        <div class="timeline-content">
+          <h3>뉴욕 → 로스앤젤레스 이동</h3>
+          <p>아침 비행으로 LA 이동 (약 5.5시간). 도착 후 그리피스 천문대에서 LA 전경 감상, 저녁은 코리아타운에서 한식으로 피로 회복.</p>
+          <div class="timeline-activities">
+            <span class="activity-tag tag-travel">✈️ 이동 5.5h</span>
+            <span class="activity-tag tag-sightseeing">🔭 그리피스 천문대</span>
+            <span class="activity-tag tag-food">🍜 코리아타운</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-day">
+          <div class="day-dot">D4</div>
+          <div class="day-label">LA</div>
+        </div>
+        <div class="timeline-content">
+          <h3>할리우드 &amp; 비치 데이</h3>
+          <p>오전 할리우드 워크 오브 페임 → 유니버셜 스튜디오 또는 게티 센터 → 오후 산타모니카 &amp; 베니스 비치에서 석양 감상.</p>
+          <div class="timeline-activities">
+            <span class="activity-tag tag-sightseeing">🎬 할리우드</span>
+            <span class="activity-tag tag-sightseeing">🎡 산타모니카</span>
+            <span class="activity-tag tag-rest">🌅 석양</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-day">
+          <div class="day-dot">D5</div>
+          <div class="day-label">그랜드캐년</div>
+        </div>
+        <div class="timeline-content">
+          <h3>그랜드캐년 — 대자연과 마주하다</h3>
+          <p>LA에서 렌터카 또는 항공+버스로 이동. 사우스 림 뷰포인트 산책, 마더 포인트에서 일몰 감상. 숙박은 캐년 인근 또는 윌리엄스 타운.</p>
+          <div class="timeline-activities">
+            <span class="activity-tag tag-travel">🚗 렌터카 이동</span>
+            <span class="activity-tag tag-sightseeing">🏜️ 사우스 림</span>
+            <span class="activity-tag tag-rest">🌇 일몰 감상</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-day">
+          <div class="day-dot">D6</div>
+          <div class="day-label">라스베가스</div>
+        </div>
+        <div class="timeline-content">
+          <h3>라스베가스 — 사막의 불야성</h3>
+          <p>그랜드캐년에서 차로 약 4시간. 오후 더 스트립 탐방, 저녁 쇼 관람 또는 카지노 체험. 화려한 야경 감상 필수.</p>
+          <div class="timeline-activities">
+            <span class="activity-tag tag-travel">🚗 이동 4h</span>
+            <span class="activity-tag tag-sightseeing">🎰 더 스트립</span>
+            <span class="activity-tag tag-food">🎭 나이트 쇼</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-day">
+          <div class="day-dot">D7</div>
+          <div class="day-label">샌프란시스코</div>
+        </div>
+        <div class="timeline-content">
+          <h3>샌프란시스코 — 마지막 도시</h3>
+          <p>항공으로 이동 (약 1.5시간). 골든 게이트 브릿지 뷰포인트 방문, 피셔맨스 워프에서 클램 차우더, 차이나타운 탐방 후 귀국 준비.</p>
+          <div class="timeline-activities">
+            <span class="activity-tag tag-travel">✈️ 이동 1.5h</span>
+            <span class="activity-tag tag-sightseeing">🌉 골든 게이트</span>
+            <span class="activity-tag tag-food">🦀 클램 차우더</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BUDGET -->
+<section id="budget">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="accent-line"></div>
+      <div>
+        <h2>예산 가이드</h2>
+        <p class="section-sub">항목별 예상 비용 범위와 구성 비율 (1인 기준, 7일 여정)</p>
+      </div>
+    </div>
+    <div class="budget-grid">
+
+      <div class="budget-item reveal">
+        <div class="budget-header">
+          <div class="budget-title">
+            <span class="budget-icon">✈️</span>
+            <span class="budget-name">항공권</span>
+          </div>
+          <span class="budget-range">예산 중 가장 큰 비중</span>
+        </div>
+        <div class="budget-bar-wrap"><div class="budget-bar" style="width:85%"></div></div>
+        <p class="budget-note">직항/경유 여부, 시즌, 예약 시기에 따라 편차가 큽니다. 성수기(여름·연말)는 비수기 대비 상당히 높을 수 있습니다.</p>
+      </div>
+
+      <div class="budget-item reveal">
+        <div class="budget-header">
+          <div class="budget-title">
+            <span class="budget-icon">🏨</span>
+            <span class="budget-name">숙박</span>
+          </div>
+          <span class="budget-range">1박 기준 중급~고급 호텔</span>
+        </div>
+        <div class="budget-bar-wrap"><div class="budget-bar" style="width:65%"></div></div>
+        <p class="budget-note">도시 중심부는 뉴욕·SF가 특히 높습니다. 에어비앤비 또는 외곽 숙박으로 절약 가능. 세금·리조트 피 별도 확인 필요.</p>
+      </div>
+
+      <div class="budget-item reveal">
+        <div class="budget-header">
+          <div class="budget-title">
+            <span class="budget-icon">🍽️</span>
+            <span class="budget-name">식비</span>
+          </div>
+          <span class="budget-range">팁 15~20% 별도</span>
+        </div>
+        <div class="budget-bar-wrap"><div class="budget-bar" style="width:45%"></div></div>
+        <p class="budget-note">팁 문화가 있어 청구 금액의 15~20%가 추가됩니다. 그로서리 마트나 푸드홀 활용 시 식비를 크게 줄일 수 있습니다.</p>
+      </div>
+
+      <div class="budget-item reveal">
+        <div class="budget-header">
+          <div class="budget-title">
+            <span class="budget-icon">🚗</span>
+            <span class="budget-name">도시 간 교통</span>
+          </div>
+          <span class="budget-range">항공 + 렌터카 병행</span>
+        </div>
+        <div class="budget-bar-wrap"><div class="budget-bar" style="width:50%"></div></div>
+        <p class="budget-note">도시 간 이동은 국내선 항공이 효율적. 그랜드캐년~라스베가스 구간은 렌터카 권장. 보험·유류비 별도.</p>
+      </div>
+
+      <div class="budget-item reveal">
+        <div class="budget-header">
+          <div class="budget-title">
+            <span class="budget-icon">🎭</span>
+            <span class="budget-name">액티비티 &amp; 입장료</span>
+          </div>
+          <span class="budget-range">뮤지컬·국립공원 등</span>
+        </div>
+        <div class="budget-bar-wrap"><div class="budget-bar" style="width:35%"></div></div>
+        <p class="budget-note">브로드웨이 뮤지컬, 유니버셜 스튜디오, 국립공원 입장료 등 사전 예매 시 할인 가능한 경우가 많습니다.</p>
+      </div>
+
+      <div class="budget-item reveal">
+        <div class="budget-header">
+          <div class="budget-title">
+            <span class="budget-icon">🛍️</span>
+            <span class="budget-name">쇼핑</span>
+          </div>
+          <span class="budget-range">개인 소비 성향에 따라 상이</span>
+        </div>
+        <div class="budget-bar-wrap"><div class="budget-bar" style="width:40%"></div></div>
+        <p class="budget-note">프리미엄 아울렛에서 브랜드 구매 시 한국 대비 저렴한 경우가 많습니다. 세일 기간 활용 시 추가 할인 기회도 있습니다.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TIPS -->
+<section id="tips">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="accent-line"></div>
+      <div>
+        <h2>꼭 알아야 할 여행 팁</h2>
+        <p class="section-sub">미국 여행 전 반드시 확인하세요</p>
+      </div>
+    </div>
+    <div class="tips-grid">
+
+      <div class="tip-card reveal">
+        <span class="tip-icon">📋</span>
+        <span class="tip-tag">필수 준비</span>
+        <h3>ESTA 사전 신청</h3>
+        <p>한국인은 최대 90일 무비자 입국이 가능하지만, 반드시 ESTA(전자여행허가제)를 출발 최소 72시간 전에 신청해야 합니다. 공식 CBP 사이트에서 신청하며 수수료가 발생합니다.</p>
+      </div>
+
+      <div class="tip-card reveal">
+        <span class="tip-icon">💵</span>
+        <span class="tip-tag">문화</span>
+        <h3>팁 문화 이해하기</h3>
+        <p>미국 식당에서는 서비스에 대한 팁으로 청구 금액의 15~20%를 지불하는 것이 일반적입니다. 택시·미용실·호텔 포터에도 팁을 건네는 것이 예의입니다.</p>
+      </div>
+
+      <div class="tip-card reveal">
+        <span class="tip-icon">🚇</span>
+        <span class="tip-tag">교통</span>
+        <h3>도시 간 이동 전략</h3>
+        <p>미국은 땅이 넓어 도시 간 이동에 국내선 항공이 가장 효율적입니다. 서부 지역은 렌터카 여행이 훨씬 자유롭고 경제적일 수 있으니 일정에 맞게 조합하세요.</p>
+      </div>
+
+      <div class="tip-card reveal">
+        <span class="tip-icon">🚗</span>
+        <span class="tip-tag">교통</span>
+        <h3>렌터카 이용 안내</h3>
+        <p>만 25세 미만 운전자는 영 드라이버 수수료가 붙는 경우가 많습니다. 국제운전면허증 지참이 권고되며, 차량 보험(CDW/LDW) 가입 여부를 사전에 꼼꼼히 확인하세요.</p>
+      </div>
+
+      <div class="tip-card reveal">
+        <span class="tip-icon">🛡️</span>
+        <span class="tip-tag">안전</span>
+        <h3>치안 지역별 차이</h3>
+        <p>대도시마다 치안이 좋지 않은 지역이 있습니다. 늦은 밤 낯선 지역 방문을 지양하고, 여행 전 해당 도시의 최신 안전 정보를 확인하는 것이 좋습니다.</p>
+      </div>
+
+      <div class="tip-card reveal">
+        <span class="tip-icon">🌡️</span>
+        <span class="tip-tag">준비물</span>
+        <h3>계절별 옷차림</h3>
+        <p>미국은 지역과 계절에 따라 기온 편차가 큽니다. 뉴욕 겨울은 매우 춥고, 사막 지역은 낮밤 기온 차이가 심합니다. 레이어링 의류를 준비하는 것이 좋습니다.</p>
+      </div>
+
+      <div class="tip-card reveal">
+        <span class="tip-icon">📱</span>
+        <span class="tip-tag">통신</span>
+        <h3>eSIM 사전 구입</h3>
+        <p>미국 현지 eSIM을 출국 전 국내에서 구매하면 현지보다 저렴하게 데이터를 이용할 수 있습니다. T-Mobile, AT&amp;T 망을 활용하는 다양한 서비스를 일정에 맞게 비교해보세요.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="accent-line"></div>
+      <div>
+        <h2>자주 묻는 질문</h2>
+        <p class="section-sub">미국 여행 전 가장 많이 찾는 질문들</p>
+      </div>
+    </div>
+    <div class="faq-list" id="faqList">
+
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          미국 여행 시 비자가 필요한가요?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">한국 여권 소지자는 최대 90일간 무비자로 미국 방문이 가능합니다. 단, 출발 전 반드시 ESTA(전자여행허가제)를 신청해야 합니다. ESTA는 미국 CBP 공식 사이트에서 신청하며 수수료가 부과됩니다. 90일 이상 체류하거나 취업·유학 목적이라면 해당 목적에 맞는 비자를 별도로 취득해야 합니다.</div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          처음 미국 여행이라면 어느 도시부터 가는 것이 좋나요?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">뉴욕 또는 로스앤젤레스가 가장 인기 있는 첫 방문지입니다. 두 도시 모두 한국 직항 노선이 있고 한인 커뮤니티도 크게 형성되어 있어 언어 장벽이 상대적으로 낮습니다. 대중교통이 잘 발달된 뉴욕은 렌터카 없이도 여행하기 편리하며, LA는 다양한 액티비티와 따뜻한 날씨로 부담 없는 여행지입니다.</div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          미국 여행 최적의 시기는 언제인가요?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">봄(3~5월)과 가을(9~11월)이 날씨가 쾌적하고 여행하기 좋은 시기입니다. 여름(6~8월)은 인기가 높지만 무덥고 항공료·숙박비가 오릅니다. 겨울은 뉴욕·시카고가 매우 춥지만 LA·마이애미는 온화하며 비수기라 가격이 저렴한 편입니다.</div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          미국에서 사용하기 좋은 결제 수단은 무엇인가요?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">해외 결제 수수료가 없는 신용카드를 준비하는 것이 좋습니다. Visa 또는 Mastercard 계열의 카드가 미국 어디서나 사용 가능합니다. 환전 수수료를 절약하기 위해 트래블 월렛이나 해외 수수료 면제 체크카드를 함께 활용하는 방법도 있습니다. 소액의 달러 현금도 챙겨두는 것을 권장합니다.</div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          그랜드캐년은 혼자 방문해도 안전한가요?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">사우스 림 주요 뷰포인트는 잘 정비되어 있어 단독 방문도 안전합니다. 단, 내부 트레일 하이킹 시에는 충분한 물·간식·자외선 차단제를 준비하고, 여름에는 낮 기온이 40도를 넘을 수 있어 이른 오전이나 저녁에 하이킹하는 것을 권장합니다.</div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          미국 입국 시 세관 신고는 어떻게 하나요?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">1만 달러 이상의 현금, 농산물·육류·식품류, 면세 범위 초과 물품 등은 반드시 세관 신고를 해야 합니다. 신고하지 않을 경우 심각한 법적 처벌을 받을 수 있습니다. 입국 신고서(또는 APC 키오스크) 작성 시 정확하게 기재하고, 모르는 내용은 세관원에게 문의하세요.</div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          미국에서 한국 음식을 먹을 수 있나요?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">뉴욕·LA·시카고 등 대도시에는 규모 있는 한인 타운이 있어 한국 음식점이 많습니다. 특히 LA 코리아타운은 미국 최대 규모로 한국 못지않은 다양한 음식을 즐길 수 있습니다. 뉴욕 플러싱(Flushing)에도 한국 식당이 밀집해 있으며, H마트 등 한국 마트에서 즉석식품 구매도 가능합니다.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-logo">USA<span>Travel</span></div>
+    <p class="footer-desc">이 가이드는 미국 여행을 준비하는 분들을 위한 참고 자료입니다. 실제 가격·비자 정책·운영 시간 등은 방문 전 공식 기관에서 반드시 확인하세요.</p>
+    <div class="footer-copyright">© 2024 USATravel Premium Magazine. 이 콘텐츠는 여행 참고 정보 제공을 목적으로 제작되었습니다.</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  // 1. Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+
+  // 2. City filter
+  var filterBtns = document.querySelectorAll('.filter-btn');
+  var cityCards  = document.querySelectorAll('.city-card');
+  filterBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var f = this.dataset.filter;
+      filterBtns.forEach(function (b) { b.classList.remove('active'); });
+      this.classList.add('active');
+      cityCards.forEach(function (card) {
+        card.classList.toggle('hidden', f !== 'all' && card.dataset.category !== f);
+      });
+    });
+  });
+
+  // 3. FAQ accordion
+  document.querySelectorAll('.faq-question').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var open   = this.getAttribute('aria-expanded') === 'true';
+      var answer = this.nextElementSibling;
+      // close all
+      document.querySelectorAll('.faq-question').forEach(function (q) {
+        q.setAttribute('aria-expanded', 'false');
+        q.nextElementSibling.style.maxHeight = '0';
+      });
+      // open clicked if it was closed
+      if (!open) {
+        this.setAttribute('aria-expanded', 'true');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // 4. Scroll reveal
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('visible'); });
+  }
+
+  // 5. Active nav highlight
+  var sections = document.querySelectorAll('section[id]');
+  var navAs    = document.querySelectorAll('.nav-links a');
+  if ('IntersectionObserver' in window) {
+    var navIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.id;
+          navAs.forEach(function (a) {
+            a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    sections.forEach(function (s) { navIO.observe(s); });
+  }
+
+}());
+</script>
+</body>
+</html>

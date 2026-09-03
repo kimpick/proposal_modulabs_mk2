@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A3CUBE | 기업 맞춤형 AI 역량 진단 & 교육 설계</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap');
+
+  :root {
+    --primary: #1B1464;
+    --primary-light: #3D35A0;
+    --accent: #00D4AA;
+    --warm: #FF6B35;
+    --surface: #F8F9FC;
+    --surface-dark: #0D0B2E;
+    --text: #1a1a2e;
+    --text-light: #6b7280;
+    --card-shadow: 0 4px 24px rgba(27,20,100,0.08);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Noto Sans KR', sans-serif; color: var(--text); line-height: 1.6; }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: linear-gradient(160deg, var(--surface-dark) 0%, #1B1464 100%);
+    color: #fff;
+    padding: 100px 24px;
+    text-align: center;
+  }
+  .hero-badge {
+    background: rgba(255,255,255,0.1);
+    padding: 8px 20px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 24px;
+    display: inline-block;
+  }
+  .hero h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 900; margin-bottom: 20px; }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero p { font-size: 18px; opacity: 0.8; max-width: 800px; margin: 0 auto 40px; }
+
+  /* ─── SECTION COMMON ─── */
+  .section { padding: 80px 24px; max-width: 1200px; margin: 0 auto; }
+  .section-title { font-size: 32px; font-weight: 800; margin-bottom: 40px; text-align: center; }
+
+  /* ─── ADAPTIVE DESIGN (핵심 변경 포인트) ─── */
+  .design-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+  .design-card { background: var(--surface); padding: 32px; border-radius: 20px; border: 1px solid #e8eaf0; }
+  .design-card h3 { font-size: 20px; margin-bottom: 16px; color: var(--primary); }
+  .design-card ul { list-style: none; }
+  .design-card li { margin-bottom: 10px; font-size: 15px; display: flex; align-items: flex-start; gap: 8px; }
+  .design-card li::before { content: "✔"; color: var(--accent); font-weight: bold; }
+
+  /* ─── CASE COMPARISON ─── */
+  .case-section { background: #f0f2f5; padding: 80px 24px; }
+  .case-table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: var(--card-shadow); }
+  .case-table th, .case-table td { padding: 20px; border: 1px solid #eee; text-align: left; }
+  .case-table th { background: var(--primary); color: #fff; font-weight: 700; text-align: center; }
+  .case-tag { padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 700; }
+  .tag-general { background: #eef2ff; color: #4338ca; }
+  .tag-tech { background: #fef2f2; color: #b91c1c; }
+
+  /* ─── PROCESS ─── */
+  .step-wrap { display: flex; justify-content: space-between; gap: 20px; margin-top: 40px; flex-wrap: wrap; }
+  .step-card { flex: 1; min-width: 250px; background: #fff; padding: 30px; border-radius: 16px; border-top: 5px solid var(--accent); box-shadow: var(--card-shadow); }
+  .step-num { font-size: 14px; color: var(--accent); font-weight: 800; margin-bottom: 10px; }
+
+  /* ─── BUTTON ─── */
+  .cta-btn { display: inline-block; background: var(--accent); color: var(--surface-dark); padding: 18px 40px; border-radius: 12px; text-decoration: none; font-weight: 700; margin-top: 30px; transition: 0.3s; }
+  .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,212,170,0.3); }
+
+  @media (max-width: 768px) { .step-wrap { flex-direction: column; } }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-badge">모두의연구소 기업교육 B2B</div>
+  <h1>우리 기업에 <em>딱 맞는 AI 교육</em>,<br>진단부터 설계까지 바뀝니다</h1>
+  <p>
+    모두의연구소는 고정된 진단지를 쓰지 않습니다[cite: 196].<br>
+    기업의 비즈니스 모델, 사용하는 AI 도구, 임직원의 직무에 따라 진단 문항을 새롭게 설계하고[cite: 156],<br>
+    그 결과를 바탕으로 <strong>실제 작동하는 업무 자동화 로드맵</strong>을 제안합니다[cite: 183].
+  </p>
+  <a href="#consulting" class="cta-btn">맞춤 설계 프로세스 보기 ↓</a>
+</section>
+
+<section class="section">
+  <h2 class="section-title">우리는 어떻게 진단하고 설계하는가?</h2>
+  <div class="design-grid">
+    <div class="design-card">
+      <h3>1. 도구 환경 진단</h3>
+      <ul>
+        <li>보유 인프라 확인 (ChatGPT, Gemini, MS 365 등) [cite: 73, 207]</li>
+        <li>보안 가이드라인 준수 여부 및 데이터 입력 범위 진단 </li>
+        <li>보유 도구의 고급 기능(Agent, Code Interpreter 등) 활용 역량 측정 [cite: 207, 211]</li>
+      </ul>
+    </div>
+    <div class="design-card">
+      <h3>2. 직무별 고통 지수(Pain Point) 파악</h3>
+      <ul>
+        <li>반복 업무 비중 및 시간 낭비 요소 구체적 식별 [cite: 16, 147]</li>
+        <li>실수가 잦은 업무 단계 및 휴먼 에러 발생 지점 확인 [cite: 23, 110]</li>
+        <li>AI로 즉시 개선 가능한 'Quick Win' 과제 후보군 도출 [cite: 143, 196]</li>
+      </ul>
+    </div>
+    <div class="design-card">
+      <h3>3. 실제 업무 재설계 역량 테스트</h3>
+      <ul>
+        <li>단순 지식이 아닌 시나리오 기반 프롬프트 설계 능력 측정 [cite: 102, 107]</li>
+        <li>업무 프로세스를 노드 단위로 분해하고 자동화 흐름 설계 [cite: 112, 117]</li>
+        <li>AI 결과물의 '사람 검토 단계'를 포함한 안정적 프로세스 설계력 평가 [cite: 125, 128]</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="case-section">
+  <div class="section">
+    <h2 class="section-title">진단 결과에 따른 커스터마이징 사례</h2>
+    <table class="case-table">
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>일반 사무/제조 기업 (K사 사례) [cite: 138, 140]</th>
+          <th>IT/금융 혁신 조직 (카카오뱅크 제안 사례) [cite: 200, 207]</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>핵심 니즈</strong></td>
+          <td>막연한 AI 두려움 해소 및 기초 도구 사용 [cite: 142, 157]</td>
+          <td>고도화된 에이전트 구축 및 업무 프로세스 자동화 [cite: 207, 211]</td>
+        </tr>
+        <tr>
+          <td><strong>진단 포인트</strong></td>
+          <td>AI 수용성, 보안 인식, 기초 프롬프트 작성 [cite: 151, 163, 165]</td>
+          <td>워크플로우 설계, 노드 기반 로직 구성, 에이전트 오케스트레이션 [cite: 211]</td>
+        </tr>
+        <tr>
+          <td><strong>교육 솔루션</strong></td>
+          <td><strong>[Track 01-02]</strong> 기초 활용 및 시나리오 템플릿 실습 [cite: 188]</td>
+          <td><strong>[Agent Factory]</strong> 5시간 만에 팀별 업무 에이전트 직접 구축 [cite: 207, 211]</td>
+        </tr>
+        <tr>
+          <td><strong>최종 산출물</strong></td>
+          <td>업무별 프롬프트 라이브러리, 보안 가이드 [cite: 186, 189]</td>
+          <td>작동 가능한 업무 에이전트, 자동화 흐름도(Flow) [cite: 207, 211]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="consulting" class="section">
+  <h2 class="section-title">교육 컨설팅 프로세스</h2>
+  <div class="step-wrap">
+    <div class="step-card">
+      <div class="step-num">STEP 01</div>
+      <h3>맞춤형 진단 설계</h3>
+      <p>사전 인터뷰를 통해 조직의 직무 특성과 보유 도구를 분석하여 전용 문항을 설계합니다[cite: 156].</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">STEP 02</div>
+      <h3>역량 및 페인포인트 진단</h3>
+      <p>온라인 역량 테스트와 설문을 통해 구성원의 기술 수준과 업무 병목 지점을 수치화합니다[cite: 144, 156].</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">STEP 03</div>
+      <h3>결과 분석 및 로드맵 제안</h3>
+      <p>부서별 특이사항을 분석하여 1/3/6개월 단위의 단계별 AI 도입 전략을 제시합니다[cite: 182, 183].</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">STEP 04</div>
+      <h3>맞춤형 교육 실시</h3>
+      <p>진단 데이터로 검증된 실무 과제를 해결하는 밀착형 워크숍을 진행합니다[cite: 207, 211].</p>
+    </div>
+  </div>
+</section>
+
+<section class="hero" style="background: var(--primary);">
+  <h2>감이 아닌 '진단 결과'로 교육의 ROI를 증명합니다</h2>
+  <p>모두의연구소 A3CUBE와 함께 우리 조직의 AI 도입 골든타임을 잡으세요[cite: 194].</p>
+  <a href="mailto:biz@modulabs.co.kr" class="cta-btn" style="background: var(--accent);">무료 진단 상담 신청하기</a>
+</section>
+
+<footer>
+  <p style="text-align:center; padding:40px; color:var(--text-light); font-size:14px;">
+    &copy; 2026 모두의연구소 A3CUBE. 본 자료는 기업 맞춤형 AI 역량 진단 및 교육 설계를 위한 참고용입니다[cite: 2].
+  </p>
+</footer>
+
+</body>
+</html>

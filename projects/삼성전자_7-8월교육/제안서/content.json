@@ -1,0 +1,178 @@
+{
+  "title": "삼성전자 개발자 대상 에이전틱 AI 심화 교육: 루프 엔지니어링과 멀티 에이전트 커맨드 센터",
+  "subtitle": "2026 최신 초거대 지능(GPT 5.5·Claude 4.8 Opus·Gemini 3.5 Flash)을 통제하는 마스터-워커 하이브리드 오케스트레이션과 자율 루프 엔지니어링 실전 심화 과정",
+  "pdf_filename": "[모두의연구소]삼성전자_7-8월_개발자_에이전틱AI_심화교육_제안서",
+  "info": {
+    "keyword": "루프 엔지니어링<br>멀티 에이전트 오케스트레이션<br>커맨드 센터 구축",
+    "ax_stage": "자율형 루프 설계<br>→ 다중 에이전트 통제",
+    "target": "삼성전자 개발자 / SW 엔지니어 — 5~6월 에이전틱 코딩 과정 수강자 또는 동급 실무자",
+    "duration": "트랙별 1일 8시간 (총 2트랙) — 일정 협의 필요"
+  },
+  "intro": "<p>본 과정은 삼성전자 개발자를 대상으로 한 7~8월 심화 교육으로, 2026년 최신 초거대 지능(GPT 5.5·Claude 4.8 Opus·Gemini 3.5 Flash)을 통제 범위 안에서 최대 성능으로 끌어내는 <b>마스터-워커 하이브리드 오케스트레이션</b>과 <b>루프 엔지니어링(Loop Engineering)</b> 아키텍처를 다룹니다.</p><p>단일 초거대 모델에 의존할 때 발생하는 비용 급증·무한 루프·컨텍스트 붕괴 문제를 해결하기 위해, 역할 기반 라우팅(Codex Desktop=마스터·Claude Code=아키텍트·Antigravity CLI=실행기·OpenCode=특수 목적 에이전트)과 AORR(Act-Observe-Reason-Repeat) 자율 사이클을 설계합니다. 2026년 6월 Claude Code 개발자 Boris Cherny가 제시한 <i>'프롬프트 지시에서 루프 작성으로'</i>의 전환을 현장에 이식하는 것이 이 과정의 핵심입니다.</p><p>5~6월 기초 과정을 수료한 개발자가 다음 단계로 도약하기 위해 (1) 툴 중심의 멀티 에이전트 커맨드 센터 구축, (2) 기반 엔지니어링 중심의 루프 엔지니어링 설계, 두 트랙 중 사전 진단 결과에 따라 하나를 선택해 이수합니다. 오픈소스 도구 체인(OpenCode·Oh-My-OpenAgent·Oh-My-ClaudeCode)은 로컬 모델과 클라우드 모델을 모두 지원해 사내 보안 정책에 유연하게 대응합니다.</p>",
+  "design_framework": "<p><b>두 트랙 병렬 구조 — 마스터-워커 하이브리드 아키텍처</b></p><ul><li><b>트랙 1 — 멀티 에이전트 커맨드 센터</b> (툴 중심): Codex Desktop(마스터)·Claude Code(수석 아키텍트)·Antigravity CLI(실행기)·OpenCode(특수 목적 에이전트) 역할 분담, Tmux·Git Worktree 기반 병렬 런타임 구축</li><li><b>트랙 2 — 루프 엔지니어링 설계 실전</b> (기반 엔지니어링 중심): AORR 자율 상태 머신, Self-Correcting TDD 루프, Auto-compact 방어·영구 메모리, Retry 가드레일·HITL 통제</li></ul><p><b>운영 철학</b></p><ul><li><b>사전 진단 기반 트랙 배정</b> — AX 역량 8단계 진단(루프 엔지니어링 9문항 추가) 결과로 트랙 추천</li><li><b>사전 설치 가이드 제공</b> — 교육 1주일 전 상세 설치 가이드 배포, 사전 환경 세팅으로 실습 시간 극대화</li><li><b>모든 명령어에 한 줄 설명</b> — 실습 중단 없이 자가 복구 지원</li><li><b>강사 2인 멘토링</b> — 주강사 + 보조강사가 실습 구간마다 개인별 순회 피드백</li></ul>",
+  "objective": "<ul><li><b>마스터-워커 하이브리드 오케스트레이션</b> — 역할 기반 라우팅으로 4종 에이전트(Codex Desktop·Claude Code·Antigravity CLI·OpenCode)의 장점을 극대화하고 비용·위험은 통제</li><li><b>커맨드 센터·샌드박스 런타임 구축</b> — Tmux 4분할 관제소와 Git Worktree 물리적 격리로 다중 에이전트가 충돌 없이 병렬로 실행</li><li><b>AORR 자율 루프와 Self-Correcting TDD</b> — Act-Observe-Reason-Repeat 사이클, 검증자 중심 아키텍처로 에이전트가 스스로 버그를 수정하는 파이프라인 구축</li><li><b>가드레일과 HITL 통제</b> — Auto-compact 방어·영구 메모리(MEMORY.md)·사전 정의한 재시도 한계 도달 시 HITL 승인으로 무한 루프·비용 급증 방어</li></ul>",
+  "tech_stack": [
+    "Tmux",
+    "Git Worktree",
+    "Codex Desktop (GPT 5.5)",
+    "LazyCodex",
+    "Claude Code (Claude 4.8 Opus)",
+    "Oh-My-ClaudeCode (OMC)",
+    "Antigravity CLI (Gemini 3.5 Flash)",
+    "OpenCode",
+    "Oh-My-OpenAgent (OmO)"
+  ],
+  "infrastructure": [
+    "계정 로그인 방식 지원 — OpenCode는 GitHub Copilot·GitLab Duo·Claude Pro/Max·ChatGPT Plus/Pro 등 OAuth 인증을 통해 별도 API 키 없이 계정 연동 가능",
+    "개발자 노트북 (macOS/Linux/WSL) — 교육 1주일 전 상세 설치 가이드 배포, 사전 환경 세팅 권장 (계정 로그인 기반 환경 설정 포함)",
+    "터미널 환경 — NVM/npm 환경 충돌, Git unrelated histories, JS 문법 에러 대응 트러블슈팅 가이드 제공",
+    "Git 저장소 (사내 GitLab/GitHub Enterprise 권장) — Git Worktree 실습용",
+    "주강사 1인 + 보조강사 1인, 실습 구간마다 참가자 개인별 순회 멘토링",
+    "모든 실습 명령어·프롬프트에 한 줄 설명 주석 제공 (실습 자료 일관성 유지)",
+    "8단계 사전 진단 매트릭스 (xlsx, 72문항) — 교육 1주일 전 대상자에게 배포"
+  ],
+  "use_simple_track_label": false,
+  "curriculum_title": "7~8월 심화 — 커맨드 센터 구축 vs 루프 엔지니어링 설계 (사전 진단 기반 트랙 선택)",
+  "tracks": [
+    {
+      "track_id": "01",
+      "track_name": "멀티 에이전트 커맨드 센터 및 통합 오케스트레이션",
+      "course_title": "마스터-워커 하이브리드: 4종 에이전트 역할 분담 오케스트레이션",
+      "target": "종합 레벨 Lv.4~5 + 하네스 영역 도달 항목이 2개 미만, 또는 단일 AI CLI 사용 경험은 있으나 다중 에이전트 병렬 오케스트레이션은 미숙한 실무자",
+      "duration": "1일 8시간 (모듈 1에 오리엔테이션·설치 포함)",
+      "tools": [
+        "Tmux",
+        "Git Worktree",
+        "Codex Desktop (GPT 5.5)",
+        "LazyCodex",
+        "Claude Code (Claude 4.8 Opus)",
+        "Oh-My-ClaudeCode (OMC)",
+        "Antigravity CLI (Gemini 3.5 Flash)",
+        "OpenCode",
+        "Oh-My-OpenAgent (OmO)"
+      ],
+      "modules": [
+        {
+          "module_name": "패러다임 전환과 커맨드 센터",
+          "duration": "1.5H",
+          "items": [
+            "<b>마스터-워커 하이브리드 패러다임</b> — 단일 초거대 모델 한계(비용·무한 루프·컨텍스트 붕괴)와 역할 기반 라우팅 아키텍처",
+            "<b>Tmux 4분할 커맨드 센터</b> — 다중 에이전트를 한 화면에서 실시간 모니터링하는 관제소 레이아웃 구성",
+            "<b>Git Worktree 물리적 샌드박스</b> — 에이전트마다 독립 작업 폴더를 부여해 동시 파일 접근으로 인한 코드 붕괴 방지",
+            "<b>실습</b> — Tmux 4분할 + Git Worktree 기반 커맨드 센터 런타임 구성"
+          ]
+        },
+        {
+          "module_name": "컨트롤 타워 Codex 마스터 노드",
+          "duration": "1.5H",
+          "items": [
+            "<b>Codex Desktop (GPT 5.5) 마스터 노드</b> — 프로젝트 전체 컨텍스트 관리·시각적 대시보드 포지셔닝",
+            "<b>LazyCodex 연동</b> — 프롬프트·규칙·워크플로우를 일괄 적용하는 확장 도구 체인",
+            "<b>Diff 시각적 리뷰와 HITL 승인</b> — 에이전트가 작성한 코드를 대시보드에서 검증하고 최종 승인(Human-in-the-loop)하는 루틴",
+            "<b>실습</b> — 강사 제공 샘플 diff를 Codex Desktop에서 리뷰·승인 체크리스트 작성"
+          ]
+        },
+        {
+          "module_name": "Claude Code·Antigravity CLI 분업",
+          "duration": "2H",
+          "items": [
+            "<b>Claude Code (Claude 4.8 Opus) 수석 아키텍트</b> — 복잡한 비즈니스 로직 추론·자율 루프 설계도 작성 위임",
+            "<b>Antigravity CLI (Gemini 3.5 Flash) 실행기·로그 스캐너</b> — 초고속 에러 로그 스캐닝·시각 기반 테스트 워크플로",
+            "<b>브레인-실행기 분업 패턴</b> — 고비용 모델 토큰 낭비를 방지하고 처리 속도를 극대화하는 역할 분담 전략",
+            "<b>실습</b> — Claude Code가 설계하고 Antigravity CLI가 검증하는 브레인-실행기 분업 시나리오 1건 완성"
+          ]
+        },
+        {
+          "module_name": "화이트박스 특수 목적 에이전트 OpenCode",
+          "duration": "1H",
+          "items": [
+            "<b>OpenCode·Oh-My-OpenAgent (OmO) 화이트박스 가치</b> — 상용 모델의 블랙박스 한계 극복, 사내 JIRA·내부망 API 커스텀 연동 가능",
+            "<b>사내 코딩 컨벤션 주입</b> — 사내 룰을 에이전트 핵심 로직으로 백그라운드 구동하는 기법",
+            "<b>오픈소스 기반 데이터 주권</b> — 로컬 모델 대응으로 사내 보안 정책에 유연하게 대응",
+            "<b>실습</b> — 사전 제공 템플릿에 사내 커스텀 룰 1건을 OpenCode에 주입하고 동작 확인"
+          ]
+        },
+        {
+          "module_name": "실전 종합 실습 오케스트레이션",
+          "duration": "2H",
+          "items": [
+            "<b>프로젝트 시나리오</b> — 교육용 샘플 레거시 모듈 1개 마이그레이션 및 자율 테스트",
+            "<b>5단계 오케스트레이션</b> — Codex Desktop 지휘 → Claude Code 설계 → OpenCode·Antigravity CLI 실행 → 피드백 루프 → 최종 승인",
+            "<b>산출물</b> — 마이그레이션 결과물 + 현업 적용 액션아이템 1건 작성"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "02",
+      "track_name": "루프 엔지니어링 설계 실전",
+      "course_title": "자율 상태 머신: AORR 패턴 + Self-Correcting TDD + Auto-compact 방어 + HITL 가드레일",
+      "target": "종합 레벨 Lv.6~7, 또는 Python·AI 오케스트레이션 프레임워크 기반 AI 파이프라인 구축 경험은 있으나 자율 루프 설계는 처음인 실무자",
+      "duration": "1일 8시간 (모듈 1에 오리엔테이션·설치 포함)",
+      "tools": [
+        "Tmux",
+        "Git Worktree",
+        "Codex Desktop (GPT 5.5)",
+        "Claude Code (Claude 4.8 Opus)",
+        "Oh-My-ClaudeCode (OMC)",
+        "Antigravity CLI (Gemini 3.5 Flash)",
+        "OpenCode",
+        "Oh-My-OpenAgent (OmO)"
+      ],
+      "modules": [
+        {
+          "module_name": "AORR 패턴과 루프 본질",
+          "duration": "1.5H",
+          "items": [
+            "<b>패러다임 전환</b> — 프롬프트 엔지니어링을 넘어 '환경·제약'을 설계해야 하는 초거대 지능 시대의 통제 전략",
+            "<b>AORR(Act-Observe-Reason-Repeat) 상태 머신</b> — 에이전트가 행동하고 관찰하여 다시 추론하는 4단계 자율 제어 로직",
+            "<b>OpenCode·Oh-My-OpenAgent (OmO) 커스텀 훅</b> — 실행 결과의 종료 코드를 에이전트에게 피드백으로 주입하는 기본 구조",
+            "<b>실습</b> — AORR 상태 머신 기본 구조 1건 설계"
+          ]
+        },
+        {
+          "module_name": "자율 TDD 디버깅 루프",
+          "duration": "2H",
+          "items": [
+            "<b>검증자(Verifier) 중심 아키텍처</b> — 린터·Unit Test가 에러 스택 트레이스를 자동 추출해 모델에 전달하는 자동화 루프",
+            "<b>Antigravity CLI·Claude Code 분업 루프</b> — Antigravity CLI가 에러 로그를 초고속 스캔·요약, Claude Code가 로직 수정·재실행 지시",
+            "<b>토큰 비용 최적화</b> — 고비용 모델 토큰 낭비 없이 디버깅 루프를 가동하는 분업 설계",
+            "<b>실습</b> — 테스트 실패 시 자율 수정 루프 1건 구축"
+          ]
+        },
+        {
+          "module_name": "컨텍스트 영속성 관리",
+          "duration": "1.5H",
+          "items": [
+            "<b>Auto-compact 메커니즘 이해</b> — 컨텍스트 포화 시 과거 기억 압축으로 발생하는 환각·설계 망각 현상 분석",
+            "<b>영구 메모리(MEMORY.md·CLAUDE.md)</b> — 아키텍처 결정을 파일에 강제 기록하는 프롬프트 엔지니어링",
+            "<b>Stateful 루프 설계</b> — 세션 리셋 후에도 텍스트 파일에서 이전 지능 상태로 즉시 복구되는 루틴",
+            "<b>실습</b> — 영구 메모리 동기화 시스템 1건 구축"
+          ]
+        },
+        {
+          "module_name": "비용 통제와 가드레일",
+          "duration": "1H",
+          "items": [
+            "<b>무한 루프 탈출 알고리즘</b> — 동일 에러 해시가 반복될 때 에이전트가 불능(Starvation) 상태를 선언하게 하는 조건문",
+            "<b>Retry 한계 정책</b> — 사전 정의한 재시도 한계 도달 시 HITL 승인으로 전환, 터미널 알람 연동 (Slack 연동은 데모)",
+            "<b>비용 가드레일</b> — API 비용 급증을 방지하는 비용 통제 장치 장착",
+            "<b>실습</b> — Retry 한계 + HITL 알람 루틴 1건 구현"
+          ]
+        },
+        {
+          "module_name": "풀 데브루프 종합 실습",
+          "duration": "2H",
+          "items": [
+            "<b>프로젝트 시나리오</b> — 교육용 샘플 버그 티켓 자율 해결 루프 (승인 기반 자동화)",
+            "<b>4단계 파이프라인</b> — 이슈 인식 → 설계·실행 → MEMORY.md 안전망 → Codex Desktop HITL 승인",
+            "<b>산출물</b> — 버그 자율 해결 파이프라인 1건 + 현업 적용 액션아이템 작성"
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "<ul><li><b>사전 진단 결과표</b> (8단계 AX 역량 진단 — 종합 레벨 + 영역별 도달 여부 + 트랙 추천 근거)</li><li><b>[트랙 1] 마스터-워커 커맨드 센터</b> — 4분할 Tmux 런타임 + 샘플 레거시 마이그레이션 5단계 오케스트레이션 시나리오 1건</li><li><b>[트랙 2] 풀 데브루프 파이프라인</b> — AORR 상태 머신 + Self-Correcting TDD 루프 + MEMORY.md 기반 가드레일 1건</li><li><b>현업 적용 액션아이템</b> 1건 (각 트랙 모듈 5 종합 실습에서 작성)</li></ul>",
+  "section_07_title": "사전 진단 및 운영 안내",
+  "schedule_message": "<div style='text-align: left; color: #333;'><p style='margin-bottom: 12px;'><b>사전 진단 — AX 역량 8단계 매트릭스 (v3.0)</b></p><ul style='margin-top: 0; margin-bottom: 24px;'><li><b>도구</b> — 모두의연구소 AI 활용 역량 7단계 프레임워크 기반, 루프 엔지니어링 9문항을 추가한 8단계 72문항 자가 진단 매트릭스 (xlsx)</li><li><b>시행 시점</b> — 교육 1주일 전 대상자에게 배포, 15~20분 소요</li><li><b>트랙 추천 로직</b> — 종합 레벨 Lv.4~5 + 하네스 약점 → 트랙 1 / 종합 레벨 Lv.6~7 또는 Lv.8 하네스 도달 → 트랙 2 / 종합 레벨 Lv.7~8 → 양 트랙 심화</li><li><b>결과 활용</b> — 영역별 편차 분석으로 팀 단위 약점 영역 파악, 교육 운영 계획 수립 근거</li></ul><p style='margin-bottom: 12px;'><b>강사 구성 (주강사 후보)</b></p><ul style='margin-top: 0; margin-bottom: 24px;'><li><b>주강사</b> — 에이전틱 코딩·루프 엔지니어링 실무 강의 이력 보유 강사 1인 (강사진 확정 후 안내)</li><li><b>보조강사</b> — Tmux·Git Worktree·OpenCode·Claude Code 실습 멘토링 경험자 1인</li><li><b>멘토링 방식</b> — 실습 구간마다 강사 2인이 참가자 개인별 순회, 컨텍스트 관리·환경 충돌 등 현장 이슈 즉석 해결</li></ul><p style='margin-bottom: 12px;'><b>운영 원칙</b></p><ul style='margin-top: 0; margin-bottom: 20px;'><li><b>사전 설치 가이드</b> — 교육 1주일 전 상세 설치 가이드 배포, 사전 환경 세팅 완료 권장으로 실습 시간 극대화</li><li><b>모든 명령어에 한 줄 설명</b> — 실습 중단 없이 자가 복구 지원, 실습 자료 일관성 유지</li><li><b>일정</b> — 2026년 7~8월 중 세부 일정 협의 필요 (트랙별 1일 8시간 × 총 2트랙)</li><li><b>견적</b> — 대상 인원·회차 수 확정 후 단가(기본 ₩600,000/시간) 적용하여 별도 안내</li></ul></div>"
+}

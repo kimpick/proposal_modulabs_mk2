@@ -1,0 +1,265 @@
+{
+  "title": "LG Electronics 개발자 대상 CLI 입문 & Agentic AI 심화 교육",
+  "subtitle": "Codex · Claude Code CLI 마스터리 → 하네스 엔지니어링 + 루프 엔지니어링 (각 3일 × 2트랙)",
+  "pdf_filename": "[모두의연구소]LGE_CLI_Agentic_심화_제안서",
+  "info": {
+    "keyword": "에이전틱 코딩 CLI\n하네스 엔지니어링\n루프 엔지니어링",
+    "ax_stage": "개발자 개인 역량 고도화\nCLI 마스터리 → 오케스트레이션",
+    "target": "사내 개발자 (Python/Node 기초 이상, CLI·Git 능숙)",
+    "duration": "트랙 1 (기초): 3일 24H\n트랙 2 (심화): 3일 24H\n총 6일 48H · 기초→심화 순차 이수"
+  },
+  "intro": "본 제안은 LG Electronics 개발자 역량 고도화를 위해 <b>CLI 기반 에이전틱 코딩 입문</b>부터 <b>Agentic AI 오케스트레이션 심화</b>까지 3일×2트랙으로 설계된 누적형 교육 과정입니다.\n\n<b>트랙 1 (기초) — Codex + Claude Code CLI 입문 3일 과정</b>: 2026년 7월 기준 최신 모델(GPT-5.6, Claude 4.7)을 장착한 두 핵심 CLI 도구를 개발 단계별로 심층 비교·실습합니다. Codex(클라우드 샌드박스, 프로젝트 전체 조망·멀티 파일 생성)로 설계·구현을, Claude Code(로컬 터미널 즉시 실행·Subagents/Hooks/Skills)로 디버깅·리팩토링·테스트를 다루며, MCP·SKILL.md(AAIF 표준) 기반 컨텍스트 엔지니어링으로 마무리합니다.\n\n<b>트랙 2 (심화) — Agentic AI 하네스 + 루프 엔지니어링 3일 과정</b>: CLI 도구를 넘어 에이전트를 <b>오케스트레이션</b>하는 아키텍처 역량을 다룹니다. Day 1 하네스 엔지니어링(AGENTS.md, Architectural Constraints, Sandbox), Day 2 루프 엔지니어링(AORR 상태 머신, Self-Correcting TDD, HITL 가드레일), Day 3 마스터-워커 하이브리드 + Tmux/Git Worktree 커맨드 센터 통합 실전으로 구성됩니다.\n\n<b>기초→심화 누적 구조</b>: 트랙 1에서 CLI 도구 자체의 마스터리를, 트랙 2에서 이를 넘어선 아키텍처 설계 역량을 다집니다. 두 트랙 모두 이수 시 LGE 개발자는 단순 AI 도구 사용자가 아닌 <b>에이전트 오케스트레이터</b>로 도약합니다.",
+  "objective": "<ul><li><b>[트랙 1] CLI 도구별 최적 워크플로우 구축</b>: Codex vs Claude Code의 아키텍처 차이를 이해하고, 개발 단계(설계·구현·디버깅·테스트)별 최적 도구 선택과 통합 워크플로우 설계</li><li><b>[트랙 1] 컨텍스트 엔지니어링 역량</b>: CLAUDE.md/AGENTS.md/Skills 파일로 에이전트에 역할·제약·지식 주입, MCP·SKILL.md(AAIF 표준) 기반 파이프라인 구축</li><li><b>[트랙 2] 하네스 엔지니어링 구조 설계</b>: AGENTS.md + docs/ 시스템 오브 레코드, Architectural Constraints(기계적 제약), Sandbox/Guardrails로 신뢰 가능한 에이전트 환경 완성</li><li><b>[트랙 2] 루프 엔지니어링 동적 흐름 설계</b>: AORR(Act-Observe-Reason-Repeat) 자율 상태 머신, Self-Correcting TDD 루프, HITL 가드레일·무한 루프 탈출 알고리즘 구현</li><li><b>[트랙 2] 통합 오케스트레이션 실전</b>: 마스터-워커 하이브리드 + Tmux/Git Worktree 커맨드 센터로 하네스와 루프를 결합한 버그 티켓 자율 해결 파이프라인 완성</li></ul>",
+  "tech_stack": [
+    "Codex CLI",
+    "Claude Code",
+    "Antigravity CLI",
+    "MCP",
+    "SKILL.md",
+    "Tmux",
+    "Git Worktree",
+    "Docker"
+  ],
+  "infrastructure": [
+    "개발자 노트북 (macOS/Linux/WSL) — Python 3.11+, Node.js 18+, Git, VS Code 사전 설치, 수강생 1인 1대",
+    "OpenAI API Key (Codex CLI 실습용) + Anthropic API Key (Claude Code 실습용)",
+    "Google AI Pro/Ultra 계정 (Antigravity CLI · 트랙 2 실습용)",
+    "터미널 기본 조작 능숙자 (CLI 환경 세팅 경험 권장)",
+    "사내 GitLab/GitHub Enterprise (Git Worktree 실습용 · 트랙 2)",
+    "외부망 접속 가능 컴퓨터, Docker Desktop 설치 권한 (트랙 2)",
+    "그룹당 12~15명 권장, 주강사 1인 + 보조강사 1인, 실습 구간마다 개인별 순회 멘토링",
+    "교육 1주일 전 사전 설치 가이드 배포 (Codex CLI v0.145, Claude Code v2.1, Antigravity CLI)",
+    "트랙 2 진입 조건: 트랙 1 수료 또는 CLI 에이전틱 코딩 실무 경험자 (사전 진단 권장)"
+  ],
+  "use_simple_track_label": false,
+  "curriculum_title": "2개 트랙 — 트랙 1 (기초·CLI 입문 3일) / 트랙 2 (심화·Agentic AI 3일)",
+  "tracks": [
+    {
+      "track_id": "01",
+      "track_name": "트랙 1 · 기초 — Codex + Claude Code CLI 입문",
+      "course_title": "에이전틱 코딩 CLI 도구 마스터리 3일 과정 (GPT-5.6 · Claude 4.7 · MCP · SKILL.md)",
+      "target": "사내 개발자 (Python/Node 기초 이상, CLI·Git 능숙)",
+      "duration": "3일 (24시간, 1일 8시간)",
+      "tools": [
+        "Codex CLI",
+        "Claude Code",
+        "MCP",
+        "SKILL.md"
+      ],
+      "modules": [
+        {
+          "module_name": "D1 · 패러다임+Codex",
+          "duration": "2H",
+          "items": [
+            "<b>에이전틱 코딩 패러다임 (1H)</b> — Vibe Coding vs Agentic Coding, 2026년 CLI 툴 에코시스템 전체 맵",
+            "<b>Codex vs Claude Code 아키텍처 비교 (1H)</b> — 클라우드 샌드박스(Codex) vs 로컬 터미널(Claude Code), 강점·약점·개발 단계별 배치 전략"
+          ]
+        },
+        {
+          "module_name": "D1 · Codex 기초",
+          "duration": "2H",
+          "items": [
+            "<b>Codex CLI 환경 구축 (0.75H)</b> — v0.145 설치, OpenAI API Key 연동, GPT-5.6 모델 선택, 프로젝트 초기화",
+            "<b>자연어 명령 기본 루틴 (1.25H)</b> — 터미널에서 자연어로 코드 생성·수정, diff 미리보기, 승인·거부 사이클 체험"
+          ]
+        },
+        {
+          "module_name": "D1 · 스캐폴딩+멀티파일",
+          "duration": "2.5H",
+          "items": [
+            "<b>프로젝트 스캐폴딩 (1H)</b> — 자연어 요구사항으로 폴더 구조·설정 파일·보일러플레이트 한 번에 생성",
+            "<b>멀티 파일 코드 생성 (1.5H)</b> — 기능 명세 → 연관 파일(API 라우트·컴포넌트·타입 정의) 컨텍스트 유지하며 동시 작성"
+          ]
+        },
+        {
+          "module_name": "D1 · PR 코드 리뷰",
+          "duration": "1.5H",
+          "items": [
+            "<b>Codex diff 시각적 리뷰 (0.75H)</b> — Codex가 생성한 변경사항을 PR 형태로 검토, 자연어로 수정 지시",
+            "<b>반복 개선 사이클 (0.75H)</b> — 자연어 피드백 반복 → <b>산출물: Codex 스캐폴딩+PR 리뷰 결과물 1건</b>"
+          ]
+        },
+        {
+          "module_name": "D2 · Claude 기초",
+          "duration": "2H",
+          "items": [
+            "<b>Claude Code CLI 환경 구축 (0.75H)</b> — v2.1 설치, Anthropic API Key 연동, Claude 4.7(1M ctx) 모델 선택",
+            "<b>컨텍스트 주입 기초 (1.25H)</b> — CLAUDE.md·AGENTS.md 작성법, 에이전트에 역할·제약·지식 주입 패턴"
+          ]
+        },
+        {
+          "module_name": "D2 · 디버깅+리팩토링",
+          "duration": "2.5H",
+          "items": [
+            "<b>터미널 기반 디버깅 (1.25H)</b> — 빌드 에러·런타임 오류 발생 시 Claude Code가 로그 직독, 원인 분석, 파일 수정",
+            "<b>코드 리팩토링 (1.25H)</b> — 기존 코드베이스 분석, 중복 제거·네이밍 개선·구조 정리로 품질 단계적 향상"
+          ]
+        },
+        {
+          "module_name": "D2 · Subagents",
+          "duration": "2H",
+          "items": [
+            "<b>Subagents 설계 (1H)</b> — 세션당 200 스폰 제한, 동시 20개, 역할 분담 에이전트(researcher/coder/reviewer) 정의",
+            "<b>백그라운드 작업 (1H)</b> — 사용자 작업 중단 없는 백그라운드 에이전트 실행, 결과 동기화"
+          ]
+        },
+        {
+          "module_name": "D2 · Hooks",
+          "duration": "1.5H",
+          "items": [
+            "<b>Hooks 시스템 (0.75H)</b> — PreToolUse·PostToolUse·SessionStart 훅, deny/ask 권한 규칙, halt 처리",
+            "<b>Skills + SKILL.md (0.75H)</b> — AAIF 표준 스킬 작성, 스택 로딩(최대 5개) → <b>산출물: Hooks+Skills 환경</b>"
+          ]
+        },
+        {
+          "module_name": "D3 · 컨텍스트 엔지니어링",
+          "duration": "2H",
+          "items": [
+            "<b>CLAUDE.md/AGENTS.md 구조 설계 (1H)</b> — 100라인 네비게이션 가이드, 설계 문서, 검증 상태 체계화 원칙",
+            "<b>Skills 파일 작성 실습 (1H)</b> — 전문화된 작업용 SKILL.md 작성, 역할·제약·지식 명세 패턴"
+          ]
+        },
+        {
+          "module_name": "D3 · MCP 파이프라인",
+          "duration": "2.5H",
+          "items": [
+            "<b>MCP 아키텍처 이해 (1H)</b> — Model Context Protocol Host·Server·Primitive 구조, 2026-07 개정 스펙 반영",
+            "<b>MCP 서버 연동 실습 (1.5H)</b> — 사내 API·문서 자율 조회 환경 구축, stdio 전송, 도구 자동 백그라운드 이동"
+          ]
+        },
+        {
+          "module_name": "D3 · 도구 분업",
+          "duration": "2.5H",
+          "items": [
+            "<b>도구 분업 워크플로우 설계 (1H)</b> — Codex(스캐폴딩·멀티파일) → Claude Code(디버깅·테스트) 통합 파이프라인",
+            "<b>통합 실습 (1.5H)</b> — LGE 실무 시나리오 1건 선정, Codex+Claude Code 분업으로 기능 구현 end-to-end"
+          ]
+        },
+        {
+          "module_name": "D3 · 팀 발표+로드맵",
+          "duration": "1H",
+          "items": [
+            "<b>팀 프로젝트 발표 (0.5H)</b> — CLI 자동화 루틴 라이브 데모, 상호 피드백",
+            "<b>트랙 1 마무리+트랙 2 안내 (0.5H)</b> — 산출물 정리, 트랙 2(심화) 진입 가이드 → <b>산출물: CLI 자동화 프로젝트 1건</b>"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "02",
+      "track_name": "트랙 2 · 심화 — Agentic AI 하네스/루프 엔지니어링",
+      "course_title": "하네스 엔지니어링 + 루프 엔지니어링 + 마스터-워커 오케스트레이션 실전 3일 과정",
+      "target": "Track 1 수료자 또는 CLI 에이전틱 코딩 실무 경험자 (사전 진단 권장)",
+      "duration": "3일 (24시간, 1일 8시간)",
+      "tools": [
+        "Codex CLI",
+        "Claude Code",
+        "Antigravity CLI",
+        "Tmux",
+        "Git Worktree",
+        "Docker"
+      ],
+      "modules": [
+        {
+          "module_name": "D1 · 하네스 패러다임",
+          "duration": "2H",
+          "items": [
+            "<b>하네스 엔지니어링 개념 (1H)</b> — LLM을 에이전트로 변환하는 런타임 래퍼, Context Engineering과의 관계, 6대 구성요소",
+            "<b>Repository-as-Documentation (1H)</b> — AGENTS.md 100라인 네비게이션, docs/ 시스템 오브 레코드, mechanical enforcement"
+          ]
+        },
+        {
+          "module_name": "D1 · AGENTS 설계",
+          "duration": "2.5H",
+          "items": [
+            "<b>AGENTS.md 작성 실습 (1.25H)</b> — 프로젝트 구조·검증 상태·코어 신념 명세, 에이전트 네비게이션 가이드 완성",
+            "<b>docs/ 시스템 구축 (1.25H)</b> — 설계 문서·아키텍처·검증 상태 저장, 유효성·크로스링크 CI 검증"
+          ]
+        },
+        {
+          "module_name": "D1 · 제약+엔트로피",
+          "duration": "2H",
+          "items": [
+            "<b>Architectural Constraints (1H)</b> — 계층적 의존성 규칙으로 기계적 제약, 코드 리뷰 '이게 허용돼야 하나요' 회피",
+            "<b>Entropy Management (1H)</b> — dead code·doc drift 자동 감지, doc-gardening 에이전트로 문서 PR 자동 생성"
+          ]
+        },
+        {
+          "module_name": "D1 · 샌드박스 설계",
+          "duration": "1.5H",
+          "items": [
+            "<b>Docker 샌드박스 (0.75H)</b> — 컨테이너 격리, 네트워크 격리, 파일시스템 제한, Trust boundaries 명시",
+            "<b>Safety Enforcement (0.75H)</b> — 에이전트 행동 범위 통제, 안전 경계 설정 → <b>산출물: 하네스 v1 (AGENTS.md+Sandbox)</b>"
+          ]
+        },
+        {
+          "module_name": "D2 · 루프 패러다임",
+          "duration": "2H",
+          "items": [
+            "<b>Boris Cherny 3단계 진화 (1H)</b> — 직접 프롬프팅 → 병렬 수동 → 자율 루프, '루프를 작성하는' 역할로의 전환",
+            "<b>AORR 상태 머신 (1H)</b> — Act-Observe-Reason-Repeat 4단계 자율 제어 로직, 프롬프트 체인(DAG)과의 차이"
+          ]
+        },
+        {
+          "module_name": "D2 · TDD 루프 설계",
+          "duration": "2.5H",
+          "items": [
+            "<b>종료 조건(Verification Gate) (1H)</b> — 'done'이 아닌 명시적 조건(tests_pass, build_success), 도달 가능성 증명",
+            "<b>Self-Correcting TDD 구현 (1.5H)</b> — Maker-Checker 분리, 작성 에이전트와 검증 에이전트 분업으로 종료 조건 신뢰"
+          ]
+        },
+        {
+          "module_name": "D2 · 영구 메모리 설계",
+          "duration": "2H",
+          "items": [
+            "<b>Git-backed 영구 메모리 (1H)</b> — MEMORY.md/CLAUDE.md 패턴, 재시작·실패 견디는 버전화된 상태 저장",
+            "<b>Auto-Compact 방어 (1H)</b> — 컨텍스트 85% 도달 시 압축 트리거, 오래된 히스토리 오프로드, 요약 유지"
+          ]
+        },
+        {
+          "module_name": "D2 · 무한루프 탈출",
+          "duration": "1.5H",
+          "items": [
+            "<b>종료 조건 도달 가능성 (0.75H)</b> — 동일 에러 해시 반복 시 Starvation 선언, 조건문으로 무한 루프 탈출",
+            "<b>HITL 가드레일 (0.75H)</b> — Retry 한계 정책, 비용 가드레일 → <b>산출물: Self-Correcting TDD 루프 1건</b>"
+          ]
+        },
+        {
+          "module_name": "D3 · 마스터-워커",
+          "duration": "2H",
+          "items": [
+            "<b>Orchestrator-Worker 패턴 (1H)</b> — 1 오케스트레이터(capable model) + N 워커(cheaper model), 컨텍스트 분리·비용 최적화",
+            "<b>역할 분담 설계 (1H)</b> — Codex(마스터)·Claude Code(아키텍트)·Antigravity CLI(실행기) 브레인-실행기 분업"
+          ]
+        },
+        {
+          "module_name": "D3 · 커맨드 센터 구축",
+          "duration": "2.5H",
+          "items": [
+            "<b>Tmux 4분할 관제소 (1.25H)</b> — 다중 에이전트 한 화면 실시간 모니터링 레이아웃, 개입 루틴",
+            "<b>Git Worktree 샌드박스 (1.25H)</b> — 에이전트마다 독립 작업 폴더 부여, 동시 파일 접근으로 인한 코드 붕괴 방지"
+          ]
+        },
+        {
+          "module_name": "D3 · 버그 자율 루프",
+          "duration": "2.5H",
+          "items": [
+            "<b>버그 티켓 자율 해결 루프 (1.5H)</b> — Day 1 하네스 + Day 2 루프 + 마스터-워커 결합, end-to-end 파이프라인 구현",
+            "<b>팀별 라이브 데모+피어리뷰 (1H)</b> — 자율 해결 시연, 아키텍처 강건성 상호 검토, 강사 피드백"
+          ]
+        },
+        {
+          "module_name": "D3 · 도입 로드맵+수료",
+          "duration": "1H",
+          "items": [
+            "<b>30/60/90일 도입 로드맵 (0.5H)</b> — 트랙 2 학습 내용의 실무 적용 계획 수립",
+            "<b>수료+후속 안내 (0.5H)</b> — 산출물 정리 → <b>산출물: 버그 자율 해결 파이프라인+도입 로드맵 1건</b>"
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "<ul><li><b>[트랙 1] 기초 3일 산출물</b></li><li>Day 1: Codex 기반 프로젝트 스캐폴딩+멀티파일 코드+PR 리뷰 결과물 1건</li><li>Day 2: Hooks+Skills 적용 Claude Code 환경 1건 (Subagents 시스템 포함)</li><li>Day 3: Codex+Claude Code 통합 CLI 자동화 프로젝트 1건 (LGE 실무 시나리오)</li></ul><ul><li><b>[트랙 2] 심화 3일 산출물</b></li><li>Day 1: 하네스 v1 (AGENTS.md+Constraints+Sandbox 적용)</li><li>Day 2: Self-Correcting TDD 루프 1건 (HITL 가드레일·영구 메모리 포함)</li><li>Day 3: 버그 자율 해결 파이프라인 완성본+LGE 30/60/90일 도입 로드맵 1건</li></ul>",
+  "section_07_title": "운영 안내 및 일정 협의",
+  "schedule_message": "<div style='text-align: left; color: #333;'><p style='margin-bottom: 12px;'><b>교육 과정 구성 안내</b></p><table class='curriculum-table' style='margin-bottom: 20px;'><thead><tr><th style='width: 22%;'>구분</th><th style='width: 12%;'>기간</th><th style='width: 12%;'>시간</th><th style='width: 26%;'>실습 도구</th><th>핵심 내용</th></tr></thead><tbody><tr><td><b>트랙 1 (기초)</b><br>CLI 입문</td><td>3일</td><td>24H</td><td>Codex CLI, Claude Code, MCP, SKILL.md</td><td>Codex+Claude Code 마스터리, 컨텍스트 엔지니어링</td></tr><tr style='background:#F8F8F8'><td><b>트랙 2 (심화)</b><br>Agentic AI</td><td>3일</td><td>24H</td><td>Codex, Claude Code, Antigravity CLI, Tmux, Git Worktree</td><td>하네스+루프 엔지니어링, 마스터-워커 오케스트레이션</td></tr></tbody></table><p style='margin-bottom: 8px;'><b>선택 가이드</b></p><ul style='margin-top: 0; margin-bottom: 16px;'><li><b>기초→심화 순차 이수 권장</b>: 트랙 1에서 CLI 도구 마스터리 → 트랙 2에서 아키텍처 설계 역량 도약</li><li><b>트랙 2 단독 수강</b>: CLI 에이전틱 코딩 실무 경험자에 한해 트랙 2만 수강 가능 (사전 진단)</li><li><b>전사 확장</b>: 두 트랙 모두 수료 시 LGE 개발자는 단순 도구 사용자를 넘어 <b>에이전트 오케스트레이터</b>로 성장</li></ul><p style='margin-bottom: 8px;'><b>운영 조건</b></p><ul style='margin-top: 0; margin-bottom: 16px;'><li><b>선수 조건</b>: Python/Node 기초 이상, CLI·Git 능숙 (트랙 2는 트랙 1 수료 또는 동급 실무 경험)</li><li><b>그룹 규모</b>: 12~15명 권장, 주강사 1인 + 보조강사 1인, 실습 구간마다 개인별 순회 멘토링</li><li><b>사전 설치 가이드</b>: 교육 1주일 전 상세 가이드 배포 (Codex CLI v0.145, Claude Code v2.1, Antigravity CLI)</li><li><b>API Key</b>: OpenAI API Key (Codex) + Anthropic API Key (Claude Code) + Google AI Pro/Ultra (Antigravity CLI)</li><li><b>일정 협의</b>: 대상 인원·회차 수 확정 후 세부 일정·강사 구성 협의</li></ul></div>"
+}

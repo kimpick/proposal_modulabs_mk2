@@ -1,0 +1,71 @@
+{
+  "title": "이지스엔터프라이즈 개발자 AI 기초 교육안",
+  "subtitle": "Claude Code · Codex CLI 기반 AI 코딩 — 하네스 엔지니어링과 MCP·Agentic Coding 까지 3개사 공통 실무 기초 과정",
+  "info": {
+    "keyword": "AI 코딩 · 하네스 엔지니어링 · MCP · Agentic Coding",
+    "ax_stage": "3단계 (개발자 AI 내재화 — 기초)",
+    "target": "3개 관계사 개발자 전체 (BE·FE·퍼블리셔·풀스택)",
+    "duration": "3회 × 7H = 21H (2분반, 30~35명/클래스)"
+  },
+  "intro": "이지스엔터프라이즈를 비롯한 <b>3개 관계사 개발자</b>가 도메인 편차에 관계없이 공통으로 적용할 수 있는 <b>현업 밀착형 AI 코딩 기초 과정</b>입니다.<br><br>고객사에서 이미 도입 지원 중인 <b>Claude·Codex</b>를 기준 도구로 삼아, 단순 신규 기능 프로토타이핑(바이브코딩)에 그치지 않고 <b>기존 시스템 유지보수 관점의 하네스 엔지니어링(Harness Engineering)</b>과 <b>Claude Code·MCP·Agentic Coding</b> 등 2026년 최신 트렌드까지 한 번에 다룹니다.<br><br>각 회차는 강의 + 라이브 코딩 + 실습(Hands-on) 구조로 운영되며, 수강생은 교육 종료 시 자사 레거시 코드베이스에 즉시 적용 가능한 AI 코딩 워크플로우를 손에 쥐게 됩니다.",
+  "objective": "<b>3대 축 목표</b><br>① <b>AI 코딩 역량 내재화</b> — Claude Code CLI·Codex CLI를 IDE와 통합해 일상 개발 업무에 즉시 활용<br>② <b>하네스 엔지니어링 적용</b> — 레거시 코드 분석·리팩토링·테스트 코드 보강·코드 리뷰를 AI와 함께 수행<br>③ <b>최신 Agentic 트렌드 이해</b> — MCP(Model Context Protocol)와 Agentic Coding 개념을 체득하여 다음 단계 심화 과정(LangGraph·멀티에이전트)으로 자연스럽게 연결",
+  "tech_stack": [
+    "Claude Code CLI",
+    "OpenAI Codex CLI",
+    "Claude API (Anthropic)",
+    "VS Code + Cursor",
+    "MCP (Model Context Protocol)",
+    "Function Calling / Tool Use"
+  ],
+  "infrastructure": [
+    "GitHub 계정 (1인 1계정 필수) — 실습용 사내 더미 레포 제공 권장",
+    "Python 3.11 이상 + Node.js 20 이상 개발 환경 (로컬 설치)",
+    "VS Code 최신 버전 + Claude Code CLI · Codex CLI 확장 설치",
+    "Claude API Key (Anthropic — Pay-as-you-go) 및 OpenAI API Key (Codex CLI용)",
+    "외부망 접속 가능 노트북 (수강생 1인 1대) — 사내 망분리 환경 사전 확인 필수",
+    "사전 설문 결과 기반 분반 및 난이도 조정 (모두연 가이드 제공)"
+  ],
+  "modules": [
+    {
+      "module_id": "01",
+      "module_name": "Claude Code · Codex CLI 중심의 AI 코딩 기초",
+      "subtitle": "AI 코딩 · 바이브코딩 기초",
+      "duration": "1회차 (7시간)",
+      "items": [
+        "<b>[환경 구축]</b> Claude Code CLI · Codex CLI 설치, VS Code 통합, Cursor 에디터 연동, API Key 발급 및 비용 통제 설정",
+        "<b>[프롬프트 엔지니어링]</b> System Prompt 설계, 컨텍스트 주입, Claude·Codex 간 응답 품질 비교 실습",
+        "<b>[바이브코딩 방법론]</b> PRD(요구사항 문서) → 자연어 지시 → 코드 생성 → 반복 개선의 순환 워크플로우 실습",
+        "<b>[3사 범용 실습]</b> 백엔드·프론트엔드·풀스택 공통 적용 가능한 미니 프로젝트 프로토타이핑 (도메인 무관 CRUD + UI)",
+        "실습: Claude Code CLI로 30분 내 동작하는 미니 웹앱 프로토타입 빌드 및 Codex CLI로 기능 확장"
+      ]
+    },
+    {
+      "module_id": "02",
+      "module_name": "하네스 엔지니어링 with AI — 레거시 유지보수 관점",
+      "subtitle": "하네스 엔지니어링",
+      "duration": "2회차 (7시간)",
+      "items": [
+        "<b>[하네스 엔지니어링 개념]</b> Agentic AI 시대의 엔지니어 역할 변화, AI를 활용한 레거시 시스템 유지보수 전략",
+        "<b>[레거시 코드 분석]</b> 대형 코드베이스 컨텍스트 주입(Claude Code Repo 단위 분석), 호출 흐름도 자동 생성, 주요 로직 요약",
+        "<b>[코드 리팩토링]</b> Claude·Codex를 활용한 안전한 리팩토링 — 중복 제거·함수 분리·의존성 정리 + Diff 기반 코드 리뷰",
+        "<b>[테스트 코드 작성·보완]</b> 기존 함수 단위 테스트 자동 생성, 커버리지 갭 분석, 엣지 케이스 도출 및 보강",
+        "실습: 사전 제공된 레거시 코드베이스(난독화·문서 부족 상태)에서 AI와 함께 기능 역학습 + 리팩토링 + 테스트 코드 보강 PR 생성"
+      ]
+    },
+    {
+      "module_id": "03",
+      "module_name": "MCP & Agentic Coding 입문 — 다음 단계로의 연결",
+      "subtitle": "MCP · Agentic 기초",
+      "duration": "3회차 (7시간)",
+      "items": [
+        "<b>[MCP (Model Context Protocol)]</b> Anthropic MCP 표준 이해, 로컬 파일시스템·DB·API 서버 연결, Claude Code ↔ MCP 도구 호출 실습",
+        "<b>[Function Calling / Tool Use]</b> Claude·Codex에서 외부 API를 도구로 노출, 자동 도구 선택·호출·응답 처리 실습",
+        "<b>[Agentic Coding 개념]</b> 단순 Chain 구조의 한계, 자율 계획-실행-검증 루프(Agentic Loop) 도입, 다음 단계(LangGraph 심화)로의 연결",
+        "<b>[AI Coding Agent 협업]</b> Cursor Agent Mode·Claude Code Plan Mode 비교, 멀티 파일 수정·셀프 리뷰·자동 커밋 워크플로우",
+        "실습: MCP 서버 1개 구축 + Claude Code가 사내 위키·이슈트래커를 호출해 자동으로 PR을 생성하는 Agentic 파이프라인 프로토타입 구성"
+      ]
+    }
+  ],
+  "output": "<ul style=\"margin:0; padding-left:20px; line-height: 1.9;\"><li>Claude Code · Codex CLI 통합 개발 환경 세팅 완료 + 바이브코딩 미니 프로젝트 프로토타입 1건</li><li>레거시 코드베이스 대상 <b>AI 활용 리팩토링 + 테스트 코드 보강 PR</b> 산출물 (하네스 엔지니어링 실습 결과물)</li><li>MCP 서버 1건 구축 + Agentic Coding 파이프라인 프로토타입 1건</li><li>개인/팀별 <b>AI 코딩 워크플로우 가이드</b> (3사 공통 적용 가능)</li></ul>",
+  "schedule_message": "※ 본 과정은 MODULE 01~03 각 1일(7시간), 총 <b>3회 21시간</b>으로 편성됩니다.<br>• <b>2개 분반 운영</b>: 클래스당 30~35명, 동일 커리큘럼 병행 진행<br>• <b>일정 옵션</b>: 3일 연속 집중 / 주 1회 분산(화·목) / 1주 1회 × 3시간 확장형(46H) — 고객사 협의 후 확정<br>• <b>교육장</b>: 회사 근처 외부 교육장 섭외 (사외 시설 제외)<br>• <b>사전 설문</b>: 강은숙 PM이 구글폼 제공, 이지스엔터프라이즈 배포 → 수강생 선발 → 모두연 사전 역량 진단<br>• <b>시작 시점</b>: 2026년 7월 중 ASAP (기초 우선 → 심화 56H 진행)"
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<style>{{ css }}</style>
+</head>
+<body>
+
+<div class="header">
+    <div class="header-text">모두의연구소 K-HP 사업 기반 AI 기업교육 제안</div>
+    <h1 class="title">{{ data.title }}</h1>
+    <h2 class="subtitle" style="font-size:16px; color:#555; margin:0 0 30px 0;">{{ data.subtitle }}</h2>
+</div>
+
+<div class="info-grid">
+    <div class="info-box"><div class="info-label">키워드 구분</div><div class="info-value">{{ data.info.keyword }}</div></div>
+    <div class="info-box"><div class="info-label">제안 목표</div><div class="info-value">{{ data.info.ax_stage }}</div></div>
+    <div class="info-box"><div class="info-label">권장 수강 대상</div><div class="info-value">{{ data.info.target }}</div></div>
+    <div class="info-box"><div class="info-label">총 소요 일정</div><div class="info-value">{{ data.info.duration }}</div></div>
+</div>
+
+<div class="section-title"><span class="section-num">01</span>K-HP 교육 사업 소개</div>
+<div class="content-box">{{ data.intro }}</div>
+
+<div class="section-title"><span class="section-num">02</span>AI 기초 리터러시 교육 목표</div>
+<div class="content-box">{{ data.objective }}</div>
+
+<div style="display: flex; gap: 40px; page-break-inside: avoid; break-inside: avoid;">
+    <div style="flex: 1;">
+        <div class="section-title"><span class="section-num">03</span>지원 기술 스택</div>
+        <div class="tech-container">
+            {% for t in data.tech_stack %}<div class="tech-badge">{{ t }}</div>{% endfor %}
+        </div>
+    </div>
+    <div style="flex: 1.2;">
+        <div class="section-title"><span class="section-num">04</span>제휴 혜택 및 인프라</div>
+        <div class="infra-box">
+            <ul>{% for i in data.infrastructure %}<li><span>{{ i }}</span></li>{% endfor %}</ul>
+        </div>
+    </div>
+</div>
+
+<div class="section-title"><span class="section-num">05</span>추천 무료 세미나 목록</div>
+{% for sem in data.seminars %}
+<div class="module-box">
+    <div class="module-left">
+        <div class="module-label">세미나 옵션 {{ loop.index }}</div>
+        <div class="module-name">{{ sem.step_name }}</div>
+    </div>
+    <div class="module-right">
+        <ul>{% for item in sem['items'] %}<li><span>{{ item }}</span></li>{% endfor %}</ul>
+    </div>
+    <div class="module-hours">{{ sem.duration }}</div>
+</div>
+{% endfor %}
+
+<div class="section-title"><span class="section-num">06</span>직무별 기초 역량 강화 커리큘럼 추가 제안</div>
+{% for cur in data.new_curriculums %}
+<div class="module-box">
+    <div class="module-left">
+        <div class="module-label">기초심화 교육 {{ loop.index }}</div>
+        <div class="module-name">{{ cur.step_name }}</div>
+    </div>
+    <div class="module-right">
+        <ul>{% for item in cur['items'] %}<li><span>{{ item }}</span></li>{% endfor %}</ul>
+    </div>
+    <div class="module-hours">{{ cur.duration }}</div>
+</div>
+{% endfor %}
+
+<div style="page-break-inside: avoid; break-inside: avoid;">
+    <div class="section-title"><span class="section-num">07</span>세미나 개강일정 및 절차</div>
+    <div class="schedule-placeholder">
+        <p>{{ data.schedule_message }}</p>
+    </div>
+</div>
+
+<div style="page-break-inside: avoid; break-inside: avoid;">
+    <div class="section-title"><span class="section-num">08</span>예상 산출물</div>
+    <div class="content-box">{{ data.output }}</div>
+</div>
+
+<div class="footer">
+    &copy; 2026 MODULABS - 모두의연구소 AI 기업교육 제안서
+</div>
+
+</body>
+</html>

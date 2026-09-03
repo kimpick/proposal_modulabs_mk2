@@ -1,0 +1,945 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>삼성전자MX 토큰 최적화 교육 제안 — 발표덱</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+  :root{
+    --primary:#EE3E4C; --primary-dk:#C92434; --secondary:#EBBAC0;
+    --ink:#111111; --body:#333333; --muted:#6B7280; --faint:#9AA1AC;
+    --border:#EBEBEB; --line:#F0F0F2; --bg:#ffffff; --soft:#FAFAFB; --soft2:#F5F6F8;
+    --blue:#2563EB; --blue-bg:#EEF4FF; --green:#0E9F6E; --green-bg:#E7F6EF;
+    --amber:#B45309; --amber-bg:#FEF3E2; --purple:#7C3AED;
+    --shadow:0 1px 2px rgba(17,17,17,.04),0 10px 30px rgba(17,17,17,.08);
+    --radius:16px;
+    --slide-w:1280px; --slide-h:720px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;overflow:hidden;background:#0a0c11;
+    font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+
+  .stage{position:fixed;inset:0;display:grid;place-items:center}
+  .deck{position:relative;width:var(--slide-w);height:var(--slide-h);transform-origin:center center;
+    box-shadow:0 20px 60px rgba(0,0,0,.45);border-radius:6px;overflow:hidden;background:var(--bg)}
+
+  .slide{position:absolute;inset:0;width:var(--slide-w);height:var(--slide-h);background:var(--bg);
+    overflow:hidden;opacity:0;pointer-events:none;transform:translateX(24px);
+    transition:opacity .4s ease,transform .4s ease}
+  .slide.is-active{opacity:1;pointer-events:auto;transform:translateX(0)}
+  .fit-frame{position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start}
+  .fit-frame.center{justify-content:center}
+  .fit-content{padding:46px 64px;transform-origin:top center}
+  .fit-frame.center .fit-content{transform-origin:center center}
+
+  .sec-num{font-size:12px;font-weight:700;color:var(--faint);letter-spacing:.08em}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;
+    letter-spacing:.04em;color:var(--primary);text-transform:uppercase;margin:8px 0 12px}
+  .kicker::before{content:"";width:22px;height:2px;background:var(--primary);border-radius:2px}
+  h2{font-size:27px;line-height:1.25;color:var(--ink);margin:0 0 8px;font-weight:800;letter-spacing:-.02em}
+  h3{font-size:17px;color:var(--ink);margin:0;font-weight:700}
+  .lead{font-size:14.5px;color:var(--muted);margin:0 0 18px;max-width:920px}
+
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .split{display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:center}
+
+  .cover{background:radial-gradient(1200px 520px at 82% -12%,#ff5d69 0%,transparent 55%),
+    linear-gradient(135deg,#1a1114 0%,#2a1418 40%,#7a1420 100%);color:#fff}
+  .cover .cover-badge{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:600;
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);padding:8px 15px;border-radius:999px}
+  .cover h1{font-size:46px;line-height:1.18;font-weight:800;margin:22px 0 14px;letter-spacing:-.03em;color:#fff}
+  .cover h1 span{color:#ffd0d4}
+  .cover .sub{font-size:18px;color:rgba(255,255,255,.88);max-width:720px;margin:0 0 30px}
+  .cover-meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-size:13.5px;color:rgba(255,255,255,.72);
+    border-top:1px solid rgba(255,255,255,.18);padding-top:20px}
+  .cover-meta b{color:#fff;font-weight:600}
+  .closing{background:linear-gradient(135deg,#1a1114,#5e1018);color:#fff}
+  .closing h2{color:#fff;font-size:30px}
+  .closing .msg{font-size:17px;color:rgba(255,255,255,.9);max-width:840px;margin:14px 0 26px;line-height:1.55}
+  .closing .sign{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:14px;color:rgba(255,255,255,.75);
+    border-top:1px solid rgba(255,255,255,.2);padding-top:20px}
+  .closing .sign b{color:#fff}
+  .cover .kicker,.closing .kicker{color:#ffd0d4}
+  .cover .kicker::before,.closing .kicker::before{background:#ffd0d4}
+
+  .kpi{background:var(--soft);border:1px solid var(--border);border-radius:14px;padding:20px 18px;text-align:center}
+  .kpi .n{font-size:33px;font-weight:800;color:var(--primary);letter-spacing:-.03em;line-height:1}
+  .kpi .n small{font-size:17px;font-weight:700}
+  .kpi .l{font-size:12.5px;color:var(--muted);margin-top:8px;font-weight:500;line-height:1.35}
+
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+  .chip{font-size:14px;font-weight:700;color:var(--ink);background:#fff;border:1px solid var(--border);
+    padding:9px 16px;border-radius:10px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  .chip.big{font-size:15px;border-color:#f2c9cd}
+
+  .case{border:1px solid var(--border);border-radius:14px;padding:20px 22px;background:#fff;position:relative}
+  .case::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:4px;border-radius:4px;background:var(--primary)}
+  .case .ctop{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding-left:14px}
+  .case .co{font-size:18px;font-weight:800;color:var(--ink)}
+  .case .cat{font-size:11.5px;font-weight:700;color:var(--muted);background:var(--soft2);padding:4px 10px;border-radius:999px;white-space:nowrap}
+  .case .desc{font-size:13px;color:var(--body);padding-left:14px;margin:6px 0 12px}
+  .metrics{display:flex;flex-wrap:wrap;gap:9px;padding-left:14px}
+  .metric{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:9px 12px;min-width:92px}
+  .metric .mv{font-size:18px;font-weight:800;color:var(--primary-dk);line-height:1}
+  .metric .ml{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.3}
+  .taglist{padding-left:14px;margin-top:12px;font-size:12px;color:var(--faint)}
+  .taglist b{color:var(--body);font-weight:600}
+
+  .refcol{background:var(--soft);border:1px solid var(--border);border-radius:14px;padding:16px 18px}
+  .refcol .refhd{font-size:13px;font-weight:800;color:var(--primary);padding-bottom:9px;margin-bottom:5px;border-bottom:2px solid #f4ccd0}
+  .refcol ul{margin:0;padding:0;list-style:none}
+  .refcol li{font-size:13.5px;font-weight:600;color:var(--ink);padding:6px 0;border-bottom:1px solid var(--line)}
+  .refcol li:last-child{border-bottom:none}
+  .refcol li span{font-size:11.5px;color:var(--muted);font-weight:500}
+
+  .mvp{border:1px solid var(--border);border-radius:14px;padding:16px 18px;background:linear-gradient(180deg,#fff,#fdfafa)}
+  .mvp .mh{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+  .mvp .idx{flex:none;width:28px;height:28px;border-radius:8px;background:var(--ink);color:#fff;
+    font-size:12.5px;font-weight:800;display:grid;place-items:center}
+  .mvp .mt{font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.35}
+  .mvp .row{font-size:12.5px;margin:6px 0;display:flex;gap:8px}
+  .mvp .row .tag{flex:none;font-size:11px;font-weight:700;color:var(--muted);width:38px;padding-top:1px}
+  .mvp .row .val{color:var(--body)}
+  .mvp .row .val.tech{color:var(--blue);font-weight:600}
+  .mvp .row .val.eff{color:var(--green);font-weight:600}
+
+  .quote{background:linear-gradient(135deg,#fff5f6,#fdeef0);border:1px solid #f4ccd0;border-radius:14px;padding:22px 24px;position:relative}
+  .quote .q{font-size:19px;font-weight:800;color:var(--primary-dk);line-height:1.4;letter-spacing:-.02em}
+  .quote .by{font-size:12.5px;color:var(--muted);margin-top:10px}
+  .quote .mark{position:absolute;top:6px;right:20px;font-size:60px;color:#f4ccd0;font-family:Georgia,serif;line-height:1}
+
+  .flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+  .step{flex:1;min-width:150px;background:var(--soft);border:1px solid var(--border);border-radius:12px;padding:14px 16px;position:relative}
+  .step + .step{margin-left:26px}
+  .step + .step::before{content:"→";position:absolute;left:-22px;top:50%;transform:translateY(-50%);color:var(--primary);font-weight:800;font-size:18px}
+  .step .st{font-size:11.5px;font-weight:700;color:var(--primary);margin-bottom:4px}
+  .step .sd{font-size:13.5px;color:var(--ink);font-weight:700}
+  .step .ss{font-size:12px;color:var(--muted);margin-top:3px}
+
+  .task{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px}
+  .task .ti{font-size:22px}
+  .task .tt{font-size:14px;font-weight:700;color:var(--ink);margin:8px 0 4px}
+  .task .td{font-size:12px;color:var(--muted)}
+
+  .tbl{width:100%;border-collapse:collapse;font-size:13px}
+  .tbl th{background:var(--ink);color:#fff;text-align:left;padding:11px 13px;font-weight:600;font-size:12px}
+  .tbl th:first-child{border-radius:8px 0 0 0}.tbl th:last-child{border-radius:0 8px 0 0}
+  .tbl td{padding:11px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl tbody tr:nth-child(even){background:var(--soft)}
+  .tbl .task-c{font-weight:700;color:var(--ink);white-space:nowrap}
+  .pill{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;margin:2px 3px 2px 0}
+  .pill.b{background:var(--blue-bg);color:var(--blue)}
+  .pill.r{background:#FEF0F0;color:var(--primary)}
+  .pill.g{background:var(--green-bg);color:var(--green)}
+
+  .ba-head,.ba{display:grid;grid-template-columns:1.05fr 1.15fr 34px 1.15fr .9fr;gap:12px;align-items:center}
+  .ba-head{font-size:11.5px;font-weight:700;color:var(--muted);padding:0 4px 8px}
+  .ba-head .h-after{color:var(--primary)}
+  .ba{padding:9px 4px;border-top:1px solid var(--line)}
+  .ba .task-name{font-weight:700;color:var(--ink);font-size:13px}
+  .ba .before{background:var(--soft2);border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-size:12px;color:var(--muted)}
+  .ba .arrow{text-align:center;color:var(--primary);font-weight:800;font-size:18px}
+  .ba .after{background:#fff5f6;border:1px solid #f4ccd0;border-radius:10px;padding:9px 12px;font-size:12px;color:var(--ink);font-weight:500}
+  .ba .gain{text-align:center;font-size:14px;font-weight:800;color:var(--primary-dk);line-height:1.25}
+
+  .est-total{display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;background:linear-gradient(135deg,#EE3E4C,#C92434);color:#fff;border-radius:14px;padding:16px 22px;margin-bottom:12px}
+  .est-total .big{font-size:26px;font-weight:800;letter-spacing:-.02em}
+  .est-total .ko{font-size:13px;opacity:.9;margin-top:3px}
+  .est-total .per{margin-left:auto;font-size:12.5px;font-weight:600;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:8px 14px;border-radius:999px}
+  .est{width:100%;border-collapse:collapse;font-size:11.5px}
+  .est th{background:var(--ink);color:#fff;padding:8px 9px;text-align:center;font-weight:600;font-size:11px;white-space:nowrap}
+  .est th:first-child{border-radius:8px 0 0 0}.est th:last-child{border-radius:0 8px 0 0}
+  .est td{padding:6px 9px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+  .est td.cat{font-weight:800;color:var(--primary);background:var(--soft);font-size:12px}
+  .est td.item{text-align:left;font-weight:600;color:var(--ink)}
+  .est td.r{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink)}
+  .est td.memo{text-align:left;font-size:10px;color:var(--muted)}
+  .est tr.sub td{background:var(--soft);font-weight:700;color:var(--ink)}
+  .est tr.total td{background:var(--ink);color:#fff;font-weight:800;font-size:13px}
+  .est tr.total td.r{color:#fff}
+
+  .prop{width:100%;border-collapse:collapse;font-size:12px}
+  .prop th{text-align:left;padding:9px 11px;font-size:11px;font-weight:700;letter-spacing:.03em;color:var(--muted);background:var(--soft);border-bottom:2px solid var(--border);white-space:nowrap}
+  .prop th.c{text-align:center}
+  .prop td{padding:9px 11px;line-height:1.45;border-bottom:1px solid var(--line);vertical-align:middle;font-size:11.5px}
+  .prop td.trk{font-weight:800;color:var(--primary);background:var(--soft);white-space:nowrap;text-align:center;line-height:1.3}
+  .prop td.course{font-weight:700;color:var(--ink)}
+  .prop td.core{color:var(--body);font-size:11px}
+  .prop td.tgt{color:var(--muted);font-size:11px;white-space:nowrap;line-height:1.3}
+  .prop td.hrs{color:var(--primary);font-weight:800;text-align:center;white-space:nowrap;line-height:1.3}
+  .prop tr.sumrow td{background:#FFF6F2;font-weight:700;color:var(--ink)}
+  .badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:10.5px;font-weight:700;white-space:nowrap}
+  .badge-red{background:rgba(238,62,76,.12);color:var(--primary-dk)}
+  .badge-blue{background:rgba(37,99,235,.12);color:var(--blue)}
+  .badge-green{background:rgba(14,159,110,.12);color:var(--green)}
+  .badge-purple{background:rgba(124,58,237,.12);color:var(--purple)}
+
+  .track{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#fff}
+  .track .th{padding:14px 16px 12px;color:#fff}
+  .track.t1 .th{background:linear-gradient(135deg,#EE3E4C,#C92434)}
+  .track.t2 .th{background:linear-gradient(135deg,#F0736E,#d9524d)}
+  .track.t3 .th{background:linear-gradient(135deg,#8B5CF6,#6D3EE0)}
+  .track.t4 .th{background:linear-gradient(135deg,#2563EB,#1D4FD8)}
+  .track .tk{font-size:11.5px;font-weight:700;opacity:.9}
+  .track .tn{font-size:16px;font-weight:800;margin-top:3px}
+  .track .tp{font-size:12px;opacity:.92;margin-top:2px}
+  .track .tb{padding:13px 16px}
+
+  .why{background:var(--ink);color:#fff;border-radius:14px;padding:22px}
+  .why h3{color:#fff;margin-bottom:10px}
+  .why ul{margin:0;padding-left:18px;font-size:13.5px;color:rgba(255,255,255,.85)}
+  .why li{margin:8px 0}
+  .why b{color:#ffd0d4}
+
+  .note{font-size:11.5px;color:var(--faint);margin-top:14px;padding-top:12px;border-top:1px dashed var(--border)}
+
+  /* ==== 부록 전용 ==== */
+  .appendix-cover{background:linear-gradient(135deg,#12141a 0%,#1f2430 100%);color:#fff}
+  .appendix-cover h2{color:#fff;font-size:34px}
+  .appendix-cover .msg{font-size:16px;color:rgba(255,255,255,.82);max-width:820px;margin:14px 0 0}
+  .appendix-cover .kicker{color:#ffd0d4}
+  .appendix-cover .kicker::before{background:#ffd0d4}
+  .guide{border:1px solid var(--border);border-left:4px solid var(--primary);border-radius:12px;
+    padding:14px 16px;background:var(--soft)}
+  .guide .gh{font-size:13px;font-weight:800;color:var(--ink);margin-bottom:6px}
+  .guide .gb{font-size:12px;color:var(--body);line-height:1.5}
+  .guide .gb b{color:var(--primary-dk)}
+  .script{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+  .script .sq{font-size:12.5px;font-weight:800;color:var(--ink);margin-bottom:6px}
+  .script .sa{font-size:12px;color:var(--body);line-height:1.55}
+  .script .sa b{color:var(--primary-dk)}
+  .warn{background:#FEF0F0;border:1px solid #f4ccd0;border-radius:12px;padding:14px 16px}
+  .warn .wh{font-size:13px;font-weight:800;color:var(--primary-dk);margin-bottom:6px}
+  .warn ul{margin:0;padding-left:17px;font-size:12px;color:var(--body)}
+  .warn li{margin:5px 0}
+  .warn b{color:var(--primary-dk)}
+  .srcgrade{display:flex;gap:10px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line)}
+  .srcgrade:last-child{border-bottom:none}
+  .srcgrade .sg{flex:none;font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;white-space:nowrap;margin-top:1px}
+  .sg.official{background:var(--green-bg);color:var(--green)}
+  .sg.research{background:var(--blue-bg);color:var(--blue)}
+  .sg.industry{background:var(--amber-bg);color:var(--amber)}
+  .srcgrade .sd2{font-size:12.5px;color:var(--body);line-height:1.5}
+  .srcgrade .sd2 b{color:var(--ink)}
+
+  .nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:center;gap:3px;
+    padding:12px 6vw;opacity:.18;transition:opacity .25s}
+  .nav:hover{opacity:.95}
+  .nav-dot{width:22px;height:3px;padding:0;background:rgba(255,255,255,.4);border:0;border-radius:2px;cursor:pointer;transition:all .2s}
+  .nav-dot.active{width:34px;background:var(--primary)}
+  .nav-dot:hover{background:var(--primary)}
+  .slide-num{position:fixed;right:26px;bottom:20px;z-index:1000;color:rgba(255,255,255,.55);
+    font-size:12px;font-weight:700;letter-spacing:.08em;font-variant-numeric:tabular-nums}
+  .hint{position:fixed;left:26px;bottom:20px;z-index:1000;color:rgba(255,255,255,.32);font-size:11px}
+
+  @media print{
+    @page{ size:A4 landscape; margin:0; }
+    html,body{overflow:visible;background:#fff;height:auto}
+    .stage{position:static;display:block}
+    .deck{transform:none!important;box-shadow:none;border-radius:0;width:auto;height:auto}
+    .nav,.slide-num,.hint{display:none}
+    .slide{position:relative;inset:auto;width:100vw;height:100vh;opacity:1;transform:none;
+      page-break-after:always;break-inside:avoid;transition:none}
+    .slide:last-child{page-break-after:auto}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<div class="nav" id="nav" aria-label="슬라이드 목차"></div>
+<div class="slide-num" id="slideNum" aria-live="polite"></div>
+<div class="hint">← → 이동 · F 전체화면 · Ctrl/⌘+P PDF</div>
+
+<div class="stage">
+  <div class="deck" id="deck">
+
+    <!-- ===== 01 표지 ===== -->
+    <section class="slide cover">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <span class="cover-badge">🔴 모두의연구소 &nbsp;×&nbsp; 삼성전자 MX사업부</span>
+          <h1>AI 토큰 최적화<br><span>같은 크레딧으로 한 달을 완주하는 법</span></h1>
+          <p class="sub">토큰·세션·컨텍스트를 함께 관리하는 4모듈 실전 과정</p>
+          <div class="cover-meta">
+            <span><b>작성</b> · 모두의연구소 비즈팀</span>
+            <span><b>일자</b> · 2026. 08. 14.</span>
+            <span><b>범위</b> · 임원 세미나 + 실무자 본과정</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 02 왜 지금인가 ===== -->
+    <section class="slide">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <span class="sec-num">01 / 배경</span>
+          <p class="kicker">왜 지금인가</p>
+          <h2>문제는 "비싸다"가 아니라 "월말에 멈춘다"</h2>
+          <p class="lead">엔터프라이즈 버전 도입 이후 현장에서 확인된 상황입니다.</p>
+          <div class="quote">
+            <span class="mark">"</span>
+            <div class="q">월말이 다가오면 토큰 이슈로<br>서비스를 이용하지 못하는 경우가 생깁니다.</div>
+            <div class="by">삼성전자 MX사업부 · 2026-08-12 상담 기록</div>
+          </div>
+          <div class="grid g4" style="margin-top:16px">
+            <div class="kpi"><div class="n">2~4<small>배</small></div><div class="l">엔터프라이즈 버전 도입 후<br>체감 토큰 소모 증가</div></div>
+            <div class="kpi"><div class="n">Tier 1~4</div><div class="l">임직원별 차등<br>월 크레딧 부여</div></div>
+            <div class="kpi"><div class="n">매월 1<small>일</small></div><div class="l">크레딧 리셋<br>30일 사이클</div></div>
+            <div class="kpi"><div class="n">모델별</div><div class="l">크레딧↔토큰 환산율이<br>모델·서비스 방식마다 상이</div></div>
+          </div>
+          <p class="note">출처 · 삼성전자 MX사업부 상담 기록(2026-08-12) 및 담당자 확인 사항</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 03 문제 재정의 ===== -->
+    <section class="slide">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <span class="sec-num">01 / 배경</span>
+          <p class="kicker">문제 재정의</p>
+          <h2>관리해야 할 지표는 비용이 아니라 <span style="color:var(--primary)">크레딧 런웨이</span>입니다</h2>
+          <p class="lead">런웨이 = 남은 크레딧 ÷ 일 평균 소모. 이 값이 남은 근무일보다 작으면 월말 이전에 고갈합니다.</p>
+          <div class="flow">
+            <div class="step"><div class="st">1일차</div><div class="sd">크레딧 리셋</div><div class="ss">30일 사이클 시작</div></div>
+            <div class="step"><div class="st">12일차</div><div class="sd">85% 소진</div><div class="ss">이 시점 경고 인지</div></div>
+            <div class="step"><div class="st">회복 조건</div><div class="sd">73.5% 감축 필요</div><div class="ss">사실상 사용 중단 수준</div></div>
+            <div class="step"><div class="st">14일차</div><div class="sd">고갈 · 업무 중단</div><div class="ss">6일 남기고 멈춤</div></div>
+          </div>
+          <div class="grid g3" style="margin-top:18px">
+            <div class="task"><div class="ti">🎯</div><div class="tt">목표는 절약이 아니라 효율</div><div class="td">미사용 크레딧이 이월되지 않는다면 아끼는 것도 손실입니다. 산출÷크레딧을 올리는 것이 목표입니다.</div></div>
+            <div class="task"><div class="ti">🔀</div><div class="tt">환산율 선택이 곧 절감</div><div class="td">무엇으로 어떻게 부르느냐가 크레딧 소모를 결정합니다. 모델 라우팅이 최대 레버인 이유입니다.</div></div>
+            <div class="task"><div class="ti">📅</div><div class="tt">조정은 월초에</div><div class="td">월말에 인지하면 이미 늦습니다. 번레이트 기준선을 월초에 잡아야 조종이 가능합니다.</div></div>
+          </div>
+          <p class="note">위 소진일 곡선은 문헌 감축률로부터 역산한 <b>예시</b>입니다. Tier별 크레딧 수량 확인 후 실수치로 대체합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 04 반론 차단 (이전 vs 현재) ===== -->
+    <section class="slide">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <span class="sec-num">02 / 관점</span>
+          <p class="kicker">가장 먼저 짚어야 할 것</p>
+          <h2>"토큰을 아끼면 품질이 떨어지지 않나?" — 오히려 반대입니다</h2>
+          <p class="lead">컨텍스트를 줄이는 것은 절제가 아니라 개선입니다. 다만 근거는 최신 기준으로 말해야 합니다.</p>
+          <table class="tbl">
+            <thead>
+              <tr><th style="width:26%">구분</th><th style="width:30%">2025년 7월 연구 시점</th><th style="width:30%">2026년 8월 현재</th><th style="width:14%">판정</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="task-c">긴 문서에서<br>사실 하나 찾기</td>
+                <td>단순 검색·복제 과제에서도 신뢰도 저하</td>
+                <td><b>Gemini 3 99% · GPT-5.5 96%</b> (1M 단일 니들)</td>
+                <td><span class="pill g">해결됨</span></td>
+              </tr>
+              <tr>
+                <td class="task-c">여러 근거를<br>동시에 종합</td>
+                <td>(당시 미측정 영역)</td>
+                <td><b>Gemini 3 89% · GPT-5.5 74%</b><br>일부 모델 41% (8니들)</td>
+                <td><span class="pill r">잔존</span></td>
+              </tr>
+              <tr>
+                <td class="task-c">실효 컨텍스트</td>
+                <td>한계치 훨씬 전에 저하 시작</td>
+                <td>광고 용량의 <b>50~65%</b> (NVIDIA RULER)</td>
+                <td><span class="pill r">잔존</span></td>
+              </tr>
+              <tr>
+                <td class="task-c">모델 간 편차</td>
+                <td>검증 대상 18개 모델 전부 저하</td>
+                <td>모델·과제에 따라 크게 상이</td>
+                <td><span class="pill b">변화</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="note">원 연구 · Chroma "Context Rot"(2025-07-14, 대상 모델 GPT-4.1·Claude 4·Gemini 2.5·Qwen3 등 18종 — 현 시점 이전 세대). 2026년 수치는 업계 벤치마크 집계 기준.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 05 벤더 행동 근거 ===== -->
+    <section class="slide">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <span class="sec-num">02 / 관점</span>
+          <p class="kicker">가장 강한 근거</p>
+          <h2>컨텍스트 창이 커진 것과 관리가 불필요해진 것은 다릅니다</h2>
+          <p class="lead">벤치마크보다 확실한 증거는 벤더가 실제로 무엇을 만드는가입니다.</p>
+          <div class="grid g2">
+            <div class="case">
+              <div class="ctop"><div class="co">1M 창인데 967K에서 압축</div><div class="cat">공식 문서</div></div>
+              <div class="desc">Sonnet 5는 100만 토큰 창을 갖고도 약 96.7만 토큰에서 자동 압축합니다. 벤더 스스로 창을 끝까지 쓰지 않습니다.</div>
+            </div>
+            <div class="case">
+              <div class="ctop"><div class="co">창을 좁히는 옵션을 공식 제공</div><div class="cat">공식 문서</div></div>
+              <div class="desc">1M 모델을 200K로 묶는 설정을 "컨텍스트를 제한해야 하는 배포에 유용"하다고 안내합니다.</div>
+            </div>
+            <div class="case">
+              <div class="ctop"><div class="co">관리 기능을 계속 개발 중</div><div class="cat">공식 문서</div></div>
+              <div class="desc">대화 압축·곁가지 질문 격리·자동 압축 임계 조정·도구 정의 지연 로딩. 해결된 문제라면 만들 이유가 없습니다.</div>
+            </div>
+            <div class="case">
+              <div class="ctop"><div class="co">권고가 철회되지 않음</div><div class="cat">공식 문서</div></div>
+              <div class="desc">"지침 파일 200줄 이하 유지", "작업이 바뀌면 세션 초기화" 권고가 2026년 현재도 유지되고 있습니다.</div>
+            </div>
+          </div>
+          <div class="quote" style="margin-top:16px">
+            <div class="q">원하는 결과를 낼 확률을 최대화하는,<br>가장 작은 고신호(high-signal) 토큰 집합을 찾는 것</div>
+            <div class="by">컨텍스트 관리의 원칙 — 모델 세대와 무관하게 성립</div>
+          </div>
+          <p class="note">출처 · Anthropic 공식 문서(Model configuration / Context window / Prompt caching), 2026-08 확인</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 06 방향성 ===== -->
+    <section class="slide">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <span class="sec-num">03 / 방향</span>
+          <p class="kicker">제안 방향</p>
+          <h2>토큰만 다루면 실패합니다. <span style="color:var(--primary)">세션·컨텍스트를 함께</span> 관리해야 합니다</h2>
+          <p class="lead">낭비가 발생하는 다섯 지점을 진단하고, 네 개 모듈로 재구성했습니다.</p>
+          <div class="grid g4" style="margin-bottom:16px">
+            <div class="task"><div class="ti">✍️</div><div class="tt">프롬프트</div><div class="td">모호한 지시가 부르는 <b>재작업 왕복</b>과 출력 폭주</div></div>
+            <div class="task"><div class="ti">📚</div><div class="tt">컨텍스트</div><div class="td">대화 누적 <b>재전송</b>과 상시 로드되는 지침</div></div>
+            <div class="task"><div class="ti">🔀</div><div class="tt">하네스</div><div class="td">잔일까지 <b>고성능 모델</b>로, 도구 정의 과다 주입</div></div>
+            <div class="task"><div class="ti">🔁</div><div class="tt">루프 · 모니터링</div><div class="td"><b>종료조건 부재</b>와 소비 무자각</div></div>
+          </div>
+          <div class="flow">
+            <div class="step"><div class="st">MODULE 1</div><div class="sd">진단</div><div class="ss">무엇이 크레딧을 태우는가</div></div>
+            <div class="step"><div class="st">MODULE 2</div><div class="sd">입력 설계</div><div class="ss">무엇을 넣을 것인가</div></div>
+            <div class="step"><div class="st">MODULE 3</div><div class="sd">실행 구조</div><div class="ss">어떻게 돌릴 것인가</div></div>
+            <div class="step"><div class="st">MODULE 4</div><div class="sd">관제</div><div class="ss">어떻게 유지할 것인가</div></div>
+          </div>
+          <p class="note">모듈 2는 개인이 오늘 바꿀 수 있는 영역, 모듈 3은 절감 폭이 가장 큰 영역, 모듈 4는 나머지를 지속시키는 전제입니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 07 커리큘럼 표 ===== -->
+    <section class="slide">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <span class="sec-num">04 / 커리큘럼</span>
+          <p class="kicker">제안 커리큘럼</p>
+          <h2>토큰 절감·관리 실전 — 크레딧 런웨이 운영</h2>
+          <p class="lead">팁을 듣는 과정이 아니라 <b style="color:var(--primary-dk)">본인 소비량을 직접 측정하고 줄이는</b> 실측형 과정입니다.</p>
+          <table class="prop">
+            <thead>
+              <tr><th class="c" style="width:6%">M</th><th style="width:24%">모듈</th><th style="width:70%">학습 내용</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="trk">1</td>
+                <td class="course">토큰 소비 구조와<br>크레딧 런웨이 진단</td>
+                <td class="core">· 입력·출력·캐시·사고 토큰의 단가 구조와 소비 발생 지점 파악<br>· 크레딧 런웨이 산식과 티어별 일 번레이트 기준선 설정<br>· <b>실습 주제 예시</b> : 표준 업무 과제 1건을 평소 방식대로 수행하고 소비량 기준선(before) 실측</td>
+              </tr>
+              <tr>
+                <td class="trk">2</td>
+                <td class="course">요청 설계와<br>컨텍스트 관리</td>
+                <td class="core">· 의도·완료조건·출력형식 3요소 지시 설계 및 출력 분량 통제<br>· 세션 분리·압축·온디맨드 로드 판단 기준(Write·Select·Compress·Isolate)<br>· <b>실습 주제 예시</b> : 동일 과제를 모호 지시와 3요소 지시로 각각 수행해 소비 비교, 사내 지침 파일을 상시/온디맨드로 분리</td>
+              </tr>
+              <tr>
+                <td class="trk">3</td>
+                <td class="course">모델 라우팅과<br>실행 루프 설계</td>
+                <td class="core">· 작업 난이도별 모델 배정, 도구 최소화와 서브에이전트 컨텍스트 격리<br>· 종료조건 3종(반복 상한·예산 상한·무진전 감지)과 승인 게이트 구성<br>· <b>실습 주제 예시</b> : 단일 상위 모델 방식과 브레인-실행기 분업 방식의 소비·소요시간·품질 3축 비교</td>
+              </tr>
+              <tr>
+                <td class="trk">4</td>
+                <td class="course">소비 가시화와<br>런웨이 운영</td>
+                <td class="core">· 소비 귀속 분석과 캐시 건강도 지표 해석<br>· 조직 단위 관측 체계, 티어 배분과 임계 알림 운영<br>· <b>실습 주제 예시</b> : 최근 소비를 분해해 상위 3개 소모원을 식별하고 개선 레버 지정, 30일 런웨이 계획서 작성</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="note">시간 배분은 운영 형태(임원 세미나 / 반나절 / 1일) 확정 후 확정합니다. 실습 명령·설정은 사내 도입 제품 확인 후 시트로 제공합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 08 모듈별 핵심 레버 ===== -->
+    <section class="slide">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <span class="sec-num">04 / 커리큘럼</span>
+          <p class="kicker">모듈별 핵심 레버</p>
+          <h2>각 모듈에서 수강생이 손에 쥐는 것</h2>
+          <p class="lead">모든 레버는 근거 수치와 함께 제시하고, 실습으로 본인 환경에서 재확인시킵니다.</p>
+          <div class="grid g4">
+            <div class="track t1">
+              <div class="th"><div class="tk">MODULE 1</div><div class="tn">진단</div><div class="tp">토큰 소비 구조</div></div>
+              <div class="tb" style="font-size:12px;color:var(--body)">
+                <b>출력은 입력의 5~10배</b> 단가이며 캐시 할인 대상이 아님<br><br>
+                <b>번레이트 기준선</b> = 월 크레딧 ÷ 근무일<br><br>
+                <span class="badge badge-red">산출물 · before 실측치</span>
+              </div>
+            </div>
+            <div class="track t2">
+              <div class="th"><div class="tk">MODULE 2</div><div class="tn">입력 설계</div><div class="tp">요청 · 컨텍스트</div></div>
+              <div class="tb" style="font-size:12px;color:var(--body)">
+                재작업 루프가 전체 토큰의 <b>약 59%</b><br><br>
+                컨텍스트 편집으로 <b>최대 84% 감소</b><br><br>
+                <span class="badge badge-red">산출물 · 지시 템플릿</span>
+              </div>
+            </div>
+            <div class="track t3">
+              <div class="th"><div class="tk">MODULE 3</div><div class="tn">실행 구조</div><div class="tp">라우팅 · 루프</div></div>
+              <div class="tb" style="font-size:12px;color:var(--body)">
+                모델 라우팅 <b>40~85% 절감</b>, 품질 90~95% 유지<br><br>
+                재시도 폭주 시 낭비율 <b>5%→80%+</b><br><br>
+                <span class="badge badge-purple">산출물 · 모델 배정표</span>
+              </div>
+            </div>
+            <div class="track t4">
+              <div class="th"><div class="tk">MODULE 4</div><div class="tn">관제</div><div class="tp">가시화 · 운영</div></div>
+              <div class="tb" style="font-size:12px;color:var(--body)">
+                소비의 <b>10% 이상</b> 차지 원인은 자동 식별 가능<br><br>
+                에이전트 팀은 표준 세션 대비 <b>약 7배</b><br><br>
+                <span class="badge badge-blue">산출물 · 30일 런웨이 계획서</span>
+              </div>
+            </div>
+          </div>
+          <p class="note">수치 출처 및 신뢰도 등급은 다음 장 참조. 삼성 환경 실측 감축률은 모듈 1·4의 before/after 비교로 산출합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 09 기대 효과 ===== -->
+    <section class="slide">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <span class="sec-num">05 / 효과</span>
+          <p class="kicker">기대 효과</p>
+          <h2>같은 업무량, 더 긴 런웨이</h2>
+          <p class="lead">교육 전후로 수강생의 업무 방식이 어떻게 바뀌는지입니다.</p>
+          <div class="ba-head">
+            <div>업무 상황</div><div>교육 전</div><div></div><div class="h-after">교육 후</div><div>변화</div>
+          </div>
+          <div class="ba">
+            <div class="task-name">AI에 업무 지시</div>
+            <div class="before">한 줄로 던지고 결과를 보며 수차례 교정</div>
+            <div class="arrow">→</div>
+            <div class="after">의도·완료조건·출력형식 3요소를 먼저 지정</div>
+            <div class="gain">재작업<br>왕복 감소</div>
+          </div>
+          <div class="ba">
+            <div class="task-name">대화 세션 운용</div>
+            <div class="before">하루 종일 한 대화를 이어서 사용</div>
+            <div class="arrow">→</div>
+            <div class="after">작업 단위로 분리, 오염 시 새 세션으로 전환</div>
+            <div class="gain">누적<br>재전송 차단</div>
+          </div>
+          <div class="ba">
+            <div class="task-name">모델 선택</div>
+            <div class="before">모든 작업을 최고 성능 모델로 처리</div>
+            <div class="arrow">→</div>
+            <div class="after">난이도별 배정 — 잔일은 경량, 판단은 상위</div>
+            <div class="gain">환산율<br>차익 확보</div>
+          </div>
+          <div class="ba">
+            <div class="task-name">자동화 운용</div>
+            <div class="before">종료조건 없이 실행, 실패해도 계속 재시도</div>
+            <div class="arrow">→</div>
+            <div class="after">반복 상한·예산 상한·2회 실패 시 사람 호출</div>
+            <div class="gain">폭주 위험<br>제거</div>
+          </div>
+          <div class="ba">
+            <div class="task-name">소비 관리</div>
+            <div class="before">총량만 인지, 월말에 고갈을 뒤늦게 발견</div>
+            <div class="arrow">→</div>
+            <div class="after">번레이트 기준선 대비 주간 점검, 원인 분해</div>
+            <div class="gain">월초<br>조정 가능</div>
+          </div>
+          <p class="note">절감률은 수강생이 모듈 1의 before와 모듈 4의 after를 직접 비교해 산출합니다. 문헌 감축률은 단순 합산되지 않으므로 실측을 기준으로 합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 10 출처 신뢰도 ===== -->
+    <section class="slide">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <span class="sec-num">06 / 근거</span>
+          <p class="kicker">출처 신뢰도</p>
+          <h2>모든 수치에 근거 등급을 표기합니다</h2>
+          <p class="lead">교육 자료에 인용되는 수치는 아래 3등급으로 구분해 강사와 수강생 모두가 확신 수준을 알 수 있게 합니다.</p>
+          <div style="margin-top:4px">
+            <div class="srcgrade">
+              <span class="sg official">공식</span>
+              <div class="sd2"><b>벤더 공식 문서에서 직접 확인</b> — 캐시 읽기 정가의 약 10% · 에이전트 팀 표준 세션 대비 약 7배 · 컴팩션 생존 규칙 · 1M 모델의 967K 자동 압축 · 200K 캡 옵션 · 지침 파일 200줄 권고<br><span style="color:var(--muted)">그대로 인용 가능. 교육 자료의 뼈대로 사용합니다.</span></div>
+            </div>
+            <div class="srcgrade">
+              <span class="sg research">연구</span>
+              <div class="sd2"><b>논문·벤치마크</b> — Chroma "Context Rot"(2025-07-14) · NVIDIA RULER 실효 컨텍스트 50~65% · ACE(ICLR 2026, brevity bias·context collapse)<br><span style="color:var(--muted)">발표 시점과 대상 모델 세대를 반드시 병기합니다.</span></div>
+            </div>
+            <div class="srcgrade">
+              <span class="sg industry">업계</span>
+              <div class="sd2"><b>2026년 블로그·리포트 집계</b> — 재작업 루프 약 59% · 모델 라우팅 40~85% · 컨텍스트 편집 84% 감소 · 8니들 74~89% · 재시도 폭주 5%→80%+<br><span style="color:var(--muted)">"업계 벤치마크 기준" 단서를 붙여 인용합니다. 1차 출처 확인 후 등급을 상향합니다.</span></div>
+            </div>
+          </div>
+          <div class="why" style="margin-top:16px;padding:16px 20px">
+            <h3 style="font-size:15px">근거 관리 원칙</h3>
+            <ul style="font-size:12.5px">
+              <li><b>시점을 감춘 인용은 하지 않습니다.</b> 모델 세대가 바뀌면 성립하지 않는 주장이 있습니다.</li>
+              <li><b>좋아진 부분은 먼저 인정합니다.</b> 단일 검색이 해결됐음을 인정한 뒤 남은 문제를 말할 때 설득력이 생깁니다.</li>
+              <li><b>수치가 흔들려도 논지가 서도록</b> 공식 등급 근거만으로 성립하는 구조로 설계했습니다.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 11 운영 형태 + 확인 사항 ===== -->
+    <section class="slide">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <span class="sec-num">07 / 운영</span>
+          <p class="kicker">운영 형태와 선행 확인</p>
+          <h2>운영 형태는 선택 가능, 다만 실측 구간은 유지합니다</h2>
+          <div class="split" style="align-items:start">
+            <div>
+              <table class="tbl">
+                <thead><tr><th style="width:26%">형태</th><th>구성</th></tr></thead>
+                <tbody>
+                  <tr><td class="task-c">임원 세미나</td><td>모듈 1의 문제 정의 + 모듈 2~4의 핵심 레버 각 1개 + 조직 결정 사항. 실습 제외</td></tr>
+                  <tr><td class="task-c">반나절</td><td>모듈 1·2·3 실습 유지, 모듈 4는 강의·데모로 축소</td></tr>
+                  <tr><td class="task-c">1일</td><td>4개 모듈 전체 + before/after 실측 완주</td></tr>
+                </tbody>
+              </table>
+              <div class="warn" style="margin-top:14px">
+                <div class="wh">어느 형태든 반드시 유지</div>
+                <ul>
+                  <li><b>모듈 1의 기준선 측정</b>과 <b>모듈 4의 after 측정</b>을 빼면 실측형 과정이 아니라 일반 강의가 됩니다.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="why" style="padding:18px 20px">
+              <h3 style="font-size:15px">선행 확인 사항</h3>
+              <ul style="font-size:12.5px">
+                <li><b>사내 도입 AI 제품</b> — 실습 명령·설정 시트 전체가 좌우됩니다</li>
+                <li><b>Tier1~4 크레딧 수량과 환산율</b> — 모듈 1의 번레이트 기준선 수치</li>
+                <li><b>수강생이 쓰는 표면</b> (웹 채팅 / IDE / CLI) — 모듈 2·3의 실습 가능 범위</li>
+                <li><b>본인 소비량 확인 UI 제공 여부</b> — 모듈 1·4 실측의 성립 조건</li>
+              </ul>
+            </div>
+          </div>
+          <p class="note">본 제안서는 사내 도입 제품 미확정 상태에서 <b>벤더 중립 원리</b>로 작성했습니다. 제품 확정 후 실습 시트를 해당 제품 기준으로 구체화합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 12 맺음말 ===== -->
+    <section class="slide closing">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <p class="kicker">맺음말</p>
+          <h2>크레딧을 아끼는 일과 정답률을 올리는 일은<br>같은 방향입니다</h2>
+          <p class="msg">이 과정은 "덜 쓰라"고 말하지 않습니다. 같은 크레딧으로 더 많은 산출을 내고, 월말까지 멈추지 않는 방식을 만드는 것이 목표입니다. 수강생은 자기 소비량을 직접 측정하고, 자기 환경에서의 절감률을 숫자로 확인한 뒤 30일 런웨이 계획서를 들고 돌아갑니다.</p>
+          <div class="sign">
+            <span><b>모두의연구소</b> · 비즈팀 · 사업PM</span>
+            <span><b>강은숙</b> · es.kang@modulabs.co.kr</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 13 부록 표지 ===== -->
+    <section class="slide appendix-cover">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <p class="kicker">APPENDIX</p>
+          <h2>부록 · 강사 교안 및 장표 구성 가이드</h2>
+          <p class="msg">이 부록은 고객 제출용이 아니라 <b style="color:#ffd0d4">강의를 맡을 강사와 장표를 다듬을 담당자를 위한 내부 문서</b>입니다.<br>어떤 순서로 설득할 것인지, 각 장에서 무엇을 말하고 무엇을 말하지 않을 것인지를 정리했습니다.</p>
+          <div class="cover-meta" style="border-color:rgba(255,255,255,.18)">
+            <span><b>수록</b> · 설득 구조 원칙</span>
+            <span><b>수록</b> · 장표별 전달 포인트</span>
+            <span><b>수록</b> · 예상 질문 대응 스크립트</span>
+            <span><b>수록</b> · 인용 금지 목록</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 14 부록 - 설득 구조 ===== -->
+    <section class="slide">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <span class="sec-num">부록 A / 교안</span>
+          <p class="kicker">설득 구조</p>
+          <h2>이 덱은 세 번의 전환으로 설계되어 있습니다</h2>
+          <p class="lead">순서를 바꾸면 설득력이 무너집니다. 각 전환이 앞 단계의 저항을 제거하는 구조입니다.</p>
+          <div class="flow" style="margin-bottom:18px">
+            <div class="step"><div class="st">전환 1 · 02~03장</div><div class="sd">비용 → 런웨이</div><div class="ss">"비싸다"가 아니라<br>"멈춘다"로 문제를 옮김</div></div>
+            <div class="step"><div class="st">전환 2 · 04~05장</div><div class="sd">절제 → 개선</div><div class="ss">"아끼면 손해"라는<br>전제를 깨뜨림</div></div>
+            <div class="step"><div class="st">전환 3 · 06~08장</div><div class="sd">각오 → 조작법</div><div class="ss">"노력하자"가 아니라<br>구체적 손동작으로</div></div>
+          </div>
+          <div class="grid g3">
+            <div class="guide">
+              <div class="gh">전환 1을 놓치면</div>
+              <div class="gb">임원은 이 주제를 <b>비용 절감 잔소리</b>로 분류합니다. 그 순간 위임 대상이 되고 본인 행동은 바뀌지 않습니다. 반드시 <b>"14일차에 멈춘다"</b>는 업무 중단 문제로 제시하십시오.</div>
+            </div>
+            <div class="guide">
+              <div class="gh">전환 2를 놓치면</div>
+              <div class="gb">이후 모든 내용이 <b>"참으라는 얘기"</b>로 들립니다. 04장은 이 덱에서 가장 중요한 장입니다. 줄이는 것이 품질을 <b>올린다</b>는 점을 먼저 세우고 나서야 조작법이 받아들여집니다.</div>
+            </div>
+            <div class="guide">
+              <div class="gh">전환 3을 놓치면</div>
+              <div class="gb">공감은 하지만 <b>월요일에 아무것도 바뀌지 않습니다</b>. 추상적 원칙 대신 "작업이 바뀌면 새 대화", "잔일은 경량 모델로" 같은 <b>당장 할 수 있는 동작</b>으로 끝내십시오.</div>
+            </div>
+          </div>
+          <p class="note">임원 대상 30분 세션은 전환 1·2에 시간의 3분의 1을 쓰고, 나머지를 전환 3에 씁니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 15 부록 - 장표별 전달 포인트 ===== -->
+    <section class="slide">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <span class="sec-num">부록 B / 교안</span>
+          <p class="kicker">장표별 전달 포인트 (1/2)</p>
+          <h2>각 장에서 무엇을 말하고 무엇을 하지 않을 것인가</h2>
+          <table class="tbl">
+            <thead><tr><th style="width:16%">장표</th><th style="width:42%">말할 것</th><th style="width:42%">하지 말 것</th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="task-c">02 배경</td>
+                <td>고객 발언을 그대로 인용해 시작. "우리 얘기"로 인식시키는 것이 목적</td>
+                <td>토큰 개념 설명부터 들어가지 말 것. 문제 공감 없이 개념을 넣으면 남지 않음</td>
+              </tr>
+              <tr>
+                <td class="task-c">03 런웨이</td>
+                <td>산식은 한 번만 읽고 <b>"12일차에 인지하면 73.5% 감축이 필요"</b>에 시간을 쓸 것</td>
+                <td>수치를 실측치처럼 단정하지 말 것. 크레딧 수량 미확인 상태이므로 "예시"임을 밝힐 것</td>
+              </tr>
+              <tr>
+                <td class="task-c">04 이전/현재</td>
+                <td>좋아진 것(96~99%)을 <b>먼저</b> 인정하고 남은 것(74~89%)을 말할 것. 이 순서가 설득의 핵심</td>
+                <td>2025년 결과를 현재형으로 말하지 말 것. "단순 검색조차 틀린다"는 지금 사실이 아님</td>
+              </tr>
+              <tr>
+                <td class="task-c">05 벤더 근거</td>
+                <td>"만드는 것을 보라"는 관점. 벤치마크 논쟁을 우회하는 <b>가장 안전한 근거</b></td>
+                <td>특정 벤더 홍보로 들리지 않게 할 것. 제품이 아니라 업계 공통 방향으로 제시</td>
+              </tr>
+              <tr>
+                <td class="task-c">06 방향성</td>
+                <td>다섯 지점을 빠르게 훑고 네 모듈로 묶이는 <b>구조</b>만 남길 것</td>
+                <td>여기서 각 기법을 설명하지 말 것. 상세는 모듈 안에서 다룸</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 16 부록 - 장표별 전달 포인트 2 ===== -->
+    <section class="slide">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <span class="sec-num">부록 B / 교안</span>
+          <p class="kicker">장표별 전달 포인트 (2/2)</p>
+          <h2>커리큘럼 이후 구간</h2>
+          <table class="tbl">
+            <thead><tr><th style="width:16%">장표</th><th style="width:42%">말할 것</th><th style="width:42%">하지 말 것</th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="task-c">07 커리큘럼</td>
+                <td>모듈명보다 <b>실습 주제</b>를 읽을 것. "무엇을 하게 되는가"가 구매 결정 요인</td>
+                <td>모듈을 순서대로 낭독하지 말 것. 청중은 표를 이미 읽고 있음</td>
+              </tr>
+              <tr>
+                <td class="task-c">08 핵심 레버</td>
+                <td>수치는 <b>하나만 강조</b>. 임원 대상이면 재작업 59%, 실무자 대상이면 라우팅 40~85%</td>
+                <td>여덟 개 수치를 다 읽지 말 것. 하나도 안 남음</td>
+              </tr>
+              <tr>
+                <td class="task-c">09 기대 효과</td>
+                <td>청중 직무에 맞는 <b>한 행</b>을 골라 자기 사례처럼 풀어낼 것</td>
+                <td>절감률을 약속하지 말 것. 실측 결과라는 점을 분명히 할 것</td>
+              </tr>
+              <tr>
+                <td class="task-c">10 출처 등급</td>
+                <td>이 장 자체가 <b>신뢰 확보 장치</b>. "확실한 것과 아닌 것을 구분해 드립니다"로 프레이밍</td>
+                <td>등급을 변명처럼 말하지 말 것. 투명성은 약점이 아니라 차별점</td>
+              </tr>
+              <tr>
+                <td class="task-c">11 운영·확인</td>
+                <td>선행 확인 4항목을 <b>과제로 남길 것</b>. 회신이 있어야 다음 단계가 진행됨을 명확히</td>
+                <td>확인 없이 진행 가능한 것처럼 말하지 말 것</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="note">임원 30분 세션에서는 07~09를 각 3분 이내로 압축하고, 10·11은 배포 자료로 대체합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 17 부록 - 예상 질문 대응 ===== -->
+    <section class="slide">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <span class="sec-num">부록 C / 교안</span>
+          <p class="kicker">예상 질문 대응 스크립트</p>
+          <h2>이 질문들은 반드시 나옵니다</h2>
+          <p class="lead">답변의 원칙은 하나입니다 — <b style="color:var(--primary-dk)">맞는 지적은 먼저 인정하고 시작합니다.</b></p>
+          <div class="grid g2">
+            <div class="script">
+              <div class="sq">Q. "요즘 모델은 컨텍스트 문제 해결했다던데요?"</div>
+              <div class="sa"><b>맞다고 인정하고 시작합니다.</b> "단일 사실 검색은 96~99%로 사실상 해결됐습니다. 다만 여러 근거를 동시에 모아 종합하는 과제는 74~89%이고, 실무는 대부분 후자입니다."<br><span style="color:var(--primary-dk)">방어하려 들면 그 자리에서 신뢰를 잃습니다.</span></div>
+            </div>
+            <div class="script">
+              <div class="sq">Q. "컨텍스트 창이 100만인데 왜 관리가 필요한가요?"</div>
+              <div class="sa">"벤더 자신이 1M 모델을 <b>약 96.7만에서 자동 압축</b>하고, 창을 20만으로 묶는 옵션을 공식 제공합니다. 벤치마크 기준 실효 컨텍스트도 광고 용량의 50~65%입니다."</div>
+            </div>
+            <div class="script">
+              <div class="sq">Q. "결국 덜 쓰라는 얘기 아닌가요?"</div>
+              <div class="sa">"반대입니다. 목표는 <b>같은 크레딧으로 더 많은 산출</b>입니다. 미사용 크레딧이 이월되지 않는다면 아끼는 것도 손실입니다. 관리 대상은 총량이 아니라 번레이트입니다."</div>
+            </div>
+            <div class="script">
+              <div class="sq">Q. "실습에 크레딧을 쓰는 게 부담됩니다"</div>
+              <div class="sa">"실습 총 소모량은 사전에 고지드립니다. 다만 <b>측정 없이 절감은 불가능</b>합니다. 기준선을 모르면 무엇이 효과가 있었는지 확인할 방법이 없습니다."</div>
+            </div>
+            <div class="script">
+              <div class="sq">Q. "우리 환경에서도 그 절감률이 나옵니까?"</div>
+              <div class="sa">"문헌 수치는 <b>단순 합산되지 않습니다.</b> 그래서 이 과정은 절감률을 약속하지 않고, 모듈 1과 4에서 <b>본인 환경의 실측치</b>를 직접 산출하게 설계했습니다."</div>
+            </div>
+            <div class="script">
+              <div class="sq">Q. "이건 개발자 얘기 아닌가요?"</div>
+              <div class="sa">"모듈 2의 요청 설계와 세션 관리는 웹 채팅 사용자에게도 그대로 적용됩니다. 모듈 3·4의 일부는 도구 환경에 따라 달라지므로, <b>수강생이 쓰는 표면을 먼저 확인</b>해 구성을 조정합니다."</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 18 부록 - 인용 금지 및 장표 제작 규칙 ===== -->
+    <section class="slide">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <span class="sec-num">부록 D / 교안</span>
+          <p class="kicker">인용 금지 및 장표 제작 규칙</p>
+          <h2>이 문장들은 쓰지 않습니다</h2>
+          <div class="split" style="align-items:start">
+            <div>
+              <div class="warn">
+                <div class="wh">인용 금지 목록</div>
+                <ul>
+                  <li>"18개 프런티어 모델 전부에서 단순 검색조차 틀린다" — <b>2025년 7월 기준</b>이며 현재 모델에는 성립하지 않음</li>
+                  <li>"정답이 중간에 있으면 30% 이상 떨어진다"를 <b>현재형으로</b> 단정 — 모델별 편차가 큼</li>
+                  <li>"컨텍스트 창이 100만이 돼도 해결되지 않는다" — 단정 대신 <b>실효 50~65%</b> 수치로 대체</li>
+                  <li>절감률 <b>약속</b> ("40% 줄여드립니다") — 실측 기반으로만 제시</li>
+                  <li>문헌 감축률의 <b>단순 합산</b> ("40%+50%=90%") — 결합 효과는 곱해지지 않음</li>
+                </ul>
+              </div>
+              <div class="guide" style="margin-top:14px">
+                <div class="gh">수치를 말할 때의 형식</div>
+                <div class="gb"><b>[공식]</b> 등급은 그대로 · <b>[연구]</b> 등급은 "발표 시점 + 대상 모델"을 붙여서 · <b>[업계]</b> 등급은 "업계 벤치마크 기준"을 붙여서 말합니다.</div>
+              </div>
+            </div>
+            <div>
+              <div class="guide">
+                <div class="gh">장표 제작 규칙 · 밀도</div>
+                <div class="gb">한 장에 <b>제목 + 리드 + 본문 블록 1~2개</b>. 표가 12행을 넘거나 카드가 6개를 넘으면 두 장으로 나눕니다. 자동 축소는 안전망이지 밀어 넣는 핑계가 아닙니다.</div>
+              </div>
+              <div class="guide" style="margin-top:12px">
+                <div class="gh">장표 제작 규칙 · 한 장 한 메시지</div>
+                <div class="gb">각 장의 <b>h2가 곧 주장</b>이어야 합니다. "커리큘럼 소개" 같은 라벨형 제목 대신 "토큰만 다루면 실패합니다"처럼 <b>문장형 주장</b>으로 씁니다.</div>
+              </div>
+              <div class="guide" style="margin-top:12px">
+                <div class="gh">장표 제작 규칙 · 근거 표기</div>
+                <div class="gb">수치가 등장한 장에는 <b>반드시 하단 각주</b>를 답니다. 각주가 없는 수치는 장표에 올리지 않습니다.</div>
+              </div>
+              <div class="guide" style="margin-top:12px">
+                <div class="gh">장표 제작 규칙 · 미확정 표기</div>
+                <div class="gb">확인 전 수치는 <b>"예시"</b>로 명시합니다. 확정된 것처럼 보이는 순간 신뢰 회복이 어렵습니다.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  const deck   = document.getElementById('deck');
+  const nav    = document.getElementById('nav');
+  const numEl  = document.getElementById('slideNum');
+  const slides = Array.from(deck.querySelectorAll('.slide'));
+  const total  = slides.length;
+  let current  = 0;
+
+  function fitStage(){
+    const k = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+    deck.style.transform = 'scale(' + k + ')';
+  }
+
+  function fitContent(slide){
+    const frame = slide.querySelector('.fit-frame');
+    const content = slide.querySelector('.fit-content');
+    if(!frame || !content) return;
+    content.style.transform = 'none';
+    const avail = frame.clientHeight;
+    const need  = content.scrollHeight;
+    if(need > avail){
+      content.style.transform = 'scale(' + (avail / need).toFixed(4) + ')';
+    }
+  }
+
+  slides.forEach((slide, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot';
+    dot.type = 'button';
+    dot.title = '슬라이드 ' + (i + 1);
+    dot.addEventListener('click', () => go(i));
+    nav.appendChild(dot);
+  });
+  const dots = Array.from(nav.querySelectorAll('.nav-dot'));
+
+  function go(i){
+    if(i < 0 || i >= total) return;
+    slides[current].classList.remove('is-active');
+    dots[current].classList.remove('active');
+    current = i;
+    slides[current].classList.add('is-active');
+    dots[current].classList.add('active');
+    numEl.textContent = (current + 1) + ' / ' + total;
+    fitContent(slides[current]);
+  }
+
+  window.addEventListener('resize', () => { fitStage(); fitContent(slides[current]); });
+  window.addEventListener('load', () => { slides.forEach(fitContent); });
+  window.addEventListener('beforeprint', () => slides.forEach(fitContent));
+
+  document.addEventListener('keydown', e => {
+    if(e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' '){ e.preventDefault(); go(current + 1); }
+    if(e.key === 'ArrowLeft'  || e.key === 'ArrowUp'){ e.preventDefault(); go(current - 1); }
+    if(e.key === 'Home'){ e.preventDefault(); go(0); }
+    if(e.key === 'End'){ e.preventDefault(); go(total - 1); }
+    if(e.key.toLowerCase() === 'f'){
+      if(!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+
+  fitStage();
+  go(0);
+})();
+</script>
+</body>
+</html>

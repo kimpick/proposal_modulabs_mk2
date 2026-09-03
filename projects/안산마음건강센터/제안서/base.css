@@ -1,0 +1,50 @@
+/* ═══════════════════════════════════════════════════════════
+   안산마음건강센터 — 프로젝트 맞춤 CSS 오버라이드
+   guide 템플릿 기반, 3시간 단일 워크샵에 최적화
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── guide 템플릿 info-grid를 2x2에서 1x4로 조정 (4개 항목 가로 배치) ── */
+.info-grid-2x2 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* ── curriculum_table: Part 구분을 명확하게 ── */
+.day-block {
+    border-left: 3px solid #EE3E4C;
+}
+
+/* ── 실습 세션 행에 배경색 구분 ── */
+.day-table tr td:first-child:contains("실습") {
+    background: #FFF5F5;
+}
+
+/* ── schedule-card: 단일 워크샵이므로 폭 확장 ── */
+.schedule-grid {
+    grid-template-columns: 1fr;
+}
+
+/* ── 강사 카드: 1명이므로 여백 최적화 ── */
+.instructor-card {
+    padding: 20px 24px;
+}
+
+.ic-summary {
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* ── 산출물 섹션 강조 ── */
+.content-box ul li b {
+    color: #EE3E4C;
+}
+
+/* ── PDF 페이지 분할 최적화: Part 단위로 묶어서 분할 방지 ── */
+.day-block {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+/* ── 사전 준비 그리드: 2개 항목 가로 배치 ── */
+.prep-grid {
+    grid-template-columns: 1fr 1fr;
+}

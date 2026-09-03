@@ -1,0 +1,236 @@
+/* ═══════════════════════════════════════════════════════════
+   모두의연구소 — Workshop (Day 기반) 전용 스타일
+   base.css 위에 덧씌우는 추가 스타일
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─ Day 블록 전체 컨테이너 ─ */
+.day-block {
+    margin-bottom: 32px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+/* ─ Day 헤더 ─ */
+.day-header {
+    display: flex;
+    align-items: stretch;
+    border-radius: 12px 12px 0 0;
+    background: #111111;
+    overflow: hidden;
+    page-break-after: avoid;
+    break-after: avoid;
+}
+
+.day-number-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 28px;
+    background: #EE3E4C;
+    min-width: 90px;
+    flex-shrink: 0;
+}
+.day-label {
+    font-size: 10px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+.day-num {
+    font-size: 38px;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1;
+}
+
+.day-info {
+    padding: 18px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    flex-grow: 1;
+}
+.day-theme {
+    font-size: 10px;
+    font-weight: 800;
+    color: #EBBAC0;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+.day-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.4;
+    word-break: keep-all;
+}
+.day-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.day-duration {
+    font-size: 12px;
+    font-weight: 700;
+    color: #aaaaaa;
+}
+.day-tools {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.day-tool-chip {
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50px;
+    padding: 2px 10px;
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.75);
+}
+
+/* ─ 세션 목록 ─ */
+.session-list {
+    border: 1px solid #EBEBEB;
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+}
+
+.session-row {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid #EBEBEB;
+}
+.session-row:last-child {
+    border-bottom: none;
+}
+
+/* ─ 세션 왼쪽: 번호 + 타입 ─ */
+.session-left {
+    width: 80px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 18px 10px 18px 14px;
+    border-right: 1px solid #EBEBEB;
+    background: #fafafa;
+    gap: 8px;
+}
+.session-num {
+    font-size: 11px;
+    font-weight: 900;
+    color: #EBBAC0;
+    letter-spacing: 0.04em;
+}
+.session-type-badge {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    padding: 3px 7px;
+    border-radius: 50px;
+    text-align: center;
+    white-space: nowrap;
+}
+.badge-lecture {
+    background: #FFF0F1;
+    color: #EE3E4C;
+    border: 1px solid #EBBAC0;
+}
+.badge-handson {
+    background: #F0F4FF;
+    color: #3B5BDB;
+    border: 1px solid #BAC8FF;
+}
+.badge-workshop {
+    background: #F0FFF4;
+    color: #2F9E44;
+    border: 1px solid #B2F2BB;
+}
+.badge-hackathon {
+    background: #FFF8E1;
+    color: #E67700;
+    border: 1px solid #FFD43B;
+}
+
+/* ─ 세션 중앙: 이름 + 내용 ─ */
+.session-center {
+    flex-grow: 1;
+    padding: 16px 20px;
+    min-width: 0;
+}
+.session-name {
+    font-size: 13px;
+    font-weight: 800;
+    color: #111111;
+    margin-bottom: 10px;
+    word-break: keep-all;
+    line-height: 1.45;
+}
+.session-items {
+    margin: 0;
+    padding-left: 14px;
+    list-style: none;
+}
+.session-items li {
+    position: relative;
+    padding-left: 12px;
+    margin-bottom: 5px;
+    font-size: 12.5px;
+    color: #333333;
+    line-height: 1.65;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.session-items li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 4px;
+    height: 4px;
+    background: #EE3E4C;
+    border-radius: 50%;
+}
+
+/* ─ 세션 오른쪽: 시간 ─ */
+.session-right {
+    width: 56px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 20px;
+    border-left: 1px solid #EBEBEB;
+}
+.session-hours {
+    font-size: 11px;
+    font-weight: 800;
+    color: #aaaaaa;
+    white-space: nowrap;
+}
+
+/* ─ Day 사이 구분선 ─ */
+.day-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 8px 0 24px 0;
+}
+.day-divider-line {
+    flex-grow: 1;
+    height: 1px;
+    background: #EBEBEB;
+}
+.day-divider-dot {
+    width: 6px;
+    height: 6px;
+    background: #EBBAC0;
+    border-radius: 50%;
+    flex-shrink: 0;
+}

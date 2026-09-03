@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>제안 강사 소개 — 모두의연구소 기업교육팀</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{
+    --red:#E23744;
+    --red-deep:#B31E2B;
+    --red-soft:#FBEAEC;
+    --ink:#17181C;
+    --muted:#6C727E;
+    --line:#E8E8EC;
+    --line-soft:#F1F1F4;
+    --paper:#FFFFFF;
+    --canvas:#EDEDF1;
+    --chip:#F6F1F1;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;}
+  body{background:var(--canvas);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55;}
+
+  .page{
+    width:210mm;min-height:297mm;
+    background:var(--paper);
+    margin:24px auto;
+    padding:20mm 18mm 16mm;
+    position:relative;
+    display:flex;flex-direction:column;
+    box-shadow:0 6px 30px rgba(0,0,0,.12);
+    overflow:hidden;
+  }
+  /* top hairline accent */
+  .page::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:6px;background:var(--red);
+  }
+
+  /* ---- Masthead ---- */
+  .masthead{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:14px;border-bottom:1px solid var(--line);}
+  .brand{display:flex;flex-direction:column;gap:2px;}
+  .brand .logo{font-size:15px;font-weight:800;letter-spacing:-.02em;}
+  .brand .logo b{color:var(--red);}
+  .brand .unit{font-size:10.5px;color:var(--muted);letter-spacing:.02em;}
+  .doc-label{text-align:right;}
+  .doc-label .eyebrow{font-size:10px;letter-spacing:.28em;color:var(--muted);font-weight:600;}
+  .doc-label .title{font-size:13px;font-weight:700;margin-top:3px;}
+
+  /* ---- Hero (name) ---- */
+  .hero{display:flex;align-items:flex-end;gap:18px;margin-top:26px;}
+  .idx{font-size:58px;font-weight:800;line-height:.8;color:var(--red-soft);letter-spacing:-.04em;position:relative;top:2px;}
+  .idx b{color:var(--red);}
+  .name-block{flex:1;}
+  .name{font-size:34px;font-weight:800;letter-spacing:-.03em;}
+  .name .nim{font-size:20px;font-weight:600;color:var(--muted);margin-left:4px;}
+  .role{font-size:13.5px;color:var(--muted);margin-top:5px;font-weight:500;}
+
+  /* ---- Headline band (대표 타이틀) ---- */
+  .headline{
+    margin-top:20px;background:var(--red-soft);border-left:4px solid var(--red);
+    border-radius:0 8px 8px 0;padding:14px 18px;
+  }
+  .headline .h-eyebrow{font-size:10px;letter-spacing:.22em;font-weight:700;color:var(--red-deep);}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px;}
+  .chip{
+    background:#fff;border:1px solid #F0C9CD;color:var(--red-deep);
+    font-size:11.5px;font-weight:600;padding:5px 11px;border-radius:999px;white-space:nowrap;
+  }
+
+  /* ---- Section heading ---- */
+  .sec-h{display:flex;align-items:center;gap:9px;margin:26px 0 12px;}
+  .sec-h .bar{width:14px;height:2px;background:var(--red);}
+  .sec-h span{font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--ink);}
+
+  /* ---- Career summary (definition rows) ---- */
+  .summary{border-top:1px solid var(--line);}
+  .row{display:flex;gap:16px;padding:10px 2px;border-bottom:1px solid var(--line-soft);align-items:baseline;}
+  .row .k{flex:0 0 78px;font-size:11.5px;font-weight:700;color:var(--red-deep);letter-spacing:.01em;}
+  .row .v{flex:1;font-size:12.5px;color:#2A2C33;line-height:1.6;}
+  .row .v b{font-weight:700;color:var(--ink);}
+
+  /* ---- Strength boxes ---- */
+  .boxes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px;}
+  .box{
+    border:1px solid var(--line);border-radius:11px;padding:15px 14px 16px;
+    background:linear-gradient(180deg,#fff 0%,#FCFAFA 100%);
+    display:flex;flex-direction:column;min-height:150px;
+  }
+  .box .num{
+    width:26px;height:26px;border-radius:7px;background:var(--red);color:#fff;
+    font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;
+  }
+  .box .b-title{font-size:13.5px;font-weight:800;margin-top:11px;letter-spacing:-.01em;line-height:1.35;}
+  .box .b-metric{font-size:22px;font-weight:800;color:var(--red);margin-top:8px;letter-spacing:-.02em;}
+  .box .b-metric small{font-size:11px;font-weight:600;color:var(--muted);margin-left:3px;}
+  .box .b-desc{font-size:11.5px;color:var(--muted);margin-top:9px;line-height:1.6;}
+
+  /* ---- Footer ---- */
+  .foot{margin-top:auto;padding-top:16px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--muted);letter-spacing:.02em;}
+  .foot b{color:var(--red);font-weight:700;}
+
+  /* ---- Print ---- */
+  @page{size:A4;margin:0;}
+  @media print{
+    body{background:#fff;}
+    .page{margin:0;box-shadow:none;page-break-after:always;}
+    .page:last-child{page-break-after:auto;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= PAGE 1 : 송O호 ================= -->
+<section class="page">
+  <div class="masthead">
+    <div class="brand">
+      <div class="logo">모두의<b>연구소</b></div>
+      <div class="unit">기업교육팀 · Corporate Education</div>
+    </div>
+    <div class="doc-label">
+      <div class="eyebrow">INSTRUCTOR PROFILE</div>
+      <div class="title">제안 강사 소개</div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="idx"><b>0</b>1</div>
+    <div class="name-block">
+      <div class="name">송O호<span class="nim">강사</span></div>
+      <div class="role">비개발자 대상 생성형 AI · 데이터 활용 교육 전문 강사</div>
+    </div>
+  </div>
+
+  <div class="headline">
+    <div class="h-eyebrow">대표 타이틀</div>
+    <div class="chips">
+      <span class="chip">비개발자 대상 교육</span>
+      <span class="chip">생성형 AI 활용 교육 다수</span>
+      <span class="chip">관련 도서 집필</span>
+      <span class="chip">인천대 겸임 강의</span>
+      <span class="chip">모두연 협업 다수</span>
+    </div>
+  </div>
+
+  <div class="sec-h"><div class="bar"></div><span>이력 요약</span></div>
+  <div class="summary">
+    <div class="row"><div class="k">전문 분야</div><div class="v">비개발자 대상 <b>생성형 AI 활용</b>, 프롬프트 엔지니어링, 데이터·텍스트 분석, 미디어 리터러시</div></div>
+    <div class="row"><div class="k">현 소속</div><div class="v"><b>인천대학교 정보기술대학원 강사</b> · (주)더아이엠씨 빅데이터/AI 전문강사</div></div>
+    <div class="row"><div class="k">학력</div><div class="v">인천대학교 신문방송학과 <b>박사</b> (학사·석사·박사)</div></div>
+    <div class="row"><div class="k">주요 강의</div><div class="v">공공기관·대학·기업·중고교 대상 생성형 AI·빅데이터 강의 다수 (시청자미디어센터, KOTRA, 서울대 등)</div></div>
+    <div class="row"><div class="k">연구</div><div class="v">KCI 등재지 논문 다수 게재 (ChatGPT·미디어·데이터 분석 관련)</div></div>
+  </div>
+
+  <div class="sec-h"><div class="bar"></div><span>강점 · 만족 포인트</span></div>
+  <div class="boxes">
+    <div class="box">
+      <div class="num">1</div>
+      <div class="b-title">비개발자 눈높이 교육</div>
+      <div class="b-desc">신문방송학 비전공자로 AI에 입문한 경험을 바탕으로, 학습자의 두려움에 공감하고 복잡한 개념을 일상 비유로 쉽게 전달합니다.</div>
+    </div>
+    <div class="box">
+      <div class="num">2</div>
+      <div class="b-title">폭넓은 강의 실적</div>
+      <div class="b-desc">공공·대학·기업·중고교 등 다양한 대상 대상으로 생성형 AI·빅데이터 강의를 다수 진행하며 검증된 전달력을 보유했습니다.</div>
+    </div>
+    <div class="box">
+      <div class="num">3</div>
+      <div class="b-title">이론+실무 균형 · 모두연 협업</div>
+      <div class="b-desc">박사급 연구 역량과 데이터 분석 실무를 겸비했으며, 모두의연구소와 다수 협업한 이력이 있습니다.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>모두의연구소 <b>기업교육팀</b></span><span>강사 프로필 · 01 / 03</span></div>
+</section>
+
+<!-- ================= PAGE 2 : 곽O철 ================= -->
+<section class="page">
+  <div class="masthead">
+    <div class="brand">
+      <div class="logo">모두의<b>연구소</b></div>
+      <div class="unit">기업교육팀 · Corporate Education</div>
+    </div>
+    <div class="doc-label">
+      <div class="eyebrow">INSTRUCTOR PROFILE</div>
+      <div class="title">제안 강사 소개</div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="idx"><b>0</b>2</div>
+    <div class="name-block">
+      <div class="name">곽O철<span class="nim">강사</span></div>
+      <div class="role">비개발자 대상 생성형 AI · 업무 자동화 실무 교육 강사 (AI 엔지니어 & 프롬프트 엔지니어)</div>
+    </div>
+  </div>
+
+  <div class="headline">
+    <div class="h-eyebrow">대표 타이틀</div>
+    <div class="chips">
+      <span class="chip">비개발자 대상 교육</span>
+      <span class="chip">SKT Gemini Enterprise 도입 교육 진행</span>
+      <span class="chip">MCP Korea 운영</span>
+      <span class="chip">프롬프트 경진대회 최우수상</span>
+    </div>
+  </div>
+
+  <div class="sec-h"><div class="bar"></div><span>이력 요약</span></div>
+  <div class="summary">
+    <div class="row"><div class="k">전문 분야</div><div class="v">생성형 AI 활용, <b>바이브코딩</b>, 업무 자동화(n8n·Make), 프롬프트 엔지니어링, MCP</div></div>
+    <div class="row"><div class="k">현 소속</div><div class="v"><b>MCP Korea 운영</b> · AI 통역 서비스 Osay Co-Founder · 지피터스 파트너</div></div>
+    <div class="row"><div class="k">주요 강의</div><div class="v">SK mySuni·SK Innovation·SK broadband·<b>한화시스템</b>·LG인화원·멀티캠퍼스 등 대기업 생성형 AI·자동화 교육 다수, <b>SKT Gemini Enterprise 도입 교육</b></div></div>
+    <div class="row"><div class="k">수상</div><div class="v">2024 항해99 해커톤 최우수상 · 서울경제진흥원 G밸리 프롬프트 최우수상</div></div>
+  </div>
+
+  <div class="sec-h"><div class="bar"></div><span>강점 · 만족 포인트</span></div>
+  <div class="boxes">
+    <div class="box">
+      <div class="num">1</div>
+      <div class="b-title">높은 강의 만족도</div>
+      <div class="b-metric">4.6<small>/ 5.0</small></div>
+      <div class="b-desc">지피터스 기초 강의 평점 4.2·4.61, 누적 <b>300명+</b> 수강. 입문자 대상 전달력이 검증되었습니다.</div>
+    </div>
+    <div class="box">
+      <div class="num">2</div>
+      <div class="b-title">대기업 실무 교육 경험</div>
+      <div class="b-desc">SK·한화·LG·멀티캠퍼스 등 비개발자 대상 생성형 AI·업무 자동화 교육을 다수 진행했습니다.</div>
+    </div>
+    <div class="box">
+      <div class="num">3</div>
+      <div class="b-title">최신 AI 툴 전문성</div>
+      <div class="b-desc">MCP Korea를 직접 운영하고, SKT Gemini Enterprise 도입 교육을 진행하는 등 최신 툴 실전 노하우를 보유했습니다.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>모두의연구소 <b>기업교육팀</b></span><span>강사 프로필 · 02 / 03</span></div>
+</section>
+
+<!-- ================= PAGE 3 : 김O욱 ================= -->
+<section class="page">
+  <div class="masthead">
+    <div class="brand">
+      <div class="logo">모두의<b>연구소</b></div>
+      <div class="unit">기업교육팀 · Corporate Education</div>
+    </div>
+    <div class="doc-label">
+      <div class="eyebrow">INSTRUCTOR PROFILE</div>
+      <div class="title">제안 강사 소개</div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="idx"><b>0</b>3</div>
+    <div class="name-block">
+      <div class="name">김O욱<span class="nim">강사</span></div>
+      <div class="role">개발자 대상 생성형 AI 심화 교육 전문 강사 (Hello AI 대표 · 전 Microsoft 수석)</div>
+    </div>
+  </div>
+
+  <div class="headline">
+    <div class="h-eyebrow">대표 타이틀</div>
+    <div class="chips">
+      <span class="chip">개발자 대상 교육</span>
+      <span class="chip">SKT 사내툴 활용 교육</span>
+      <span class="chip">SKT Gemini Enterprise 도입 교육</span>
+      <span class="chip">기업 Gemini Enterprise 노하우 보유</span>
+      <span class="chip">Microsoft MVP</span>
+      <span class="chip">Hello AI 대표</span>
+    </div>
+  </div>
+
+  <div class="sec-h"><div class="bar"></div><span>이력 요약</span></div>
+  <div class="summary">
+    <div class="row"><div class="k">전문 분야</div><div class="v">LLM 개발·컨설팅, <b>개발자 대상 생성형 AI 교육</b>, LangChain, Azure, 기업 Gemini Enterprise 도입</div></div>
+    <div class="row"><div class="k">현 소속</div><div class="v"><b>Hello AI 대표</b> · Microsoft MVP(AI) · Microsoft Regional Director · MCT · KIRD 객원교수</div></div>
+    <div class="row"><div class="k">경력</div><div class="v">전 <b>Microsoft 수석 13년</b> · EBS 온라인 클래스 300만 접속 시스템 책임</div></div>
+    <div class="row"><div class="k">주요 강의</div><div class="v">서울대·<b>SKT FLYAI</b> 생성형 AI 개발자 과정, LangChain PDF Chatbot, 국방부·대한상공회의소·롯데케미칼 등 다수</div></div>
+    <div class="row"><div class="k">저서·수상</div><div class="v">『생성형AI 사피엔스』 외 도서 3권 · KIRD Best 강사상 2회</div></div>
+  </div>
+
+  <div class="sec-h"><div class="bar"></div><span>강점 · 만족 포인트</span></div>
+  <div class="boxes">
+    <div class="box">
+      <div class="num">1</div>
+      <div class="b-title">최고 수준의 기술 전문성</div>
+      <div class="b-desc">전 Microsoft 수석(13년) 출신으로 Microsoft MVP(AI 부문)·Regional Director·MCT를 보유한 최상위 전문가입니다.</div>
+    </div>
+    <div class="box">
+      <div class="num">2</div>
+      <div class="b-title">개발자 대상 심화 교육</div>
+      <div class="b-desc">서울대·SKT FLYAI 생성형 AI 개발자 과정, LangChain·Azure 개발 교육을 다수 진행한 개발 전문 강사입니다.</div>
+    </div>
+    <div class="box">
+      <div class="num">3</div>
+      <div class="b-title">검증된 저술 · 강의 역량</div>
+      <div class="b-desc">『생성형AI 사피엔스』 등 저서 4권을 집필하고 KIRD Best 강사상을 2회 수상했습니다.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>모두의연구소 <b>기업교육팀</b></span><span>강사 프로필 · 03 / 03</span></div>
+</section>
+
+</body>
+</html>

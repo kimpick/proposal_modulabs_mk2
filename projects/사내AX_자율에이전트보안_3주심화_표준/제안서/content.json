@@ -1,0 +1,242 @@
+{
+  "title": "사내 AX 자율 에이전트 보안 3주 심화 (Hermes 기반)",
+  "subtitle": "Hermes Agent를 사내에 안전하게 심는 105시간 과정",
+  "pdf_filename": "[모두의연구소]Hermes기반_자율에이전트_3주_표준제안서",
+  "info": {
+    "keyword": "Agentic AI · MCP<br>Loop Engineering · Red Team",
+    "ax_stage": "단일 에이전트 → 다중 프로필 통제 → 팀 운영化",
+    "target": "팀 AX 챔피언 후보 5~12인 · Hermes Agent 기본 경험자",
+    "duration": "5일 × 7시간 × 3주 (총 105시간) · 분기당 1주 × 3회 + 6주 현업 적용"
+  },
+  "intro": "<p>에이전트는 만들었는데, 동료에게 <b>공유할 수가 없습니다</b>.</p><p>한 팀원의 Claude Max를 함께 쓰면 규정 위반이고, 권한을 넓혀 공유하면 동료의 실수 한 번에 회사 데이터가 위험해집니다. 공유하고 싶어도 보안 정책이 막고, 보안을 지키면 공유 자체가 안 됩니다. 이런 상황이 반복되면 에이전트는 결국 만든 사람만 쓰는 '혼자 쓰는 도구'에 머뭅니다.</p><p>이 딜레마를 푸는 3주 심화 과정입니다.</p><p>한 달에 1주(5일×7시간)씩 모여 배우고, 그 사이 3주는 현업에 에이전트를 직접 돌려봅니다. 배우고 바로 써먹는 사이클을 세 번 반복하면, 105시간의 교육이 '들었던 강의'가 아니라 '운영 중인 시스템'으로 남습니다.</p><p>3주가 끝나면 동료가 내 에이전트를 호출할 수 있는 구조가 됩니다. 허용된 tool만 보이고, 매 호출마다 승인을 검사하고, 실행은 샌드박스에 격리하고, 모든 결정은 기록에 남습니다. 동료의 실수, 외부 콘텐츠에 숨은 명령, 새로 추가된 tool의 변경까지 — 시스템이 버티는 구조를 만듭니다. 그래서 보안 팀이 반대할 이유가 없어집니다.</p><p>한 팀원이 빠지거나 새 팀원이 들어와도, 그대로 돌아가도록. 그것이 이 과정이 만들려는 것입니다.</p>",
+  "design_framework": "<p><b>왜 Hermes Agent인가 — 공유를 가능하게 하는 오픈소스 런타임</b></p><ul><li><b>오픈소스 자율 에이전트 런타임</b> — NousResearch maintained, MIT, v0.17.0 (2026-06)</li><li><b>70+ 내장 tool과 28 toolset</b> — 처음부터 통제 가능한 도구로 시작</li><li><b>Profile 기반 다중 에이전트</b> — 부서별 프로필로 상태·스킬·메모리 격리</li><li><b>MCP 양방향</b> — 외부 MCP 서버 연결(client) + Hermes 자신을 MCP 서버로 노출(server)</li><li><b>2026년 실제 CVE 8건</b> — 교재로 삼을 수 있는 생생한 사례 확보</li></ul><p><b>4대 통제를 Hermes 구조에 매핑</b></p><ul><li><b>Visibility</b> — Hermes tool 자동 발견(registry.py) 위에서 허용 tool만 노출</li><li><b>Authorization</b> — <code>approvals.mode</code> + <code>command_allowlist</code> + mcp-firewall 2-layer</li><li><b>Sandbox</b> — <code>terminal.backend: docker</code> 기본, 고위험 tool은 WASM(wasmtime+cap-std) 격리</li><li><b>Audit</b> — Hermes event log + Langfuse author/caller attribution</li></ul><p><b>Hermes의 솔직한 보안 철학</b> — \"에이전트 프로세스 안에서는 신뢰 경계가 없다. OS만이 유일한 경계다\"(SECURITY.md). 본 과정은 이 전제를 받아들이고, 그래서 더 다층의 통제를 에이전트 밖(gateway·sandbox·OS)에 쌓습니다.</p><p><b>공유를 가능하게 하는 5-Layer (사내 AX 확장)</b></p><ul><li><b>Layer 0 — Identity & Tenancy</b>: 사내 SSO + 부서 RBAC. 누가, 어느 부서 소속인지 식별이 시작</li><li><b>Layer 1 — Allowlist</b>: 허용된 tool만 LLM에게 노출 (Filtered Discovery)</li><li><b>Layer 2 — Argument & Data Scoping</b>: 부서별 데이터 namespace, 인자 수준 통제로 reachability ≠ authorization 해소</li><li><b>Layer 3 — Execution Sandbox</b>: Docker / WASM(wasmtime+cap-std) 격리로 실행 독립</li><li><b>Layer 4 — Audit & Value Extraction ⭐</b>: author/agent/caller별 사용량·비용 추적. <b>에이전트가 많이 쓰일수록 author의 가치가 올라가는 구조</b>를 dashboard로 가시화</li></ul><p>Layer 4가 바로 \"토큰 소비 = author의 기여도\"라는 역발상을 시스템으로 구현하는 자리입니다. 공유를 막는 보안이 아니라, 공유를 가능하게 하는 보안이 여기서 완성됩니다.</p>",
+  "objective": "<ul><li><b>Hermes Agent 위에서 4대 통제 갖춘 에이전트 구축</b> — Visibility·Authz·Sandbox·Audit를 모두 적용한 프로필 1개 완성</li><li><b>다중 프로필 운영과 기여도 측정</b> — 부서별 프로필 분리 + Langfuse로 author/agent/caller dashboard 구축</li><li><b>Hermes 2026 CVE 8종 실전 분석</b> — DNS rebinding·OS command injection·sandbox escape 등 실제 사례 기반 Red/Blue Team 실전</li><li><b>팀 운영化와 패키징</b> — runbook·catalog·정책을 GitHub repo로 묶어 다음 분기 타 팀 확장 준비</li><li><b>에이전트 기여도 데이터 산출</b> — 누가 만든 에이전트가 누구에게 얼마나 쓰이는지 dashboard로 측정. \"토큰 소비 = author의 가치 기여\"라는 역발상을 시스템으로 구현해, 공유를 막는 보안이 아니라 <b>공유를 가능하게 하는 보안</b>으로 전환</li></ul>",
+  "tech_stack": [
+    "Hermes Agent (v0.17+)",
+    "Claude Opus 4.6 (via Hermes provider)",
+    "Claude Team plan",
+    "mcp-firewall",
+    "Microsoft Agent Governance Toolkit",
+    "Langfuse",
+    "Docker (Hermes terminal.backend)",
+    "rmcp (Rust MCP SDK)",
+    "wasmtime + cap-std"
+  ],
+  "infrastructure": [
+    "Hermes Agent v0.17+ 각 팀원 머신에 설치 — curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash",
+    "Claude Team plan 가입 (또는 ChatGPT Business) — TOS 준수, SSO·audit 포함. 개인 Max 공유 불가",
+    "Langfuse self-host (Docker, 4GB+ 서버) 또는 Cloud — author/caller attribution 및 주간 자동 리포트",
+    "개발 머신 (macOS/Linux/WSL) — Docker 실행 가능, Hermes local backend 용",
+    "사내 SSO (Google Workspace / Microsoft Entra / Okta) — Hermes MCP OAuth 2.1 PKCE 연동",
+    "주강사 1인 + 보조강사 1인 — 실습 구간마다 참가자 개인별 순회 멘토링",
+    "Slack webhook — Hermes gateway 연동 및 주간 리포트 전송",
+    "GitHub 저장소 (사내 GitLab/GitHub Enterprise 권장) — Hermes 프로필·스킬·runbook 버전 관리"
+  ],
+  "use_simple_track_label": false,
+  "curriculum_title": "Hermes Agent 기반 분기 분산 3주 + 현업 적용 사이클 (Week A → B → C 순차 이수)",
+  "tracks": [
+    {
+      "track_id": "A",
+      "track_name": "Week A — Hermes 기본 + 4대 통제 + 첫 프로필",
+      "course_title": "Hermes 설치부터 첫 에이전트 통합까지 (Month 1)",
+      "target": "Hermes Agent 기본 설치 경험자. 단일 에이전트는 만들어봤으나 보안 통제는 처음인 실무자",
+      "duration": "1주 (5일 × 7시간 = 35시간)",
+      "tools": [
+        "Hermes Agent (v0.17+)",
+        "Claude Opus 4.6 (via Hermes provider)",
+        "Claude Team plan",
+        "mcp-firewall",
+        "Microsoft Agent Governance Toolkit",
+        "Docker (Hermes terminal.backend)"
+      ],
+      "modules": [
+        {
+          "module_name": "Day 1 — 위협 지형",
+          "duration": "7H",
+          "items": [
+            "<b>자율 에이전트 ≠ 챗봇</b> — tool 실행·자율 판단·연쇄 호출이 만드는 공격 표면과 OWASP LLM Top 10",
+            "<b>Hermes 2026 CVE 5종</b> — DNS rebinding·cmd injection·sandbox escape·missing auth·file permission 사례",
+            "<b>사내 AX 6가지 위협</b> — 과도한 사용·부서 데이터 노출·실수로 과도한 tool 공유·성과 조작·Shadow IT·동료 실수 전파",
+            "<b>실습</b> — 자기 팀 DFD 작성 + Hermes SECURITY.md \"OS만이 신뢰경계\" 토론"
+          ]
+        },
+        {
+          "module_name": "Day 2 — 권한 모델",
+          "duration": "7H",
+          "items": [
+            "<b>Hermes 권한 모델</b> — <code>approvals.mode</code>·<code>command_allowlist</code>·DANGEROUS_PATTERNS 구조",
+            "<b>Hermes config.yaml 구조</b> — approvals·toolsets·terminal.backend·security.redact_secrets·env_passthrough",
+            "<b>정규식 우회 시나리오 5종</b> — Issue #36846 (<code>r\\m</code>, <code>$(echo rm)</code>, <code>${0/x/r}m</code> 등)",
+            "<b>실습</b> — 팀 <code>config.yaml</code> v1 작성 (allowlist 10+·dangerous 패턴 매핑) 및 동료 리뷰"
+          ]
+        },
+        {
+          "module_name": "Day 3 — 게이트웨이",
+          "duration": "7H",
+          "items": [
+            "<b>Hermes MCP 지원</b> — client 모드(v0.2.0, <code>mcp_servers.yaml</code>)·server 모드(v0.6.0, <code>hermes mcp serve</code>)",
+            "<b>mcp-firewall 5단계</b> — deny → allow → parameter → rate limit → approval 파이프라인",
+            "<b>MS Agent Governance Toolkit</b> — Python 구현체로 Hermes 앞 단 통제 적용",
+            "<b>실습</b> — Hermes 앞에 mcp-firewall 배치, <code>hermes mcp serve</code>로 외부 노출 시 allowlist 적용"
+          ]
+        },
+        {
+          "module_name": "Day 4 — 샌드박스",
+          "duration": "7H",
+          "items": [
+            "<b>terminal.backend 옵션</b> — local(기본, 위험)·docker(권장)·ssh·singularity·modal·daytona 비교",
+            "<b>Hermes Docker 격리</b> — readonly rootfs·cap drop·PID limit·tmpfs size로 컨테이너 강화",
+            "<b>profile 한계 인식</b> — filesystem은 미격리, 진짜 분리는 backend: docker 또는 OS 유저 분리",
+            "<b>실습</b> — <code>terminal.backend: docker</code>로 전환, 동일 공격 시나리오가 컨테이너 안에서 갇히는지 검증"
+          ]
+        },
+        {
+          "module_name": "Day 5 — 첫 프로필",
+          "duration": "7H",
+          "items": [
+            "<b>통합 실습 + 1:1 멘토링</b> — DFD·config.yaml·mcp-firewall·Docker backend를 하나의 Hermes profile로 완성",
+            "<b>팀 데모</b> — 5분 데모 + <code>hermes profile</code> 명령으로 프로필 전환 시연",
+            "<b>회고</b> — Keep/Problem/Try 포맷으로 Week A 통합 정리",
+            "<b>현업 과제 배포</b> — W2~4 자기 프로필 운영·위협 관찰·이슈 카탈로그 작성"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "B",
+      "track_name": "Week B — 관측 + 다중 프로필 + 사내 확장",
+      "course_title": "Langfuse 관측·다중 profile·Slack gateway까지 (Month 2)",
+      "target": "Week A 이수자. 단일 Hermes profile을 6주 이상 운영 중이며 현업 이슈를 카탈로그화해 온 팀",
+      "duration": "1주 (5일 × 7시간 = 35시간)",
+      "tools": [
+        "Hermes Agent (v0.17+)",
+        "Claude Opus 4.6 (via Hermes provider)",
+        "Claude Team plan",
+        "Langfuse",
+        "Docker (Hermes terminal.backend)"
+      ],
+      "modules": [
+        {
+          "module_name": "Day 1 — 현업 회고",
+          "duration": "7H",
+          "items": [
+            "<b>이슈 카탈로그 발표</b> — 각자 W2~4 관찰한 위협·통제 작동 여부·개선 아이디어",
+            "<b>4대 통계 재분류</b> — visibility/authz/sandbox/audit 어디에 해당하는지 매핑",
+            "<b>영향×빈도 매트릭스</b> — Week B에서 다룰 우선순위 팀 합의",
+            "<b>실습</b> — Notion DB 기반 이슈 카탈로그 구축, Week B 로드맵 조정"
+          ]
+        },
+        {
+          "module_name": "Day 2 — 관측·가시화",
+          "duration": "7H",
+          "items": [
+            "<b>Hermes event source</b> — <code>conversations_list</code>·<code>messages_read</code>·<code>events_poll</code> MCP server tools로 이벤트 추출",
+            "<b>Langfuse self-host</b> — docker compose 구성, Hermes 로그와 결합",
+            "<b>author/agent/caller 분해</b> — Hermes profile id를 author metadata로 주입",
+            "<b>실습</b> — Hermes + Langfuse로 가짜 caller 3명을 profile에서 구분해 dashboard로 분해 확인"
+          ]
+        },
+        {
+          "module_name": "Day 3 — 다중 프로필",
+          "duration": "7H",
+          "items": [
+            "<b>Hermes profile 구조</b> — <code>~/.hermes/profiles/&lt;이름&gt;/</code> 격리(config·env·memory·skills·cron·sessions)",
+            "<b>부서별 프로필 설계</b> — 부서 = profile 매핑, gateway process per profile",
+            "<b>분리 한계 인식</b> — filesystem 미격리, terminal.backend: docker 또는 OS 유저로 보완",
+            "<b>실습</b> — 부서 3개 프로필 동시 운영, 권한·메모리·스킬이 분리되는지 검증"
+          ]
+        },
+        {
+          "module_name": "Day 4 — SSO 연동",
+          "duration": "7H",
+          "items": [
+            "<b>Hermes gateway</b> — <code>hermes gateway run</code>으로 Slack·Discord·Telegram 20+ 채널 연동",
+            "<b>OAuth 2.1 PKCE</b> — MCP remote 서버 인증, <code>~/.hermes/mcp-tokens/</code> 0600 저장",
+            "<b>사내 catalog 페이지</b> — Next.js/Notion + Hermes MCP server mode로 agent 노출",
+            "<b>실습</b> — Slack 1채널 + 사내 SSO 연동, 카탈로그에서 호출 시 profile 자동 선택"
+          ]
+        },
+        {
+          "module_name": "Day 5 — 운영 데모",
+          "duration": "7H",
+          "items": [
+            "<b>에이전트 고도화</b> — 강사 멘토링 기반 개별 개선",
+            "<b>팀 전체 데모</b> — 프로필 3~5개 동시 운영·대시보드 리뷰",
+            "<b>현업 과제 배포</b> — W6~8 안정화·타 부서 동료 1명+ 초대·크로스 팀 인사이트 작성",
+            "<b>Week C 예고</b> — 심화 통제·Red Team·운영化 방향 공유"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "C",
+      "track_name": "Week C — 심화 통제 + Red Team + 운영化",
+      "course_title": "Hermes CVE 심층 분석·WASM 강화·runbook 완성 (Month 3)",
+      "target": "Week B 이수자. 부서별 Hermes profile 3~5개를 6주 이상 운영 중. 고위험 통제·Red/Blue Team 실전이 필요한 단계",
+      "duration": "1주 (5일 × 7시간 = 35시간)",
+      "tools": [
+        "Hermes Agent (v0.17+)",
+        "Claude Opus 4.6 (via Hermes provider)",
+        "mcp-firewall",
+        "rmcp (Rust MCP SDK)",
+        "wasmtime + cap-std",
+        "Docker (Hermes terminal.backend)"
+      ],
+      "modules": [
+        {
+          "module_name": "Day 1 — 크로스팀 회고",
+          "duration": "7H",
+          "items": [
+            "<b>크로스 팀 인사이트 발표</b> — 타 부서 사용자 관찰·확장 시 예상 위험",
+            "<b>9주 현업 적용 총회고</b> — 패턴 정리·확장 시 위험 식별",
+            "<b>Week C 우선순위 + Red/Blue 팀 구성</b> — 역할 분담 및 시나리오 설계 착수",
+            "<b>실습</b> — 크로스 팀 인사이트 노트 작성"
+          ]
+        },
+        {
+          "module_name": "Day 2 — 인젝션 방어",
+          "duration": "7H",
+          "items": [
+            "<b>Hermes CVE 심층 분석</b> — CVE-2026-9367·9368 코드 추적과 패치 전후 비교",
+            "<b>Issue #36846 정규식 우회</b> — <code>r\\m</code>·<code>$(echo rm)</code>·<code>${0/x/r}m</code> 실제 패턴 분석",
+            "<b>2-layer 방어</b> — mcp-firewall(정책) + Armorer-Guard(classifier) 결합으로 Hermes 보강",
+            "<b>실습</b> — Hermes approval.py 회피 시나리오 5종 차단 검증"
+          ]
+        },
+        {
+          "module_name": "Day 3 — Rust 강화",
+          "duration": "7H",
+          "items": [
+            "<b>Hermes 한계 인식</b> — Python 런타임의 동적 실행 sink(pickle·eval 없지만 subprocess shell=True 위험)",
+            "<b>고위험 tool Rust 재작성</b> — rmcp(Rust MCP SDK)로 단일 tool(예: prod DB read-only) 구현",
+            "<b>wasmtime + cap-std 격리</b> — capability-based I/O, fuel metering, Hermes 앞에 sandbox 추가",
+            "<b>실습</b> — Hermes profile에서 가장 위험한 tool 1개를 Rust rmcp로 교체, Python→Rust 브릿지"
+          ]
+        },
+        {
+          "module_name": "Day 4 — 공방 실전",
+          "duration": "7H",
+          "items": [
+            "<b>Red Team 시나리오</b> — 9주 학습 통제를 우회할 5종 (Hermes gateway DNS rebinding·Slack fail-open·profile 간 데이터 누출 등)",
+            "<b>Blue Team 방어</b> — audit log 기반 탐지 + 자동 차단 + Hermes profile 격리",
+            "<b>Live 공격-방어 + 사고 타임라인</b> — audit log 재구성으로 root cause 복원",
+            "<b>실습</b> — Red Team 리포트 + Blue Team 대응 기록 산출"
+          ]
+        },
+        {
+          "module_name": "Day 5 — Runbook",
+          "duration": "7H",
+          "items": [
+            "<b>runbook 워크샵</b> — 사고 등급·대응 절차·연락망·Hermes profile 롤백 루틴",
+            "<b>패키징</b> — Hermes config·profile 템플릿·Skills·runbook을 GitHub repo로 통합",
+            "<b>분기 최종 발표 + Q2 제안서</b> — 타 팀 rollout 계획·부서별 quota 설계",
+            "<b>산출물</b> — runbook + 분기 패키지 + Q2 제안서 v1"
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "<ul><li><b>Week A 산출물</b> — 자기 팀 DFD·Hermes <code>config.yaml</code> v1·mcp-firewall 정책·Docker backend 구성·첫 Hermes profile 통합 코드</li><li><b>Week B 산출물</b> — 이슈 카탈로그(Notion)·Langfuse dashboard URL·주간 자동 리포트·3~5개 부서 프로필·Slack gateway 연동</li><li><b>Week C 산출물</b> — Hermes CVE 8종 분석 리포트·rmcp Rust tool 1개·Red Team 리포트 + Blue Team 대응 기록·runbook</li><li><b>분기 종합 산출물</b> — 팀 패키지(GitHub repo + Hermes config + Skills + runbook) · 분기 KPI 대시보드 · Q2 타 팀 rollout 제안서</li></ul>",
+  "section_07_title": "운영 안내 및 분기 일정",
+  "schedule_message": "<div style='text-align: left; color: #333;'><p style='margin-bottom: 12px;'><b>분기 분산 일정 (총 3개월)</b></p><ul style='margin-top: 0; margin-bottom: 20px;'><li><b>Month 1</b> — Week A 강의 5일(35h) + 현업 적용 3주(W2~4)</li><li><b>Month 2</b> — Week B 강의 5일(35h) + 현업 적용 3주(W6~8)</li><li><b>Month 3</b> — Week C 강의 5일(35h) + 분기 review·Q2 준비(W10~12)</li><li><b>총 교육 시간</b> — 105시간 + 현업 적용 6주(주당 3~5h)</li></ul><p style='margin-bottom: 12px;'><b>강사 구성</b></p><ul style='margin-top: 0; margin-bottom: 20px;'><li><b>주강사 1인</b> — Hermes Agent 운영·자율 에이전트 보안 실무 강의 이력 보유</li><li><b>보조강사 1인</b> — Hermes profile·mcp-firewall·Langfuse 실습 멘토링 경험자</li><li><b>현업 멘토링</b> — 강의주 사이 3주간 Slack 기반 Q&A (주 1회 오피스아워)</li></ul><p style='margin-bottom: 12px;'><b>예산 가이드 (5~12인 팀)</b></p><ul style='margin-top: 0; margin-bottom: 20px;'><li><b>권장 구성</b> — Claude Team Standard 5석($100/월) + Langfuse Cloud($30/월) = 월 $130</li><li><b>Builder 구성</b> — Team 1 Premium + 4 Standard($180) + Langfuse($30) = 월 $210</li><li><b>3개월 총액</b> — 권장 $390 / Builder $630 (VAT 별도)</li><li><b>교육비</b> — 별도 견적 (대상 인원·강사 구성 확정 후 단가 적용)</li></ul></div>"
+}

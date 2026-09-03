@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>삼성전자 시니어 직원 대상 AI 교육 커리큘럼 | 모두의연구소</title>
+    <style>
+        /* ═══════════════════════════════════════════════════════════
+   모두의연구소 AI교육 제안서 — 공용 디자인 시스템 (base.css)
+   Primary  : #EE3E4C   Secondary : #EBBAC0
+   Border   : #EBEBEB   Text-Dark : #111111   Text-Body : #333333
+   ═══════════════════════════════════════════════════════════ */
+
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            color: #333333;
+            margin: 0;
+            padding: 60px;
+            background-color: #ffffff;
+        }
+
+        /* ─ 헤더 ─ */
+        .header {
+            border-bottom: 1px solid #EBEBEB;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .header-text {
+            color: #EE3E4C;
+            font-size: 13px;
+            font-weight: 700;
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 30px;
+            font-weight: 800;
+            color: #111111;
+            margin: 0 0 10px 0;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #555555;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* ─ 4-Block Info Grid ─ */
+        .info-grid {
+            display: flex;
+            gap: 12px;
+            margin: 30px 0 40px 0;
+        }
+
+        .info-box {
+            flex: 1;
+            border: 1px solid #EBEBEB;
+            border-radius: 10px;
+            padding: 18px 20px;
+            background: #ffffff;
+        }
+
+        .info-label {
+            color: #EE3E4C;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            font-size: 13px;
+            font-weight: 700;
+            color: #111111;
+            line-height: 1.4;
+        }
+
+        /* ─ 섹션 타이틀 ─ */
+        .section-title {
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            font-weight: 800;
+            color: #111111;
+            margin: 36px 0 16px 0;
+        }
+
+        .section-num {
+            color: #EBBAC0;
+            font-size: 30px;
+            font-weight: 900;
+            margin-right: 10px;
+            line-height: 1;
+        }
+
+        /* ─ 텍스트 콘텐츠 박스 (왼쪽 Red 라인) ─ */
+        .content-box {
+            border: 1px solid #EBEBEB;
+            border-left: 5px solid #EE3E4C;
+            border-radius: 10px;
+            padding: 24px 28px;
+            font-size: 13px;
+            line-height: 1.8;
+            color: #333333;
+            margin-bottom: 24px;
+            page-break-inside: avoid;
+            break-inside: avoid;
+            white-space: pre-line;
+        }
+
+        /* ─ 핵심 기술 (Pill Badge) ─ */
+        .tech-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .tech-badge {
+            border: 1px solid #EBEBEB;
+            border-radius: 50px;
+            padding: 7px 16px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #111111;
+        }
+
+        /* ─ 인프라 박스 (왼쪽 Red 라인) ─ */
+        .infra-box {
+            border: 1px solid #EBEBEB;
+            border-left: 5px solid #EE3E4C;
+            border-radius: 10px;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        .infra-box ul {
+            margin: 0;
+            padding-left: 18px;
+        }
+
+        .infra-box li {
+            margin-bottom: 8px;
+            color: #EE3E4C;
+            font-size: 13px;
+        }
+
+        .infra-box li span {
+            color: #333333;
+        }
+
+        /* ─ 모듈 박스 (Flex 레이아웃) ─ */
+        .module-box {
+            border: 1px solid #EBEBEB;
+            border-radius: 10px;
+            padding: 20px 22px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        .module-left {
+            width: 190px;
+            flex-shrink: 0;
+            padding-right: 18px;
+            border-right: 1px solid #EBEBEB;
+            margin-right: 18px;
+        }
+
+        .module-label {
+            color: #EE3E4C;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
+        }
+
+        .module-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: #111111;
+            line-height: 1.4;
+        }
+
+        .module-right {
+            flex-grow: 1;
+        }
+
+        .module-right ul {
+            margin: 0;
+            padding-left: 14px;
+        }
+
+        .module-right li {
+            margin-bottom: 5px;
+            color: #EE3E4C;
+            font-size: 13px;
+        }
+
+        .module-right li span {
+            color: #333333;
+            line-height: 1.5;
+        }
+
+        .module-hours {
+            width: 52px;
+            text-align: right;
+            font-size: 12px;
+            font-weight: 800;
+            color: #aaaaaa;
+            flex-shrink: 0;
+            padding-left: 10px;
+            white-space: nowrap;
+        }
+
+        /* ─ 트랙 소제목 ─ */
+        .track-heading {
+            margin: 40px 0 20px 0;
+            page-break-after: avoid;
+            break-after: avoid;
+        }
+
+        .track-label {
+            font-size: 12px;
+            font-weight: 800;
+            color: #EE3E4C;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .track-name {
+            font-size: 20px;
+            font-weight: 800;
+            color: #111111;
+            margin: 0 0 10px 0;
+        }
+
+        .track-meta {
+            font-size: 13.5px;
+            color: #666;
+            margin-bottom: 14px;
+            word-spacing: 1px;
+        }
+
+        .track-tools {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tool-chip {
+            border: 1px solid #EAEAEA;
+            border-radius: 50px;
+            padding: 5px 14px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #444444;
+        }
+
+        .track-divider {
+            border: none;
+            border-top: 1px solid #EBEBEB;
+            margin: 24px 0;
+        }
+
+        /* ─ 일정 Placeholder ─ */
+        .schedule-placeholder {
+            border: 1px dashed #EBBAC0;
+            background-color: #fdf8f8;
+            border-radius: 10px;
+            padding: 28px;
+            text-align: center;
+            font-size: 13px;
+            color: #888888;
+            line-height: 1.8;
+            page-break-inside: avoid;
+            break-inside: avoid;
+            margin-bottom: 24px;
+        }
+
+        /* ─ 연간 계획 테이블 ─ */
+        .plan-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .plan-table th,
+        .plan-table td {
+            border: 1px solid #EBEBEB;
+            padding: 15px;
+            vertical-align: middle;
+        }
+
+        .plan-table th {
+            background-color: #fafafa;
+            font-weight: 800;
+            color: #555;
+            text-align: center;
+        }
+
+        .plan-month {
+            color: #EE3E4C;
+            font-weight: 800;
+            text-align: center !important;
+            white-space: nowrap;
+        }
+
+        .plan-title {
+            font-weight: 700;
+            color: #111;
+        }
+
+        /* ─ 페이지 분리 ─ */
+        .page-break {
+            page-break-before: always;
+        }
+
+        /* ─ 푸터 ─ */
+        .footer {
+            margin-top: 60px;
+            padding-top: 18px;
+            border-top: 1px solid #EBEBEB;
+            text-align: center;
+            font-size: 11px;
+            color: #aaaaaa;
+        }
+
+        /* ══════════════════════════════════════
+   삼성전자 시니어 교육 — 페이지 전용 추가 스타일
+   ══════════════════════════════════════ */
+
+        /* 시간 배분 바 */
+        .time-bar-wrap {
+            display: flex;
+            height: 36px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #EBEBEB;
+            margin-bottom: 12px;
+        }
+
+        .tbar-seg {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 800;
+            color: #fff;
+            white-space: nowrap;
+            text-align: center;
+            padding: 0 8px;
+        }
+
+        .tbar-primary {
+            background: #EE3E4C;
+            flex: 1;
+        }
+
+        .tbar-dark {
+            background: #374151;
+            flex: 1;
+        }
+
+        .tbar-mid1 {
+            background: #6B7280;
+            flex: 1;
+        }
+
+        .tbar-mid2 {
+            background: #9CA3AF;
+            flex: 1;
+        }
+
+        .tbar-mid3 {
+            background: #D1D5DB;
+            flex: 1;
+            color: #444;
+        }
+
+        .tbar-mid4 {
+            background: #F3F4F6;
+            flex: 1;
+            color: #777;
+        }
+
+        .time-legend {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .tl-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11.5px;
+        }
+
+        .tl-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        .tl-dot.c-primary {
+            background: #EE3E4C;
+        }
+
+        .tl-dot.c-dark {
+            background: #374151;
+        }
+
+        .tl-dot.c-mid1 {
+            background: #6B7280;
+        }
+
+        .tl-dot.c-mid2 {
+            background: #9CA3AF;
+        }
+
+        .tl-dot.c-mid3 {
+            background: #D1D5DB;
+        }
+
+        .tl-dot.c-mid4 {
+            background: #F3F4F6;
+            border: 1px solid #ddd;
+        }
+
+        .tl-label {
+            color: #111;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        /* 운영 방식 3열 카드 */
+        .ops-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        .ops-card {
+            border: 1px solid #EBEBEB;
+            border-radius: 10px;
+            padding: 18px 16px;
+        }
+
+        .ops-card.highlight {
+            border-color: #EBBAC0;
+            border-left: 5px solid #EE3E4C;
+            background: #fdf8f8;
+        }
+
+        .ops-icon {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .ops-title {
+            font-size: 12px;
+            font-weight: 800;
+            color: #111111;
+            margin-bottom: 6px;
+        }
+
+        .ops-desc {
+            font-size: 11.5px;
+            color: #555;
+            line-height: 1.7;
+            word-break: keep-all;
+        }
+
+        .ops-badge {
+            display: inline-block;
+            background: #fff5f5;
+            border: 1px solid #EBBAC0;
+            color: #EE3E4C;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 9px;
+            border-radius: 50px;
+            margin-top: 10px;
+        }
+
+        /* 인쇄 */
+        @media print {
+            body {
+                padding: 36px 44px;
+            }
+
+            .module-box,
+            .ops-grid {
+                page-break-inside: avoid;
+            }
+
+            .section-title {
+                page-break-after: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ── 헤더 ── -->
+    <div class="header">
+        <div class="header-text">모두의연구소 AI교육 커리큘럼 2026 · 기업 맞춤 교육 제안</div>
+        <h1 class="title">AI 트렌드 특강 및 최신 AI 도구 활용 입문</h1>
+        <p class="subtitle">시니어 임직원의 AI 친숙도 향상 및 최신 AI 툴 트렌드 체험 중심 · 1일 6시간 × 4차수 온라인 운영</p>
+    </div>
+
+    <!-- ── 기본 정보 그리드 ── -->
+    <div class="info-grid">
+        <div class="info-box">
+            <div class="info-label">교육 대상</div>
+            <div class="info-value">시니어 직원<br>(51~52세)</div>
+        </div>
+        <div class="info-box">
+            <div class="info-label">총 교육 인원</div>
+            <div class="info-value">약 1,000명<br>(4차수 운영)</div>
+        </div>
+        <div class="info-box">
+            <div class="info-label">1일 교육 시간</div>
+            <div class="info-value">총 6시간<br>특강 2H + 실습 4H</div>
+        </div>
+        <div class="info-box">
+            <div class="info-label">운영 플랫폼</div>
+            <div class="info-value">Knox 온라인<br>전면 비대면</div>
+        </div>
+    </div>
+
+    <!-- ── 01. 과정 소개 ── -->
+    <div class="section-title"><span class="section-num">01</span>과정 소개</div>
+    <div class="content-box">삼성전자 MX사업부 시니어 관리자 및 리더(51~52세)를 대상으로 AI 시대의 의사결정 역량을 강화하고, 팀의 업무 효율을 높일 수 있는 사례 중심의 AI 툴을 체험하는 과정입니다.
+
+        <strong>복잡한 기술 습득보다는 관리자로서 AI를 어떻게 활용하고 조직에 도입할지 인사이트를 얻는 데</strong> 초점을 맞추어 직관적인 툴 위주로 구성합니다.
+
+        역량 편차를 고려한 매우 낮은 진입 장벽의 실습으로, 사전 테스트 및 세팅을 최소화하고 대상자의 눈높이에 맞춘 의사결정/기획 템플릿 실습 위주로 진행됩니다.
+    </div>
+
+    <!-- ── 02. 교육 목표 ── -->
+    <div class="section-title"><span class="section-num">02</span>교육 목표</div>
+    <div class="content-box"><strong>① AI 마인드셋 재정립</strong> — 강사 초청 특강을 통해 AI 발전의 동향을 이해하고, 시니어 리더의 풍부한 경험과 결단력이 AI 시대의 가장 강력한 지휘 도구임을 인식합니다.
+
+        <strong>② 관리자를 위한 AI 도구 체험</strong> — 의사결정 데이터 요약, 보고서 초안 기획, 트렌드 리서치 등 업무 효율을 극대화하는 직관적인 AI 도구를 직접 체험합니다.
+
+        <strong>③ 활용 역량 기반 마련</strong> — 복잡한 학습 없이도 당장 내일 출근하여 팀 회의에 적용해 볼 수 있는 템플릿과 프롬프트 가이드를 제공합니다.
+
+        <strong>④ 팀 내 AI 도입 촉진</strong> — 팀원들이 가져온 AI 산출물을 올바르게 평가하고, 부서 내 AI 활용 문화를 적극적으로 이끄는 리더십을 발휘할 수 있도록 동기를 부여합니다.
+    </div>
+
+    <!-- ── 03. 핵심 도구 / 04. 필요 인프라 ── -->
+    <div style="display: flex; gap: 40px; page-break-inside: avoid; break-inside: avoid;">
+        <div style="flex: 1.2;">
+            <div class="section-title"><span class="section-num">03</span>실습 AI 도구</div>
+            <div class="tech-container">
+                <div class="tech-badge">ChatGPT / Claude</div>
+                <div class="tech-badge">Gemini</div>
+                <div class="tech-badge">Perplexity</div>
+                <div class="tech-badge">Gamma</div>
+                <div class="tech-badge">NotebookLM</div>
+                <div class="tech-badge">Wrtn / Clova Note</div>
+            </div>
+        </div>
+        <div style="flex: 1;">
+            <div class="section-title"><span class="section-num">04</span>필요 인프라</div>
+            <div class="infra-box">
+                <ul>
+                    <li><span>Knox 온라인 플랫폼 (삼성전자 자체 운영)</span></li>
+                    <li><span>개인 PC</span></li>
+                    <li><span>안정적 인터넷 연결 환경</span></li>
+                    <li><span>사전 배포 안내 자료 (PDF)</span></li>
+                    <li><span>AI 도구 가입 안내</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── 05. 운영 방식 ── -->
+    <div class="section-title"><span class="section-num">05</span>운영 방식</div>
+    <div class="ops-grid">
+        <div class="ops-card highlight">
+            <div class="ops-title">1부 단체 강의 (2시간)</div>
+            <div class="ops-desc">250명 전체가 Knox 온라인으로 동시 수강. 저명 교수/강사의 AI 마인드셋 특강으로 인식 변화의 출발점 제공.</div>
+            <div class="ops-badge">250명 단체 동시 수강</div>
+        </div>
+        <div class="ops-card">
+            <div class="ops-title">2부 분반 실습 (4시간)</div>
+            <div class="ops-desc">약 50명 단위 분반 운영. 각 분반마다 강사 1명 배정. 개별 화면 공유로 즉각 지원 가능.</div>
+            <div class="ops-badge">5개 분반 × 50명</div>
+        </div>
+        <div class="ops-card">
+            <div class="ops-title">사전 자료 배포</div>
+            <div class="ops-desc">예상 질문·오류 가이드, 단계별 따라하기 매뉴얼 사전 배포로 자기주도 학습 유도. 강사는 개별 지원에 집중.</div>
+            <div class="ops-badge">1차 셀프 해결 지원</div>
+        </div>
+    </div>
+
+    <!-- ── 06. 시간 배분 ── -->
+    <div class="section-title"><span class="section-num">06</span>1일 6시간 시간 배분</div>
+    <div
+        style="border:1px solid #EBEBEB; border-radius:10px; padding:18px 20px; margin-bottom:24px; page-break-inside:avoid; break-inside:avoid;">
+        <div class="time-bar-wrap">
+            <div class="tbar-seg tbar-primary">마인드셋 1H</div>
+            <div class="tbar-seg tbar-dark">트렌드 1H</div>
+            <div class="tbar-seg tbar-mid1">분석 비서 1H</div>
+            <div class="tbar-seg tbar-mid2">트렌드 리서치 1H</div>
+            <div class="tbar-seg tbar-mid3">도식과 슬라이드 1H</div>
+            <div class="tbar-seg tbar-mid4">자동 대시보드 1H</div>
+        </div>
+        <div class="time-legend">
+            <div class="tl-item">
+                <div class="tl-dot c-primary"></div><span class="tl-label">AI 마인드셋 특강 1H</span>
+            </div>
+            <div class="tl-item">
+                <div class="tl-dot c-dark"></div><span class="tl-label">AI 트렌드 오버뷰 1H</span>
+            </div>
+            <div class="tl-item">
+                <div class="tl-dot c-mid1"></div><span class="tl-label">데이터 분석 비서 1H</span>
+            </div>
+            <div class="tl-item">
+                <div class="tl-dot c-mid2"></div><span class="tl-label">AI 트렌드 리서치 1H</span>
+            </div>
+            <div class="tl-item">
+                <div class="tl-dot c-mid3"></div><span class="tl-label">도식과 프레젠테이션 1H</span>
+            </div>
+            <div class="tl-item">
+                <div class="tl-dot c-mid4"></div><span class="tl-label">업무 자동화와 대시보드 1H</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── 07. 상세 커리큘럼 ── -->
+    <div class="section-title"><span class="section-num">07</span>상세 커리큘럼</div>
+
+    <!-- SESSION 1 -->
+    <div class="track-heading" style="page-break-inside:avoid; break-inside:avoid;">
+        <div class="track-label">SESSION 1 · 전체 250명 단체 수강</div>
+        <div class="track-name">AI 마인드셋 & 트렌드 특강</div>
+        <div class="track-meta">대상: 시니어 직원 250명 전체 &nbsp;|&nbsp; 운영: Knox 온라인 단체 강의 &nbsp;|&nbsp; 시간: 2시간</div>
+        <div class="track-tools">
+            <span class="tool-chip">온라인 단체 강의</span>
+            <span class="tool-chip">저명 교수/강사 초청</span>
+            <span class="tool-chip">Knox 플랫폼</span>
+        </div>
+    </div>
+
+    <div class="module-box">
+        <div class="module-left">
+            <div class="module-label">MODULE 01</div>
+            <div class="module-name">AI 시대의 마인드셋</div>
+        </div>
+        <div class="module-right">
+            <ul>
+                <li><span>AI는 도구다: 대체가 아닌 협업 관점으로의 전환</span></li>
+                <li><span>시니어의 경험·노하우가 AI 시대의 핵심 경쟁력</span></li>
+                <li><span>글로벌 AI 활용 사례 및 조직 DX 전략 맥락 이해</span></li>
+                <li><span>AI를 먼저 써보는 것이 가장 빠른 이해의 길</span></li>
+            </ul>
+        </div>
+        <div class="module-hours">1H<br>강의</div>
+    </div>
+
+    <div class="module-box">
+        <div class="module-left">
+            <div class="module-label">MODULE 02</div>
+            <div class="module-name">최신 AI 트렌드 오버뷰</div>
+        </div>
+        <div class="module-right">
+            <ul>
+                <li><span>[2026 MX 전략] 단순 생성을 넘어, 스스로 맥락을 파악하고 실행하는 '에이전틱 AI(Agentic AI)'</span></li>
+                <li><span>[생태계 확장] 8억 대 모바일/웨어러블 기기를 잇는 온디바이스(On-Device) + 하이브리드 아키텍처</span></li>
+                <li><span>[초연결 경험] 차세대 AI Agent 생태계 중심의 폼팩터 제어 및 맥락 기반 초개인화(Hyper-personalization)</span></li>
+                <li><span>[산업 인사이트] 글로벌 AI 혁신 흐름이 모바일 산업과 갤럭시 생태계에 미치는 시사점</span></li>
+            </ul>
+        </div>
+        <div class="module-hours">1H<br>강의</div>
+    </div>
+
+    <hr class="track-divider">
+
+    <!-- SESSION 2 -->
+    <div class="track-heading" style="page-break-inside:avoid; break-inside:avoid;">
+        <div class="track-label">SESSION 2 · 분반 실습 (50명 × 5개 분반)</div>
+        <div class="track-name">AI 툴 실습: 직접 써보는 AI</div>
+        <div class="track-meta">대상: 분반별 50명 &nbsp;|&nbsp; 강사 1명 배정 &nbsp;|&nbsp; 시간: 4시간</div>
+        <div class="track-tools">
+            <span class="tool-chip">ChatGPT</span>
+            <span class="tool-chip">Claude</span>
+            <span class="tool-chip">Perplexity</span>
+            <span class="tool-chip">NotebookLM</span>
+            <span class="tool-chip">Napkin AI</span>
+            <span class="tool-chip">Gamma</span>
+            <span class="tool-chip">Nano Banana</span>
+            <span class="tool-chip">Google AI Studio</span>
+        </div>
+    </div>
+
+    <div class="module-box">
+        <div class="module-left">
+            <div class="module-label">MODULE 03</div>
+            <div class="module-name">데이터 분석 비서 활용하기</div>
+        </div>
+        <div class="module-right">
+            <ul>
+                <li><span>ChatGPT, Claude 등 주요 AI Chat 서비스의 기능 탐색 및 활용법 이해</span></li>
+                <li><span>가상의 실적(CSV) 데이터 샘플을 AI에게 올려서 지표 분석하고 성과 목표 추천받기</span></li>
+                <li><span>AI를 활용해 복잡한 보고서 내용을 알아보기 쉬운 표나 차트로 변환하기</span></li>
+                <li><span>실습 미션: 제공된 가상의 실적 데이터 샘플을 바탕으로 성과 진단 초안 만들기</span></li>
+            </ul>
+        </div>
+        <div class="module-hours">1H<br>실습</div>
+    </div>
+
+    <div class="module-box">
+        <div class="module-left">
+            <div class="module-label">MODULE 04</div>
+            <div class="module-name">AI로 빠르게 트렌드 리서치하기</div>
+        </div>
+        <div class="module-right">
+            <ul>
+                <li><span>AI 검색엔진(Perplexity)으로 시장 동향 깊이 있게 검색하고 출처 팩트체크하기</span></li>
+                <li><span>Google NotebookLM에 두꺼운 백서나 매뉴얼을 업로드하여 나만의 맞춤형 답변 로봇 만들기</span></li>
+                <li><span>'오디오 브리핑' 기능으로 지루한 문서 내용을 아나운서처럼 읽어주는 요약 라디오 만들기</span></li>
+                <li><span>실습 미션: 최신 IT 동향 3분 요약 오디오 파일 만들기</span></li>
+            </ul>
+        </div>
+        <div class="module-hours">1H<br>실습</div>
+    </div>
+
+    <div class="module-box">
+        <div class="module-left">
+            <div class="module-label">MODULE 05</div>
+            <div class="module-name">도식과 슬라이드 쉽게 만들기</div>
+        </div>
+        <div class="module-right">
+            <ul>
+                <li><span>Napkin AI: 짧은 아이디어 설명글을 단 3초 만에 깔끔한 순서도나 도식표로 자동 변환하기</span></li>
+                <li><span>Gamma AI: 핵심 단어 몇 개로 1페이지 슬라이드 장표 만들기</span></li>
+                <li><span>나노 바나나(Nano Banana): 내 슬라이드에 딱 맞는 이미지를 생성하기</span></li>
+                <li><span>실습 미션: 아이디어 제안용 슬라이드 1장 완성하기</span></li>
+            </ul>
+        </div>
+        <div class="module-hours">1H<br>실습</div>
+    </div>
+
+    <div class="module-box">
+        <div class="module-left">
+            <div class="module-label">MODULE 06</div>
+            <div class="module-name">자동 업무 대시보드 & 마무리</div>
+        </div>
+        <div class="module-right">
+            <ul>
+                <li><span>Google AI Studio를 활용하여 AI에게 반복되는 업무 지시하기</span></li>
+                <li><span>정확한 프롬프트(명령어) 세팅으로 데이터를 깔끔하게 자동 분류하게 만들기</span></li>
+                <li><span>실습 미션: AI로 우리 팀이 필요로하는 자동화 대시보드 만들기</span></li>
+            </ul>
+        </div>
+        <div class="module-hours">1H<br>실습+Q&A</div>
+    </div>
+
+    <!-- ── 08. 예상 산출물 ── -->
+    <div style="page-break-inside:avoid; break-inside:avoid;">
+        <div class="section-title"><span class="section-num">08</span>예상 산출물 / 교육 효과</div>
+        <div class="content-box"><strong>교육 당일 산출물</strong>
+            ① Napkin AI와 Gamma를 결합해 깔끔한 도식화까지 완료한 1페이지 기획/보고 슬라이드
+            ② Google AI Studio로 만든 자동화 대시보드 프로토타입
+
+            <strong>교육 후 기대 효과</strong>
+            • 대략적인 개념을 넘어, 언제 어떤 AI를 의사결정에 활용할 수 있는지 명확히 인지
+            • 팀원들이 작성한 AI 기반 산출물을 올바르게 평가하고 활용을 장려하는 문화 조성
+        </div>
+    </div>
+
+    <!-- ── 09. 일정 안내 ── -->
+    <div style="page-break-inside:avoid; break-inside:avoid;">
+        <div class="section-title"><span class="section-num">09</span>일정 및 다음 단계</div>
+        <div class="schedule-placeholder">
+            📅 <strong>현재 일정 협의 중</strong><br>
+            삼성전자 MX People 팀 내부 보고(예산·인원 확정) 후 세부 일정 조율 예정
+        </div>
+    </div>
+
+    <div class="footer">&copy; 2026 MODULABS — 모두의연구소 AI 기업교육 커리큘럼</div>
+
+</body>
+
+</html>

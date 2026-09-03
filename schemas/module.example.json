@@ -1,0 +1,32 @@
+{
+  "title": "회사명 개발자 AI 교육안",
+  "subtitle": "한 줄 요약 설명",
+  "info": {
+    "keyword": "키워드",
+    "ax_stage": "3단계",
+    "target": "개발팀",
+    "duration": "총 3일 (모듈별 1일)"
+  },
+  "intro": "과정 소개 상세 서술",
+  "objective": "교육 목표 요약",
+  "tech_stack": ["기술1", "기술2"],
+  "infrastructure": [
+    "인프라 항목 1",
+    "인프라 항목 2"
+  ],
+  "modules": [
+    {
+      "module_id": "01",
+      "module_name": "모듈 전체 이름",
+      "subtitle": "짧은 부제목",
+      "duration": "1일 (7시간)",
+      "items": [
+        "학습 내용 1",
+        "학습 내용 2",
+        "실습: ..."
+      ]
+    }
+  ],
+  "output": "<ul><li>산출물 항목</li></ul>",
+  "schedule_message": "※ 일정 안내 메시지"
+}

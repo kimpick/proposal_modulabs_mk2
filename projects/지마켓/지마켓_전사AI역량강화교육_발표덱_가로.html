@@ -1,0 +1,2222 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>[모두의연구소] 지마켓 전사 AI 역량 강화 교육 운영 사업 제안 발표</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+  :root{
+    /* ==== 브랜드 토큰 (고객사에 맞게 --primary 계열만 교체) ==== */
+    --primary:#EE3E4C; --primary-dk:#C92434; --secondary:#EBBAC0;
+    --ink:#111111; --body:#333333; --muted:#6B7280; --faint:#9AA1AC;
+    --border:#EBEBEB; --line:#F0F0F2; --bg:#ffffff; --soft:#FAFAFB; --soft2:#F5F6F8;
+    --blue:#2563EB; --blue-bg:#EEF4FF; --green:#0E9F6E; --green-bg:#E7F6EF;
+    --amber:#B45309; --amber-bg:#FEF3E2; --purple:#7C3AED;
+    --shadow:0 1px 2px rgba(17,17,17,.04),0 10px 30px rgba(17,17,17,.08);
+    --radius:16px;
+    /* ==== 가로 슬라이드 프레임 (16:9) ==== */
+    --slide-w:1280px; --slide-h:720px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;overflow:hidden;background:#0a0c11;
+    font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+
+  /* ==== 무대: 뷰포트에 맞춰 덱을 중앙 정렬·스케일 ==== */
+  .stage{position:fixed;inset:0;display:grid;place-items:center}
+  .deck{position:relative;width:var(--slide-w);height:var(--slide-h);transform-origin:center center;
+    box-shadow:0 20px 60px rgba(0,0,0,.45);border-radius:6px;overflow:hidden;background:var(--bg)}
+
+  /* ==== 슬라이드 (가로 고정 프레임) ==== */
+  .slide{position:absolute;inset:0;width:var(--slide-w);height:var(--slide-h);background:var(--bg);
+    overflow:hidden;opacity:0;pointer-events:none;transform:translateX(24px);
+    transition:opacity .4s ease,transform .4s ease}
+  .slide.is-active{opacity:1;pointer-events:auto;transform:translateX(0)}
+  .fit-frame{position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start}
+  .fit-frame.center{justify-content:center}
+  .fit-content{padding:46px 64px;transform-origin:top center}
+  .fit-frame.center .fit-content{transform-origin:center center}
+
+  /* ==== kicker / 제목 ==== */
+  .sec-num{font-size:12.5px;font-weight:700;color:var(--faint);letter-spacing:.08em}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;
+    letter-spacing:.04em;color:var(--primary);text-transform:uppercase;margin:8px 0 12px}
+  .kicker::before{content:"";width:22px;height:2px;background:var(--primary);border-radius:2px}
+  h2{font-size:30px;line-height:1.25;color:var(--ink);margin:0 0 8px;font-weight:800;letter-spacing:-.02em}
+  h3{font-size:18px;color:var(--ink);margin:0;font-weight:700}
+  .lead{font-size:16px;color:var(--muted);margin:0 0 18px;max-width:960px}
+
+  /* ==== 공통 그리드 ==== */
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .split{display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:center}
+
+  /* ==== 표지 / 맺음말 ==== */
+  .cover{background:radial-gradient(1200px 520px at 82% -12%,#33E354 0%,transparent 55%),
+    linear-gradient(135deg,#06130C 0%,#0A2716 40%,#0A7A2C 100%);color:#fff}
+  .cover .cover-badge{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:600;
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);padding:8px 15px;border-radius:999px}
+  .cover h1{font-size:46px;line-height:1.18;font-weight:800;margin:22px 0 14px;letter-spacing:-.03em;color:#fff}
+  .cover h1 span{color:#9FEFAE}
+  .cover .sub{font-size:18px;color:rgba(255,255,255,.88);max-width:720px;margin:0 0 30px}
+  .cover-meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-size:13.5px;color:rgba(255,255,255,.72);
+    border-top:1px solid rgba(255,255,255,.18);padding-top:20px}
+  .cover-meta b{color:#fff;font-weight:600}
+  .closing{background:radial-gradient(900px 460px at 88% -14%,#2FD953 0%,transparent 58%),
+    linear-gradient(135deg,#07140D 0%,#0A2A17 42%,#0A6B27 100%);color:#fff}
+  .closing h2{color:#fff;font-size:30px}
+  .closing .msg{font-size:17px;color:rgba(255,255,255,.9);max-width:840px;margin:14px 0 26px;line-height:1.55}
+  .closing .sign{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:14px;color:rgba(255,255,255,.75);
+    border-top:1px solid rgba(255,255,255,.2);padding-top:20px}
+  .closing .sign b{color:#fff}
+  .cover .kicker,.closing .kicker{color:#9FEFAE}
+  .cover .kicker::before,.closing .kicker::before{background:#9FEFAE}
+
+  /* ==== KPI ==== */
+  .kpi{background:var(--soft);border:1px solid var(--border);border-radius:14px;padding:20px 18px;text-align:center}
+  .kpi .n{font-size:33px;font-weight:800;color:var(--primary);letter-spacing:-.03em;line-height:1}
+  .kpi .n small{font-size:17px;font-weight:700}
+  .kpi .l{font-size:12.5px;color:var(--muted);margin-top:8px;font-weight:500;line-height:1.35}
+
+  /* ==== 로고 칩 ==== */
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+  .chip{font-size:14px;font-weight:700;color:var(--ink);background:#fff;border:1px solid var(--border);
+    padding:9px 16px;border-radius:10px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  .chip.big{font-size:15px;border-color:#f2c9cd}
+
+  /* ==== 사례 카드 ==== */
+  .case{border:1px solid var(--border);border-radius:14px;padding:20px 22px;background:#fff;position:relative}
+  .case::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:4px;border-radius:4px;background:var(--primary)}
+  .case .ctop{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding-left:14px}
+  .case .co{font-size:19px;font-weight:800;color:var(--ink)}
+  .case .cat{font-size:11.5px;font-weight:700;color:var(--muted);background:var(--soft2);padding:4px 10px;border-radius:999px;white-space:nowrap}
+  .case .desc{font-size:13px;color:var(--body);padding-left:14px;margin:6px 0 12px}
+  .metrics{display:flex;flex-wrap:wrap;gap:9px;padding-left:14px}
+  .metric{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:9px 12px;min-width:92px}
+  .metric .mv{font-size:19px;font-weight:800;color:var(--primary-dk);line-height:1}
+  .metric .ml{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.3}
+  .taglist{padding-left:14px;margin-top:12px;font-size:12px;color:var(--faint)}
+  .taglist b{color:var(--body);font-weight:600}
+
+  /* ==== 레퍼런스 컬럼 ==== */
+  .refcol{background:var(--soft);border:1px solid var(--border);border-radius:14px;padding:16px 18px}
+  .refcol .refhd{font-size:13px;font-weight:800;color:var(--primary);padding-bottom:9px;margin-bottom:5px;border-bottom:2px solid #f4ccd0}
+  .refcol ul{margin:0;padding:0;list-style:none}
+  .refcol li{font-size:14px;font-weight:600;color:var(--ink);padding:6px 0;border-bottom:1px solid var(--line)}
+  .refcol li:last-child{border-bottom:none}
+  .refcol li span{font-size:12px;color:var(--muted);font-weight:500}
+
+  /* ==== MVP 카드 ==== */
+  .mvp{border:1px solid var(--border);border-radius:14px;padding:16px 18px;background:linear-gradient(180deg,#fff,#fdfafa)}
+  .mvp .mh{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+  .mvp .idx{flex:none;width:28px;height:28px;border-radius:8px;background:var(--ink);color:#fff;
+    font-size:12.5px;font-weight:800;display:grid;place-items:center}
+  .mvp .mt{font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.35}
+  .mvp .row{font-size:12.5px;margin:6px 0;display:flex;gap:8px}
+  .mvp .row .tag{flex:none;font-size:11px;font-weight:700;color:var(--muted);width:38px;padding-top:1px}
+  .mvp .row .val{color:var(--body)}
+  .mvp .row .val.tech{color:var(--blue);font-weight:600}
+  .mvp .row .val.eff{color:var(--green);font-weight:600}
+
+  /* ==== 인용 / 콜아웃 ==== */
+  .quote{background:linear-gradient(135deg,#fff5f6,#fdeef0);border:1px solid #f4ccd0;border-radius:14px;padding:22px 24px;position:relative}
+  .quote .q{font-size:20px;font-weight:800;color:var(--primary-dk);line-height:1.4;letter-spacing:-.02em}
+  .quote .by{font-size:12.5px;color:var(--muted);margin-top:10px}
+  .quote .mark{position:absolute;top:6px;right:20px;font-size:60px;color:#f4ccd0;font-family:Georgia,serif;line-height:1}
+
+  /* ==== 타임라인 (플로우) ==== */
+  .flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+  .step{flex:1;min-width:150px;background:var(--soft);border:1px solid var(--border);border-radius:12px;padding:14px 16px;position:relative}
+  .step + .step{margin-left:26px}
+  .step + .step::before{content:"→";position:absolute;left:-22px;top:50%;transform:translateY(-50%);color:var(--primary);font-weight:800;font-size:18px}
+  .step .st{font-size:11.5px;font-weight:700;color:var(--primary);margin-bottom:4px}
+  .step .sd{font-size:13.5px;color:var(--ink);font-weight:700}
+  .step .ss{font-size:12px;color:var(--muted);margin-top:3px}
+
+  /* ==== 과제 카드 ==== */
+  .task{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px}
+  .task .ti{font-size:22px}
+  .task .tt{font-size:14px;font-weight:700;color:var(--ink);margin:8px 0 4px}
+  .task .td{font-size:12px;color:var(--muted)}
+
+  /* ==== 일반 테이블 ==== */
+  .tbl{width:100%;border-collapse:collapse;font-size:14px}
+  .tbl th{background:var(--ink);color:#fff;text-align:left;padding:11px 13px;font-weight:600;font-size:12.5px}
+  .tbl th:first-child{border-radius:8px 0 0 0}.tbl th:last-child{border-radius:0 8px 0 0}
+  .tbl td{padding:11px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl tbody tr:nth-child(even){background:var(--soft)}
+  .tbl .task-c{font-weight:700;color:var(--ink);white-space:nowrap}
+  .pill{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;margin:2px 3px 2px 0}
+  .pill.b{background:var(--blue-bg);color:var(--blue)}
+  .pill.r{background:#FEF0F0;color:var(--primary)}
+  .pill.g{background:var(--green-bg);color:var(--green)}
+
+  /* ==== Before / After ==== */
+  .ba-head,.ba{display:grid;grid-template-columns:1.05fr 1.15fr 34px 1.15fr .9fr;gap:12px;align-items:center}
+  .ba-head{font-size:11.5px;font-weight:700;color:var(--muted);padding:0 4px 8px}
+  .ba-head .h-after{color:var(--primary)}
+  .ba{padding:9px 4px;border-top:1px solid var(--line)}
+  .ba .task-name{font-weight:700;color:var(--ink);font-size:13px}
+  .ba .before{background:var(--soft2);border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-size:12px;color:var(--muted)}
+  .ba .arrow{text-align:center;color:var(--primary);font-weight:800;font-size:18px}
+  .ba .after{background:#fff5f6;border:1px solid #f4ccd0;border-radius:10px;padding:9px 12px;font-size:12px;color:var(--ink);font-weight:500}
+  .ba .gain{text-align:center;font-size:14px;font-weight:800;color:var(--primary-dk);line-height:1.25}
+
+  /* ==== 견적 테이블 ==== */
+  .est-total{display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;background:linear-gradient(135deg,#EE3E4C,#C92434);color:#fff;border-radius:14px;padding:16px 22px;margin-bottom:12px}
+  .est-total .big{font-size:26px;font-weight:800;letter-spacing:-.02em}
+  .est-total .ko{font-size:13px;opacity:.9;margin-top:3px}
+  .est-total .per{margin-left:auto;font-size:12.5px;font-weight:600;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:8px 14px;border-radius:999px}
+  .est{width:100%;border-collapse:collapse;font-size:11.5px}
+  .est th{background:var(--ink);color:#fff;padding:8px 9px;text-align:center;font-weight:600;font-size:11px;white-space:nowrap}
+  .est th:first-child{border-radius:8px 0 0 0}.est th:last-child{border-radius:0 8px 0 0}
+  .est td{padding:6px 9px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+  .est td.cat{font-weight:800;color:var(--primary);background:var(--soft);font-size:12px}
+  .est td.item{text-align:left;font-weight:600;color:var(--ink)}
+  .est td.r{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink)}
+  .est td.memo{text-align:left;font-size:10px;color:var(--muted)}
+  .est tr.sub td{background:var(--soft);font-weight:700;color:var(--ink)}
+  .est tr.total td{background:var(--ink);color:#fff;font-weight:800;font-size:13px}
+  .est tr.total td.r{color:#fff}
+
+  /* ==== 커리큘럼 표 ==== */
+  .prop{width:100%;border-collapse:collapse;font-size:13px}
+  .prop th{text-align:left;padding:9px 11px;font-size:11.5px;font-weight:700;letter-spacing:.03em;color:var(--muted);background:var(--soft);border-bottom:2px solid var(--border);white-space:nowrap}
+  .prop th.c{text-align:center}
+  .prop td{padding:9px 11px;line-height:1.45;border-bottom:1px solid var(--line);vertical-align:middle;font-size:12.5px}
+  .prop td.trk{font-weight:800;color:var(--primary);background:var(--soft);white-space:nowrap;text-align:center;line-height:1.3}
+  .prop td.course{font-weight:700;color:var(--ink)}
+  .prop td.core{color:var(--body);font-size:11px}
+  .prop td.tgt{color:var(--muted);font-size:11px;white-space:nowrap;line-height:1.3}
+  .prop td.hrs{color:var(--primary);font-weight:800;text-align:center;white-space:nowrap;line-height:1.3}
+  .prop td.kw{font-weight:800;color:var(--primary-dk);line-height:1.5}
+  .prop tr.sumrow td{background:#FFF6F2;font-weight:700;color:var(--ink)}
+  /* 부록 세부 커리큘럼 — 공통 구간 / 직무별 차별화 구간 시각 분리 */
+  .prop tr.common td{background:#FAFAFB;color:var(--muted)}
+  .prop tr.common td.course{color:var(--muted);font-weight:600}
+  .prop tr.common td.hrs{color:var(--muted);font-weight:700}
+  .prop tr.diff td{background:#FFF8F9}
+  .prop tr.diff td.tgt{box-shadow:inset 3px 0 0 var(--primary)}
+  .prop tr.diff td.course{color:var(--primary-dk)}
+  .badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:10.5px;font-weight:700;white-space:nowrap}
+  .badge-red{background:rgba(238,62,76,.12);color:var(--primary-dk)}
+  .badge-blue{background:rgba(37,99,235,.12);color:var(--blue)}
+  .badge-green{background:rgba(14,159,110,.12);color:var(--green)}
+  .badge-purple{background:rgba(124,58,237,.12);color:var(--purple)}
+
+  /* ==== 트랙 카드 ==== */
+  .track{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#fff}
+  .track .th{padding:14px 16px 12px;color:#fff}
+  .track.t1 .th{background:linear-gradient(135deg,#EE3E4C,#C92434)}
+  .track.t2 .th{background:linear-gradient(135deg,#F0736E,#d9524d)}
+  .track.t3 .th{background:linear-gradient(135deg,#8B5CF6,#6D3EE0)}
+  .track.t4 .th{background:linear-gradient(135deg,#2563EB,#1D4FD8)}
+  .track .tk{font-size:11.5px;font-weight:700;opacity:.9}
+  .track .tn{font-size:16px;font-weight:800;margin-top:3px}
+  .track .tp{font-size:12px;opacity:.92;margin-top:2px}
+  .track .tb{padding:13px 16px}
+
+  /* ==== "왜 우리인가" 다크 박스 ==== */
+  .why{background:var(--ink);color:#fff;border-radius:14px;padding:22px}
+  .why h3{color:#fff;margin-bottom:10px}
+  .why ul{margin:0;padding-left:18px;font-size:14px;color:rgba(255,255,255,.85)}
+  .why li{margin:8px 0}
+  .why b{color:#ffd0d4}
+
+  /* ==== 계층(임원/리더/직원) 배지 ==== */
+  .sechead{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .tierbar{display:inline-flex;gap:3px;background:var(--soft2);border:1px solid var(--border);
+    border-radius:999px;padding:3px}
+  .tierbar .tier{font-size:12px;font-weight:700;color:var(--faint);padding:5px 14px;
+    border-radius:999px;letter-spacing:-.01em;white-space:nowrap}
+  .tierbar .tier.on{color:#fff}
+  .tierbar .t-exec.on{background:linear-gradient(135deg,#333,#111);box-shadow:0 2px 7px rgba(17,17,17,.22)}
+  .tierbar .t-lead.on{background:linear-gradient(135deg,#8B5CF6,#6D3EE0);box-shadow:0 2px 7px rgba(109,62,224,.28)}
+  .tierbar .t-emp.on{background:linear-gradient(135deg,#EE3E4C,#C92434);box-shadow:0 2px 7px rgba(238,62,76,.28)}
+
+  /* ==== 키포인트 스트립 ==== */
+  .keypt{display:flex;align-items:flex-start;gap:10px;background:#FFF6F7;border:1px solid #F6D2D6;
+    border-left:3px solid var(--primary);    border-radius:10px;padding:9px 14px;margin:0 0 14px;
+    font-size:14.5px;color:var(--ink);line-height:1.5}
+  .keypt .kt{flex:none;font-size:10px;font-weight:800;color:#fff;background:var(--primary);
+    border-radius:5px;padding:3px 7px;letter-spacing:.06em;margin-top:1px}
+  .keypt b{color:var(--primary-dk)}
+
+  /* ==== 랩업 카드 (다크) ==== */
+  .wrapcard{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.17);border-radius:14px;
+    padding:17px 18px 15px}
+  .wrapcard .wn{font-size:11.5px;font-weight:800;color:#9FEFAE;letter-spacing:.09em}
+  .wrapcard .wt{font-size:17px;font-weight:800;color:#fff;margin:8px 0 9px;line-height:1.3;letter-spacing:-.02em}
+  .wrapcard .wd{font-size:12.5px;color:rgba(255,255,255,.82);line-height:1.6}
+  .wrapcard .wm{font-size:10.5px;color:#9FEFAE;font-weight:700;margin-top:11px;padding-top:9px;
+    border-top:1px solid rgba(255,255,255,.15)}
+
+  /* ==== 노트 ==== */
+  .note{font-size:12.5px;color:var(--faint);margin-top:14px;padding-top:12px;border-top:1px dashed var(--border)}
+
+  /* ==== 내비게이션 UI ==== */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:center;gap:3px;
+    padding:12px 6vw;opacity:.18;transition:opacity .25s}
+  .nav:hover{opacity:.95}
+  .nav-dot{width:22px;height:3px;padding:0;background:rgba(255,255,255,.4);border:0;border-radius:2px;cursor:pointer;transition:all .2s}
+  .nav-dot.active{width:34px;background:var(--primary)}
+  .nav-dot:hover{background:var(--primary)}
+  .slide-num{position:fixed;right:26px;bottom:20px;z-index:1000;color:rgba(255,255,255,.55);
+    font-size:12px;font-weight:700;letter-spacing:.08em;font-variant-numeric:tabular-nums}
+  .hint{position:fixed;left:26px;bottom:20px;z-index:1000;color:rgba(255,255,255,.32);font-size:11px}
+
+  /* ==== 인쇄: A4 가로, 슬라이드 1장=1페이지 ==== */
+  @media print{
+    @page{ size:A4 landscape; margin:0; }
+    html,body{overflow:visible;background:#fff;height:auto}
+    .stage{position:static;display:block}
+    .deck{transform:none!important;box-shadow:none;border-radius:0;width:auto;height:auto}
+    .nav,.slide-num,.hint{display:none}
+    .slide{position:relative;inset:auto;width:100vw;height:100vh;opacity:1;transform:none;
+      page-break-after:always;break-inside:avoid;transition:none}
+    .slide:last-child{page-break-after:auto}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+<style>
+  /* ==== 간트 차트 ==== */
+  .gantt{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff}
+  .gt-row{display:grid;grid-template-columns:262px 1fr;border-bottom:1px solid var(--line)}
+  .gt-row:last-child{border-bottom:none}
+  .gt-row.alt{background:var(--soft)}
+  .gt-lbl{padding:5px 10px;font-size:10.5px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:6px;
+    border-right:1px solid var(--border);line-height:1.25;word-break:keep-all}
+  .gt-lbl .no{flex:none;width:16px;height:16px;border-radius:5px;background:#9AA1AC;color:#fff;font-size:9px;font-weight:800;display:grid;place-items:center}
+  .gt-lbl.hl{background:#FFF1F2}
+  .gt-lbl.hl .no{background:var(--primary)}
+  .gt-track{position:relative;display:grid;grid-template-columns:repeat(14,1fr);padding:4px 0;min-height:26px}
+  .gt-track::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:repeating-linear-gradient(to right,transparent 0 calc(100%/14 - 1px),var(--line) calc(100%/14 - 1px) calc(100%/14))}
+  .gt-bar{grid-row:1;position:relative;z-index:1;height:18px;border-radius:5px;display:flex;align-items:center;justify-content:center;
+    padding:0 5px;font-size:9.5px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;margin:0 2px;letter-spacing:-.02em}
+  .b-prep{background:linear-gradient(90deg,#3B82F6,#2563EB)}
+  .b-diag{background:linear-gradient(90deg,#9163F0,#6D3EE0)}
+  .b-run{background:linear-gradient(90deg,#EE3E4C,#C92434);box-shadow:0 2px 6px rgba(238,62,76,.28)}
+  .b-post{background:linear-gradient(90deg,#22B183,#0E9F6E)}
+  .b-mgmt{background:linear-gradient(90deg,#F0A62B,#B45309)}
+  .b-ops{background:linear-gradient(90deg,#7A828F,#4B5563)}
+  .b-ghost{background:repeating-linear-gradient(45deg,#EEF0F3 0 5px,#F7F8FA 5px 10px);color:var(--faint);border:1px dashed var(--border)}
+  .gt-head .gt-lbl{background:var(--ink);color:#fff;font-size:11px;border-right-color:#333}
+  .gt-head .gt-track{padding:0;background:var(--ink);min-height:0}
+  .gt-head .gt-track::before{display:none}
+  .gt-m{grid-row:1;text-align:center;font-size:11px;font-weight:700;color:#fff;padding:6px 0;border-left:1px solid #3a3a3a}
+  .gt-whead .gt-lbl{background:var(--soft2);font-size:10px;color:var(--muted)}
+  .gt-whead .gt-track{padding:0;min-height:0}
+  .gt-w{grid-row:1;text-align:center;font-size:9.5px;font-weight:700;color:var(--muted);padding:5px 0;border-left:1px solid var(--line)}
+  .gt-w.off{background:#FFF6F6;color:var(--primary)}
+  .ms-strip{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .ms{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--border);border-radius:9px;padding:7px 12px;font-size:11.5px;color:var(--body)}
+  .ms b{color:var(--ink);font-weight:700}
+  .ms i{flex:none;width:8px;height:8px;border-radius:2px;transform:rotate(45deg);background:var(--primary);font-style:normal}
+  .lgnd{display:flex;flex-wrap:wrap;gap:6px 16px;margin:10px 0 0;font-size:10.5px;color:var(--muted)}
+  .lgnd span{display:flex;align-items:center;gap:5px}
+  .lgnd i{width:16px;height:8px;border-radius:3px;display:inline-block}
+
+  /* ==== 차수 배치 캘린더 ==== */
+  .cal{width:100%;border-collapse:collapse;font-size:11px;table-layout:fixed}
+  .cal th{background:var(--ink);color:#fff;padding:7px 5px;font-weight:600;font-size:10.5px;text-align:center}
+  .cal th:first-child{border-radius:8px 0 0 0}.cal th:last-child{border-radius:0 8px 0 0}
+  .cal td{padding:2px 4px;border-bottom:1px solid var(--line);vertical-align:middle;text-align:center}
+  .cal tr:last-child td{border-bottom:none}
+  .cal td.wk{font-weight:800;color:var(--muted);font-size:10px;background:var(--soft2)}
+  .cal td.pd{font-weight:700;color:var(--ink);font-size:10px;white-space:nowrap}
+  .cal td.n{font-weight:800;color:var(--primary);font-size:11.5px;font-variant-numeric:tabular-nums}
+  .cal td.n.mut{color:var(--faint);font-weight:700}
+  .cal td.d{color:var(--faint);font-size:10px}
+  .cal .cd{border-radius:6px;padding:3px;line-height:1.18}
+  .cal .cd b{display:block;font-size:11px;font-weight:800;letter-spacing:-.02em}
+  .cal .cd span{display:block;font-size:9px;font-weight:600;opacity:.82;margin-top:1px}
+  .cd.cc{background:#EEF4FF;border:1px solid #C7D9FB;color:var(--blue)}
+  .cd.qw{background:#FEF0F0;border:1px solid #F6CDD1;color:var(--primary-dk)}
+  .cd.lead{background:#F3EDFF;border:1px solid #DCCBFA;color:#5B2ECC}
+  .cd.exec{background:#111;border:1px solid #111;color:#fff}
+  .cd.prep{background:var(--soft);border:1px dashed var(--border);color:var(--muted);font-size:9.5px;font-weight:700;padding:5px 4px}
+  .cd.off{background:#FBFBFC;border:1px dashed #E3E5E9;color:#B8BDC6;font-size:9.5px;font-weight:700;padding:5px 4px}
+  .cd.fu{background:var(--green-bg);border:1px solid #BCE6D3;color:var(--green);font-size:9.5px;font-weight:700;padding:5px 4px}
+  .cal .cd + .cd{margin-top:2px}
+  .cal td.two .cd{padding:2px 3px}
+  .cal td.two .cd b{font-size:10px}
+  .cal td.two .cd span{font-size:8.2px;margin-top:0}
+
+  /* ==== 단계 관리 카드 ==== */
+  .stage-hd{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+  .sg{border-radius:12px;padding:11px 13px;color:#fff;position:relative;overflow:hidden}
+  .sg .sgn{font-size:10px;font-weight:700;opacity:.85}
+  .sg .sgt{font-size:14.5px;font-weight:800;margin-top:2px;letter-spacing:-.02em}
+  .sg .sgd{font-size:10.5px;opacity:.9;margin-top:3px;font-weight:600}
+  .sg1{background:linear-gradient(135deg,#9163F0,#6D3EE0)}
+  .sg2{background:linear-gradient(135deg,#EE3E4C,#C92434)}
+  .sg3{background:linear-gradient(135deg,#22B183,#0E9F6E)}
+  .sg4{background:linear-gradient(135deg,#F0A62B,#B45309)}
+
+  /* ==== 인력 배치 카드 ==== */
+  .crew{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
+  .crew .ch{padding:12px 15px;color:#fff}
+  .crew.c1 .ch{background:linear-gradient(135deg,#EE3E4C,#C92434)}
+  .crew.c2 .ch{background:linear-gradient(135deg,#2563EB,#1D4FD8)}
+  .crew.c3 .ch{background:linear-gradient(135deg,#0E9F6E,#0A7D56)}
+  .crew .cr{font-size:10px;font-weight:700;opacity:.9;letter-spacing:.04em}
+  .crew .cn{font-size:16px;font-weight:800;margin-top:2px}
+  .crew .cq{font-size:10.5px;opacity:.92;margin-top:3px;font-weight:600}
+  .crew .cb{padding:11px 14px;flex:1}
+  .crew .cline{display:flex;gap:8px;padding:5px 0;border-bottom:1px solid var(--line);font-size:11px}
+  .crew .cline:last-child{border-bottom:none}
+  .crew .cline .ct{flex:none;width:56px;font-size:9.5px;font-weight:800;color:var(--primary);padding-top:1px;letter-spacing:-.02em}
+  .crew.c2 .cline .ct{color:var(--blue)}
+  .crew.c3 .cline .ct{color:var(--green)}
+  .crew .cline .cv{color:var(--body);line-height:1.4}
+  .kbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .kbar .kb{flex:1;min-width:120px;background:var(--soft);border:1px solid var(--border);border-radius:11px;padding:10px 12px;text-align:center}
+  .kbar .kb .kn{font-size:20px;font-weight:800;color:var(--primary);line-height:1}
+  .kbar .kb .kn small{font-size:12px;font-weight:700}
+  .kbar .kb .kl{font-size:10.5px;color:var(--muted);margin-top:5px;font-weight:600}
+  .tbl.compact td{padding:6px 10px;font-size:12px}
+  .tbl.compact th{padding:8px 10px;font-size:11px}
+</style>
+
+</head>
+<body>
+
+<div class="nav" id="nav" aria-label="슬라이드 목차"></div>
+<div class="slide-num" id="slideNum" aria-live="polite"></div>
+<div class="hint">← → 이동 · F 전체화면 · Ctrl/⌘+P PDF</div>
+
+<div class="stage">
+  <div class="deck" id="deck">
+
+    <!-- ===== 01 표지 ===== -->
+    <section class="slide cover">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <span class="cover-badge">모두의연구소 &nbsp;×&nbsp; 지마켓</span>
+          <h1>지마켓 전사<br><span>AI 역량 강화 교육 운영 사업</span></h1>
+          <p class="sub">약 900명 임직원 · 31차수 오프라인 집체교육 · 임원 → 리더 → 직원 단계별 전개</p>
+          <div class="cover-meta">
+            <span><b>제안사</b> · 주식회사 모두의연구소</span>
+            <span><b>일자</b> · 2026. 8. 31.</span>
+            <span><b>사업 기간</b> · 교육 2026년 9월~11월 · 사후관리 ~12월 초</span>
+            <span><b>발표자</b> · 강은숙(PM)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 02 목차 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">00 / 목차</span>
+          <p class="kicker">Contents</p>
+          <h2>제안 발표 목차</h2>
+          <p class="lead">기본 사항(회사·실적·수행 인원)과 교육 제안(범위·설계·상세 과정·운영)의 두 축으로 구성했습니다.</p>
+          <div class="grid g2">
+            <div class="refcol">
+              <div class="refhd">Ⅰ. 기본 사항</div>
+              <ul>
+                <li>1.1 제안사 일반 현황 <span>회사 개요 · 주요 연혁</span></li>
+                <li>1.2 조직도 및 조직별 인원 구성 <span>2그룹 9팀 · 총 62명</span></li>
+                <li>1.4 사업 실적 및 수행 능력 <span>누적 150+ 기관</span></li>
+                <li>2.1 최근 3개년 주요 사업·거래 실적 <span>2억 원 이상 대규모 위탁 6건</span></li>
+                <li>2.2 프로젝트 수행 인원 상세 이력 <span>PO·PM·기획·콘텐츠</span></li>
+                <li>2.3 제안 영역 기술·운영 전문성 사례 <span>설계 4단계 · 맞춤 설계 경험</span></li>
+              </ul>
+            </div>
+            <div class="refcol">
+              <div class="refhd">Ⅱ. 교육 제안</div>
+              <ul>
+                <li>1. 목적 <span>Agentic Work Loop 기반 전사 전환</span></li>
+                <li>2. 교육의 범위 <span>31차수 · 12개 직무 변형 · 단계별 구조</span></li>
+                <li>3.1~3.4 교육 상세 제안 <span>설계 개요 · 임원 · 리더 · 직원</span></li>
+                <li>3.5~3.10 보안·도구·교수법 <span>보안 가이드 · Claude Code · Qoder Work</span></li>
+                <li>3.11~3.12 강사진 구성 및 역량 <span>대표 강사 3인 · 배치 관리</span></li>
+                <li>3.13 운영 및 만족도 관리 계획 <span>마스터 일정(Gantt) · 4단계 관리 체계 · 분반 인력 배치 · 성과 목표</span></li>
+              </ul>
+            </div>
+          </div>
+          <p class="note">부록 · 교육설계 참고 기준(Qoder Work 공식 문서, Claude Code Best Practices, MCP 명세, NIST AI RMF, 개인정보보호위원회·한국저작권위원회 자료)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 03 제안사 일반 현황 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">01 / 기본 사항</span>
+          <p class="kicker">제안사 일반 현황</p>
+          <h2>모두의연구소 (MODULABS)</h2>
+          <p class="lead">2015년 설립 이후 AI/SW 교육, 연구 커뮤니티 운영, 기업 맞춤형 AX 교육을 수행해 온 AI 교육 전문 기업입니다.</p>
+          <div class="grid g4" style="margin-bottom:16px">
+            <div class="kpi"><div class="n">2015<small>년</small></div><div class="l">설립 (2015.12.05)</div></div>
+            <div class="kpi"><div class="n">62<small>명</small></div><div class="l">인력 보유현황<br>(2026.08.31 기준)</div></div>
+            <div class="kpi"><div class="n">150<small>+</small></div><div class="l">누적 기업교육<br>기업 수</div></div>
+            <div class="kpi"><div class="n">12,198<small>명</small></div><div class="l">누적 기업교육<br>수료생</div></div>
+          </div>
+          <table class="tbl">
+            <tr><th>회사명</th><th>대표이사</th><th>사업자등록번호</th><th>주요사업</th><th>비전</th><th>신용평가등급</th></tr>
+            <tr>
+              <td class="task-c">모두의연구소</td>
+              <td>김승일</td>
+              <td>517-88-00184</td>
+              <td>AI/SW 교육, 연구 커뮤니티 운영, 기업 맞춤형 AX 교육</td>
+              <td>Share Value,<br>Grow Together</td>
+              <td><span class="pill r">B+</span> NICE신용평가<br>2026.05.28 기준</td>
+            </tr>
+          </table>
+          <p class="note">출처 · 제안서 Ⅰ.1.1 제안사 일반 현황 / 1.4 사업 실적 및 수행 능력</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 04 주요 연혁 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">01 / 기본 사항</span>
+          <p class="kicker">주요 연혁</p>
+          <h2>10년간 축적한 AI 교육 트랙 레코드</h2>
+          <p class="lead">국내 최초 거꾸로 학습 기반 풀잎스쿨부터 정부 표창, 아이펠 졸업생의 국제 학회 워크숍 논문 채택까지.</p>
+          <div class="grid g2">
+            <div class="refcol">
+              <div class="refhd">2015 – 2022</div>
+              <ul>
+                <li>모두의연구소 설립 (강남캠퍼스) <span>2015.08</span></li>
+                <li>서울시 AI 양재허브 운영사 선정 <span>2017.07</span></li>
+                <li>국내 최초 거꾸로 학습 기반 풀잎스쿨 런칭 <span>2017.10</span></li>
+                <li>AI 혁신학교 아이펠(AIFFEL) 개소 <span>2020.07</span></li>
+                <li>KOREA AI STARTUP 100 선정 <span>2021.10</span></li>
+                <li>70억 투자 유치 (KB·대교인베스트먼트) <span>2022.02</span></li>
+                <li>아기유니콘 선정 (중소벤처기업부) <span>2022.06</span></li>
+              </ul>
+            </div>
+            <div class="refcol">
+              <div class="refhd">2023 – 2026</div>
+              <ul>
+                <li>직업능력의 달 기념 대통령 표창 수상 <span>2023.09</span></li>
+                <li>AI 미래포럼 공동의장단 대표 선정 <span>2024.05</span></li>
+                <li>과학기술정보통신부 장관 표창 수상 <span>2024.12</span></li>
+                <li>창립 10주년 행사 'From 10 to Infinity' 개최 <span>2025.08</span></li>
+                <li>아이펠 졸업생 논문 ICML·MICCAI·ICCV 2025 워크숍 채택 <span>2025.10 · 국비지원 부트캠프 유일</span></li>
+                <li>고용노동부 AI 캠퍼스 사업 선정 <span>2026.05</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 05 조직 구성 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">01 / 기본 사항</span>
+          <p class="kicker">조직도 및 인원 구성</p>
+          <h2>2개 그룹 9개 팀 · 총 62명</h2>
+          <p class="lead">성장지원그룹은 경영지원·KHP·AI성장전략·커뮤니티팀으로, 교육사업그룹은 KDT사업팀·교육퍼실리테이터팀·클래스팀·비즈팀·마케팅팀으로 구성됩니다. 본 사업은 기업교육을 전담하는 <b>비즈팀</b>이 수행합니다.</p>
+          <table class="tbl">
+            <tr><th style="width:190px">구분</th><th style="width:150px">팀</th><th style="width:70px">인원</th><th>주요 구성</th></tr>
+            <tr><td class="task-c" rowspan="4" style="vertical-align:middle">성장지원그룹<br>그룹장 포함 18명</td><td class="task-c">경영지원팀</td><td>5명</td><td>팀장, 재무/회계, 인사/총무, 인사_채용, IT/AX 매니저</td></tr>
+            <tr><td class="task-c">KHP팀</td><td>6명</td><td>팀장, 운영(대전) 2인, 커뮤니티 운영, 교육 운영 2인</td></tr>
+            <tr><td class="task-c">AI성장전략팀</td><td>5명</td><td>팀장, 사업관리, PO, 퍼실리테이터 2인</td></tr>
+            <tr><td class="task-c">커뮤니티팀</td><td>1명</td><td>팀장</td></tr>
+            <tr><td class="task-c" rowspan="5" style="vertical-align:middle">교육사업그룹<br>44명</td><td class="task-c">마케팅팀</td><td>7명</td><td>팀장, 콘텐츠 마케터 3인, 콘텐츠 디자인 2인, 그로스마케터</td></tr>
+            <tr><td class="task-c">교육퍼실리테이터팀</td><td>13명</td><td>팀장, 퍼실리테이터 11인, 참여기업 프로젝트 담당자</td></tr>
+            <tr><td class="task-c">KDT사업팀</td><td>11명</td><td>팀장, 사업PM, 교육PM, 취업PM, 교육 운영 4인, 취업지원, 선발지원</td></tr>
+            <tr><td class="task-c" style="color:var(--primary)">비즈팀 <span class="pill r">본 사업 수행</span></td><td>9명</td><td>팀장, 사업PM, AI커리큘럼/교육 기획 2인, 교육PM 3인, 교육 운영 2인</td></tr>
+            <tr><td class="task-c">클래스팀</td><td>4명</td><td>팀장, 콘텐츠 MD, 사업 운영 2인</td></tr>
+          </table>
+          <p class="note">총원 62명 · 성장지원그룹 18명 · 교육사업그룹 44명</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 06 사업 실적 개요 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">01 / 기본 사항</span>
+          <p class="kicker">사업 실적 및 수행 능력</p>
+          <h2>약 150개 기관 · 대규모 위탁 교육 운영 검증</h2>
+          <p class="lead">최근 5년간 기업·공공기관·비영리기관 등 다양한 발주처와 협업하여 재직자·개발자·일반인·대학생 등 교육 대상에 따른 맞춤형 커리큘럼 설계 및 운영 역량을 검증받았습니다.</p>
+          <div class="grid g4">
+            <div class="kpi"><div class="n">150<small>개</small></div><div class="l">AX 교육 기획·운영<br>기관 수</div></div>
+            <div class="kpi"><div class="n">6<small>건</small></div><div class="l">최근 3년 이내 단일 계약<br>2억 원 이상 위탁 교육</div></div>
+            <div class="kpi"><div class="n">1,500<small>명</small></div><div class="l">삼성전자 MX 사업부<br>개발자 역량 강화 (50차수)</div></div>
+            <div class="kpi"><div class="n">2,000<small>명</small></div><div class="l">네이버커넥트재단 코칭스터디<br>온라인 대규모 운영</div></div>
+          </div>
+          <div class="why" style="margin-top:16px">
+            <h3>본 과업(900명·31차수)에 직결되는 검증 포인트</h3>
+            <ul>
+              <li><b>대규모 다차수 운영</b> — 삼성전자 MX 1,500명 50차수 오프라인 운영 경험</li>
+              <li><b>대규모 계약 수행</b> — 삼성전자 MX 3.1억, 연세대 AX캠프 3.9억, KT DS 4.5억, 코칭스터디 4.2억, 아이펠 재직자 LLM 4억, KDT 데이터사이언티스트 약 5억</li>
+              <li><b>대상별 맞춤 설계</b> — 임원·리더·재직자·개발자·일반인·대학생까지 계층별 커리큘럼 분리 설계</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 07 최근 3개년 실적 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">01 / 기본 사항</span>
+          <p class="kicker">최근 3개년 주요 사업·거래 실적</p>
+          <h2>단일 계약 2억 원 이상 대규모 위탁 교육 6건</h2>
+          <div class="keypt"><span class="kt">핵심</span><span>900명·31차수에 준하는 규모를 이미 수행했습니다. 최근 3년간 <b>2억 원 이상 위탁 교육 6건</b>을 완주했습니다.</span></div>
+          <table class="tbl">
+            <tr><th style="width:40px">No.</th><th style="width:230px">사업명 / 발주처</th><th style="width:150px">수행 기간</th><th style="width:140px">계약금액 (VAT 포함)</th><th>교육 대상·형태</th></tr>
+            <tr><td class="task-c">01</td><td><b>개발자 역량 강화 과정</b><br><span style="color:var(--muted)">삼성전자 MX 사업부</span></td><td>2026/03/18 ~<br>2026/08/27</td><td class="task-c">310,000,000<br><span style="font-weight:400;color:var(--muted)">(VAT 포함)</span></td><td>재직자 1,500명 · 오프라인 · 8시간/50차수</td></tr>
+            <tr><td class="task-c">02</td><td><b>연세대 AX캠프</b><br><span style="color:var(--muted)">연세대학교</span></td><td>2026/05/01 ~<br>2027/01/31</td><td class="task-c">390,000,000<br><span style="font-weight:400;color:var(--muted)">(VAT 포함)</span></td><td>학부생 60명 · 오프라인 · 60시간/17차수</td></tr>
+            <tr><td class="task-c">03</td><td><b>MS AI 개발역량 향상과정</b><br><span style="color:var(--muted)">KT DS</span></td><td>2025/05/26 ~<br>2025/10/31</td><td class="task-c">459,920,000<br><span style="font-weight:400;color:var(--muted)">(VAT 포함)</span></td><td>재직자 · 오프라인 · 768시간</td></tr>
+            <tr><td class="task-c">04</td><td><b>코칭스터디 (Data Science &amp; Gen AI)</b><br><span style="color:var(--muted)">네이버커넥트재단</span></td><td>2023/01/12 ~<br>2025/02/28</td><td class="task-c">429,000,000<br><span style="font-weight:400;color:var(--muted)">(VAT 포함)</span></td><td>일반인 약 2천명 · 온라인 · 300일</td></tr>
+            <tr><td class="task-c">05</td><td><b>KDT [아이펠] 재직자 LLM 역량강화 과정</b><br><span style="color:var(--muted)">고용노동부</span></td><td>2024/10/30 ~<br>2026/12/31</td><td class="task-c">400,380,000<br><span style="font-weight:400;color:var(--muted)">(VAT 포함)</span></td><td>재직자 · 온라인 · 204시간/60일 (연 최대 6기수)</td></tr>
+            <tr><td class="task-c">06</td><td><b>KDT 스마트훈련 데이터사이언티스트 실무과정</b><br><span style="color:var(--muted)">고용노동부</span></td><td>2023/09/01 ~<br>2025/12/31</td><td class="task-c">519,705,080<br><span style="font-weight:400;color:var(--muted)">(VAT 포함)</span></td><td>일반인 · 온라인 · 840시간/120일 (연 최대 6기수)</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 08 기업 맞춤 설계 경험 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">01 / 기본 사항</span>
+          <p class="kicker">운영 전문성 — 기업 맞춤 설계 반복 경험</p>
+          <h2>대상 계층이 달라도 수료율·만족도를 지켜낸 설계</h2>
+          <p class="lead">입문자 2,000명부터 개발자 1,500명, 임원 50명까지 — 대상별 난이도와 산출물 기준을 다르게 설계해 왔습니다.</p>
+          <table class="tbl">
+            <tr><th style="width:150px">고객사</th><th style="width:150px">교육 대상</th><th>설계 포인트</th><th style="width:170px">성과</th></tr>
+            <tr><td class="task-c">네이버커넥트재단</td><td>입문자 대상 2,000명</td><td>AI 입문자 대상을 위한 리터러시, 실습 역량 강화 교육 설계</td><td><span class="pill b">수료율 75%</span><span class="pill g">만족도 4.0/5.0</span></td></tr>
+            <tr><td class="task-c">삼성전자</td><td>개발자 직군 1,500명</td><td>개발자를 위한 Harness Engineering 등 실전 Agent Engineering 및 실전 파인튜닝 교육 설계</td><td><span class="pill b">수료율 98%</span><span class="pill g">만족도 4.4/5.0</span></td></tr>
+            <tr><td class="task-c">KT DS</td><td>엔지니어 150명</td><td>MS Azure 서비스를 활용한 에반젤리스트 양성을 위한 교육 설계</td><td><span class="pill b">수료율 99%</span><span class="pill g">만족도 4.6/5.0</span></td></tr>
+            <tr><td class="task-c">(주)SK</td><td>임원 50명</td><td>임원 대상 Gemini Enterprise 역량 강화 교육 설계</td><td><span class="pill b">수료율 80%</span><span class="pill g">만족도 4.3/5.0</span></td></tr>
+          </table>
+          <p class="note">이 외 롯데e커머스 500명 전사 업무 Agent 교육 등 이커머스 산업 대규모 교육 수행 경험 보유 (Ⅱ.3.7 참조)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 09 수행 인원 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">01 / 기본 사항</span>
+          <p class="kicker">프로젝트 수행 인원 상세 이력</p>
+          <h2>총괄 책임자(PO)부터 콘텐츠 개발까지 전담 팀 구성</h2>
+          <p class="lead">AI·디지털 교육 분야에서 검증된 전문 인력을 투입해 교육 품질과 운영 안정성을 동시에 확보합니다.</p>
+          <table class="tbl">
+            <tr><th style="width:140px">역할</th><th style="width:70px">성명</th><th style="width:70px">최종학력</th><th style="width:80px">경력기간</th><th>주요 경력</th></tr>
+            <tr><td class="task-c">총괄 책임자 (PO)</td><td>이태영</td><td>학사</td><td>13년</td><td>현) 모두의연구소 비즈팀 총괄 · 전) (주)휴넷 선임연구원 · 전) (주)테크빌 교육 책임연구원</td></tr>
+            <tr><td class="task-c">사업 총괄 (PM)</td><td>강은숙</td><td>학사</td><td>15년</td><td>현) 모두의연구소 비즈팀 사업PM · 전) 더진리 CTO · 전) 네이블 커뮤니케이션즈 전임연구원</td></tr>
+            <tr><td class="task-c">교육 운영 (PM)(정)</td><td>강성준</td><td>학사</td><td>6년</td><td>현) 모두의연구소 비즈팀 교육PM · 전) 시사IT아카데미 해외취업연수사업 사업PM · 전) KDT 선도기업 아카데미 KB IT 교육 운영</td></tr>
+            <tr><td class="task-c">교육 운영 (PM)(부)</td><td>정윤지</td><td>석사</td><td>3년</td><td>현) 모두의연구소 비즈팀 교육PM · 전) (주)데이원컴퍼니 사업 및 부트캠프 기획/운영</td></tr>
+            <tr><td class="task-c">교육 기획팀</td><td>김영광</td><td>학사</td><td>10년</td><td>현) 모두의연구소 비즈팀 AI 교육 연구원 · 전) (주)크레버스 콘텐츠 전략 및 사업 전략 기획</td></tr>
+            <tr><td class="task-c">콘텐츠 개발팀</td><td>김정한</td><td>학사</td><td>7년</td><td>현) 모두의연구소 비즈팀 교육 연구원 · 전) (주)엘리스그룹 K12-AX 콘텐츠 기획 · 전) (주)크레버스 K12 콘텐츠 기획</td></tr>
+            <tr><td class="task-c">콘텐츠 개발팀</td><td>나융</td><td>석사</td><td>5년</td><td>현) 모두의연구소 성장전략지원팀 AI교육 퍼실리테이터 · 전) Out of boat 클래스 팀장</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 10 커리큘럼 설계 프로세스 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">01 / 기본 사항</span>
+          <p class="kicker">기술 전문성 — 사내 교육 연구원 기반 커리큘럼 설계</p>
+          <h2>사내 교육 연구원 직접 설계 체계</h2>
+          <p class="lead">모두의연구소는 <b>비즈팀 내에 AI 커리큘럼·교육 연구원을 직접 보유</b>하고 있습니다. 연구원이 고객사 니즈를 분석해 교안을 설계한 뒤 그 교안에 강사를 배치합니다. 그래서 <b>차수와 직군이 많아질수록</b> 설계 속도와 일관성의 차이가 커집니다.</p>
+
+          <div class="grid g2" style="margin-bottom:14px">
+            <div class="task" style="background:var(--soft2)">
+              <div class="tt" style="color:var(--muted);font-size:13.5px">강사 교안 기반 설계 &nbsp;— 참고 비교</div>
+              <div class="td">섭외된 강사가 보유한 기존 교안을 기준으로 과정을 구성합니다. <b style="color:var(--body)">강사가 바뀌면 커리큘럼도 바뀌고</b>, 직군별 변형은 강사 개인 역량에 좌우되어 차수 간 편차가 커집니다.</div>
+            </div>
+            <div class="task" style="border-color:#f2c9cd;background:linear-gradient(180deg,#fff,#fff7f8)">
+              <div class="tt" style="color:var(--primary);font-size:13.5px">모두의연구소 &nbsp;— 사내 연구원 설계형</div>
+              <div class="td">비즈팀 <b style="color:var(--ink)">AI 커리큘럼·교육 연구원</b>이 발주처 직무·과제를 직접 분석해 학습 목표·시수·산출물 기준까지 확정합니다. <b style="color:var(--ink)">강사는 확정된 교안을 수행</b>하므로 31차수 전체의 기준이 하나로 유지됩니다.</div>
+            </div>
+          </div>
+
+          <div class="flow">
+            <div class="step"><div class="st">① 수요 진단</div><div class="sd">현업 과제·직무 구성 조사</div><div class="ss">직무 구성·AI 활용 성숙도 조사·직무별 FGI <b>(연구원 직접 수행)</b></div><div class="ss" style="margin-top:6px"><span class="badge badge-red">교육 요구 분석서</span></div></div>
+            <div class="step"><div class="st">② 과정 설계</div><div class="sd">트랙 분리·시수 배분</div><div class="ss">직무·수준별 트랙 분리, 모듈별 학습 목표 및 시수 배분</div><div class="ss" style="margin-top:6px"><span class="badge badge-red">교육 제안서</span></div></div>
+            <div class="step"><div class="st">③ 콘텐츠 제작</div><div class="sd">실습 과제·시나리오 개발</div><div class="ss">현업 데이터 기반 실습 과제·프로젝트 시나리오 개발</div><div class="ss" style="margin-top:6px"><span class="badge badge-red">교안·실습 자료·평가 도구</span></div></div>
+            <div class="step"><div class="st">④ 검증·개선</div><div class="sd">차수별 평가 후 반영</div><div class="ss">차수별 만족도·수료율·산출물 평가 후 차기 과정 반영</div><div class="ss" style="margin-top:6px"><span class="badge badge-red">운영 결과 보고서</span></div></div>
+          </div>
+
+          <div class="why" style="margin-top:14px;padding:16px 20px">
+            <h3>본 사업 — 31차수 · 12개 직무에서 이 차이가 드러납니다</h3>
+            <ul>
+              <li>임원·리더·직원 3계층과 12개 직무 실습 모듈을 <b>연구원이 직접 설계</b>하므로, 직무 구성이 바뀌어도 강사를 다시 섭외할 필요 없이 <b>교안 단위로 즉시 재조정</b>됩니다.</li>
+              <li>Qoder Work·Claude Code처럼 <b>버전이 빠르게 바뀌는 AI 도구</b>도 연구원이 기준선을 관리하고 교안에 반영해, 9~11월 31차수 전체의 난이도와 산출물 기준이 흔들리지 않습니다.</li>
+            </ul>
+          </div>
+
+          <p class="note">본 사업 투입 교육 연구원 · <b>김영광</b>(AI 교육 연구원 10년) · <b>김정한</b>(교육 연구원 7년) · <b>나융</b>(AI 교육 퍼실리테이터 5년) — 상세 이력은 9p 참조 / 누적 기업교육 150+개사 · 수료생 12,198명</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 11 목적 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">02 / 교육 제안</span>
+          <p class="kicker">제안 목적</p>
+          <h2>도구나 분야가 바뀌어도 흔들리지 않는,<br>원리 중심 AI 리터러시</h2>
+          <p class="lead">본 교육은 도구 사용법 습득을 넘어 <b>도구가 바뀌고 직무가 달라져도 그대로 적용되는 '일하는 원리'</b>를 익히도록 설계했습니다. 그래서 교육이 끝난 뒤 지마켓이 어떤 AI 도구를 새로 도입하더라도 학습 내용이 그대로 유효합니다.</p>
+          <div class="grid g2" style="margin-bottom:14px">
+            <div class="task" style="background:var(--soft2)">
+              <div class="tt" style="color:var(--muted);font-size:13.5px">도구 중심 교육 &nbsp;— 유효기간이 있는 학습</div>
+              <div class="td">특정 도구의 메뉴와 기능을 순서대로 익힙니다. <b style="color:var(--body)">도구 버전이 바뀌거나 사내 도구가 교체되면 학습 내용이 즉시 무효화</b>되고, 교육을 다시 해야 합니다.</div>
+            </div>
+            <div class="task" style="border-color:#f2c9cd;background:linear-gradient(180deg,#fff,#fff7f8)">
+              <div class="tt" style="color:var(--primary);font-size:13.5px">원리 중심 교육 &nbsp;— 본 제안</div>
+              <div class="td"><b style="color:var(--ink)">목표 정의 → 맥락 구성 → 계획 → 실행 → 검증</b>의 사고 절차를 익힙니다. 도구는 이 절차를 실행하는 수단이므로, Claude Code든 Qoder Work든 <b style="color:var(--ink)">같은 원리가 그대로 적용</b>됩니다.</div>
+            </div>
+          </div>
+          <div class="quote" style="margin-bottom:14px;padding:16px 20px">
+            <div class="mark">"</div>
+            <div class="q" style="font-size:17.5px">약 900명의 지마켓 임직원이 AI와 AI Agent를 안전하게 활용하고,<br>계층·직무별 핵심 업무를 실제 산출물로 완성하는 역량을 확보하도록 31차수 오프라인 교육을 설계합니다.</div>
+            <div class="by">제안 목표 · Ⅱ.1 목적</div>
+          </div>
+          <div class="why" style="padding:16px 20px">
+            <h3>공통 Agentic Work Loop — 31차수 전 과정이 이 하나의 절차를 공유합니다</h3>
+            <p style="font-size:16.5px;color:#fff;margin:10px 0 8px;line-height:1.7">
+              보안 설정 <b>→</b> 목표 정의 <b>→</b> 맥락 구성 <b>→</b> 계획 <b>→</b> 실행 <b>→</b> 검증 <b>→</b> 산출물 <b>→</b> 재사용
+            </p>
+            <p style="font-size:13.5px;color:rgba(255,255,255,.78);margin:0;line-height:1.6">임원은 <b>무엇에 적용할지</b>, 리더는 <b>팀 흐름을 어떻게 바꿀지</b>, 직원은 <b>내 산출물을 어떻게 완성할지</b>로 같은 원리를 계층별로 다르게 적용합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 12 교육 대상 및 수행 방식 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">02 / 교육 제안</span>
+          <p class="kicker">교육의 범위 — 대상 및 수행 방식</p>
+          <h2>전사 임직원 약 900명 · 31차수 오프라인 집체교육</h2>
+          <div class="keypt"><span class="kt">핵심</span><span>차수당 30명 기준 <b>최대 930석</b>. 900명 정원을 좌석 수로 이미 맞춰 두었습니다.</span></div>
+          <table class="tbl">
+            <tr><th style="width:170px">항목</th><th>제안 내용</th></tr>
+            <tr><td class="task-c">교육 대상</td><td>주식회사 지마켓 전사 임직원 약 900명</td></tr>
+            <tr><td class="task-c">교육 형태</td><td>전 과정 오프라인 집체교육·실습, 차수별/직무별 분반 · 직원 과정은 1일 2차수(오전·오후) 운영</td></tr>
+            <tr><td class="task-c">사업 기간</td><td>교육 실시 2026년 9월~11월 · 사후관리 및 최종 성과보고 ~12월 초 (일정 협의 가능)</td></tr>
+            <tr><td class="task-c">진행 순서</td><td>임원 → 리더 → 직원의 단계별 전개</td></tr>
+            <tr><td class="task-c">권장 시간</td><td>임원 <b>3시간</b> · 리더 <b>5시간</b> · 직원 <b>4시간</b></td></tr>
+            <tr><td class="task-c">실습 계정</td><td>지마켓 제공 LLM/Agent 유료 계정과 허용된 실습 환경만 사용</td></tr>
+            <tr><td class="task-c">핵심 도구</td><td>개발 직군 <span class="pill b">Claude Code</span> · 비개발 직군 <span class="pill r">Qoder Work</span></td></tr>
+            <tr><td class="task-c">수업 정원</td><td>차수당 30명 기준, 31차수 최대 930석</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 13 31차수 구성 1/2 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">02 / 교육 제안</span>
+          <p class="kicker">31차수 · 12개 직무 변형 구성 (1/2)</p>
+          <h2>임원 1차수 · 리더 5개 분반</h2>
+          <p class="lead">RFP의 7개 직원 구분을 Q&amp;A의 직무 정의에 따라 12개 실습형으로 세분화했습니다. Tech-Product 7차수와 Sales 9차수의 하위 배분은 제안 기준이며, 계약 후 직무 리더 FGI와 명단을 기준으로 확정합니다.</p>
+          <table class="prop">
+            <tr><th style="width:64px">단계</th><th style="width:140px">상위 직무</th><th>세부 과정</th><th class="c" style="width:50px">차수</th><th class="c" style="width:66px">시간/차수</th><th style="width:168px">권장 도구</th><th style="width:170px">차별화 키워드</th><th class="c" style="width:62px">수용인원</th></tr>
+            <tr><td class="trk">임원</td><td class="course">임원</td><td class="core">AI Commerce Decision Lab</td><td class="hrs">1</td><td class="hrs">3H</td><td class="tgt">회사 제공 LLM/Agent</td><td class="kw">의사결정 · 우선순위</td><td class="hrs">30</td></tr>
+            <tr><td class="trk">리더</td><td class="course">Tech-Product</td><td class="core">Engineering Workflow Leadership</td><td class="hrs">1</td><td class="hrs">5H</td><td class="tgt">Claude Code + 회사 LLM</td><td class="kw">개발 워크플로 · 리뷰 기준</td><td class="hrs">30</td></tr>
+            <tr><td class="trk">리더</td><td class="course">Tech-Infra</td><td class="core">Safe Automation Leadership</td><td class="hrs">1</td><td class="hrs">5H</td><td class="tgt">Claude Code + 회사 LLM</td><td class="kw">안전한 자동화 · 승인 설계</td><td class="hrs">30</td></tr>
+            <tr><td class="trk">리더</td><td class="course">Product/PM</td><td class="core">AI Product Decision Leadership</td><td class="hrs">1</td><td class="hrs">5H</td><td class="tgt">Qoder Work</td><td class="kw">제품 의사결정 · PRD 품질</td><td class="hrs">30</td></tr>
+            <tr><td class="trk">리더</td><td class="course">Sales·Marketing·물류</td><td class="core">AI Growth Workflow Leadership</td><td class="hrs">1</td><td class="hrs">5H</td><td class="tgt">Qoder Work</td><td class="kw">성장 실험 · 캠페인 루프</td><td class="hrs">30</td></tr>
+            <tr><td class="trk">리더</td><td class="course">Staff</td><td class="core">AI Governance Workflow Leadership</td><td class="hrs">1</td><td class="hrs">5H</td><td class="tgt">Qoder Work</td><td class="kw">정책 준수 · 리스크 관리</td><td class="hrs">30</td></tr>
+            <tr class="sumrow"><td colspan="3">임원·리더 소계</td><td class="hrs">6차수</td><td class="hrs">28H</td><td colspan="3">최대 180석</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 14 31차수 구성 2/2 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">02 / 교육 제안</span>
+          <p class="kicker">31차수 · 12개 직무 변형 구성 (2/2)</p>
+          <h2>직원 25차수 · 12개 직무 모듈</h2>
+          <div class="keypt"><span class="kt">핵심</span><span>RFP의 7개 직원 구분을 <b>12개 실습형으로 세분화</b>했습니다. 같은 4시간이라도 직무마다 다른 산출물이 나옵니다.</span></div>
+          <table class="prop">
+            <tr><th style="width:60px">단계</th><th style="width:150px">상위 직무</th><th>세부 과정</th><th class="c" style="width:50px">차수</th><th class="c" style="width:66px">시간/차수</th><th style="width:112px">권장 도구</th><th style="width:180px">차별화 키워드</th><th class="c" style="width:60px">수용인원</th></tr>
+            <tr><td class="trk">직원</td><td class="course">Tech-Product</td><td class="core">Front/Web/Mobile</td><td class="hrs">4</td><td class="hrs">4H</td><td class="tgt">Claude Code</td><td class="kw">UI 변경 루프 · 테스트/리뷰</td><td class="hrs">120</td></tr>
+            <tr><td class="trk">직원</td><td class="course">Tech-Product</td><td class="core">Backend</td><td class="hrs">3</td><td class="hrs">4H</td><td class="tgt">Claude Code</td><td class="kw">API 변경 · 검증 세트</td><td class="hrs">90</td></tr>
+            <tr><td class="trk">직원</td><td class="course">Tech-Infra</td><td class="core">Infra</td><td class="hrs">1</td><td class="hrs">4H</td><td class="tgt">Claude Code</td><td class="kw">증거 기반 진단 · 승인 runbook</td><td class="hrs">30</td></tr>
+            <tr><td class="trk">직원</td><td class="course">PM</td><td class="core">PM</td><td class="hrs">3</td><td class="hrs">4H</td><td class="tgt">Qoder Work</td><td class="kw">PRD · 의사결정 기록</td><td class="hrs">90</td></tr>
+            <tr><td class="trk">직원</td><td class="course">Sales</td><td class="core">AM/KAM</td><td class="hrs">4</td><td class="hrs">4H</td><td class="tgt">Qoder Work</td><td class="kw">계정 브리핑 · QBR 초안</td><td class="hrs">120</td></tr>
+            <tr><td class="trk">직원</td><td class="course">Sales</td><td class="core">BD/Operation</td><td class="hrs">3</td><td class="hrs">4H</td><td class="tgt">Qoder Work</td><td class="kw">파트너 발굴 · SOP화</td><td class="hrs">90</td></tr>
+            <tr><td class="trk">직원</td><td class="course">Sales</td><td class="core">1P Brand</td><td class="hrs">2</td><td class="hrs">4H</td><td class="tgt">Qoder Work</td><td class="kw">프로모션 기획 · 성과 리뷰</td><td class="hrs">60</td></tr>
+            <tr><td class="trk">직원</td><td class="course">Marketing</td><td class="core">Marketing</td><td class="hrs">1</td><td class="hrs">4H</td><td class="tgt">Qoder Work</td><td class="kw">캠페인 카피 · 콘텐츠 QA</td><td class="hrs">30</td></tr>
+            <tr><td class="trk">직원</td><td class="course">물류</td><td class="core">Logistics</td><td class="hrs">1</td><td class="hrs">4H</td><td class="tgt">Qoder Work</td><td class="kw">예외 대응 · 운영 보고</td><td class="hrs">30</td></tr>
+            <tr><td class="trk">직원</td><td class="course">Staff</td><td class="core">HR/GA</td><td class="hrs">1</td><td class="hrs">4H</td><td class="tgt">Qoder Work</td><td class="kw">정책 FAQ · 승인 문서화</td><td class="hrs">30</td></tr>
+            <tr><td class="trk">직원</td><td class="course">Staff</td><td class="core">Finance</td><td class="hrs">1</td><td class="hrs">4H</td><td class="tgt">Qoder Work</td><td class="kw">근거 추적 · 보고 초안</td><td class="hrs">30</td></tr>
+            <tr><td class="trk">직원</td><td class="course">Staff</td><td class="core">Compliance</td><td class="hrs">1</td><td class="hrs">4H</td><td class="tgt">Qoder Work</td><td class="kw">이슈 분류 · 검토 초안</td><td class="hrs">30</td></tr>
+            <tr class="sumrow"><td class="trk">합계</td><td></td><td class="course">임원·리더·직원 전체</td><td class="hrs">31차수</td><td class="hrs">128H</td><td colspan="3" style="text-align:center;font-weight:700">차수당 30명 기준 최대 930석</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 15 단계별 교육 구조 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">02 / 교육 제안</span>
+          <p class="kicker">단계별 교육 구조</p>
+          <h2>임원 → 리더 → 직원, 개인을 넘어 조직의 AX로 연결</h2>
+          <div class="keypt"><span class="kt">핵심</span><span>세 계층이 <b>개인의 생산성을 넘어 조직의 AX를 완성</b>하는 각자의 역할을 나눠 맡습니다.</span></div>
+          <table class="tbl">
+            <tr><th style="width:90px">단계</th><th style="width:300px">핵심 질문</th><th>교육 방식</th><th style="width:220px">대표 산출물</th></tr>
+            <tr><td class="task-c">임원</td><td>어디에 AI를 적용하고 무엇을 통제할 것인가?</td><td>이커머스 사례·의사결정·리스크·Agent 실습</td><td>AI 의사결정 메모 + 90일 우선순위</td></tr>
+            <tr><td class="task-c">리더</td><td>우리 팀 업무를 어떻게 재설계하고 확산할 것인가?</td><td>워크플로 설계·자동화 후보 발굴·프로젝트 관리</td><td>팀 Workflow Canvas + 30일 backlog</td></tr>
+            <tr><td class="task-c">직원</td><td>내 업무 산출물을 Agent와 어떻게 더 빠르고 안전하게 완성할 것인가?</td><td>공통 안전교육 + 도구 기본 + 직무별 2개 실습</td><td>직무별 완성 산출물 + 재사용 템플릿</td></tr>
+          </table>
+          <div class="quote" style="margin-top:18px">
+            <div class="q" style="font-size:18px">31차수는 서로 다른 교육의 집합이 아니라,<br>하나의 조직 전환 흐름으로 연결됩니다.</div>
+            <div class="by">핵심 제안 · Ⅱ.3.1 교육 설계 개요</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 16 교육 설계 4기준 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">03 / 교육 설계</span>
+          <p class="kicker">Learning to Work Transformation</p>
+          <h2>교육 설계의 네 가지 기준</h2>
+          <p class="lead">900명 규모에서 교육 품질과 직무 적합성을 동시에 확보하기 위해 공통 학습 골격은 표준화하고, 실습 데이터·업무 시나리오·산출물·검증 기준은 직무별로 변경합니다.</p>
+          <table class="tbl">
+            <tr><th style="width:160px">설계 기준</th><th style="width:330px">핵심 방향</th><th>설계 근거</th></tr>
+            <tr><td class="task-c">Output-first</td><td>배운 기능보다 검증 가능한 업무 산출물을 완성</td><td>현업 전이 여부를 결과물과 rubric으로 확인할 수 있어야 교육 효과가 남습니다.</td></tr>
+            <tr><td class="task-c">One Work Loop</td><td>보안-목표-맥락-계획-실행-검증-재사용의 공통 구조</td><td>직급·직무·도구가 달라도 같은 업무 언어와 품질 기준으로 협업할 수 있습니다.</td></tr>
+            <tr><td class="task-c">Safe by Design</td><td>보안·개인정보·저작권·오류·승인 기준을 실습 전에 설정</td><td>실제 업무자료를 사용하기 전에 허용 범위와 사람의 최종 책임을 먼저 확정해야 합니다.</td></tr>
+            <tr><td class="task-c">Reusable Assets</td><td>성공한 결과를 template·Skill·checklist로 전환</td><td>교육 당일의 일회성 체험을 다음 날 반복 가능한 개인·팀 업무자산으로 바꿉니다.</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 17 계층별 연결 구조 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">03 / 교육 설계</span>
+          <p class="kicker">계층별 연결 구조</p>
+          <h2>Decision → Workflow → Output</h2>
+          <div class="keypt"><span class="kt">핵심</span><span>임원이 정한 우선순위가 리더의 workflow가 되고, 그것이 직원의 산출물이 됩니다. <b>위에서 아래로 끊기지 않습니다.</b></span></div>
+          <div class="flow" style="margin-bottom:18px">
+            <div class="step"><div class="st">임원 · Decision</div><div class="sd">방향·우선순위 결정</div><div class="ss">어디에 AI를 적용하고 어떤 위험을 통제할 것인가?</div><div class="ss" style="margin-top:8px"><span class="badge badge-red">AI 의사결정 메모 + 90일 우선순위</span></div></div>
+            <div class="step"><div class="st">리더 · Workflow</div><div class="sd">팀 업무·도입 방식 재설계</div><div class="ss">어떤 workflow를 어떻게 검증하고 확산할 것인가?</div><div class="ss" style="margin-top:8px"><span class="badge badge-red">Workflow Canvas + 위험통제표 + 30일 backlog</span></div></div>
+            <div class="step"><div class="st">직원 · Output</div><div class="sd">직무 산출물 완성·재사용</div><div class="ss">Agent와 어떤 결과물을 더 빠르고 안전하게 만들 것인가?</div><div class="ss" style="margin-top:8px"><span class="badge badge-red">직무 산출물 + 재사용 template/Skill</span></div></div>
+          </div>
+          <div class="why">
+            <h3>공통 업무 수행 구조를 모든 계층이 공유합니다</h3>
+            <ul>
+              <li>Claude Code와 Qoder Work의 <b>기능·화면이 바뀌어도 적용 가능한 원리</b>를 학습합니다.</li>
+              <li>임원의 우선순위가 리더의 workflow 설계를 거쳐 <b>직원의 결과물로 이어지는지 동일한 기준</b>으로 검토할 수 있습니다.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 18 시간·직무 설계 근거 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">03 / 교육 설계</span>
+          <p class="kicker">시간·직무 구성의 설계 근거</p>
+          <h2>계층별 시수 설계 근거 — 3시간 · 5시간 · 4시간</h2>
+          <div class="keypt"><span class="kt">핵심</span><span><b>계층별로 완성해야 하는 산출물의 무게</b>를 기준으로 산출한 시수입니다.</span></div>
+          <table class="tbl">
+            <tr><th style="width:120px">설계 결정</th><th style="width:110px">제안</th><th>왜 이렇게 구성했는가</th></tr>
+            <tr><td class="task-c">임원 과정</td><td><span class="pill r">3시간</span></td><td>기능 숙달보다 사업 기회·위험 판단과 실행 우선순위 합의가 핵심입니다. 네 가지 RFP 필수 요소와 실제 의사결정 실습을 완결할 수 있는 최소 집중 시간입니다.</td></tr>
+            <tr><td class="task-c">리더 과정</td><td><span class="pill r">5시간</span></td><td>팀 업무 발굴, workflow 재설계, 자동화·승인 기준, 위험통제와 30일 실행계획까지 완성해야 하므로 강의보다 워크숍 시간이 더 필요합니다.</td></tr>
+            <tr><td class="task-c">직원 과정</td><td><span class="pill r">4시간 고정</span></td><td>공통 안전·Agent 원리를 익힌 뒤 두 번의 직무 sprint에서 결과를 만들고 검증·재사용하는 최소 완결 구조입니다.</td></tr>
+            <tr><td class="task-c">직원 직무</td><td><span class="pill b">12개 모듈</span></td><td>Tech-Product는 Front/Web/Mobile과 Backend로, Sales는 AM/KAM·BD/Operation·1P Brand로, Staff는 HR/GA·Finance·Compliance로 분리해 실제 업무·데이터·승인 구조의 차이를 반영합니다.</td></tr>
+          </table>
+          <div class="quote" style="margin-top:16px">
+            <div class="q" style="font-size:17px">31차수 운영 원칙 — 시간 구조·업무 루프·평가 rubric은 <u>표준화</u>하고,<br>직무별 데이터·시나리오·산출물·리스크 기준은 <u>맞춤화</u>합니다.</div>
+            <div class="by">대규모 운영의 일관성과 현업 적합성을 동시에 확보</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 19 임원 교육 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <div class="sechead"><span class="sec-num">04 / 계층별 과정</span><div class="tierbar"><span class="tier t-exec on">임원 교육</span><span class="tier t-lead ">리더 교육</span><span class="tier t-emp ">직원 교육</span></div></div>
+          <p class="kicker">임원 과정 상세 시간표</p>
+          <h2>AI Commerce Decision Lab · 3시간 / 1차수</h2>
+          <div class="keypt"><span class="kt">핵심</span><span>임원 교육은 <b>AI 의사결정 메모와 90일 우선순위</b>를 결과물로 확정하고 종료합니다.</span></div>
+          <div class="split" style="align-items:start">
+            <table class="prop">
+              <tr><th style="width:110px">시간</th><th style="width:140px">모듈</th><th>세부 내용</th><th class="c" style="width:110px">산출물/확인</th></tr>
+              <tr><td class="tgt">00:00-00:30</td><td class="course">AI·Agent 전환</td><td class="core">생성형 AI·Agent 최신 트렌드, 글로벌 이커머스/IT 혁신 사례, 경쟁구도 변화</td><td class="hrs">적용 기회 3개</td></tr>
+              <tr><td class="tgt">00:30-01:05</td><td class="course">의사결정 전략</td><td class="core">고객·셀러·운영·Tech 관점에서 가치/비용/위험을 비교하는 의사결정 프레임</td><td class="hrs">평가기준 초안</td></tr>
+              <tr><td class="tgt">01:05-01:30</td><td class="course">리스크와 거버넌스</td><td class="core">정보보안·개인정보·저작권·환각·책임소재·승인 게이트</td><td class="hrs">금지/승인 기준</td></tr>
+              <tr><td class="tgt">01:30-01:40</td><td class="course">휴식</td><td class="core">실습 계정과 샘플 데이터 확인</td><td class="hrs">실습 준비</td></tr>
+              <tr><td class="tgt">01:40-02:35</td><td class="course">LLM·Agent 실습</td><td class="core">시장/사업 시나리오를 조사·비교하고 반론과 불확실성을 포함한 decision memo 작성</td><td class="hrs">의사결정 메모</td></tr>
+              <tr><td class="tgt">02:35-03:00</td><td class="course">우선순위 정렬</td><td class="core">우선순위·오너·성공지표·중단조건을 합의하고 리더 교육으로 전달</td><td class="hrs">90일 우선순위</td></tr>
+            </table>
+            <div>
+              <div class="refcol" style="margin-bottom:12px">
+                <div class="refhd">과정 개요</div>
+                <ul>
+                  <li>대상 <span>임원급</span></li>
+                  <li>목표 <span>AI·Agent의 사업 기회와 리스크를 함께 판단하고, 90일 실행 우선순위를 합의</span></li>
+                  <li>진행 <span>사례 40% · 의사결정 실습 45% · 실행정렬 15%</span></li>
+                  <li>산출물 <span>AI 의사결정 메모 + 90일 우선순위</span></li>
+                  <li>도구 <span>지마켓 제공 대화형 LLM/Agent</span></li>
+                </ul>
+              </div>
+              <div class="why" style="padding:16px">
+                <h3 style="font-size:14px">3시간 권장 근거</h3>
+                <ul style="font-size:12px">
+                  <li>임원 과정은 기능 숙달보다 <b>판단 기준과 실행 우선순위</b>가 핵심</li>
+                  <li>트렌드·글로벌 이커머스 사례·보안/윤리·대화형 Agent 실습을 모두 포함하면서 <b>실제 의사결정 메모까지 완성</b></li>
+                  <li>필요 시 <b>5시간 확장형</b> 심화 워크숍 운영</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 20 리더 교육 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <div class="sechead"><span class="sec-num">04 / 계층별 과정</span><div class="tierbar"><span class="tier t-exec ">임원 교육</span><span class="tier t-lead on">리더 교육</span><span class="tier t-emp ">직원 교육</span></div></div>
+          <p class="kicker">리더 과정 상세 시간표</p>
+          <h2>Workflow Leadership Lab · 5시간 / 5개 리더 분반</h2>
+          <div class="keypt"><span class="kt">핵심</span><span>리더는 <b>팀 workflow를 직접 다시 그리고 30일 backlog</b>를 들고 나갑니다.</span></div>
+          <div class="split" style="align-items:start">
+            <table class="prop">
+              <tr><th style="width:105px">시간</th><th style="width:130px">모듈</th><th>세부 내용</th><th class="c" style="width:105px">산출물</th></tr>
+              <tr><td class="tgt">00:00-00:30</td><td class="course">리더 관점 전환</td><td class="core">AI·Agent 트렌드, 조직 생산성의 기회와 실패 패턴</td><td class="hrs">팀 적용 가설</td></tr>
+              <tr><td class="tgt">00:30-01:10</td><td class="course">Workflow 설계</td><td class="core">반복·병목·판단·인수인계를 찾아 Goal-Context-Plan-Action-Verify로 재구성</td><td class="hrs">현행/목표 흐름</td></tr>
+              <tr><td class="tgt">01:10-01:40</td><td class="course">도입·프로젝트 관리</td><td class="core">과제 우선순위, PoC 범위, 오너, 성공/중단 기준, 변화관리</td><td class="hrs">PoC 기준</td></tr>
+              <tr><td class="tgt">01:40-01:50</td><td class="course">휴식</td><td class="core">도구·샘플·권한 점검</td><td class="hrs">실습 준비</td></tr>
+              <tr><td class="tgt">01:50-02:35</td><td class="course">Agent 구조</td><td class="core">Skill·플러그인·MCP의 역할, 자동화 후보와 human approval 설계</td><td class="hrs">자동화 후보</td></tr>
+              <tr><td class="tgt">02:35-03:35</td><td class="course">직무별 Agent 실습</td><td class="core">리더 분반별 핵심 workflow를 Claude Code/Qoder Work로 프로토타이핑</td><td class="hrs">Workflow prototype</td></tr>
+              <tr><td class="tgt">03:35-03:45</td><td class="course">휴식</td><td class="core">결과 공유와 교차검토 준비</td><td class="hrs">검토 준비</td></tr>
+              <tr><td class="tgt">03:45-04:25</td><td class="course">보안·윤리·기밀</td><td class="core">데이터 보안, 최소권한, 외부연동, 오류·저작권·책임, 사고 대응</td><td class="hrs">위험통제표</td></tr>
+              <tr><td class="tgt">04:25-05:00</td><td class="course">팀 실행계획</td><td class="core">30일 내 실행할 1개 과제, 교육/가이드, KPI와 리뷰 리듬 확정</td><td class="hrs">30일 backlog</td></tr>
+            </table>
+            <div>
+              <div class="refcol" style="margin-bottom:12px">
+                <div class="refhd">과정 개요</div>
+                <ul>
+                  <li>대상 <span>팀장·그룹장 등 조직 리더</span></li>
+                  <li>목표 <span>팀 업무를 Agent-ready workflow로 재설계하고 도입·프로젝트·리스크 관리 기준 확보</span></li>
+                  <li>산출물 <span>Workflow Canvas + 위험통제표 + 30일 실행 backlog</span></li>
+                  <li>도구 <span>Tech 리더 Claude Code / Product·Sales·Staff 리더 Qoder Work</span></li>
+                </ul>
+              </div>
+              <div class="why" style="padding:16px">
+                <h3 style="font-size:14px">5시간 권장 근거</h3>
+                <ul style="font-size:12px">
+                  <li>이해뿐 아니라 <b>팀 업무 발굴, 자동화 가능성 판단, 안전한 도입 규칙, 30일 실행계획</b>까지 완성</li>
+                  <li>강의보다 워크숍 비중을 높여 <b>최소 1개의 팀 workflow를 설계·검증</b>할 수 있는 시간</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 21 리더 5개 분반 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <div class="sechead"><span class="sec-num">04 / 계층별 과정</span><div class="tierbar"><span class="tier t-exec ">임원 교육</span><span class="tier t-lead on">리더 교육</span><span class="tier t-emp ">직원 교육</span></div></div>
+          <p class="kicker">리더 5개 분반별 실습 변형</p>
+          <h2>리더 5개 분반별 산출 Canvas 차이</h2>
+          <div class="keypt"><span class="kt">핵심</span><span>5개 리더 분반이 같은 시간표를 쓰되, <b>실습 대상은 각자의 팀 업무</b>입니다.</span></div>
+          <table class="tbl">
+            <tr><th style="width:180px">분반</th><th>핵심 실습</th><th style="width:130px">권장 도구</th><th style="width:230px">대표 산출물</th></tr>
+            <tr><td class="task-c">Tech-Product</td><td>개발 workflow 병목 진단, 계획-코드-테스트-리뷰 기준 설계</td><td><span class="pill b">Claude Code</span></td><td>Engineering Workflow Canvas</td></tr>
+            <tr><td class="task-c">Tech-Infra</td><td>운영 자동화 후보, read-only/approval gate, incident workflow 설계</td><td><span class="pill b">Claude Code</span></td><td>Safe Automation Canvas</td></tr>
+            <tr><td class="task-c">Product/PM</td><td>리서치-PRD-우선순위-의사결정의 품질 기준 설계</td><td><span class="pill r">Qoder Work</span></td><td>Product Decision Canvas</td></tr>
+            <tr><td class="task-c">Sales·Marketing·물류</td><td>계정/캠페인/운영 예외 workflow와 확산 기준 설계</td><td><span class="pill r">Qoder Work</span></td><td>Growth Workflow Canvas</td></tr>
+            <tr><td class="task-c">Staff</td><td>정책·재무·컴플라이언스 문서의 근거/승인 workflow 설계</td><td><span class="pill r">Qoder Work</span></td><td>Governance Workflow Canvas</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 22 직원 공통 4시간 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <div class="sechead"><span class="sec-num">04 / 계층별 과정</span><div class="tierbar"><span class="tier t-exec ">임원 교육</span><span class="tier t-lead ">리더 교육</span><span class="tier t-emp on">직원 교육</span></div></div>
+          <p class="kicker">직원 과정 — 공통 4시간 구조</p>
+          <h2>공통 시간 구조 · 직무별 실습 변형</h2>
+          <p class="lead">직원 과정은 12개 직무형 모두 동일한 시간 구조를 사용하되, 실습 데이터·업무 시나리오·산출물·검증 기준을 직무별로 교체합니다. 이를 통해 25차수의 품질을 일정하게 유지하면서 현업 적합성을 확보합니다.</p>
+          <table class="tbl">
+            <tr><th style="width:120px">시간</th><th style="width:180px">공통 모듈</th><th>공통 학습 내용</th><th style="width:210px">직무별 변형</th></tr>
+            <tr><td class="task-c">00:00-00:25</td><td class="task-c">Safe AI Opening</td><td>정보보안·개인정보·저작권·오류·기밀·승인 원칙</td><td>각 직무의 금지 데이터/승인자</td></tr>
+            <tr><td class="task-c">00:25-01:00</td><td class="task-c">Prompt &amp; Context</td><td>목표·입력·제약·출력·평가기준을 구조화</td><td>직무 brief/template</td></tr>
+            <tr><td class="task-c">01:00-01:40</td><td class="task-c">Agent Deep Dive</td><td>Plan-Act-Observe-Verify, Skill·플러그인·MCP·재사용</td><td>Claude Code / Qoder Work</td></tr>
+            <tr><td class="task-c">01:40-01:50</td><td class="task-c">휴식/전환</td><td>실습 파일·권한·샌드박스 확인</td><td>분반별 preflight</td></tr>
+            <tr><td class="task-c">01:50-02:55</td><td class="task-c">Role Sprint 1</td><td>직무 핵심 업무를 Agent와 함께 완성</td><td>직무 실습 1</td></tr>
+            <tr><td class="task-c">02:55-03:40</td><td class="task-c">Role Sprint 2</td><td>결과를 검증·개선하고 예외/승인 흐름 추가</td><td>직무 실습 2</td></tr>
+            <tr><td class="task-c">03:40-04:00</td><td class="task-c">Reuse &amp; Evaluation</td><td>산출물 공유, rubric 평가, 재사용용 Skill/템플릿화</td><td>직무 결과물</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 23 12개 직무 1/2 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <div class="sechead"><span class="sec-num">04 / 계층별 과정</span><div class="tierbar"><span class="tier t-exec ">임원 교육</span><span class="tier t-lead ">리더 교육</span><span class="tier t-emp on">직원 교육</span></div></div>
+          <p class="kicker">12개 직무별 상세 실습 모듈 (1/2)</p>
+          <h2>Tech · PM · Sales 트랙 — 학습 목표와 최종 산출물</h2>
+          <div class="keypt"><span class="kt">핵심</span><span>직무마다 <b>학습 목표와 최종 산출물</b>이 사전에 명시돼 있습니다. 무엇을 들고 나가는지가 정해져 있습니다.</span></div>
+          <table class="prop">
+            <tr><th style="width:150px">직무 모듈</th><th class="c" style="width:110px">차수 / 대상</th><th class="c" style="width:100px">핵심 도구</th><th>학습 목표</th><th style="width:230px">최종 산출물</th></tr>
+            <tr><td class="trk">1. Front/Web/Mobile</td><td class="hrs">4차수<br>최대 120명</td><td class="tgt">Claude Code</td><td class="core">기존 UI 흐름을 안전하게 이해하고 작은 변경을 계획-구현-검증하는 Agentic Coding 루프를 습득합니다.</td><td class="course">변경 계획서 + 코드 diff + 테스트/리뷰 기록</td></tr>
+            <tr><td class="trk">2. Backend</td><td class="hrs">3차수<br>최대 90명</td><td class="tgt">Claude Code</td><td class="core">API·도메인 로직을 맥락과 테스트 기준으로 분해하고, 작은 변경을 검증 가능한 형태로 완수합니다.</td><td class="course">API 변경안 + 테스트 세트 + 코드 리뷰 메모</td></tr>
+            <tr><td class="trk">3. Infra</td><td class="hrs">1차수<br>최대 30명</td><td class="tgt">Claude Code</td><td class="core">운영 변경을 직접 실행하기 전에 증거 수집-진단-계획-승인의 순서를 지키는 안전한 자동화 습관을 형성합니다.</td><td class="course">Incident brief + 변경 전 체크리스트 + 승인형 runbook</td></tr>
+            <tr><td class="trk">4. PM</td><td class="hrs">3차수<br>최대 90명</td><td class="tgt">Qoder Work</td><td class="core">고객·사업 맥락을 구조화해 PRD, 우선순위, 의사결정 기록으로 연결하는 Agent 기반 제품기획 루프를 만듭니다.</td><td class="course">PRD + 우선순위 backlog + decision memo</td></tr>
+            <tr><td class="trk">5. Sales AM/KAM</td><td class="hrs">4차수<br>최대 120명</td><td class="tgt">Qoder Work</td><td class="core">셀러/브랜드 계정 정보를 빠르게 요약하고 성장 기회와 후속 액션을 일관된 포맷으로 제안합니다.</td><td class="course">Account brief + QBR 초안 + 30일 액션</td></tr>
+            <tr><td class="trk">6. Sales BD/Operation</td><td class="hrs">3차수<br>최대 90명</td><td class="tgt">Qoder Work</td><td class="core">파트너 발굴·제휴 검토·반복 운영을 리서치와 표준절차로 전환합니다.</td><td class="course">Opportunity brief + 운영 SOP + 예외처리 표</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 24 12개 직무 2/2 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <div class="sechead"><span class="sec-num">04 / 계층별 과정</span><div class="tierbar"><span class="tier t-exec ">임원 교육</span><span class="tier t-lead ">리더 교육</span><span class="tier t-emp on">직원 교육</span></div></div>
+          <p class="kicker">12개 직무별 상세 실습 모듈 (2/2)</p>
+          <h2>Sales · Marketing · 물류 · Staff 트랙</h2>
+          <div class="keypt"><span class="kt">핵심</span><span>직무마다 <b>학습 목표와 최종 산출물</b>이 사전에 명시돼 있습니다. 무엇을 들고 나가는지가 정해져 있습니다.</span></div>
+          <table class="prop">
+            <tr><th style="width:150px">직무 모듈</th><th class="c" style="width:110px">차수 / 대상</th><th class="c" style="width:100px">핵심 도구</th><th>학습 목표</th><th style="width:230px">최종 산출물</th></tr>
+            <tr><td class="trk">7. Sales 1P Brand</td><td class="hrs">2차수<br>최대 60명</td><td class="tgt">Qoder Work</td><td class="core">브랜드·상품군 정보를 바탕으로 행사/구색/성과 리뷰를 빠르게 설계하고 검증합니다.</td><td class="course">Category brief + 프로모션 기획안 + 성과 리뷰 틀</td></tr>
+            <tr><td class="trk">8. Marketing</td><td class="hrs">1차수<br>최대 30명</td><td class="tgt">Qoder Work</td><td class="core">캠페인 조사-브리프-카피-검수 흐름을 하나의 재사용 가능한 작업 패키지로 만듭니다.</td><td class="course">캠페인 brief + 채널별 카피 + 콘텐츠 QA표</td></tr>
+            <tr><td class="trk">9. Logistics</td><td class="hrs">1차수<br>최대 30명</td><td class="tgt">Qoder Work</td><td class="core">배송·재고·반품 예외를 구조화하고 현장 대응 문서와 개선 가설을 빠르게 만듭니다.</td><td class="course">Exception brief + 대응 SOP + 일일 운영 보고</td></tr>
+            <tr><td class="trk">10. HR/GA</td><td class="hrs">1차수<br>최대 30명</td><td class="tgt">Qoder Work</td><td class="core">사내 규정·공지·문의 대응을 일관된 근거와 승인 절차가 있는 문서 워크플로로 전환합니다.</td><td class="course">정책 FAQ + 공지문 + HR/GA 대시보드 명세</td></tr>
+            <tr><td class="trk">11. Finance</td><td class="hrs">1차수<br>최대 30명</td><td class="tgt">Qoder Work</td><td class="core">재무 데이터 설명과 검증을 분리해 숫자 근거가 추적되는 분석·보고 초안을 만듭니다.</td><td class="course">Variance commentary + 대사 체크리스트 + 보고서 초안</td></tr>
+            <tr><td class="trk">12. Compliance</td><td class="hrs">1차수<br>최대 30명</td><td class="tgt">Qoder Work</td><td class="core">법무·CS·안전거래 이슈를 사실/규정/판단으로 분리하고 검토 가능한 초안을 신속히 만듭니다.</td><td class="course">Issue triage sheet + 검토 메모 + 안내문 초안</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 25 직무별 실습 데이터·보안 기준 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">05 / 안전 설계</span>
+          <p class="kicker">직무별 실습 데이터·보안 기준</p>
+          <h2>12개 모듈별 금지 데이터 사전 정의</h2>
+          <p class="lead">각 차수의 첫 25분 Safe AI Opening에서 직무별 금지 데이터와 승인자를 확인한 뒤에만 실습을 시작합니다.</p>
+          <table class="prop">
+            <tr><th style="width:170px">직무 모듈</th><th>실습 시 주의 사항</th></tr>
+            <tr><td class="trk">Front/Web/Mobile</td><td class="core">샌드박스 저장소만 사용, 실제 서비스 코드·토큰·고객 데이터 미사용</td></tr>
+            <tr><td class="trk">Backend</td><td class="core">외부 API·운영 DB 연결 금지, 제공된 로컬 fixture만 사용</td></tr>
+            <tr><td class="trk">Infra</td><td class="core">운영망·실계정·쓰기 명령 금지, read-only/simulated 명령만 사용</td></tr>
+            <tr><td class="trk">PM</td><td class="core">실제 VOC·개인정보 대신 익명화된 샘플 문서 사용, Jira/Confluence 연동 제외</td></tr>
+            <tr><td class="trk">Sales AM/KAM</td><td class="core">셀러명·계약·매출 원본 대신 합성 데이터 사용, 외부 발송 전 담당자 검토</td></tr>
+            <tr><td class="trk">Sales BD/Operation</td><td class="core">웹 리서치 출처 기록, 계약·협상 결론은 사람이 승인</td></tr>
+            <tr><td class="trk">Sales 1P Brand</td><td class="core">미공개 매입·마진·계약 정보 미사용, 생성 수치의 원자료 대조 필수</td></tr>
+            <tr><td class="trk">Marketing</td><td class="core">이미지/문구 라이선스와 출처 확인, 실제 공개·집행 전 법무/브랜드 승인</td></tr>
+            <tr><td class="trk">Logistics</td><td class="core">실고객·주문번호·주소 제거, 자동 의사결정이 아닌 담당자 판단 보조로 제한</td></tr>
+            <tr><td class="trk">HR/GA</td><td class="core">인사 개인정보·평가·징계 데이터 금지, 정책 해석은 담당 부서 최종 승인</td></tr>
+            <tr><td class="trk">Finance</td><td class="core">실재무·세금·계좌 정보 미사용, 계산은 원본 수식/담당자 검증 후 확정</td></tr>
+            <tr><td class="trk">Compliance</td><td class="core">법률 자문 대체 금지, 실제 사건·개인정보 미사용, 외부 안내 전 담당자 승인</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 26 보안·윤리 가이드 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">05 / 안전 설계</span>
+          <p class="kicker">교육 오프닝 AI 보안·윤리 가이드</p>
+          <h2>전 차수 공통 오프닝 25분 — 보안·윤리</h2>
+          <p class="lead">학습자는 허용/금지/승인 필요를 구분한 뒤에만 실습을 시작합니다.</p>
+          <table class="tbl">
+            <tr><th style="width:130px">영역</th><th>교육 메시지</th><th style="width:250px">실습 적용</th></tr>
+            <tr><td class="task-c">정보보안·기밀</td><td>공개/사내/기밀/개인정보를 구분하고 기밀·인증정보·소스·계약정보를 외부 모델에 입력하지 않음</td><td>합성·익명화 샘플만 사용</td></tr>
+            <tr><td class="task-c">개인정보</td><td>수집 최소화, 식별자 제거, 목적 외 이용 금지, 출력물의 개인정보 재생성 여부 확인</td><td>이름·메일·주문번호·주소 제거</td></tr>
+            <tr><td class="task-c">저작권</td><td>입력자료의 사용 권리와 생성물의 출처·유사성을 확인하고 외부 공개 전 검토</td><td>출처 기록과 최종 검수</td></tr>
+            <tr><td class="task-c">결과 오류</td><td>AI 출력은 초안이며 사실·수치·인용·코드는 원자료·테스트로 검증</td><td>Evidence/Review 체크포인트</td></tr>
+            <tr><td class="task-c">Agent·MCP</td><td>최소권한, 명시적 승인, read-only 우선, 실행 로그, production write 금지</td><td>가상 MCP 또는 로컬 mock만 사용</td></tr>
+            <tr><td class="task-c">허용 도구</td><td>지마켓 제공 도구와 허용 URL만 사용. Slack·Notion 미사용, Jira·Confluence 연동 제외</td><td>MS365/Teams·Google Workspace 범위</td></tr>
+            <tr><td class="task-c">책임과 승인</td><td>고객/외부 발송·법률판단·재무확정·운영변경은 담당자가 최종 승인</td><td>Human-in-the-loop gate</td></tr>
+          </table>
+          <p class="note">MCP 실습 원칙 · 실제 Jira·Confluence·운영시스템에 연결하지 않습니다. 가상 데이터, 로컬 파일, 읽기 전용 mock connector를 사용하고 도구 호출 전 사용자 승인을 받도록 설계합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 27 Agent Tool 역량 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">06 / 도구 역량</span>
+          <p class="kicker">교육 가능 Agent Tool 및 교육 이력</p>
+          <h2>개발 직군 Claude Code · 비개발 직군 Qoder Work</h2>
+          <p class="lead">Qoder/Qoder Work 직접 교육 실적은 없음을 명시하며, 계약 후 10영업일 내 영문 UI 기반 강의 준비를 완료합니다.</p>
+          <table class="tbl">
+            <tr><th style="width:130px">Tool/역량</th><th style="width:110px">교육 가능</th><th>실제 교육·활용 경험</th><th style="width:250px">주요 수행 사례</th></tr>
+            <tr><td class="task-c">Claude Code</td><td><span class="pill g">가능</span></td><td>설치·repo 분석·계획·코드 생성/디버깅·테스트·MCP·자동화</td><td>아이디노 7H, 디캠프 12H, 삼성전자 MX 다회차</td></tr>
+            <tr><td class="task-c">Qoder/Qoder Work</td><td><span class="pill b">가능(준비 필요)</span></td><td>직접 교육 실적 없음. 공식 문서와 영어 UI 기준으로 재설계</td><td>Claude Code·Cursor·Codex 공통 workflow를 Qoder 과제로 전환</td></tr>
+            <tr><td class="task-c">GitHub Copilot</td><td><span class="pill g">가능</span></td><td>Copilot Chat·리팩터링·테스트·PR/리뷰</td><td>KT DS MS AI 개발역량 8차수</td></tr>
+            <tr><td class="task-c">Cursor</td><td><span class="pill g">가능</span></td><td>Rules·Agent·Context·MCP·테스트·PR</td><td>삼성전자 MX, 카카오페이 PM 바이브코딩</td></tr>
+            <tr><td class="task-c">Codex 등</td><td><span class="pill g">가능</span></td><td>CLI 탐색-계획-수정-테스트-리뷰, 멀티에이전트·하네스</td><td>삼성전자 MX Codex/멀티에이전트, 네이버 스노우 자동화</td></tr>
+            <tr><td class="task-c">Agentic Coding</td><td><span class="pill g">가능</span></td><td>Plan-Act-Observe, Sub-agent, MCP, Eval Harness, Context Engineering</td><td>삼성전자 MX 4레벨 Agentic Coding</td></tr>
+            <tr><td class="task-c">업무 Agent</td><td><span class="pill g">가능</span></td><td>문서·데이터·리서치·워크플로 자동화</td><td>SKT 비개발 16H, SK 직무별 6차수, <b style="color:var(--primary)">롯데e커머스 500명</b></td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 28 Claude Code 적용 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">06 / 도구 역량</span>
+          <p class="kicker">Claude Code 개발 교육 적용</p>
+          <h2>Explore → Plan → Implement → Verify → Reuse</h2>
+          <div class="keypt"><span class="kt">핵심</span><span>개발 직군은 Claude Code로 <b>실제 코드베이스 작업 루프</b>를 수행하며, 시연에서 끝내지 않고 검증까지 진행합니다.</span></div>
+          <div class="flow" style="margin-bottom:18px">
+            <div class="step" style="min-width:120px"><div class="st">Explore</div><div class="ss">저장소 구조·관련 파일·테스트를 읽고 변경 범위를 확인합니다.</div></div>
+            <div class="step" style="min-width:120px"><div class="st">Plan</div><div class="ss">요구사항을 작은 작업과 검증 기준으로 분해하고 승인받습니다.</div></div>
+            <div class="step" style="min-width:120px"><div class="st">Implement</div><div class="ss">샌드박스 branch에서 작은 변경을 수행합니다.</div></div>
+            <div class="step" style="min-width:120px"><div class="st">Verify</div><div class="ss">테스트·정적분석·diff review로 결과와 부작용을 검증합니다.</div></div>
+            <div class="step" style="min-width:120px"><div class="st">Reuse</div><div class="ss">성공한 명령·context·checklist를 팀 표준으로 남깁니다.</div></div>
+          </div>
+          <div class="why">
+            <h3>개발 실습 안전장치</h3>
+            <ul>
+              <li><b>샌드박스 저장소</b>, <b>최소권한</b>, <b>승인형 명령</b>, <b>secret 차단</b> 적용</li>
+              <li><b>운영망·실서비스 write 금지</b>, <b>테스트 통과 전 결과 미확정 원칙</b> 적용</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 29 Qoder 리드타임 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">06 / 도구 역량</span>
+          <p class="kicker">Qoder/Qoder Work 대응 (1/2)</p>
+          <h2>계약 후 10영업일 강의 준비 리드타임</h2>
+          <p class="lead">Qoder/Qoder Work 직접 교육 실적은 현재 없습니다. 다만 Claude Code·Cursor·Codex의 Agent 업무 루프, MCP, 문서·데이터 자동화 교육 자산을 보유하고 있어, Qoder의 기능과 영문 UI를 검증한 뒤 동일한 학습목표를 재현할 수 있습니다.</p>
+          <table class="tbl">
+            <tr><th style="width:140px">기간</th><th>검증·개발 과업</th><th style="width:220px">완료 기준</th></tr>
+            <tr><td class="task-c">D-10 ~ D-8</td><td><b>지마켓 정보보안팀 협의 — 실습 PC 설치 및 화면 제어(Computer Use) 권한 승인</b>, 계정·영문 UI·버전·허용 URL·네트워크·파일 권한 확인</td><td><span class="badge badge-red">설치·권한 승인서 + Preflight 결과표</span></td></tr>
+            <tr><td class="task-c">D-7 ~ D-5</td><td>Qoder IDE/CLI/Qoder Work 기능 매핑, 12개 직무 시나리오와 합성 실습파일 제작</td><td><span class="badge badge-red">직무별 lab 초안</span></td></tr>
+            <tr><td class="task-c">D-4 ~ D-3</td><td>주강사·보조강사 샌드박스 리허설, 오류·속도·권한 이슈 기록</td><td><span class="badge badge-red">리허설 통과/수정 목록</span></td></tr>
+            <tr><td class="task-c">D-2 ~ D-1</td><td>버전 동결, 영문 UI 캡처 가이드, 교안·fallback·FAQ 최종 QA</td><td><span class="badge badge-red">수업 가능 판정</span></td></tr>
+          </table>
+          <p class="note">설치 승인이 지연될 경우 Qoder Work가 공식 지원하는 <b>VM 샌드박스 환경</b>으로 실습을 전환합니다. 로컬 파일 접근 없이 동일한 학습목표를 수행할 수 있어, 사내 보안 정책과 무관하게 개강이 가능합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 30 Qoder 리스크 대응 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">06 / 도구 역량</span>
+          <p class="kicker">Qoder/Qoder Work 대응 (2/2)</p>
+          <h2>예상 리스크와 대응 방안</h2>
+          <div class="keypt"><span class="kt">핵심</span><span>Qoder Work는 아직 <b>0.9 버전대</b>입니다. 리스크를 숨기지 않고 대응 방안을 먼저 제시합니다.</span></div>
+          <table class="tbl">
+            <tr><th style="width:220px">리스크</th><th>대응</th></tr>
+            <tr><td class="task-c">영문 UI·명칭 변화</td><td>한국어 단계 가이드 + 영문 메뉴명 병기 + 버전 날짜 표시</td></tr>
+            <tr><td class="task-c">버전/기능 변경</td><td>D-10 버전 기준선, D-2 재검증, 변경 추적표 운영</td></tr>
+            <tr><td class="task-c">계정/네트워크 장애</td><td>강사 demo와 개인 실습 분리, 화면 캡처·로컬 샘플·대체 workflow 준비</td></tr>
+            <tr><td class="task-c">외부연동 제한</td><td>MCP·connector는 mock/read-only로 대체, Jira·Confluence 실연동 제외</td></tr>
+            <tr><td class="task-c">도구 간 차이</td><td>학습목표 → 공통 workflow → 도구 UI의 3층 교안으로 전환 비용 최소화</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 31 교수법 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">06 / 도구 역량</span>
+          <p class="kicker">AI Tool 실무 교육 교수법</p>
+          <h2>6가지 교수법과 각각의 검증 장치</h2>
+          <div class="keypt"><span class="kt">핵심</span><span>교수법마다 <b>검증 장치</b>가 붙어 있어, 모든 과정이 '되는지 확인했다'로 마무리됩니다.</span></div>
+          <table class="tbl">
+            <tr><th style="width:200px">교수법</th><th>적용 방식</th><th style="width:190px">검증</th></tr>
+            <tr><td class="task-c">Artifact-first</td><td>시작 시 완성 산출물과 평가기준을 먼저 제시하고 역으로 실습 단계를 설계</td><td><span class="badge badge-red">산출물 rubric</span></td></tr>
+            <tr><td class="task-c">I do → We do → You do</td><td>강사 시연, 2인 guided lab, 개인 직무 sprint의 3단계</td><td><span class="badge badge-red">단계별 checkpoint</span></td></tr>
+            <tr><td class="task-c">Context before Prompt</td><td>프롬프트 문장보다 목표·자료·제약·출력·검증 기준을 구조화</td><td><span class="badge badge-red">작업 brief</span></td></tr>
+            <tr><td class="task-c">Plan-Act-Observe-Verify</td><td>실행 전 계획, 실행 중 로그, 실행 후 증거 검증을 반복</td><td><span class="badge badge-red">계획/로그/검증 기록</span></td></tr>
+            <tr><td class="task-c">Error-driven coaching</td><td>권한·환각·실패·버전 오류를 숨기지 않고 원인-대응-재시도로 학습</td><td><span class="badge badge-red">오류 대응 FAQ</span></td></tr>
+            <tr><td class="task-c">Reusable Skill</td><td>성공 workflow를 템플릿·Skill·체크리스트로 재사용</td><td><span class="badge badge-red">개인/팀 재사용 자산</span></td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 32 제안 대표 강사진 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">07 / 강사진</span>
+          <p class="kicker">제안 대표 강사진 및 담당 범위</p>
+          <h2>트랙별 전담 강사 3인 · 섭외 확정 완료</h2>
+          <p class="lead">제안서에 기재한 강사는 <b>섭외가 확정된 인원으로만 구성</b>했습니다. 미확정 인원은 포함하지 않았습니다. 31차수는 <b>개발 · 비개발 직무 · 임원리더</b> 3개 트랙으로 나누고, 각 트랙을 해당 분야 전문 강사가 전담합니다.</p>
+          <table class="tbl compact">
+            <tr><th style="width:140px">전담 트랙</th><th style="width:76px">성명</th><th style="width:250px">소속 / 직책</th><th>담당 과정</th><th class="c" style="width:74px">담당 차수</th><th style="width:118px">섭외 상태</th></tr>
+            <tr><td class="task-c">개발 트랙<br><span style="font-weight:600;color:var(--muted);font-size:11px">Claude Code</span></td><td class="task-c">김영욱</td><td>Hello AI 대표 / Microsoft RD·AI MVP</td><td>Tech-Product·Tech-Infra 리더 2차수, Front/Web/Mobile·Backend·Infra 직원 8차수</td><td class="task-c" style="text-align:center;color:var(--primary)">10</td><td><span class="pill g">섭외 확정 완료</span></td></tr>
+            <tr><td class="task-c">비개발·직무 트랙<br><span style="font-weight:600;color:var(--muted);font-size:11px">Qoder Work</span></td><td class="task-c">송민호</td><td>인천대 정보기술대학원 강사 / 데이터플로우</td><td>PM·AM/KAM·BD/Operation·1P Brand·Marketing·Logistics·HR/GA·Finance·Compliance 직원 17차수</td><td class="task-c" style="text-align:center;color:var(--primary)">17</td><td><span class="pill g">섭외 확정 완료</span></td></tr>
+            <tr><td class="task-c">임원·리더 트랙<br><span style="font-weight:600;color:var(--muted);font-size:11px">퍼실리테이션</span></td><td class="task-c">박성훈</td><td>LeanX 대표</td><td>임원 1차수, Product/PM·Sales·Marketing·물류·Staff 리더 3차수</td><td class="task-c" style="text-align:center;color:var(--primary)">4</td><td><span class="pill g">섭외 확정 완료</span></td></tr>
+            <tr style="background:var(--soft2)"><td class="task-c" colspan="4">3개 트랙 합계</td><td class="task-c" style="text-align:center;color:var(--primary)"><b>31</b></td><td><b>전원 확정</b></td></tr>
+          </table>
+          <div class="why" style="margin-top:14px;padding:15px 20px">
+            <h3>3인 전담 체계의 차수 소화 방식</h3>
+            <ul style="font-size:13px">
+              <li>3인은 각 트랙의 <b>전담 책임 강사</b>입니다. 트랙의 교안·난이도·산출물 기준을 책임지고, 대부분의 차수에 직접 들어갑니다. 1일 2차수 운영 구간에서는 <b>동일 트랙 검증을 마친 백업 주강사와 교대 투입</b>해 1인당 1일 1차수·주 최대 3차수 기준을 지킵니다.</li>
+              <li><b>직원 과정(4H)은 1일 2차수(오전·오후)</b>를 기본으로 운영합니다. 임원(3H)·리더(5H)는 1일 1차수이며, 강의장을 늘리면 동시 차수는 최대 3개까지 가능합니다.</li>
+              <li>제안 명시 강사의 변경은 <b>지마켓 사전 서면 승인</b> 없이는 하지 않습니다.</li>
+            </ul>
+          </div>
+          <p class="note">강의 샘플 영상 · 「스타트업과 기업은 생성형 AI를 어떻게 접목시킬까? [33회 오픈업]」 VentureSquare 공개 세미나 · 김영욱 강연</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 33 강사 상세 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">07 / 강사진</span>
+          <p class="kicker">강사별 상세 이력 및 본 사업 역할</p>
+          <h2>세 트랙 모두 실제 기업 현장에서 검증된 강사</h2>
+          <div class="keypt"><span class="kt">핵심</span><span>세 분 모두 <b>기업 현장에서 같은 주제를 실제로 가르쳐 본</b> 이력이 있습니다.</span></div>
+          <div class="grid g3">
+            <div class="mvp">
+              <div class="mh"><div class="idx">01</div><div class="mt">김영욱<br><span style="font-size:11.5px;font-weight:600;color:var(--muted)">개발·Agentic AI</span></div></div>
+              <div class="row"><div class="tag">경력</div><div class="val">Hello AI 대표, Microsoft Regional Director·AI MVP, MCT, KIRD 겸임교수. Microsoft에서 소프트웨어 엔지니어·Technical Evangelist·기술전략 역할로 약 13년.</div></div>
+              <div class="row"><div class="tag">전문</div><div class="val tech">LLM·클라우드·AI 플랫폼, 엔터프라이즈 AI, Agentic AI, 개발자 교육, 기술 커뮤니케이션</div></div>
+              <div class="row"><div class="tag">유사</div><div class="val">SKT FLYAI, 서울대학교, 롯데케미칼 등 개발자·기업 교육. RFI 기준 Claude Code/Agentic Coding 개발 트랙 후보.</div></div>
+              <div class="row"><div class="tag">역할</div><div class="val eff">Claude Code 기반 Tech-Product/Tech-Infra 리더 및 직원 과정, 개발 workflow·MCP·테스트/리뷰 지도</div></div>
+            </div>
+            <div class="mvp">
+              <div class="mh"><div class="idx">02</div><div class="mt">송민호<br><span style="font-size:11.5px;font-weight:600;color:var(--muted)">비개발·직무 Agent</span></div></div>
+              <div class="row"><div class="tag">경력</div><div class="val">인천대학교 정보기술대학원 강사, 데이터플로우. 대학·공공·기업 대상 빅데이터/AI 강의 200시간 이상.</div></div>
+              <div class="row"><div class="tag">전문</div><div class="val tech">생성형 AI·프롬프트·데이터 분석·비개발자 교육, 문서/데이터 업무 자동화, 바이브코딩</div></div>
+              <div class="row"><div class="tag">유사</div><div class="val">KOTRA·서울대·고려대·부산외대 등. 내부 교육자료 기준 강사 만족도 4.98, 과정 만족도 4.97.</div></div>
+              <div class="row"><div class="tag">역할</div><div class="val eff">Qoder Work 기반 PM·Sales·Marketing·물류·HR/GA·Finance·Compliance 직무 실습</div></div>
+            </div>
+            <div class="mvp">
+              <div class="mh"><div class="idx">03</div><div class="mt">박성훈<br><span style="font-size:11.5px;font-weight:600;color:var(--muted)">임원·리더 AX</span></div></div>
+              <div class="row"><div class="tag">경력</div><div class="val">LeanX 대표, IT·AI 분야 10년 이상, 스타트업 대표 9년. Columbia University Computer Science.</div></div>
+              <div class="row"><div class="tag">전문</div><div class="val tech">AX 전략·AI 서비스 기획·데이터 의사결정·업무자동화, AI PM/리더 교육</div></div>
+              <div class="row"><div class="tag">유사</div><div class="val">제조·현장 AX 컨설팅, BNPL 핀테크 창업과 대안신용평가 모델, Fastcampus AI PM·AI 리더 과정, 모두의연구소 AI 서비스기획/바이브코딩.</div></div>
+              <div class="row"><div class="tag">역할</div><div class="val eff">임원 AI Commerce Decision Lab, Product/Sales/Staff 리더 workflow 및 90일 실행계획 퍼실리테이션</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 34 강사 배치·변경 관리 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">07 / 강사진</span>
+          <p class="kicker">강사진 배치·실투입·변경 관리</p>
+          <h2>제안 강사 실투입 보장 체계</h2>
+          <div class="keypt"><span class="kt">핵심</span><span><b>4개 검증 게이트</b>를 통과해야 강단에 섭니다. 제안서에 이름을 올린 강사가 그대로 들어갑니다.</span></div>
+          <div class="split" style="align-items:start">
+            <table class="tbl">
+              <tr><th style="width:110px">검증 게이트</th><th>검증 내용</th><th style="width:190px">미통과 시 조치</th></tr>
+              <tr><td class="task-c">이력 검증</td><td>원본 이력서·유사 교육·도구 경험·프로필 사용 동의</td><td>본문 제외 또는 동등 후보 교체 승인</td></tr>
+              <tr><td class="task-c">교안 적합성</td><td>직무 시나리오·보안 원칙·시간표·산출물·rubric</td><td>수정 후 재검수</td></tr>
+              <tr><td class="task-c">도구 리허설</td><td>Claude Code/Qoder Work 계정·영문 UI·권한·오류 대응</td><td>재리허설 또는 대체 실습</td></tr>
+              <tr><td class="task-c">현장 수행</td><td>시간·난이도·질의응답·실습 지원·만족도</td><td>코칭·교체·보강 계획</td></tr>
+            </table>
+            <div class="why">
+              <h3>운영 원칙</h3>
+              <ul>
+                <li>제안서에 성명과 역할이 명시된 강사를 <b>실제 과정에 투입하는 것을 원칙</b>으로 합니다.</li>
+                <li>모든 강사는 <b>도구/보안 브리핑, 교안 리허설, 최종 환경 QA</b>를 통과해야 합니다.</li>
+                <li>주강사 외 <b>보조강사 규모와 분반별 배치 기준</b>은 08 운영 계획에서 확정 제시합니다 — <b>1개 분반 3인 1조</b>(주강사 1·보조강사 1·현장 운영 1).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 35 운영 관리 방안 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">08 / 운영 계획</span>
+          <p class="kicker">대규모 교육 운영 관리 방안</p>
+          <h2>기획·운영·콘텐츠를 하나의 조직으로 통합 관리</h2>
+          <p class="lead">본 사업의 성공적 수행을 위해 수행 총괄(PM)을 전담 인력으로 배치하고, 교육 기획·교육 운영·콘텐츠 개발 조직을 구성하여 전 영역을 통합 관리합니다.</p>
+          <div class="split" style="align-items:start">
+            <table class="tbl">
+              <tr><th style="width:150px">구분</th><th>주요 업무</th><th style="width:90px">투입 인력</th></tr>
+              <tr><td class="task-c">총괄 책임자 (PO)</td><td>사업 총괄 관리, 이슈 관리 및 의사결정</td><td>1명</td></tr>
+              <tr><td class="task-c">수행 총괄 (PM)</td><td>사업 기획·운영 전 과정 수행 일정 및 품질 관리(QA)</td><td>1명</td></tr>
+              <tr><td class="task-c">교육 기획팀</td><td>교육 로드맵 설계, 커리큘럼 개발 및 프로그램 운영 전략 수립</td><td>1명</td></tr>
+              <tr><td class="task-c">콘텐츠 개발팀</td><td>주제·수준별 실습 교재 및 실감형 콘텐츠 기획·제작·고도화</td><td>2명</td></tr>
+              <tr><td class="task-c">교육 운영팀</td><td>실습 환경 세팅·현장 운영, 출결 관리 및 행정·비용 집행</td><td>2명</td></tr>
+            </table>
+            <div class="refcol">
+              <div class="refhd">전담 PM · 강은숙</div>
+              <ul>
+                <li>현재/경력 <span>모두의연구소 비즈팀 교육 PM. 대규모 기업교육 제안·운영, 강사 풀·일정·품질 관리.</span></li>
+                <li>유사 경험 <span>삼성전자 MX·롯데e커머스·이지스엔터프라이즈 등 기업 맞춤 AI 교육 PM.</span></li>
+                <li>본 사업 역할 <span>계약-착수-31차수 운영 간 단일 창구, 강사 확정·교안 QA·이슈/변경 승인·결과 보고 총괄.</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===== 36 마스터 운영 일정 (간트) ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">08 / 운영 계획</span>
+          <p class="kicker">전체 교육 운영 마스터 일정 (Gantt)</p>
+          <h2>14주 통합 운영 일정 — 31차수 · 900명</h2>
+          <p class="lead">착수부터 최종 성과보고까지 14주를 <b>준비 → 실행 → 사후</b> 3개 구간으로 나누고, 임원 → 리더 → 직원 순서를 공휴일·강사 리드타임(Qoder 10영업일)·계정 발급 소요를 반영해 배치했습니다. 직원 과정을 <b>1일 2차수(오전·오후)</b>로 운영해 실행 구간을 13일로 압축하고, 확보된 2주를 예비일·보강 구간으로 돌렸습니다. 아래 일정은 제안 기준 가안이며, 계약 후 지마켓 명단·교육장 확정과 함께 확정합니다.</p>
+
+          <div class="gantt">
+            <div class="gt-row gt-head">
+              <div class="gt-lbl">구분 / 과업</div>
+              <div class="gt-track">
+                <div class="gt-m" style="grid-column:1/span 5">2026년 9월</div>
+                <div class="gt-m" style="grid-column:6/span 4">10월</div>
+                <div class="gt-m" style="grid-column:10/span 5">11월 → 12월 1주</div>
+              </div>
+            </div>
+            <div class="gt-row gt-whead">
+              <div class="gt-lbl">주차 시작일 (월)</div>
+              <div class="gt-track">
+                <div class="gt-w">8/31</div><div class="gt-w">9/7</div><div class="gt-w">9/14</div>
+                <div class="gt-w off">9/21</div><div class="gt-w off">9/28</div><div class="gt-w off">10/5</div>
+                <div class="gt-w">10/12</div><div class="gt-w">10/19</div><div class="gt-w">10/26</div>
+                <div class="gt-w">11/2</div><div class="gt-w">11/9</div><div class="gt-w">11/16</div>
+                <div class="gt-w">11/23</div><div class="gt-w">11/30</div>
+              </div>
+            </div>
+
+            <div class="gt-row">
+              <div class="gt-lbl"><span class="no">1</span>계약 · 착수보고 · 운영 조직 확정</div>
+              <div class="gt-track"><div class="gt-bar b-prep" style="grid-column:1/span 2">착수보고 9/8</div></div>
+            </div>
+            <div class="gt-row alt">
+              <div class="gt-lbl"><span class="no">2</span>명단 확정 · 31개 분반 편성 · 직무 리더 FGI</div>
+              <div class="gt-track"><div class="gt-bar b-prep" style="grid-column:2/span 2">분반 확정</div></div>
+            </div>
+            <div class="gt-row">
+              <div class="gt-lbl"><span class="no">3</span>교안 커스터마이징 · 강사 확정 · Qoder 준비(10영업일)</div>
+              <div class="gt-track"><div class="gt-bar b-prep" style="grid-column:2/span 3">교안 QA · 강사 리허설</div></div>
+            </div>
+            <div class="gt-row alt">
+              <div class="gt-lbl"><span class="no">4</span>교육용 계정 930개 발급 · 실습 환경 구축 → 유지·회수</div>
+              <div class="gt-track">
+                <div class="gt-bar b-prep" style="grid-column:3/span 2">930계정 발급</div>
+                <div class="gt-bar b-ghost" style="grid-column:5/span 10">차수별 배정 · 회수 · 이력 관리</div>
+              </div>
+            </div>
+            <div class="gt-row">
+              <div class="gt-lbl hl"><span class="no">①</span>사전 역량진단 (차수 D-7 롤링)</div>
+              <div class="gt-track"><div class="gt-bar b-diag" style="grid-column:3/span 7">사전 AX 진단 · 응답률 95% 목표 · 분반 난이도 조정</div></div>
+            </div>
+            <div class="gt-row alt">
+              <div class="gt-lbl hl"><span class="no">②</span>임원 1차수 · 3H</div>
+              <div class="gt-track"><div class="gt-bar b-run" style="grid-column:4/span 1">9/23</div></div>
+            </div>
+            <div class="gt-row">
+              <div class="gt-lbl hl"><span class="no">②</span>리더 5차수 · 5H</div>
+              <div class="gt-track"><div class="gt-bar b-run" style="grid-column:6/span 2">10/6 ~ 10/14 · 5개 분반</div></div>
+            </div>
+            <div class="gt-row alt">
+              <div class="gt-lbl hl"><span class="no">②</span>직원 25차수 · 4H</div>
+              <div class="gt-track"><div class="gt-bar b-run" style="grid-column:8/span 3">10/20 ~ 11/5 · 1일 2차수 · 13일 · 750석</div></div>
+            </div>
+            <div class="gt-row">
+              <div class="gt-lbl hl"><span class="no">③</span>사후 역량진단 · 만족도 (차수 종료 직후)</div>
+              <div class="gt-track"><div class="gt-bar b-post" style="grid-column:4/span 8">현장 응답 100% 목표 · 차수별 사전/사후 비교</div></div>
+            </div>
+            <div class="gt-row alt">
+              <div class="gt-lbl hl"><span class="no">④</span>사후 교육관리 (리마인드 · 클리닉 · 재수강)</div>
+              <div class="gt-track"><div class="gt-bar b-mgmt" style="grid-column:7/span 8">D+7 리마인드 팩 · D+14 Q&amp;A 클리닉 · 예비일(11/9~11/20) 보강 차수</div></div>
+            </div>
+            <div class="gt-row">
+              <div class="gt-lbl hl"><span class="no">④</span>전이도 조사(D+30) · 최종 성과보고</div>
+              <div class="gt-track"><div class="gt-bar b-post" style="grid-column:12/span 3">전이도 · 성과보고 11/27</div></div>
+            </div>
+            <div class="gt-row alt">
+              <div class="gt-lbl"><span class="no">＊</span>주간 운영 리포트 · 월 1회 운영 협의체</div>
+              <div class="gt-track"><div class="gt-bar b-ops" style="grid-column:4/span 11">매주 금 리포트 · 매월 말 협의체 (상시)</div></div>
+            </div>
+          </div>
+
+          <div class="lgnd">
+            <span><i class="b-prep" style="background:#2563EB"></i>준비</span>
+            <span><i style="background:#6D3EE0"></i>① 역량진단</span>
+            <span><i style="background:#C92434"></i>② 교육 진행</span>
+            <span><i style="background:#0E9F6E"></i>③ 사후진단·성과</span>
+            <span><i style="background:#B45309"></i>④ 사후 교육관리</span>
+            <span><i style="background:#4B5563"></i>상시 운영</span>
+          </div>
+          <p class="note">공휴일 회피 반영 · 추석 연휴 9/24~9/28 · 개천절 대체공휴일 10/5 · 한글날 10/9 (해당 주는 붉은 글씨 표기) / 직원 과정 종료(11/5) 이후 <b>11/9~11/13 예비일(리스크 버퍼)</b>, <b>11/16~11/20 보강 차수·미수료자 재수강</b>으로 결강·교육장 변경을 흡수합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 37 31차수 주차별 배치 일정 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">08 / 운영 계획</span>
+          <p class="kicker">31차수 주차별 배치 일정 (Day-level)</p>
+          <h2>직원 과정 1일 2차수 운영 · 임원 1 → 리더 5 → 직원 25차수</h2>
+          <p class="lead">차수당 30명 정원. 임원(3H)·리더(5H)는 1일 1차수, <b>직원 과정(4H)은 오전·오후 1일 2차수</b>로 운영해 실행 구간을 <b>13일</b>로 압축했습니다. 동일 트랙·도구를 연속 배치해 환경 재세팅과 교안 전환 비용을 줄였습니다.</p>
+          <table class="cal">
+            <tr>
+              <th style="width:56px">주차</th><th style="width:84px">기간</th>
+              <th>월</th><th>화</th><th>수</th><th>목</th><th>금</th>
+              <th style="width:48px">차수</th><th style="width:62px">누적 좌석</th>
+            </tr>
+            <tr>
+              <td class="wk">W1~W3</td><td class="pd">9/1~9/18</td>
+              <td colspan="5"><div class="cd prep">착수보고 · 명단/분반 확정 · 직무 리더 FGI · 교안 커스터마이징 · 강사 확정 · Qoder 준비(10영업일) · 930개 계정 발급 · 사전 역량진단 오픈</div></td>
+              <td class="n mut">–</td><td class="n mut">–</td>
+            </tr>
+            <tr>
+              <td class="wk">W4</td><td class="pd">9/21~9/25</td>
+              <td class="d">–</td>
+              <td><div class="cd prep">임원 리허설</div></td>
+              <td><div class="cd exec"><b>X01</b><span>임원 · 3H</span></div></td>
+              <td><div class="cd off">추석</div></td>
+              <td><div class="cd off">추석</div></td>
+              <td class="n">1</td><td class="n">30</td>
+            </tr>
+            <tr>
+              <td class="wk">W5</td><td class="pd">9/28~10/2</td>
+              <td><div class="cd off">대체공휴일</div></td>
+              <td colspan="4"><div class="cd prep">리더 5개 분반 교안 확정 · 강사 리허설 · 리더 사전 역량진단 발송</div></td>
+              <td class="n mut">–</td><td class="n">30</td>
+            </tr>
+            <tr>
+              <td class="wk">W6</td><td class="pd">10/5~10/9</td>
+              <td><div class="cd off">대체공휴일</div></td>
+              <td><div class="cd cc"><b>L01</b><span>Tech-Product 리더</span></div></td>
+              <td><div class="cd cc"><b>L02</b><span>Tech-Infra 리더</span></div></td>
+              <td><div class="cd lead"><b>L03</b><span>Product/PM 리더</span></div></td>
+              <td><div class="cd off">한글날</div></td>
+              <td class="n">3</td><td class="n">120</td>
+            </tr>
+            <tr>
+              <td class="wk">W7</td><td class="pd">10/12~10/16</td>
+              <td class="d">–</td>
+              <td><div class="cd lead"><b>L04</b><span>Sales·Mkt·물류 리더</span></div></td>
+              <td><div class="cd lead"><b>L05</b><span>Staff 리더</span></div></td>
+              <td colspan="2"><div class="cd prep">직원 과정 리허설 · 실습 환경 최종 구축 · 리더 결과 반영</div></td>
+              <td class="n">2</td><td class="n">180</td>
+            </tr>
+            <tr>
+              <td class="wk">W8</td><td class="pd">10/19~10/23</td>
+              <td><div class="cd prep">환경 세팅</div></td>
+              <td class="two"><div class="cd cc"><b>오전 · E01</b><span>Front/Web/Mobile</span></div><div class="cd qw"><b>오후 · E09</b><span>PM</span></div></td>
+              <td class="two"><div class="cd cc"><b>오전 · E02</b><span>Front/Web/Mobile</span></div><div class="cd qw"><b>오후 · E10</b><span>PM</span></div></td>
+              <td class="two"><div class="cd cc"><b>오전 · E03</b><span>Front/Web/Mobile</span></div><div class="cd qw"><b>오후 · E11</b><span>PM</span></div></td>
+              <td class="two"><div class="cd cc"><b>오전 · E04</b><span>Front/Web/Mobile</span></div><div class="cd qw"><b>오후 · E12</b><span>AM/KAM</span></div></td>
+              <td class="n">8</td><td class="n">420</td>
+            </tr>
+            <tr>
+              <td class="wk">W9</td><td class="pd">10/26~10/30</td>
+              <td class="two"><div class="cd cc"><b>오전 · E05</b><span>Backend</span></div><div class="cd qw"><b>오후 · E13</b><span>AM/KAM</span></div></td>
+              <td class="two"><div class="cd cc"><b>오전 · E06</b><span>Backend</span></div><div class="cd qw"><b>오후 · E14</b><span>AM/KAM</span></div></td>
+              <td class="two"><div class="cd cc"><b>오전 · E07</b><span>Backend</span></div><div class="cd qw"><b>오후 · E15</b><span>AM/KAM</span></div></td>
+              <td class="two"><div class="cd cc"><b>오전 · E08</b><span>Infra</span></div><div class="cd qw"><b>오후 · E16</b><span>BD/Operation</span></div></td>
+              <td class="two"><div class="cd qw"><b>오전 · E17</b><span>BD/Operation</span></div><div class="cd qw"><b>오후 · E18</b><span>BD/Operation</span></div></td>
+              <td class="n">10</td><td class="n">720</td>
+            </tr>
+            <tr>
+              <td class="wk">W10</td><td class="pd">11/2~11/6</td>
+              <td class="two"><div class="cd qw"><b>오전 · E19</b><span>1P Brand</span></div><div class="cd qw"><b>오후 · E20</b><span>1P Brand</span></div></td>
+              <td class="two"><div class="cd qw"><b>오전 · E21</b><span>Marketing</span></div><div class="cd qw"><b>오후 · E22</b><span>Logistics</span></div></td>
+              <td class="two"><div class="cd qw"><b>오전 · E23</b><span>HR/GA</span></div><div class="cd qw"><b>오후 · E24</b><span>Finance</span></div></td>
+              <td><div class="cd qw"><b>E25</b><span>Compliance</span></div></td>
+              <td class="d">–</td>
+              <td class="n">7</td><td class="n">930</td>
+            </tr>
+            <tr>
+              <td class="wk">W11</td><td class="pd">11/9~11/13</td>
+              <td colspan="5"><div class="cd prep">예비일(리스크 버퍼) — 결강 · 교육장 변경 · 도구 장애로 인한 차수 이월 흡수</div></td>
+              <td class="n mut">–</td><td class="n">930</td>
+            </tr>
+            <tr>
+              <td class="wk">W12</td><td class="pd">11/16~11/20</td>
+              <td colspan="5"><div class="cd fu">사후관리 클리닉(트랙별 온라인 Q&amp;A 60분) · 보강 차수 · 미수료자 재수강</div></td>
+              <td class="n mut">–</td><td class="n">930</td>
+            </tr>
+            <tr>
+              <td class="wk">W13~W14</td><td class="pd">11/23~12/4</td>
+              <td colspan="5"><div class="cd fu">전이도 조사(D+30) 회수 · 최종 성과보고(11/27) · 산출물 아카이빙 · 잔여 사후관리 종료 · 계정 회수 및 개인정보 파기</div></td>
+              <td class="n mut">–</td><td class="n">930</td>
+            </tr>
+          </table>
+          <div class="lgnd" style="margin-top:10px">
+            <span><i style="background:#C7D9FB"></i>Claude Code 트랙 (개발 10차수)</span>
+            <span><i style="background:#F6CDD1"></i>Qoder Work 트랙 (비개발 20차수)</span>
+            <span><i style="background:#DCCBFA"></i>리더 퍼실리테이션</span>
+            <span><i style="background:#111"></i>임원</span>
+            <span><i style="background:#E7F6EF"></i>사후관리</span>
+          </div>
+          <p class="note">강사 배치 · 오전·오후 차수를 서로 다른 트랙에 배정해 <b>주강사 1인당 1일 1차수 · 주 최대 3차수</b> 기준을 유지합니다 · 1일 1차수 운영 시 실행 구간이 약 2주 늘어납니다 · 차수별 직무 배분은 제안 기준이며 최종 명단 확정 시 재편성합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 38 4단계 관리 체계 + 차수 운영 게이트 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">08 / 운영 계획</span>
+          <p class="kicker">차수 운영 관리 체계 및 에스컬레이션 기준</p>
+          <h2>역량진단 → 교육진행 → 사후진단 → 사후 교육관리</h2>
+          <p class="lead">31차수 각각을 동일한 4단계 사이클로 운영합니다. 단계마다 <b>관리 지표 · 판정 기준 · 미달 시 조치</b>를 사전에 정의해, 900명 전체를 대상으로 하지 않고 <b>기준 미달자만 선별해</b> 사후 교육을 투입하는 구조입니다.</p>
+
+          <div class="stage-hd">
+            <div class="sg sg1"><div class="sgn">STEP &#9312;</div><div class="sgt">역량진단</div><div class="sgd">차수 D-7 ~ D-3 · 온라인</div></div>
+            <div class="sg sg2"><div class="sgn">STEP &#9313;</div><div class="sgt">교육진행</div><div class="sgd">D-Day · 3~5시간 집체</div></div>
+            <div class="sg sg3"><div class="sgn">STEP &#9314;</div><div class="sgt">사후진단</div><div class="sgd">종료 15분 현장 + D+3</div></div>
+            <div class="sg sg4"><div class="sgn">STEP &#9315;</div><div class="sgt">사후 교육관리</div><div class="sgd">D+7 ~ D+30 · 선별 대상</div></div>
+          </div>
+
+          <table class="tbl compact">
+            <tr>
+              <th style="width:104px">단계</th>
+              <th>핵심 관리 활동</th>
+              <th style="width:168px">목표 · 판정 기준</th>
+              <th style="width:300px">미달 시 조치</th>
+            </tr>
+            <tr>
+              <td class="task-c">&#9312; 역량진단<br><span style="font-weight:600;color:var(--muted);font-size:10.5px">D-7 ~ D-3</span></td>
+              <td>AX 7단계 진단(21문항) 배포 · 응답 현황 실시간 트래킹 · 분반별 레벨 분포 산출 후 실습 시작 난이도 조정 · 사전 안내(준비물·보안 서약)</td>
+              <td>응답률 <b>95% 이상</b><br>차수 시작 D-1까지 확보</td>
+              <td>D-3 자동 리마인드 → D-1 운영 매니저 개별 연락 → 당일 현장 진단으로 100% 회수</td>
+            </tr>
+            <tr>
+              <td class="task-c">&#9313; 교육진행<br><span style="font-weight:600;color:var(--muted);font-size:10.5px">D-Day</span></td>
+              <td>입실 출결 확인 · 보안/윤리 25분 · 실습 진척 실시간 모니터링(핑시트 신호등) · 산출물 제출 관리 · 도구 장애 대응 · 이슈 로그 기록</td>
+              <td>출석 <b>80% 이상</b> 참여<br>산출물 제출률 <b>95% 이상</b></td>
+              <td>실습 <b>적신호 5명 이상</b> 시 강사 진도 조절·보조강사 집중 투입 / 도구 장애는 <b>2분 룰</b>로 대체 실습 경로 전환</td>
+            </tr>
+            <tr>
+              <td class="task-c">&#9314; 사후진단<br><span style="font-weight:600;color:var(--muted);font-size:10.5px">종료 15분 · D+3</span></td>
+              <td>사전과 <b>동일 21문항</b> 사후 진단 현장 응답 · 만족도(강사·내용·환경) 조사 · 산출물 rubric 3단계 채점 · 수료 판정 · 사후관리 대상자 선별</td>
+              <td>현장 응답률 <b>100%</b><br>만족도 <b>4.3점 이상</b><br>AX <b>평균 1단계 이상</b> 향상</td>
+              <td>만족도 4.0 미만 또는 향상 0단계 30% 이상 → PM 즉시 개입, <b>48시간 내 개선안</b> 수립 후 차기 차수 교안 반영</td>
+            </tr>
+            <tr>
+              <td class="task-c">&#9315; 사후 교육관리<br><span style="font-weight:600;color:var(--muted);font-size:10.5px">D+7 ~ D+30</span></td>
+              <td>선별 대상자 리마인드 팩 발송(D+7) · 트랙별 온라인 Q&amp;A 클리닉 60분(D+14) · 미수료자 보강 차수 재수강 · 리더 대상 팀 적용 코칭 · 전이도 조사(D+30)</td>
+              <td>대상자 참여율 <b>70% 이상</b><br>전이도(실무 적용) <b>60% 이상</b></td>
+              <td>2회 미참여자는 소속 리더에게 현황 공유 후 <b>11/16~11/20 보강 차수 배정</b>, 잔여 좌석으로 재수강 처리</td>
+            </tr>
+          </table>
+
+          <div class="split" style="grid-template-columns:1fr 1fr;gap:16px;margin-top:14px;align-items:start">
+            <div class="why" style="margin:0;padding:14px 18px">
+              <h3>개강 전 3개 게이트 — 미통과 시 개강하지 않음</h3>
+              <ul style="font-size:12.5px">
+                <li><b>Gate 1 · D-10</b> 도구/보안 브리핑 후 직무 시나리오 반영 교안 최종 QA → 교안 승인본</li>
+                <li><b>Gate 2 · D-5</b> 축약 리허설, 실습 데이터·프롬프트·계정 동작 검증 → 리허설 체크리스트</li>
+                <li><b>Gate 3 · D-1</b> 계정 30개 로그인 테스트, 네트워크·전원·좌석·교재 세팅 → 환경 점검 체크리스트</li>
+              </ul>
+            </div>
+            <div class="why" style="margin:0;padding:14px 18px">
+              <h3>에스컬레이션 기준</h3>
+              <ul style="font-size:12.5px">
+                <li><b>즉시</b> 도구·계정 장애 5명 이상, 강사 유고, 교육장 사고 → PM 직통 보고, 대체 실습·대체 강사 즉시 가동</li>
+                <li><b>24시간 내</b> 만족도 4.0 미만 또는 산출물 미완성 30% 이상 → 원인 분석 후 지마켓 담당자 공유</li>
+                <li><b>48시간 내</b> 개선안 수립 후 차기 차수 반영 / <b>주 1회</b> 누적 현황 리포트 · <b>월 1회</b> 운영 협의체</li>
+              </ul>
+            </div>
+          </div>
+
+          <p class="note"><b>&#9315;단계 투입 대상 선별 기준(4개 중 1개 이상 해당)</b> · &#9424; 사후 AX 레벨 향상 0단계 · &#9425; 개인 만족도 3.5점 미만 · &#9426; 산출물 미완성 · &#9427; 출석 80% 미달 → 900명 전체가 아닌 <b>선별 대상만 관리</b>하여 사후 리소스를 집중합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 39 분반 운영 인력 배치와 역할 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">08 / 운영 계획</span>
+          <p class="kicker">1개 분반 운영 인력 배치 기준과 역할 분담</p>
+          <h2>1개 분반 = 주강사 1 + 보조강사 1 + 현장 운영 1 (3인 1조)</h2>
+          <p class="lead">30명 정원 1개 분반에 <b>3인 1조</b>, 실습 난이도가 가장 높은 Claude Code 개발 차수는 <b>4인 1조 · 실습 지원 1:10</b>으로 운영합니다. 세 사람의 <b>관측 범위를 진도 · 개인 · 기록으로 분리</b>해 사각지대를 없앴습니다.</p>
+
+          <div class="grid g3">
+            <div class="crew c1">
+              <div class="ch"><div class="cr">MAIN INSTRUCTOR</div><div class="cn">주강사 · 1명</div><div class="cq">진도와 산출물 품질 책임</div></div>
+              <div class="cb">
+                <div class="cline"><div class="ct">담당</div><div class="cv">차수 전체 30명 · 강의 및 실습 지시 100%</div></div>
+                <div class="cline"><div class="ct">자격</div><div class="cv">제안 명시 강사 원칙 · 3개 게이트 통과자</div></div>
+                <div class="cline"><div class="ct">부하 기준</div><div class="cv">1인당 <b>1일 1차수 · 주 최대 3차수</b> · 연속 2일 초과 배치 금지</div></div>
+                <div class="cline"><div class="ct">핵심 업무</div><div class="cv">사전 AX 분포로 시작 난이도 결정 · 핑시트 신호 15분 단위 확인 후 진도 조절</div></div>
+                <div class="cline"><div class="ct">산출 책임</div><div class="cv">산출물 rubric 채점 · 차수 결과 메모(D+1) 제출</div></div>
+              </div>
+            </div>
+            <div class="crew c2">
+              <div class="ch"><div class="cr">ASSISTANT INSTRUCTOR</div><div class="cn">보조강사 · 1명<span style="font-size:11px;font-weight:600"> (개발 차수 2명)</span></div><div class="cq">실습 이탈 방지 · 오류 대응</div></div>
+              <div class="cb">
+                <div class="cline"><div class="ct">담당</div><div class="cv">실습 지원 <b>1:15</b> (개발 차수 1:10) · 순회 코칭</div></div>
+                <div class="cline"><div class="ct">자격</div><div class="cv">동일 트랙 <b>3차수 이상 참관</b> · 도구 실습 재현 테스트 통과</div></div>
+                <div class="cline"><div class="ct">부하 기준</div><div class="cv">1인당 주 최대 4차수 · 주강사 교체 시 진행 대행 가능</div></div>
+                <div class="cline"><div class="ct">핵심 업무</div><div class="cv">D-1 계정 30개 로그인 전수 테스트 · 장애 시 <b>2분 룰</b>로 대체 경로 전환</div></div>
+                <div class="cline"><div class="ct">산출 책임</div><div class="cv">미제출 산출물 회수 · 실습 산출물 아카이빙</div></div>
+              </div>
+            </div>
+            <div class="crew c3">
+              <div class="ch"><div class="cr">ON-SITE MANAGER</div><div class="cn">현장 운영 매니저 · 1명</div><div class="cq">기록 · 환경 · 이슈 단일 창구</div></div>
+              <div class="cb">
+                <div class="cline"><div class="ct">담당</div><div class="cv">차수 1개 전담 상주 (개강 60분 전 ~ 종료 30분 후)</div></div>
+                <div class="cline"><div class="ct">자격</div><div class="cv">모두의연구소 교육 운영팀 정직원 · 대규모 위탁 운영 경험</div></div>
+                <div class="cline"><div class="ct">부하 기준</div><div class="cv">2명 이원화 — 1명 당일 상주 / 1명 차기 차수 세팅·백업</div></div>
+                <div class="cline"><div class="ct">핵심 업무</div><div class="cv">출결·이슈 로그 실시간 기록 · <b>종료 15분 전</b> 진단·만족도 현장 회수</div></div>
+                <div class="cline"><div class="ct">산출 책임</div><div class="cv">출결 확정 · 진단/만족도 응답률 확보 · 당일 운영 리포트</div></div>
+              </div>
+            </div>
+          </div>
+
+          <table class="tbl compact" style="margin-top:14px">
+            <tr>
+              <th style="width:250px">차수 유형</th><th style="width:60px">차수</th><th style="width:60px">정원</th>
+              <th style="width:70px">주강사</th><th style="width:80px">보조강사</th><th style="width:90px">현장 운영</th>
+              <th style="width:80px">분반 합계</th><th>실습 지원 비율 · 배치 근거</th>
+            </tr>
+            <tr><td class="task-c">임원 · AI Commerce Decision Lab (3H)</td><td>1</td><td>30</td><td>1</td><td>1</td><td>1</td><td><b>3명</b></td><td>1:15 · 토론·의사결정 중심으로 실습 밀도 낮음. PO·PM 현장 배석 추가</td></tr>
+            <tr><td class="task-c">리더 · Workflow Leadership Lab (5H)</td><td>5</td><td>30</td><td>1</td><td>1</td><td>1</td><td><b>3명</b></td><td>1:15 · Canvas 퍼실리테이션 중심. 조별(5~6인) 운영으로 보조강사 1명 충분</td></tr>
+            <tr><td class="task-c">직원 · 개발 트랙 <span class="pill b">Claude Code</span> (4H)</td><td>8</td><td>30</td><td>1</td><td><b>2</b></td><td>1</td><td><b>4명</b></td><td><b>1:10</b> · CLI·환경 변수·권한 오류 등 개별 트러블슈팅 발생률이 가장 높음</td></tr>
+            <tr><td class="task-c">직원 · 직무 트랙 <span class="pill r">Qoder Work</span> (4H)</td><td>17</td><td>30</td><td>1</td><td>1</td><td>1</td><td><b>3명</b></td><td>1:15 · GUI 기반 실습으로 오류 유형이 정형화. 핑시트 신호등으로 낙오자 조기 식별</td></tr>
+            <tr style="background:var(--soft2)"><td class="task-c">합계 (연인원 기준)</td><td><b>31</b></td><td>930석</td><td><b>31</b></td><td><b>39</b></td><td><b>31</b></td><td><b>101 M/D</b></td><td>전 차수 평균 <b>3.3명</b> 배치 · 총괄 PM은 첫 차수·리더 전 차수 상주, 직원 차수 주 1회 이상 참관</td></tr>
+          </table>
+
+          <p class="note"><b>백업 체계</b> · 주강사 유고 시 동일 트랙 동등성 검증을 마친 백업 강사를 <b>T-24시간 내</b> 투입하며 지마켓에 사전 통보합니다. <b>주강사 풀 7인</b>(대표 3 + 검증 백업 4)을 유지하며, 1일 2차수 구간에서도 같은 풀로 교대해 1인당 1일 1차수 기준을 지킵니다. ＊ 총괄 책임자(PO)·수행 총괄(PM)·교육 기획 각 1명, 콘텐츠 개발 2명은 위 인력과 별도로 전 기간 상시 투입됩니다(35p 참조).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 42 데이터 관리·운영 도구 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">08 / 운영 계획</span>
+          <p class="kicker">실제 교육 시 데이터 관리 및 운영 도구</p>
+          <h2>31차수 · 900명의 기록을 항목별 도구로 관리</h2>
+          <div class="keypt"><span class="kt">핵심</span><span>출결·만족도·수료·산출물을 항목별로 분리해 관리합니다. <b>발주처가 언제든 현황을 확인</b>할 수 있습니다.</span></div>
+          <table class="tbl">
+            <tr><th style="width:170px">관리 항목</th><th style="width:250px">운영 도구</th><th>세부 내용</th></tr>
+            <tr><td class="task-c">출결 관리</td><td>Google Sheets</td><td>회차별 교육생 출결 기록. 누적 출결 현황 발주처 실시간 공유.</td></tr>
+            <tr><td class="task-c">만족도 관리</td><td>Google Forms → Sheets 자동 집계</td><td>교육 직후 교육생 만족도 조사 실시. 강사·내용·환경 영역별 점수 자동 집계 및 추이 시각화.</td></tr>
+            <tr><td class="task-c">수료 현황 관리</td><td>Google Sheets (인증 관리 시트)</td><td>AX 역량 인증 단계별 이수 현황을 학생별로 추적. 인증서 발급 대상 자동 필터링.</td></tr>
+            <tr><td class="task-c">산출물 아카이빙</td><td>Google Drive (공유 폴더)</td><td>교육생 산출물·강사 교안·운영 자료를 과정별 폴더 구조로 보관.</td></tr>
+            <tr><td class="task-c">개인정보 관리</td><td>접근 권한 제한 (담당자 한정)</td><td>교육생 개인정보는 개인정보보호법 기준에 따라 수집·보관 후 사업 종료 시 발주처 협의 하에 안전 파기.</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 43 계정·실습 환경 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">08 / 운영 계획</span>
+          <p class="kicker">교육용 계정 및 실습 환경 지원 계획</p>
+          <h2>약 900여 개 교육용 계정과 실습 도구 운영</h2>
+          <p class="lead">Google Workspace 교육용 계정을 신규 발급하여 Claude 및 Qoder 계정을 관리하고 실습 환경을 지원합니다. 지마켓에서 제공된 실습용 계정을 관리하기 위한 시트를 개설해 교육생을 할당하고, 차수별로 진행되는 임원·리더·직원 교육에 맞춰 계정을 배분합니다.</p>
+          <div class="grid g3">
+            <div class="task">
+              <div class="ti"></div>
+              <div class="tt">교육용 노션</div>
+              <div class="td">교육 안내 페이지 및 실습 자료 안내</div>
+            </div>
+            <div class="task">
+              <div class="ti"></div>
+              <div class="tt">실습용 패들렛</div>
+              <div class="td">실시간 소통 도구 및 실습 결과물 제출, Q&amp;A 도구</div>
+            </div>
+            <div class="task">
+              <div class="ti"></div>
+              <div class="tt">실습용 핑시트</div>
+              <div class="td">실습이 진행될 때 교육생의 현재 상황을 확인하여 교육 진행을 점검하는 도구</div>
+            </div>
+          </div>
+          <div class="why" style="margin-top:16px">
+            <h3>계정 운영 원칙</h3>
+            <ul>
+              <li>실습은 <b>지마켓 제공 LLM/Agent 유료 계정과 허용된 실습 환경</b>에서만 진행합니다.</li>
+              <li>계정 할당·회수 이력은 <b>차수별 계정 관리 시트</b>로 추적하며, 개인정보는 사업 종료 시 발주처 협의 하에 안전 파기합니다.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 44 성과 목표 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">08 / 운영 계획</span>
+          <p class="kicker">만족도 평가 · 피드백 반영 · 성과 분석</p>
+          <h2>만족도 · 역량 변화 이원 측정</h2>
+          <p class="lead">만족도 평가는 구글폼 설문으로 진행하고 자동 집계하여 강사·내용·환경 영역별 점수를 분석·시각화합니다. 여기에 더해 기업 AX 진단 도구로 교육 전/후를 비교해 최종 성과를 분석합니다.</p>
+          <div class="ba-head">
+            <div>구분</div><div>측정 방식</div><div></div><div>성과 목표</div><div class="h-after">목표 수준</div>
+          </div>
+          <div class="ba">
+            <div class="task-name">만족도</div>
+            <div class="before">교육 직후 구글폼 설문 → Sheets 자동 집계, 강사·내용·환경 영역별 점수 시각화</div>
+            <div class="arrow">→</div>
+            <div class="after">교육 내용, 환경, 강사진 등에 대한 만족도 유지</div>
+            <div class="gain">4.3점<br><span style="font-size:11px;font-weight:600">(5점 만점) 이상</span></div>
+          </div>
+          <div class="ba">
+            <div class="task-name">역량 향상</div>
+            <div class="before">사전·사후 동일 문항 AX 역량 진단 평가 (총 7단계)</div>
+            <div class="arrow">→</div>
+            <div class="after">수료생 평균 리터러시 단계 향상 입증</div>
+            <div class="gain">1단계<br><span style="font-size:11px;font-weight:600">이상 향상</span></div>
+          </div>
+          <div class="why" style="margin-top:18px">
+            <h3>AX 레벨 산출 방식</h3>
+            <ul>
+              <li>한 레벨은 <b>3개 영역(프롬프트·컨텍스트·하네스) × 3문항</b>으로 구성</li>
+              <li>각 영역에서 3문항 중 <b>2문항 이상 '예'</b>이면 그 영역에서 해당 레벨에 '도달'</li>
+              <li>한 레벨의 <b>3개 영역 모두에서 '도달'</b>했을 때 그 레벨을 통과(달성)한 것으로 판정</li>
+            </ul>
+          </div>
+          <div class="flow" style="margin-top:16px">
+            <div class="step"><div class="st">① 집계</div><div class="ss">Google Forms → Sheets 자동 집계로 차수 종료 즉시 응답 수집</div></div>
+            <div class="step"><div class="st">② 분석·시각화</div><div class="ss">강사·내용·환경 영역별 점수 분석 및 추이 시각화, 발주처 공유</div></div>
+            <div class="step"><div class="st">③ 차기 차수 반영</div><div class="ss">차수별 만족도·수료율·산출물 평가 결과를 차기 과정 교안에 반영</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 45 역량 진단 문항 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">08 / 운영 계획</span>
+          <p class="kicker">역량 진단 개요 및 문항 예시</p>
+          <h2>행동 · 경험 기반 진단 문항 설계</h2>
+          <div class="keypt"><span class="kt">핵심</span><span>'들어본 적 있다'는 <b>아니오로 답하도록</b> 설계했습니다. 그래야 사전·사후 변화가 실제 변화입니다.</span></div>
+          <div class="split" style="align-items:start">
+            <table class="tbl">
+              <tr><th style="width:70px">레벨</th><th>진단 문항 예시</th><th style="width:80px">선택지</th></tr>
+              <tr><td class="task-c">Lv.1</td><td>AI에게 매번 짧은 명령만 입력하고, 원하는 답이 안 나오면 그냥 포기한다</td><td>예/아니오</td></tr>
+              <tr><td class="task-c">Lv.2</td><td>AI에게 역할·출력 형식·조건을 명시적으로 지시하고, 대화를 이어가며 답을 다듬는다</td><td>예/아니오</td></tr>
+              <tr><td class="task-c">Lv.3</td><td>여러 출처의 자료를 함께 붙여 넣고 비교·요약·종합을 시키는 작업을 능숙하게 한다</td><td>예/아니오</td></tr>
+              <tr><td class="task-c">Lv.4</td><td>파일 업로드·토큰 한도를 이해하고, 시스템 프롬프트로 AI 동작을 사전 세팅한다</td><td>예/아니오</td></tr>
+              <tr><td class="task-c">Lv.5</td><td>자동화 도구로 AI를 다른 앱과 연결하거나, RAG 개념을 이해하고 실제 업무에 적용한다</td><td>예/아니오</td></tr>
+            </table>
+            <div class="refcol">
+              <div class="refhd">진단 설계 기준</div>
+              <ul>
+                <li>측정 기준 <span>지식이 아닌 실제 행동·경험 기준. '들어본 적 있다'는 아니오로 응답</span></li>
+                <li>측정 시점 <span>교육 시작 전(사전) / 교육 종료 후(사후) 동일 문항 적용</span></li>
+                <li>향상도 계산 <span>평균 AX 레벨 상승 단계로 산출</span></li>
+                <li>목표 <span>수료생 평균 역량 1단계 이상 향상 (총 7단계)</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 46 랩업 · 맺음말 ===== -->
+    <section class="slide closing">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <p class="kicker">Wrap-up · 맺음말</p>
+          <h2 style="font-size:27px">본 제안의 세 가지 중점</h2>
+          <div class="grid g3" style="margin:24px 0 20px">
+            <div class="wrapcard">
+              <div class="wn">POINT 01</div>
+              <div class="wt">교육 설계 전문 연구원</div>
+              <div class="wd">커리큘럼을 강사에게 맡기지 않습니다. 사내 <b style="color:#fff">AI 커리큘럼·교육 연구원</b>이 지마켓 직무를 직접 분석해 31차수 12개 직무 모듈을 설계합니다. 직무가 바뀌어도 강사 재섭외 없이 교안 단위로 즉시 조정됩니다.</div>
+              <div class="wm">10p · 커리큘럼 설계 프로세스</div>
+            </div>
+            <div class="wrapcard">
+              <div class="wn">POINT 02</div>
+              <div class="wt">전문 강사진 섭외 확정 완료</div>
+              <div class="wd">개발 · 비개발 직무 · 임원리더 <b style="color:#fff">3개 트랙 전담 강사 3인의 섭외가 이미 확정</b>됐습니다. 후보를 늘려 보이려 미확정 인원을 채우지 않았고, 확정된 강사가 확정된 트랙에 들어갑니다.</div>
+              <div class="wm">32–34p · 강사진 구성과 배치 관리</div>
+            </div>
+            <div class="wrapcard">
+              <div class="wn">POINT 03</div>
+              <div class="wt">대규모 교육 운영 경험</div>
+              <div class="wd">누적 <b style="color:#fff">150+개사 · 수료생 12,198명</b>, 단일 계약 2억 원 이상 위탁 교육 6건. 900명·31차수를 표준 운영 런북과 <b style="color:#fff">분반 3인 1조</b> 배치로 3개월 안에 완주합니다.</div>
+              <div class="wm">6–7p 실적 · 36–39p 운영 계획</div>
+            </div>
+          </div>
+          <p class="msg" style="margin:0 0 20px;font-size:17px">31차수는 서로 다른 교육의 집합이 아니라, <b style="color:#9FEFAE">하나의 조직 전환 흐름</b>으로 연결됩니다.<br>모든 과정은 '보안 설정 → 목표 정의 → 맥락 구성 → 계획 → 실행 → 검증 → 산출물 → 재사용'의 Agentic Work Loop로 통일합니다.</p>
+          <div class="sign">
+            <span><b>주식회사 모두의연구소</b> · 비즈팀</span>
+            <span><b>총괄 책임자 (PO)</b> · 이태영</span>
+            <span><b>사업 총괄 (PM)</b> · 강은숙</span>
+            <span>2026. 8. 31.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 47 부록 안내 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <div class="sechead"><span class="sec-num">부록 / 세부 커리큘럼</span><div class="tierbar"><span class="tier t-exec ">임원 교육</span><span class="tier t-lead ">리더 교육</span><span class="tier t-emp on">직원 교육</span></div></div>
+          <p class="kicker">Appendix — 차수별 세부 커리큘럼</p>
+          <h2>직원 25차수 · 12개 직무 모듈의 세부 타임테이블</h2>
+          <p class="lead">모든 모듈은 공통 4시간 구조(S22)를 따르며, <b>Role Sprint 1·2의 실습 내용과 산출물이 직무별로 달라집니다.</b> 각 모듈의 세부 시간표를 다음 12장에 수록했습니다.</p>
+          <div class="keypt"><span class="kt">읽는 법</span><span>앞의 4세션(안전교육·목표설계·Agent·전환)은 전 직무 공통, <b>Role Sprint 1·2와 평가·재사용이 직무별 차별화</b> 구간입니다. 표에서 <span style="padding:1px 7px;border-radius:3px;background:#FAFAFB;color:var(--muted);border:1px solid var(--line)">회색 음영</span>은 공통, <span style="padding:1px 7px;border-radius:3px;background:#FFF8F9;color:var(--primary-dk);border:1px solid #f2c9cd;box-shadow:inset 3px 0 0 var(--primary)">붉은 음영</span>은 직무별 차별화 구간입니다.</span></div>
+          <div class="grid g4">
+            <div class="task"><div class="ti" style="color:var(--primary);font-weight:800">1</div><div class="tt">Front/Web/Mobile</div><div class="td">4차수 · 최대 120명 · Claude Code</div></div>
+            <div class="task"><div class="ti" style="color:var(--primary);font-weight:800">2</div><div class="tt">Backend</div><div class="td">3차수 · 최대 90명 · Claude Code</div></div>
+            <div class="task"><div class="ti" style="color:var(--primary);font-weight:800">3</div><div class="tt">Infra</div><div class="td">1차수 · 최대 30명 · Claude Code</div></div>
+            <div class="task"><div class="ti" style="color:var(--primary);font-weight:800">4</div><div class="tt">PM</div><div class="td">3차수 · 최대 90명 · Qoder Work</div></div>
+            <div class="task"><div class="ti" style="color:var(--primary);font-weight:800">5</div><div class="tt">Sales AM/KAM</div><div class="td">4차수 · 최대 120명 · Qoder Work</div></div>
+            <div class="task"><div class="ti" style="color:var(--primary);font-weight:800">6</div><div class="tt">Sales BD/Operation</div><div class="td">3차수 · 최대 90명 · Qoder Work</div></div>
+            <div class="task"><div class="ti" style="color:var(--primary);font-weight:800">7</div><div class="tt">Sales 1P Brand</div><div class="td">2차수 · 최대 60명 · Qoder Work</div></div>
+            <div class="task"><div class="ti" style="color:var(--primary);font-weight:800">8</div><div class="tt">Marketing</div><div class="td">1차수 · 최대 30명 · Qoder Work</div></div>
+            <div class="task"><div class="ti" style="color:var(--primary);font-weight:800">9</div><div class="tt">Logistics</div><div class="td">1차수 · 최대 30명 · Qoder Work</div></div>
+            <div class="task"><div class="ti" style="color:var(--primary);font-weight:800">10</div><div class="tt">HR/GA</div><div class="td">1차수 · 최대 30명 · Qoder Work</div></div>
+            <div class="task"><div class="ti" style="color:var(--primary);font-weight:800">11</div><div class="tt">Finance</div><div class="td">1차수 · 최대 30명 · Qoder Work</div></div>
+            <div class="task"><div class="ti" style="color:var(--primary);font-weight:800">12</div><div class="tt">Compliance</div><div class="td">1차수 · 최대 30명 · Qoder Work</div></div>
+          </div>
+          <p class="note">출처 · 본 제안 3.4.1 12개 직무별 상세 실습 모듈 (최종 제안서 기준) — 임원·리더 과정의 세부 시간표는 S19·S20 참조</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 47 부록 1. Front/Web/Mobile ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <div class="sechead"><span class="sec-num">부록 / 세부 커리큘럼</span><div class="tierbar"><span class="tier t-exec ">임원 교육</span><span class="tier t-lead ">리더 교육</span><span class="tier t-emp on">직원 교육</span></div></div>
+          <p class="kicker">직무별 상세 실습 모듈 — 1/12</p>
+          <h2>1. Front/Web/Mobile</h2>
+          <div class="chips"><span class="chip big">Claude Code</span><span class="chip">4차수 · 최대 120명</span><span class="chip">UI 변경 루프</span><span class="chip">테스트/리뷰</span></div>
+          <p class="lead" style="margin-top:14px">기존 UI 흐름을 안전하게 이해하고 작은 변경을 계획-구현-검증하는 Agentic Coding 루프를 습득합니다.</p>
+          <div class="keypt"><span class="kt">산출물</span><span><b>변경 계획서 + 코드 diff + 테스트/리뷰 기록</b></span></div>
+          <table class="prop">
+            <tr><th style="width:95px">시간</th><th style="width:130px">세션</th><th>세부 실습</th><th style="width:150px">산출물</th></tr>
+            <tr class="common"><td class="tgt">00:00-00:25</td><td class="course">안전한 AI 사용</td><td class="core">공통 보안·윤리 원칙과 직무별 주의사항 확인: 샌드박스 저장소만 사용, 실제 서비스 코드·토큰·고객 데이터 미사용</td><td class="hrs">안전 체크</td></tr>
+            <tr class="common"><td class="tgt">00:25-01:00</td><td class="course">목표·맥락 설계</td><td class="core">업무 목표, 입력자료, 제약, 출력형식, 평가기준을 실습 brief로 구조화</td><td class="hrs">작업 brief</td></tr>
+            <tr class="common"><td class="tgt">01:00-01:40</td><td class="course">Agent·Skill·MCP</td><td class="core">Claude Code에서 계획-실행-관찰-검증 흐름과 재사용 구조를 연습</td><td class="hrs">공통 미션</td></tr>
+            <tr class="common"><td class="tgt">01:40-01:50</td><td class="course">휴식/전환</td><td class="core">샘플 파일·권한·도구 상태 재확인</td><td class="hrs">Preflight</td></tr>
+            <tr class="diff"><td class="tgt">01:50-02:55</td><td class="course">Role Sprint 1</td><td class="core">샘플 프론트엔드 저장소를 탐색해 사용자 흐름·컴포넌트 의존성·변경 영향도를 문서화하고 수정 계획을 생성합니다.</td><td class="hrs">1차 산출물</td></tr>
+            <tr class="diff"><td class="tgt">02:55-03:40</td><td class="course">Role Sprint 2</td><td class="core">접근성 또는 반응형 UI 개선을 구현하고 테스트·리뷰 체크리스트로 회귀 위험을 검증합니다.</td><td class="hrs">검증본</td></tr>
+            <tr class="diff"><td class="tgt">03:40-04:00</td><td class="course">평가·재사용</td><td class="core">rubric 교차검토 후 재사용 템플릿으로 정리하고 개인·팀 재사용 자산으로 등록</td><td class="hrs">변경 계획서 + 코드 diff + 테스트/리뷰 기록</td></tr>
+          </table>
+          <p class="note">출처 · 본 제안 3.4.1 12개 직무별 상세 실습 모듈 · 공통 4시간 구조는 S22 · 직무별 보안 기준 일람은 S25 참조</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 48 부록 2. Backend ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <div class="sechead"><span class="sec-num">부록 / 세부 커리큘럼</span><div class="tierbar"><span class="tier t-exec ">임원 교육</span><span class="tier t-lead ">리더 교육</span><span class="tier t-emp on">직원 교육</span></div></div>
+          <p class="kicker">직무별 상세 실습 모듈 — 2/12</p>
+          <h2>2. Backend</h2>
+          <div class="chips"><span class="chip big">Claude Code</span><span class="chip">3차수 · 최대 90명</span><span class="chip">API 변경</span><span class="chip">검증 세트</span></div>
+          <p class="lead" style="margin-top:14px">API·도메인 로직을 맥락과 테스트 기준으로 분해하고, 작은 변경을 검증 가능한 형태로 완수합니다.</p>
+          <div class="keypt"><span class="kt">산출물</span><span><b>API 변경안 + 테스트 세트 + 코드 리뷰 메모</b></span></div>
+          <table class="prop">
+            <tr><th style="width:95px">시간</th><th style="width:130px">세션</th><th>세부 실습</th><th style="width:150px">산출물</th></tr>
+            <tr class="common"><td class="tgt">00:00-00:25</td><td class="course">안전한 AI 사용</td><td class="core">공통 보안·윤리 원칙과 직무별 주의사항 확인: 외부 API·운영 DB 연결 금지, 제공된 로컬 fixture만 사용</td><td class="hrs">안전 체크</td></tr>
+            <tr class="common"><td class="tgt">00:25-01:00</td><td class="course">목표·맥락 설계</td><td class="core">업무 목표, 입력자료, 제약, 출력형식, 평가기준을 실습 brief로 구조화</td><td class="hrs">작업 brief</td></tr>
+            <tr class="common"><td class="tgt">01:00-01:40</td><td class="course">Agent·Skill·MCP</td><td class="core">Claude Code에서 계획-실행-관찰-검증 흐름과 재사용 구조를 연습</td><td class="hrs">공통 미션</td></tr>
+            <tr class="common"><td class="tgt">01:40-01:50</td><td class="course">휴식/전환</td><td class="core">샘플 파일·권한·도구 상태 재확인</td><td class="hrs">Preflight</td></tr>
+            <tr class="diff"><td class="tgt">01:50-02:55</td><td class="course">Role Sprint 1</td><td class="core">샘플 API의 요구사항과 호출 흐름을 분석하고, 변경 범위·예외·테스트 케이스를 포함한 구현 계획을 작성합니다.</td><td class="hrs">1차 산출물</td></tr>
+            <tr class="diff"><td class="tgt">02:55-03:40</td><td class="course">Role Sprint 2</td><td class="core">기능을 구현한 뒤 단위 테스트·정적 분석·코드 리뷰로 결과를 검증하고 실패 원인을 교정합니다.</td><td class="hrs">검증본</td></tr>
+            <tr class="diff"><td class="tgt">03:40-04:00</td><td class="course">평가·재사용</td><td class="core">rubric 교차검토 후 재사용 템플릿으로 정리하고 개인·팀 재사용 자산으로 등록</td><td class="hrs">API 변경안 + 테스트 세트 + 코드 리뷰 메모</td></tr>
+          </table>
+          <p class="note">출처 · 본 제안 3.4.1 12개 직무별 상세 실습 모듈 · 공통 4시간 구조는 S22 · 직무별 보안 기준 일람은 S25 참조</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 49 부록 3. Infra ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <div class="sechead"><span class="sec-num">부록 / 세부 커리큘럼</span><div class="tierbar"><span class="tier t-exec ">임원 교육</span><span class="tier t-lead ">리더 교육</span><span class="tier t-emp on">직원 교육</span></div></div>
+          <p class="kicker">직무별 상세 실습 모듈 — 3/12</p>
+          <h2>3. Infra</h2>
+          <div class="chips"><span class="chip big">Claude Code</span><span class="chip">1차수 · 최대 30명</span><span class="chip">증거 기반 진단</span><span class="chip">승인 runbook</span></div>
+          <p class="lead" style="margin-top:14px">운영 변경을 직접 실행하기 전에 증거 수집-진단-계획-승인의 순서를 지키는 안전한 자동화 습관을 형성합니다.</p>
+          <div class="keypt"><span class="kt">산출물</span><span><b>Incident brief + 변경 전 체크리스트 + 승인형 runbook</b></span></div>
+          <table class="prop">
+            <tr><th style="width:95px">시간</th><th style="width:130px">세션</th><th>세부 실습</th><th style="width:150px">산출물</th></tr>
+            <tr class="common"><td class="tgt">00:00-00:25</td><td class="course">안전한 AI 사용</td><td class="core">공통 보안·윤리 원칙과 직무별 주의사항 확인: 운영망·실계정·쓰기 명령 금지, read-only/simulated 명령만 사용</td><td class="hrs">안전 체크</td></tr>
+            <tr class="common"><td class="tgt">00:25-01:00</td><td class="course">목표·맥락 설계</td><td class="core">업무 목표, 입력자료, 제약, 출력형식, 평가기준을 실습 brief로 구조화</td><td class="hrs">작업 brief</td></tr>
+            <tr class="common"><td class="tgt">01:00-01:40</td><td class="course">Agent·Skill·MCP</td><td class="core">Claude Code에서 계획-실행-관찰-검증 흐름과 재사용 구조를 연습</td><td class="hrs">공통 미션</td></tr>
+            <tr class="common"><td class="tgt">01:40-01:50</td><td class="course">휴식/전환</td><td class="core">샘플 파일·권한·도구 상태 재확인</td><td class="hrs">Preflight</td></tr>
+            <tr class="diff"><td class="tgt">01:50-02:55</td><td class="course">Role Sprint 1</td><td class="core">합성 로그와 모니터링 스냅샷으로 장애 징후를 분류하고 확인 명령·가설·복구 순서를 담은 incident brief를 작성합니다.</td><td class="hrs">1차 산출물</td></tr>
+            <tr class="diff"><td class="tgt">02:55-03:40</td><td class="course">Role Sprint 2</td><td class="core">읽기 전용 IaC 샘플을 검토해 위험 설정과 변경 계획을 도출하고, human approval gate를 설계합니다.</td><td class="hrs">검증본</td></tr>
+            <tr class="diff"><td class="tgt">03:40-04:00</td><td class="course">평가·재사용</td><td class="core">rubric 교차검토 후 재사용 템플릿으로 정리하고 개인·팀 재사용 자산으로 등록</td><td class="hrs">Incident brief + 변경 전 체크리스트 + 승인형 runbook</td></tr>
+          </table>
+          <p class="note">출처 · 본 제안 3.4.1 12개 직무별 상세 실습 모듈 · 공통 4시간 구조는 S22 · 직무별 보안 기준 일람은 S25 참조</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 50 부록 4. PM ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <div class="sechead"><span class="sec-num">부록 / 세부 커리큘럼</span><div class="tierbar"><span class="tier t-exec ">임원 교육</span><span class="tier t-lead ">리더 교육</span><span class="tier t-emp on">직원 교육</span></div></div>
+          <p class="kicker">직무별 상세 실습 모듈 — 4/12</p>
+          <h2>4. PM</h2>
+          <div class="chips"><span class="chip big">Qoder Work</span><span class="chip">3차수 · 최대 90명</span><span class="chip">PRD</span><span class="chip">의사결정 기록</span></div>
+          <p class="lead" style="margin-top:14px">고객·사업 맥락을 구조화해 PRD, 우선순위, 의사결정 기록으로 연결하는 Agent 기반 제품기획 루프를 만듭니다.</p>
+          <div class="keypt"><span class="kt">산출물</span><span><b>PRD + 우선순위 backlog + decision memo</b></span></div>
+          <table class="prop">
+            <tr><th style="width:95px">시간</th><th style="width:130px">세션</th><th>세부 실습</th><th style="width:150px">산출물</th></tr>
+            <tr class="common"><td class="tgt">00:00-00:25</td><td class="course">안전한 AI 사용</td><td class="core">공통 보안·윤리 원칙과 직무별 주의사항 확인: 실제 VOC·개인정보 대신 익명화된 샘플 문서 사용, Jira/Confluence 연동 제외</td><td class="hrs">안전 체크</td></tr>
+            <tr class="common"><td class="tgt">00:25-01:00</td><td class="course">목표·맥락 설계</td><td class="core">업무 목표, 입력자료, 제약, 출력형식, 평가기준을 실습 brief로 구조화</td><td class="hrs">작업 brief</td></tr>
+            <tr class="common"><td class="tgt">01:00-01:40</td><td class="course">Agent·Skill·MCP</td><td class="core">Qoder Work에서 계획-실행-관찰-검증 흐름과 재사용 구조를 연습</td><td class="hrs">공통 미션</td></tr>
+            <tr class="common"><td class="tgt">01:40-01:50</td><td class="course">휴식/전환</td><td class="core">샘플 파일·권한·도구 상태 재확인</td><td class="hrs">Preflight</td></tr>
+            <tr class="diff"><td class="tgt">01:50-02:55</td><td class="course">Role Sprint 1</td><td class="core">가상 VOC·사용지표·경쟁 사례를 묶어 문제정의, 가설, 성공지표가 포함된 PRD 초안을 생성합니다.</td><td class="hrs">1차 산출물</td></tr>
+            <tr class="diff"><td class="tgt">02:55-03:40</td><td class="course">Role Sprint 2</td><td class="core">상충하는 요구를 평가 기준으로 비교해 backlog 우선순위와 decision memo를 완성합니다.</td><td class="hrs">검증본</td></tr>
+            <tr class="diff"><td class="tgt">03:40-04:00</td><td class="course">평가·재사용</td><td class="core">rubric 교차검토 후 재사용 템플릿으로 정리하고 개인·팀 재사용 자산으로 등록</td><td class="hrs">PRD + 우선순위 backlog + decision memo</td></tr>
+          </table>
+          <p class="note">출처 · 본 제안 3.4.1 12개 직무별 상세 실습 모듈 · 공통 4시간 구조는 S22 · 직무별 보안 기준 일람은 S25 참조</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 51 부록 5. Sales AM/KAM ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <div class="sechead"><span class="sec-num">부록 / 세부 커리큘럼</span><div class="tierbar"><span class="tier t-exec ">임원 교육</span><span class="tier t-lead ">리더 교육</span><span class="tier t-emp on">직원 교육</span></div></div>
+          <p class="kicker">직무별 상세 실습 모듈 — 5/12</p>
+          <h2>5. Sales AM/KAM</h2>
+          <div class="chips"><span class="chip big">Qoder Work</span><span class="chip">4차수 · 최대 120명</span><span class="chip">계정 브리핑</span><span class="chip">QBR 초안</span></div>
+          <p class="lead" style="margin-top:14px">셀러/브랜드 계정 정보를 빠르게 요약하고 성장 기회와 후속 액션을 일관된 포맷으로 제안합니다.</p>
+          <div class="keypt"><span class="kt">산출물</span><span><b>Account brief + QBR 초안 + 30일 액션</b></span></div>
+          <table class="prop">
+            <tr><th style="width:95px">시간</th><th style="width:130px">세션</th><th>세부 실습</th><th style="width:150px">산출물</th></tr>
+            <tr class="common"><td class="tgt">00:00-00:25</td><td class="course">안전한 AI 사용</td><td class="core">공통 보안·윤리 원칙과 직무별 주의사항 확인: 셀러명·계약·매출 원본 대신 합성 데이터 사용, 외부 발송 전 담당자 검토</td><td class="hrs">안전 체크</td></tr>
+            <tr class="common"><td class="tgt">00:25-01:00</td><td class="course">목표·맥락 설계</td><td class="core">업무 목표, 입력자료, 제약, 출력형식, 평가기준을 실습 brief로 구조화</td><td class="hrs">작업 brief</td></tr>
+            <tr class="common"><td class="tgt">01:00-01:40</td><td class="course">Agent·Skill·MCP</td><td class="core">Qoder Work에서 계획-실행-관찰-검증 흐름과 재사용 구조를 연습</td><td class="hrs">공통 미션</td></tr>
+            <tr class="common"><td class="tgt">01:40-01:50</td><td class="course">휴식/전환</td><td class="core">샘플 파일·권한·도구 상태 재확인</td><td class="hrs">Preflight</td></tr>
+            <tr class="diff"><td class="tgt">01:50-02:55</td><td class="course">Role Sprint 1</td><td class="core">가상 계정 데이터와 미팅 메모로 account brief, 이슈, 잠재 기회를 정리합니다.</td><td class="hrs">1차 산출물</td></tr>
+            <tr class="diff"><td class="tgt">02:55-03:40</td><td class="course">Role Sprint 2</td><td class="core">QBR 스토리라인과 다음 30일 액션 플랜을 만들고 근거·과장 표현을 검수합니다.</td><td class="hrs">검증본</td></tr>
+            <tr class="diff"><td class="tgt">03:40-04:00</td><td class="course">평가·재사용</td><td class="core">rubric 교차검토 후 재사용 템플릿으로 정리하고 개인·팀 재사용 자산으로 등록</td><td class="hrs">Account brief + QBR 초안 + 30일 액션</td></tr>
+          </table>
+          <p class="note">출처 · 본 제안 3.4.1 12개 직무별 상세 실습 모듈 · 공통 4시간 구조는 S22 · 직무별 보안 기준 일람은 S25 참조</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 52 부록 6. Sales BD/Operation ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <div class="sechead"><span class="sec-num">부록 / 세부 커리큘럼</span><div class="tierbar"><span class="tier t-exec ">임원 교육</span><span class="tier t-lead ">리더 교육</span><span class="tier t-emp on">직원 교육</span></div></div>
+          <p class="kicker">직무별 상세 실습 모듈 — 6/12</p>
+          <h2>6. Sales BD/Operation</h2>
+          <div class="chips"><span class="chip big">Qoder Work</span><span class="chip">3차수 · 최대 90명</span><span class="chip">파트너 발굴</span><span class="chip">SOP화</span></div>
+          <p class="lead" style="margin-top:14px">파트너 발굴·제휴 검토·반복 운영을 리서치와 표준절차로 전환합니다.</p>
+          <div class="keypt"><span class="kt">산출물</span><span><b>Opportunity brief + 운영 SOP + 예외처리 표</b></span></div>
+          <table class="prop">
+            <tr><th style="width:95px">시간</th><th style="width:130px">세션</th><th>세부 실습</th><th style="width:150px">산출물</th></tr>
+            <tr class="common"><td class="tgt">00:00-00:25</td><td class="course">안전한 AI 사용</td><td class="core">공통 보안·윤리 원칙과 직무별 주의사항 확인: 웹 리서치 출처 기록, 계약·협상 결론은 사람이 승인</td><td class="hrs">안전 체크</td></tr>
+            <tr class="common"><td class="tgt">00:25-01:00</td><td class="course">목표·맥락 설계</td><td class="core">업무 목표, 입력자료, 제약, 출력형식, 평가기준을 실습 brief로 구조화</td><td class="hrs">작업 brief</td></tr>
+            <tr class="common"><td class="tgt">01:00-01:40</td><td class="course">Agent·Skill·MCP</td><td class="core">Qoder Work에서 계획-실행-관찰-검증 흐름과 재사용 구조를 연습</td><td class="hrs">공통 미션</td></tr>
+            <tr class="common"><td class="tgt">01:40-01:50</td><td class="course">휴식/전환</td><td class="core">샘플 파일·권한·도구 상태 재확인</td><td class="hrs">Preflight</td></tr>
+            <tr class="diff"><td class="tgt">01:50-02:55</td><td class="course">Role Sprint 1</td><td class="core">공개/가상 자료로 파트너 후보를 비교하고 가정·근거·확인 질문을 구분한 opportunity brief를 작성합니다.</td><td class="hrs">1차 산출물</td></tr>
+            <tr class="diff"><td class="tgt">02:55-03:40</td><td class="course">Role Sprint 2</td><td class="core">반복 운영 업무를 입력-판단-승인-산출물 단계로 분해해 SOP와 예외처리 표를 만듭니다.</td><td class="hrs">검증본</td></tr>
+            <tr class="diff"><td class="tgt">03:40-04:00</td><td class="course">평가·재사용</td><td class="core">rubric 교차검토 후 재사용 템플릿으로 정리하고 개인·팀 재사용 자산으로 등록</td><td class="hrs">Opportunity brief + 운영 SOP + 예외처리 표</td></tr>
+          </table>
+          <p class="note">출처 · 본 제안 3.4.1 12개 직무별 상세 실습 모듈 · 공통 4시간 구조는 S22 · 직무별 보안 기준 일람은 S25 참조</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 53 부록 7. Sales 1P Brand ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <div class="sechead"><span class="sec-num">부록 / 세부 커리큘럼</span><div class="tierbar"><span class="tier t-exec ">임원 교육</span><span class="tier t-lead ">리더 교육</span><span class="tier t-emp on">직원 교육</span></div></div>
+          <p class="kicker">직무별 상세 실습 모듈 — 7/12</p>
+          <h2>7. Sales 1P Brand</h2>
+          <div class="chips"><span class="chip big">Qoder Work</span><span class="chip">2차수 · 최대 60명</span><span class="chip">프로모션 기획</span><span class="chip">성과 리뷰</span></div>
+          <p class="lead" style="margin-top:14px">브랜드·상품군 정보를 바탕으로 행사/구색/성과 리뷰를 빠르게 설계하고 검증합니다.</p>
+          <div class="keypt"><span class="kt">산출물</span><span><b>Category brief + 프로모션 기획안 + 성과 리뷰 틀</b></span></div>
+          <table class="prop">
+            <tr><th style="width:95px">시간</th><th style="width:130px">세션</th><th>세부 실습</th><th style="width:150px">산출물</th></tr>
+            <tr class="common"><td class="tgt">00:00-00:25</td><td class="course">안전한 AI 사용</td><td class="core">공통 보안·윤리 원칙과 직무별 주의사항 확인: 미공개 매입·마진·계약 정보 미사용, 생성 수치의 원자료 대조 필수</td><td class="hrs">안전 체크</td></tr>
+            <tr class="common"><td class="tgt">00:25-01:00</td><td class="course">목표·맥락 설계</td><td class="core">업무 목표, 입력자료, 제약, 출력형식, 평가기준을 실습 brief로 구조화</td><td class="hrs">작업 brief</td></tr>
+            <tr class="common"><td class="tgt">01:00-01:40</td><td class="course">Agent·Skill·MCP</td><td class="core">Qoder Work에서 계획-실행-관찰-검증 흐름과 재사용 구조를 연습</td><td class="hrs">공통 미션</td></tr>
+            <tr class="common"><td class="tgt">01:40-01:50</td><td class="course">휴식/전환</td><td class="core">샘플 파일·권한·도구 상태 재확인</td><td class="hrs">Preflight</td></tr>
+            <tr class="diff"><td class="tgt">01:50-02:55</td><td class="course">Role Sprint 1</td><td class="core">합성 판매·상품 데이터를 분석해 구색 이슈와 행사 가설을 담은 category brief를 작성합니다.</td><td class="hrs">1차 산출물</td></tr>
+            <tr class="diff"><td class="tgt">02:55-03:40</td><td class="course">Role Sprint 2</td><td class="core">프로모션 계획과 사후 리뷰 템플릿을 만들고, 수치·출처·표현의 검증 절차를 적용합니다.</td><td class="hrs">검증본</td></tr>
+            <tr class="diff"><td class="tgt">03:40-04:00</td><td class="course">평가·재사용</td><td class="core">rubric 교차검토 후 재사용 템플릿으로 정리하고 개인·팀 재사용 자산으로 등록</td><td class="hrs">Category brief + 프로모션 기획안 + 성과 리뷰 틀</td></tr>
+          </table>
+          <p class="note">출처 · 본 제안 3.4.1 12개 직무별 상세 실습 모듈 · 공통 4시간 구조는 S22 · 직무별 보안 기준 일람은 S25 참조</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 54 부록 8. Marketing ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <div class="sechead"><span class="sec-num">부록 / 세부 커리큘럼</span><div class="tierbar"><span class="tier t-exec ">임원 교육</span><span class="tier t-lead ">리더 교육</span><span class="tier t-emp on">직원 교육</span></div></div>
+          <p class="kicker">직무별 상세 실습 모듈 — 8/12</p>
+          <h2>8. Marketing</h2>
+          <div class="chips"><span class="chip big">Qoder Work</span><span class="chip">1차수 · 최대 30명</span><span class="chip">캠페인 카피</span><span class="chip">콘텐츠 QA</span></div>
+          <p class="lead" style="margin-top:14px">캠페인 조사-브리프-카피-검수 흐름을 하나의 재사용 가능한 작업 패키지로 만듭니다.</p>
+          <div class="keypt"><span class="kt">산출물</span><span><b>캠페인 brief + 채널별 카피 + 콘텐츠 QA표</b></span></div>
+          <table class="prop">
+            <tr><th style="width:95px">시간</th><th style="width:130px">세션</th><th>세부 실습</th><th style="width:150px">산출물</th></tr>
+            <tr class="common"><td class="tgt">00:00-00:25</td><td class="course">안전한 AI 사용</td><td class="core">공통 보안·윤리 원칙과 직무별 주의사항 확인: 이미지/문구 라이선스와 출처 확인, 실제 공개·집행 전 법무/브랜드 승인</td><td class="hrs">안전 체크</td></tr>
+            <tr class="common"><td class="tgt">00:25-01:00</td><td class="course">목표·맥락 설계</td><td class="core">업무 목표, 입력자료, 제약, 출력형식, 평가기준을 실습 brief로 구조화</td><td class="hrs">작업 brief</td></tr>
+            <tr class="common"><td class="tgt">01:00-01:40</td><td class="course">Agent·Skill·MCP</td><td class="core">Qoder Work에서 계획-실행-관찰-검증 흐름과 재사용 구조를 연습</td><td class="hrs">공통 미션</td></tr>
+            <tr class="common"><td class="tgt">01:40-01:50</td><td class="course">휴식/전환</td><td class="core">샘플 파일·권한·도구 상태 재확인</td><td class="hrs">Preflight</td></tr>
+            <tr class="diff"><td class="tgt">01:50-02:55</td><td class="course">Role Sprint 1</td><td class="core">가상 타깃·상품·채널 조건을 바탕으로 insight brief와 캠페인 컨셉을 도출합니다.</td><td class="hrs">1차 산출물</td></tr>
+            <tr class="diff"><td class="tgt">02:55-03:40</td><td class="course">Role Sprint 2</td><td class="core">채널별 카피 변형과 QA 체크리스트를 생성하고 저작권·과장·브랜드 톤을 검수합니다.</td><td class="hrs">검증본</td></tr>
+            <tr class="diff"><td class="tgt">03:40-04:00</td><td class="course">평가·재사용</td><td class="core">rubric 교차검토 후 재사용 템플릿으로 정리하고 개인·팀 재사용 자산으로 등록</td><td class="hrs">캠페인 brief + 채널별 카피 + 콘텐츠 QA표</td></tr>
+          </table>
+          <p class="note">출처 · 본 제안 3.4.1 12개 직무별 상세 실습 모듈 · 공통 4시간 구조는 S22 · 직무별 보안 기준 일람은 S25 참조</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 55 부록 9. Logistics ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <div class="sechead"><span class="sec-num">부록 / 세부 커리큘럼</span><div class="tierbar"><span class="tier t-exec ">임원 교육</span><span class="tier t-lead ">리더 교육</span><span class="tier t-emp on">직원 교육</span></div></div>
+          <p class="kicker">직무별 상세 실습 모듈 — 9/12</p>
+          <h2>9. Logistics</h2>
+          <div class="chips"><span class="chip big">Qoder Work</span><span class="chip">1차수 · 최대 30명</span><span class="chip">예외 대응</span><span class="chip">운영 보고</span></div>
+          <p class="lead" style="margin-top:14px">배송·재고·반품 예외를 구조화하고 현장 대응 문서와 개선 가설을 빠르게 만듭니다.</p>
+          <div class="keypt"><span class="kt">산출물</span><span><b>Exception brief + 대응 SOP + 일일 운영 보고</b></span></div>
+          <table class="prop">
+            <tr><th style="width:95px">시간</th><th style="width:130px">세션</th><th>세부 실습</th><th style="width:150px">산출물</th></tr>
+            <tr class="common"><td class="tgt">00:00-00:25</td><td class="course">안전한 AI 사용</td><td class="core">공통 보안·윤리 원칙과 직무별 주의사항 확인: 실고객·주문번호·주소 제거, 자동 의사결정이 아닌 담당자 판단 보조로 제한</td><td class="hrs">안전 체크</td></tr>
+            <tr class="common"><td class="tgt">00:25-01:00</td><td class="course">목표·맥락 설계</td><td class="core">업무 목표, 입력자료, 제약, 출력형식, 평가기준을 실습 brief로 구조화</td><td class="hrs">작업 brief</td></tr>
+            <tr class="common"><td class="tgt">01:00-01:40</td><td class="course">Agent·Skill·MCP</td><td class="core">Qoder Work에서 계획-실행-관찰-검증 흐름과 재사용 구조를 연습</td><td class="hrs">공통 미션</td></tr>
+            <tr class="common"><td class="tgt">01:40-01:50</td><td class="course">휴식/전환</td><td class="core">샘플 파일·권한·도구 상태 재확인</td><td class="hrs">Preflight</td></tr>
+            <tr class="diff"><td class="tgt">01:50-02:55</td><td class="course">Role Sprint 1</td><td class="core">합성 운영 데이터와 CS 메모에서 예외 유형·빈도·영향을 분류해 exception brief를 작성합니다.</td><td class="hrs">1차 산출물</td></tr>
+            <tr class="diff"><td class="tgt">02:55-03:40</td><td class="course">Role Sprint 2</td><td class="core">상위 예외에 대한 SOP, escalation 기준, 일일 보고 템플릿을 설계합니다.</td><td class="hrs">검증본</td></tr>
+            <tr class="diff"><td class="tgt">03:40-04:00</td><td class="course">평가·재사용</td><td class="core">rubric 교차검토 후 재사용 템플릿으로 정리하고 개인·팀 재사용 자산으로 등록</td><td class="hrs">Exception brief + 대응 SOP + 일일 운영 보고</td></tr>
+          </table>
+          <p class="note">출처 · 본 제안 3.4.1 12개 직무별 상세 실습 모듈 · 공통 4시간 구조는 S22 · 직무별 보안 기준 일람은 S25 참조</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 56 부록 10. HR/GA ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <div class="sechead"><span class="sec-num">부록 / 세부 커리큘럼</span><div class="tierbar"><span class="tier t-exec ">임원 교육</span><span class="tier t-lead ">리더 교육</span><span class="tier t-emp on">직원 교육</span></div></div>
+          <p class="kicker">직무별 상세 실습 모듈 — 10/12</p>
+          <h2>10. HR/GA</h2>
+          <div class="chips"><span class="chip big">Qoder Work</span><span class="chip">1차수 · 최대 30명</span><span class="chip">정책 FAQ</span><span class="chip">승인 문서화</span></div>
+          <p class="lead" style="margin-top:14px">사내 규정·공지·문의 대응을 일관된 근거와 승인 절차가 있는 문서 워크플로로 전환합니다.</p>
+          <div class="keypt"><span class="kt">산출물</span><span><b>정책 FAQ + 공지문 + HR/GA 대시보드 명세</b></span></div>
+          <table class="prop">
+            <tr><th style="width:95px">시간</th><th style="width:130px">세션</th><th>세부 실습</th><th style="width:150px">산출물</th></tr>
+            <tr class="common"><td class="tgt">00:00-00:25</td><td class="course">안전한 AI 사용</td><td class="core">공통 보안·윤리 원칙과 직무별 주의사항 확인: 인사 개인정보·평가·징계 데이터 금지, 정책 해석은 담당 부서 최종 승인</td><td class="hrs">안전 체크</td></tr>
+            <tr class="common"><td class="tgt">00:25-01:00</td><td class="course">목표·맥락 설계</td><td class="core">업무 목표, 입력자료, 제약, 출력형식, 평가기준을 실습 brief로 구조화</td><td class="hrs">작업 brief</td></tr>
+            <tr class="common"><td class="tgt">01:00-01:40</td><td class="course">Agent·Skill·MCP</td><td class="core">Qoder Work에서 계획-실행-관찰-검증 흐름과 재사용 구조를 연습</td><td class="hrs">공통 미션</td></tr>
+            <tr class="common"><td class="tgt">01:40-01:50</td><td class="course">휴식/전환</td><td class="core">샘플 파일·권한·도구 상태 재확인</td><td class="hrs">Preflight</td></tr>
+            <tr class="diff"><td class="tgt">01:50-02:55</td><td class="course">Role Sprint 1</td><td class="core">가상 사내규정과 FAQ로 근거 인용형 정책 안내 초안과 확인 질문 목록을 만듭니다.</td><td class="hrs">1차 산출물</td></tr>
+            <tr class="diff"><td class="tgt">02:55-03:40</td><td class="course">Role Sprint 2</td><td class="core">공지문·회의요약·대시보드 요구사항을 생성하고 정확성/민감정보 검수표를 적용합니다.</td><td class="hrs">검증본</td></tr>
+            <tr class="diff"><td class="tgt">03:40-04:00</td><td class="course">평가·재사용</td><td class="core">rubric 교차검토 후 재사용 템플릿으로 정리하고 개인·팀 재사용 자산으로 등록</td><td class="hrs">정책 FAQ + 공지문 + HR/GA 대시보드 명세</td></tr>
+          </table>
+          <p class="note">출처 · 본 제안 3.4.1 12개 직무별 상세 실습 모듈 · 공통 4시간 구조는 S22 · 직무별 보안 기준 일람은 S25 참조</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 57 부록 11. Finance ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <div class="sechead"><span class="sec-num">부록 / 세부 커리큘럼</span><div class="tierbar"><span class="tier t-exec ">임원 교육</span><span class="tier t-lead ">리더 교육</span><span class="tier t-emp on">직원 교육</span></div></div>
+          <p class="kicker">직무별 상세 실습 모듈 — 11/12</p>
+          <h2>11. Finance</h2>
+          <div class="chips"><span class="chip big">Qoder Work</span><span class="chip">1차수 · 최대 30명</span><span class="chip">근거 추적</span><span class="chip">보고 초안</span></div>
+          <p class="lead" style="margin-top:14px">재무 데이터 설명과 검증을 분리해 숫자 근거가 추적되는 분석·보고 초안을 만듭니다.</p>
+          <div class="keypt"><span class="kt">산출물</span><span><b>Variance commentary + 대사 체크리스트 + 보고서 초안</b></span></div>
+          <table class="prop">
+            <tr><th style="width:95px">시간</th><th style="width:130px">세션</th><th>세부 실습</th><th style="width:150px">산출물</th></tr>
+            <tr class="common"><td class="tgt">00:00-00:25</td><td class="course">안전한 AI 사용</td><td class="core">공통 보안·윤리 원칙과 직무별 주의사항 확인: 실재무·세금·계좌 정보 미사용, 계산은 원본 수식/담당자 검증 후 확정</td><td class="hrs">안전 체크</td></tr>
+            <tr class="common"><td class="tgt">00:25-01:00</td><td class="course">목표·맥락 설계</td><td class="core">업무 목표, 입력자료, 제약, 출력형식, 평가기준을 실습 brief로 구조화</td><td class="hrs">작업 brief</td></tr>
+            <tr class="common"><td class="tgt">01:00-01:40</td><td class="course">Agent·Skill·MCP</td><td class="core">Qoder Work에서 계획-실행-관찰-검증 흐름과 재사용 구조를 연습</td><td class="hrs">공통 미션</td></tr>
+            <tr class="common"><td class="tgt">01:40-01:50</td><td class="course">휴식/전환</td><td class="core">샘플 파일·권한·도구 상태 재확인</td><td class="hrs">Preflight</td></tr>
+            <tr class="diff"><td class="tgt">01:50-02:55</td><td class="course">Role Sprint 1</td><td class="core">합성 예산/실적표에서 증감 원인을 분류하고 variance commentary와 추가 확인 질문을 작성합니다.</td><td class="hrs">1차 산출물</td></tr>
+            <tr class="diff"><td class="tgt">02:55-03:40</td><td class="course">Role Sprint 2</td><td class="core">정산·대사 체크리스트와 월간 경영보고 초안을 만들고 계산·출처 교차검증을 수행합니다.</td><td class="hrs">검증본</td></tr>
+            <tr class="diff"><td class="tgt">03:40-04:00</td><td class="course">평가·재사용</td><td class="core">rubric 교차검토 후 재사용 템플릿으로 정리하고 개인·팀 재사용 자산으로 등록</td><td class="hrs">Variance commentary + 대사 체크리스트 + 보고서 초안</td></tr>
+          </table>
+          <p class="note">출처 · 본 제안 3.4.1 12개 직무별 상세 실습 모듈 · 공통 4시간 구조는 S22 · 직무별 보안 기준 일람은 S25 참조</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 58 부록 12. Compliance ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <div class="sechead"><span class="sec-num">부록 / 세부 커리큘럼</span><div class="tierbar"><span class="tier t-exec ">임원 교육</span><span class="tier t-lead ">리더 교육</span><span class="tier t-emp on">직원 교육</span></div></div>
+          <p class="kicker">직무별 상세 실습 모듈 — 12/12</p>
+          <h2>12. Compliance</h2>
+          <div class="chips"><span class="chip big">Qoder Work</span><span class="chip">1차수 · 최대 30명</span><span class="chip">이슈 분류</span><span class="chip">검토 초안</span></div>
+          <p class="lead" style="margin-top:14px">법무·CS·안전거래 이슈를 사실/규정/판단으로 분리하고 검토 가능한 초안을 신속히 만듭니다.</p>
+          <div class="keypt"><span class="kt">산출물</span><span><b>Issue triage sheet + 검토 메모 + 안내문 초안</b></span></div>
+          <table class="prop">
+            <tr><th style="width:95px">시간</th><th style="width:130px">세션</th><th>세부 실습</th><th style="width:150px">산출물</th></tr>
+            <tr class="common"><td class="tgt">00:00-00:25</td><td class="course">안전한 AI 사용</td><td class="core">공통 보안·윤리 원칙과 직무별 주의사항 확인: 법률 자문 대체 금지, 실제 사건·개인정보 미사용, 외부 안내 전 담당자 승인</td><td class="hrs">안전 체크</td></tr>
+            <tr class="common"><td class="tgt">00:25-01:00</td><td class="course">목표·맥락 설계</td><td class="core">업무 목표, 입력자료, 제약, 출력형식, 평가기준을 실습 brief로 구조화</td><td class="hrs">작업 brief</td></tr>
+            <tr class="common"><td class="tgt">01:00-01:40</td><td class="course">Agent·Skill·MCP</td><td class="core">Qoder Work에서 계획-실행-관찰-검증 흐름과 재사용 구조를 연습</td><td class="hrs">공통 미션</td></tr>
+            <tr class="common"><td class="tgt">01:40-01:50</td><td class="course">휴식/전환</td><td class="core">샘플 파일·권한·도구 상태 재확인</td><td class="hrs">Preflight</td></tr>
+            <tr class="diff"><td class="tgt">01:50-02:55</td><td class="course">Role Sprint 1</td><td class="core">가상 사건 기록과 정책을 바탕으로 이슈를 triage하고 적용 근거·불확실성·추가 자료를 표시합니다.</td><td class="hrs">1차 산출물</td></tr>
+            <tr class="diff"><td class="tgt">02:55-03:40</td><td class="course">Role Sprint 2</td><td class="core">내부 검토 메모와 CS/안전거래 안내 초안을 작성하고 금지 표현·법률판단·개인정보를 검수합니다.</td><td class="hrs">검증본</td></tr>
+            <tr class="diff"><td class="tgt">03:40-04:00</td><td class="course">평가·재사용</td><td class="core">rubric 교차검토 후 재사용 템플릿으로 정리하고 개인·팀 재사용 자산으로 등록</td><td class="hrs">Issue triage sheet + 검토 메모 + 안내문 초안</td></tr>
+          </table>
+          <p class="note">출처 · 본 제안 3.4.1 12개 직무별 상세 실습 모듈 · 공통 4시간 구조는 S22 · 직무별 보안 기준 일람은 S25 참조</p>
+        </div>
+      </div>
+    </section>
+
+
+  </div>
+</div>
+
+<script>
+(function(){
+  const deck   = document.getElementById('deck');
+  const nav    = document.getElementById('nav');
+  const numEl  = document.getElementById('slideNum');
+  const slides = Array.from(deck.querySelectorAll('.slide'));
+  const total  = slides.length;
+  let current  = 0;
+
+  // --- 뷰포트에 맞춰 덱 스케일 (진짜 가로 비율 유지) ---
+  function fitStage(){
+    const k = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+    deck.style.transform = 'scale(' + k + ')';
+  }
+
+  // --- 슬라이드 내용이 프레임(720px)을 넘으면 축소해 잘림 방지 ---
+  function fitContent(slide){
+    const frame = slide.querySelector('.fit-frame');
+    const content = slide.querySelector('.fit-content');
+    if(!frame || !content) return;
+    content.style.transform = 'none';
+    const avail = frame.clientHeight;
+    const need  = content.scrollHeight;
+    if(need > avail){
+      content.style.transform = 'scale(' + (avail / need).toFixed(4) + ')';
+    }
+  }
+
+  // --- 내비 점 생성 ---
+  slides.forEach((slide, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot';
+    dot.type = 'button';
+    dot.title = '슬라이드 ' + (i + 1);
+    dot.addEventListener('click', () => go(i));
+    nav.appendChild(dot);
+  });
+  const dots = Array.from(nav.querySelectorAll('.nav-dot'));
+
+  function go(i){
+    if(i < 0 || i >= total) return;
+    slides[current].classList.remove('is-active');
+    dots[current].classList.remove('active');
+    current = i;
+    slides[current].classList.add('is-active');
+    dots[current].classList.add('active');
+    numEl.textContent = (current + 1) + ' / ' + total;
+    fitContent(slides[current]);
+  }
+
+  window.addEventListener('resize', () => { fitStage(); fitContent(slides[current]); });
+  window.addEventListener('load', () => { slides.forEach(fitContent); });
+  window.addEventListener('beforeprint', () => slides.forEach(fitContent));
+
+  document.addEventListener('keydown', e => {
+    if(e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' '){ e.preventDefault(); go(current + 1); }
+    if(e.key === 'ArrowLeft'  || e.key === 'ArrowUp'){ e.preventDefault(); go(current - 1); }
+    if(e.key === 'Home'){ e.preventDefault(); go(0); }
+    if(e.key === 'End'){ e.preventDefault(); go(total - 1); }
+    if(e.key.toLowerCase() === 'f'){
+      if(!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+
+  fitStage();
+  go(0);
+})();
+</script>
+</body>
+</html>

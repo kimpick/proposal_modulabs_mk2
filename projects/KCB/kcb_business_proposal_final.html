@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<style>/* ═══════════════════════════════════════════════════════════
+   모두의연구소 AI교육 제안서 — 공용 디자인 시스템 (base.css)
+   Primary  : #EE3E4C   Secondary : #EBBAC0
+   Border   : #EBEBEB   Text-Dark : #111111   Text-Body : #333333
+   ═══════════════════════════════════════════════════════════ */
+
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+body {
+    font-family: 'Pretendard', sans-serif;
+    color: #333333;
+    margin: 0;
+    padding: 60px;
+    background-color: #ffffff;
+}
+
+/* ─ 헤더 ─ */
+.header {
+    border-bottom: 1px solid #EBEBEB;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+.header-text {
+    color: #EE3E4C;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: right;
+    margin-bottom: 20px;
+}
+.title {
+    font-size: 30px;
+    font-weight: 800;
+    color: #111111;
+    margin: 0 0 10px 0;
+}
+.subtitle {
+    font-size: 14px;
+    color: #555555;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* ─ 4-Block Info Grid ─ */
+.info-grid {
+    display: flex;
+    gap: 12px;
+    margin: 30px 0 40px 0;
+}
+.info-box {
+    flex: 1;
+    border: 1px solid #EBEBEB;
+    border-radius: 10px;
+    padding: 18px 20px;
+    background: #ffffff;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.info-label {
+    color: #EE3E4C;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+.info-value {
+    font-size: 12px;
+    font-weight: 700;
+    color: #111111;
+    line-height: 1.65;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    hyphens: none;
+}
+
+/* ─ 섹션 타이틀 ─ */
+.section-block {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+.section-title {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 800;
+    color: #111111;
+    margin: 36px 0 16px 0;
+    page-break-after: avoid;
+    break-after: avoid;
+}
+.section-num {
+    color: #EBBAC0;
+    font-size: 30px;
+    font-weight: 900;
+    margin-right: 10px;
+    line-height: 1;
+}
+
+/* ─ 텍스트 콘텐츠 박스 (왼쪽 Red 라인) ─ */
+.content-box {
+    border: 1px solid #EBEBEB;
+    border-left: 5px solid #EE3E4C;
+    border-radius: 10px;
+    padding: 24px 28px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #333333;
+    margin-bottom: 24px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    white-space: pre-line;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.content-box ul {
+    margin: 4px 0;
+    padding-left: 18px;
+}
+.content-box li {
+    margin-bottom: 2px;
+}
+
+/* ─ 핵심 기술 (Pill Badge) ─ */
+.tech-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+.tech-badge {
+    border: 1px solid #EBEBEB;
+    border-radius: 50px;
+    padding: 7px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #111111;
+}
+
+/* ─ 인프라 박스 (왼쪽 Red 라인) ─ */
+.infra-box {
+    border: 1px solid #EBEBEB;
+    border-left: 5px solid #EE3E4C;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+.infra-box ul {
+    margin: 0;
+    padding-left: 18px;
+}
+.infra-box li {
+    margin-bottom: 8px;
+    color: #EE3E4C;
+    font-size: 13px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.infra-box li span {
+    color: #333333;
+}
+
+/* ─ 모듈 박스 (Flex 레이아웃) ─ */
+.module-box {
+    border: 1px solid #EBEBEB;
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+.module-left {
+    width: 130px;
+    flex-shrink: 0;
+    padding-right: 16px;
+    border-right: 1px solid #EBEBEB;
+    margin-right: 20px;
+}
+.module-label {
+    color: #EE3E4C;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+}
+.module-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: #111111;
+    line-height: 1.55;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    hyphens: none;
+}
+.module-right {
+    flex-grow: 1;
+    min-width: 0;
+}
+.module-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+.module-title-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: #111111;
+    line-height: 1.5;
+    word-break: keep-all;
+}
+.module-right ul {
+    margin: 0;
+    padding-left: 14px;
+    padding-right: 36px;
+}
+.module-right li {
+    margin-bottom: 6px;
+    color: #EE3E4C;
+    font-size: 13px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.module-right li span {
+    color: #333333;
+    line-height: 1.7;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.module-hours {
+    font-size: 11px;
+    font-weight: 800;
+    color: #aaaaaa;
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding-top: 1px;
+}
+
+/* ─ 일정 Placeholder ─ */
+.schedule-placeholder {
+    border: 1px dashed #EBBAC0;
+    background-color: #fdf8f8;
+    border-radius: 10px;
+    padding: 28px;
+    text-align: center;
+    font-size: 13px;
+    color: #888888;
+    line-height: 1.9;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin-bottom: 24px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+/* ─ 강사 이력 카드 ─ */
+.instructor-card {
+    border: 1px solid #EBEBEB;
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+.instructor-label {
+    display: inline-block;
+    background-color: #EE3E4C;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    padding: 4px 12px;
+    border-radius: 50px;
+    margin-bottom: 12px;
+}
+.instructor-name {
+    font-size: 15px;
+    font-weight: 800;
+    color: #111111;
+    margin-bottom: 10px;
+}
+.instructor-desc {
+    font-size: 13px;
+    color: #444444;
+    line-height: 1.8;
+    margin-bottom: 14px;
+    border-left: 3px solid #EBBAC0;
+    padding-left: 14px;
+    word-break: keep-all;
+}
+.instructor-sub-label {
+    font-size: 10px;
+    font-weight: 800;
+    color: #EE3E4C;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    margin-top: 14px;
+}
+.instructor-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.instructor-tag {
+    border: 1px solid #EBEBEB;
+    border-radius: 50px;
+    padding: 5px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #555555;
+}
+.instructor-history ul {
+    margin: 0;
+    padding-left: 18px;
+}
+.instructor-history li {
+    color: #EE3E4C;
+    font-size: 13px;
+    margin-bottom: 4px;
+    word-break: keep-all;
+}
+.instructor-history li span {
+    color: #333333;
+}
+.instructor-stats {
+    display: flex;
+    gap: 0;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    padding: 20px 28px;
+    margin-top: 16px;
+}
+.instructor-stat-item {
+    flex: 1;
+    text-align: center;
+    border-right: 1px solid #333333;
+    padding: 0 16px;
+}
+.instructor-stat-item:first-child { padding-left: 0; }
+.instructor-stat-item:last-child { border-right: none; padding-right: 0; }
+.instructor-stat-value {
+    font-size: 22px;
+    font-weight: 900;
+    color: #D4A842;
+    margin-bottom: 6px;
+    line-height: 1;
+}
+.instructor-stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #aaaaaa;
+}
+
+/* ─ 페이지 분리 ─ */
+.page-break {
+    page-break-before: always;
+}
+
+/* ─ 푸터 ─ */
+.footer {
+    margin-top: 60px;
+    padding-top: 18px;
+    border-top: 1px solid #EBEBEB;
+    text-align: center;
+    font-size: 11px;
+    color: #aaaaaa;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <div class="header-text">모두의연구소 AI교육 커리큘럼 2026</div>
+    <h1 class="title">KCB 비개발자 대상 AI 업무 활용 과정</h1>
+    <p class="subtitle">실무 중심 | 프롬프트 활용부터 AI 비서 구축까지 | 총 10시간</p>
+</div>
+
+<div class="info-grid">
+    <div class="info-box"><div class="info-label">키워드 구분</div><div class="info-value">AI 업무 활용 및 자동화</div></div>
+    <div class="info-box"><div class="info-label">AX 적용 단계</div><div class="info-value">입문 과정</div></div>
+    <div class="info-box"><div class="info-label">권장 수강 대상</div><div class="info-value">사내 비개발자 (프로그래밍 경험 불필요)</div></div>
+    <div class="info-box"><div class="info-label">총 기간</div><div class="info-value">3주 × 주 2회, 총 10H</div></div>
+</div>
+
+<div class="section-title"><span class="section-num">01</span>과정 소개</div>
+<div class="content-box">본 과정은 엑셀 정리, 회의록 요약, 보고서 초안 작성 등 실제 KCB 업무에서 매주 반복되는 작업을 Qwen Code에 넘기는 구체적인 워크플로우를 다룹니다.
+
+1주차에서 AI 기초와 프롬프트 작성법으로 시작해, 2주차에서 바이브 코딩과 AI 비서 구축을 실습하며, 3주차에서 본인 업무 기반 AI 비서를 직접 완성하고 발표합니다.
+
+프로그래밍 경험이 없어도 자연어 지시만으로 Qwen Code가 결과물을 만들어주는 흐름을 익혀, 교육 후에도 자기 업무에 AI를 활용할 수 있도록 구성했습니다.</div>
+
+<div class="section-title"><span class="section-num">02</span>교육 목표</div>
+<div class="content-box"><ul>
+<li><b>프롬프트 활용 역량</b>: 효과적인 질문과 검증된 답변을 구분하는 능력, 할루시네이션을 줄이는 대화법, 비즈니스 문서 작성에 바로 활용할 수 있는 프롬프트 패턴을 습득합니다.</li>
+<li><b>데이터·문서 자동화</b>: 엑셀(CSV) 데이터 구조화, 회의록·사내 문서 요약, 핵심 내용 추출 등 문서 처리 시간을 절반으로 줄이는 자동화 패턴을 익힙니다.</li>
+<li><b>바이브 코딩으로 도구 만들기</b>: 자연어 지시만으로 Qwen Code에게 업무용 미니 스크립트와 도구를 만들게 하는 방법을 배웁니다. 코딩이 아니라 '지시하는 법'을 익히는 과정입니다.</li>
+<li><b>개인 AI 비서 구축</b>: 본인 업무 시나리오 기반으로 나만의 AI 비서를 직접 기획·구축·발표하여, 교육 종료 후 바로 시범 운영할 수 있는 결과물을 만듭니다.</li>
+</ul></div>
+
+<div style="display: flex; gap: 40px; page-break-inside: avoid; break-inside: avoid;">
+    <div style="flex: 1;">
+        <div class="section-title"><span class="section-num">03</span>핵심 기술 스택</div>
+        <div class="tech-container">
+            <div class="tech-badge">Qwen Code</div>
+            <div class="tech-badge">바이브 코딩</div>
+            <div class="tech-badge">프롬프트 엔지니어링</div>
+            <div class="tech-badge">업무 자동화</div>
+        </div>
+    </div>
+    <div style="flex: 1.4;">
+        <div class="section-title"><span class="section-num">04</span>필요 인프라</div>
+        <div class="infra-box">
+            <ul>
+                <li><span>1인 1대 <b>실습용 사내 노트북</b></span></li>
+                <li><span>사내 <b>Qwen Code 접근 권한</b></span></li>
+                <li><span>실습용 <b>샘플 엑셀·문서·회의록</b> 세트</span></li>
+                <li><span>참가자별 <b>본인 업무 시나리오</b> 1건 (마지막 주 활용)</span></li>
+                <li><span>강의자료·실습 가이드 <b>사내 공유 공간</b></span></li>
+                <li><span>발표 세션용 <b>스크린·프로젝터</b> 환경</span></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="page-break"></div>
+
+<div class="section-title"><span class="section-num">05</span>상세 커리큘럼</div>
+
+<div class="module-box">
+    <div class="module-left">
+        <div class="module-label">MODULE 01</div>
+        <div class="module-name">1주차·화</div>
+    </div>
+    <div class="module-right">
+        <div class="module-header">
+            <div class="module-title-text">AI 업무 활용 + Qwen Code 소개 + 프롬프트 기초</div>
+            <div class="module-hours">2H</div>
+        </div>
+        <ul>
+            <li><span>생성형 AI 트렌드 및 Qwen Code의 장단점</span></li>
+            <li><span>효과적인 지시문 작성법 — 역할, 맥락, 조건, 예시</span></li>
+            <li><span><b>실습</b> Qwen Code로 첫 업무 지시 + 비즈니스 프롬프트 설계</span></li>
+        </ul>
+    </div>
+</div>
+
+<div class="module-box">
+    <div class="module-left">
+        <div class="module-label">MODULE 02</div>
+        <div class="module-name">1주차·수</div>
+    </div>
+    <div class="module-right">
+        <div class="module-header">
+            <div class="module-title-text">데이터·문서 자동화</div>
+            <div class="module-hours">2H</div>
+        </div>
+        <ul>
+            <li><span>비정형 텍스트·엑셀 데이터 구조화 및 요약 프로세스</span></li>
+            <li><span>회의록·사내 규정 핵심 추출 및 요약 패턴</span></li>
+            <li><span><b>실습</b> 샘플 엑셀 정리 + 회의록 요약 및 액션 아이템 도출</span></li>
+        </ul>
+    </div>
+</div>
+
+<div class="module-box">
+    <div class="module-left">
+        <div class="module-label">MODULE 03</div>
+        <div class="module-name">2주차·화</div>
+    </div>
+    <div class="module-right">
+        <div class="module-header">
+            <div class="module-title-text">바이브 코딩 + 나의 첫 자동화 스크립트</div>
+            <div class="module-hours">2H</div>
+        </div>
+        <ul>
+            <li><span>바이브 코딩 개념 — 자연어로 도구 만들기, '쓰는 것'과 '만들게 시키는 것'의 차이</span></li>
+            <li><span>'만들고 싶은 것 → 지시문' 사고 패턴, 오류 발생 시 대처법</span></li>
+            <li><span><b>실습</b> 강사 시연(30분 만에 사내 도구 제작) + 개인 업무 자동화 스크립트 생성</span></li>
+        </ul>
+    </div>
+</div>
+
+<div class="module-box">
+    <div class="module-left">
+        <div class="module-label">MODULE 04</div>
+        <div class="module-name">2주차·수</div>
+    </div>
+    <div class="module-right">
+        <div class="module-header">
+            <div class="module-title-text">AI 비서 설계 + 1차 빌드</div>
+            <div class="module-hours">2H</div>
+        </div>
+        <ul>
+            <li><span>AI 에이전트를 비개발자 언어로 이해하기, 업무 스타일 반영 방법</span></li>
+            <li><span>반복 업무를 줄이는 나만의 업무 비서 구축, 입출력 양식 고정</span></li>
+            <li><span><b>실습</b> 페르소나 설계 + 개인별 AI 비서 1차 빌드 + 강사 피드백</span></li>
+        </ul>
+    </div>
+</div>
+
+<div class="module-box">
+    <div class="module-left">
+        <div class="module-label">MODULE 05</div>
+        <div class="module-name">3주차·화</div>
+    </div>
+    <div class="module-right">
+        <div class="module-header">
+            <div class="module-title-text">AI 비서 완성 + 발표 · 사내 적용</div>
+            <div class="module-hours">2H</div>
+        </div>
+        <ul>
+            <li><span>1차 빌드 다듬기, 피드백 반영 사이클 + 1:1 코칭</span></li>
+            <li><span>개인별 AI 비서 데모 발표 및 상호 피드백</span></li>
+            <li><span><b>실습</b> 완성도 높이기 + 교육 후 활용 가이드 작성</span></li>
+        </ul>
+    </div>
+</div>
+
+<div class="section-block">
+    <div class="section-title"><span class="section-num">06</span>예상 산출물</div>
+    <div class="content-box"><ul>
+        <li><b>업무 자동화 프롬프트 라이브러리</b> — 자기 업무에 맞춘 재사용 가능한 프롬프트 모음</li>
+        <li><b>Qwen Code 기반 업무 자동화 스크립트</b> — 직접 코드를 작성하지 않아도 작동하는 결과물</li>
+        <li><b>개인 AI 업무 비서</b> — 본인 업무 스타일과 양식을 반영한 비서, 교육 종료 후 바로 시범 운영 가능</li>
+    </ul></div>
+</div>
+
+<div class="section-block">
+    <div class="section-title"><span class="section-num">07</span>강사 이력</div>
+
+    <div class="instructor-card">
+        <div class="instructor-label">비개발자 과정</div>
+        <div class="instructor-name">송*호 ｜ LLM 프롬프트·바이브 코딩 / 빅데이터 교육 전문</div>
+        <div class="instructor-desc">인천대학교 정보기술대학원 강사로 직장인 대상 LLM 프롬프트 엔지니어링·바이브 코딩 강의 진행 중. (주)더아이엠씨 빅데이터·인공지능 전문강사로 KOTRA·서울대·고려대·부산외대 등 대학·공공기관·기업 대상 빅데이터/AI 강의 200시간+ 수행. 텍스트마이닝·생성형 AI 콘텐츠 제작 교육에 강점이 있으며, 비전공자(신문방송학 박사) 관점에서 복잡한 개념을 일상적 비유로 풀어내는 '눈높이 교육'에 특화.</div>
+        <div class="instructor-sub-label">전문 분야</div>
+        <div class="instructor-tags">
+            <span class="instructor-tag">LLM 프롬프트 엔지니어링</span>
+            <span class="instructor-tag">바이브 코딩</span>
+            <span class="instructor-tag">텍스트마이닝·빅데이터</span>
+            <span class="instructor-tag">생성형 AI 활용</span>
+            <span class="instructor-tag">데이터 분석</span>
+        </div>
+        <div class="instructor-sub-label">주요 이력 / 강의 경험</div>
+        <div class="instructor-history">
+            <ul>
+                <li><span>인천대학교 정보기술대학원 강사 (직장인 대상 LLM·바이브 코딩)</span></li>
+                <li><span>(주)더아이엠씨 빅데이터/인공지능 전문강사</span></li>
+                <li><span>KOTRA·서울대·고려대 등 대학·공공기관 빅데이터/AI 강의 다수</span></li>
+                <li><span>생성형 AI 미디어 콘텐츠 제작·ChatGPT 활용 교육</span></li>
+                <li><span>신문방송학 박사 — AI·미디어 분야 KCI 논문 다수</span></li>
+            </ul>
+        </div>
+        <div class="instructor-stats">
+            <div class="instructor-stat-item">
+                <div class="instructor-stat-value">4.98</div>
+                <div class="instructor-stat-label">강사 만족도</div>
+            </div>
+            <div class="instructor-stat-item">
+                <div class="instructor-stat-value">4.97</div>
+                <div class="instructor-stat-label">과정 만족도</div>
+            </div>
+            <div class="instructor-stat-item">
+                <div class="instructor-stat-value">30%</div>
+                <div class="instructor-stat-label">AI 역량 상승률</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section-block">
+    <div class="section-title"><span class="section-num">08</span>일정 협의 안내</div>
+    <div class="schedule-placeholder">
+        <p><b>📅 개강일은 KCB 일정에 맞춰 협의 확정합니다.</b></p>
+        <p>매주 화·수 15:00–17:00, 총 5회차 (10H)</p>
+        <p>회차당 40–50명 기준, 비개발자 초급 대상으로 메인 강사 + 보조 강사 1명 운영 권장</p>
+        <br>
+        <p><i>* 상기 일정은 강사 섭외 상황에 따라 조정 가능하며, 교육 전 사전 공지드립니다.</i></p>
+    </div>
+</div>
+
+<div class="footer">
+    &copy; 2026 MODULABS - 모두의연구소 AI 기업교육 커리큘럼
+</div>
+
+</body>
+</html>

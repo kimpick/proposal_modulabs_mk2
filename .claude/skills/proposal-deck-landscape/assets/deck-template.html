@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{DECK_TITLE}}</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+  :root{
+    /* ==== 브랜드 토큰 (고객사에 맞게 --primary 계열만 교체) ==== */
+    --primary:#EE3E4C; --primary-dk:#C92434; --secondary:#EBBAC0;
+    --ink:#111111; --body:#333333; --muted:#6B7280; --faint:#9AA1AC;
+    --border:#EBEBEB; --line:#F0F0F2; --bg:#ffffff; --soft:#FAFAFB; --soft2:#F5F6F8;
+    --blue:#2563EB; --blue-bg:#EEF4FF; --green:#0E9F6E; --green-bg:#E7F6EF;
+    --amber:#B45309; --amber-bg:#FEF3E2; --purple:#7C3AED;
+    --shadow:0 1px 2px rgba(17,17,17,.04),0 10px 30px rgba(17,17,17,.08);
+    --radius:16px;
+    /* ==== 가로 슬라이드 프레임 (16:9) ==== */
+    --slide-w:1280px; --slide-h:720px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;overflow:hidden;background:#0a0c11;
+    font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+
+  /* ==== 무대: 뷰포트에 맞춰 덱을 중앙 정렬·스케일 ==== */
+  .stage{position:fixed;inset:0;display:grid;place-items:center}
+  .deck{position:relative;width:var(--slide-w);height:var(--slide-h);transform-origin:center center;
+    box-shadow:0 20px 60px rgba(0,0,0,.45);border-radius:6px;overflow:hidden;background:var(--bg)}
+
+  /* ==== 슬라이드 (가로 고정 프레임) ==== */
+  .slide{position:absolute;inset:0;width:var(--slide-w);height:var(--slide-h);background:var(--bg);
+    overflow:hidden;opacity:0;pointer-events:none;transform:translateX(24px);
+    transition:opacity .4s ease,transform .4s ease}
+  .slide.is-active{opacity:1;pointer-events:auto;transform:translateX(0)}
+  .fit-frame{position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start}
+  .fit-frame.center{justify-content:center}
+  .fit-content{padding:46px 64px;transform-origin:top center}
+  .fit-frame.center .fit-content{transform-origin:center center}
+
+  /* ==== kicker / 제목 ==== */
+  .sec-num{font-size:12px;font-weight:700;color:var(--faint);letter-spacing:.08em}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;
+    letter-spacing:.04em;color:var(--primary);text-transform:uppercase;margin:8px 0 12px}
+  .kicker::before{content:"";width:22px;height:2px;background:var(--primary);border-radius:2px}
+  h2{font-size:27px;line-height:1.25;color:var(--ink);margin:0 0 8px;font-weight:800;letter-spacing:-.02em}
+  h3{font-size:17px;color:var(--ink);margin:0;font-weight:700}
+  .lead{font-size:14.5px;color:var(--muted);margin:0 0 18px;max-width:920px}
+
+  /* ==== 공통 그리드 ==== */
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .split{display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:center}
+
+  /* ==== 표지 / 맺음말 ==== */
+  .cover{background:radial-gradient(1200px 520px at 82% -12%,#ff5d69 0%,transparent 55%),
+    linear-gradient(135deg,#1a1114 0%,#2a1418 40%,#7a1420 100%);color:#fff}
+  .cover .cover-badge{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:600;
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);padding:8px 15px;border-radius:999px}
+  .cover h1{font-size:46px;line-height:1.18;font-weight:800;margin:22px 0 14px;letter-spacing:-.03em;color:#fff}
+  .cover h1 span{color:#ffd0d4}
+  .cover .sub{font-size:18px;color:rgba(255,255,255,.88);max-width:720px;margin:0 0 30px}
+  .cover-meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-size:13.5px;color:rgba(255,255,255,.72);
+    border-top:1px solid rgba(255,255,255,.18);padding-top:20px}
+  .cover-meta b{color:#fff;font-weight:600}
+  .closing{background:linear-gradient(135deg,#1a1114,#5e1018);color:#fff}
+  .closing h2{color:#fff;font-size:30px}
+  .closing .msg{font-size:17px;color:rgba(255,255,255,.9);max-width:840px;margin:14px 0 26px;line-height:1.55}
+  .closing .sign{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:14px;color:rgba(255,255,255,.75);
+    border-top:1px solid rgba(255,255,255,.2);padding-top:20px}
+  .closing .sign b{color:#fff}
+  .cover .kicker,.closing .kicker{color:#ffd0d4}
+  .cover .kicker::before,.closing .kicker::before{background:#ffd0d4}
+
+  /* ==== KPI ==== */
+  .kpi{background:var(--soft);border:1px solid var(--border);border-radius:14px;padding:20px 18px;text-align:center}
+  .kpi .n{font-size:33px;font-weight:800;color:var(--primary);letter-spacing:-.03em;line-height:1}
+  .kpi .n small{font-size:17px;font-weight:700}
+  .kpi .l{font-size:12.5px;color:var(--muted);margin-top:8px;font-weight:500;line-height:1.35}
+
+  /* ==== 로고 칩 ==== */
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+  .chip{font-size:14px;font-weight:700;color:var(--ink);background:#fff;border:1px solid var(--border);
+    padding:9px 16px;border-radius:10px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  .chip.big{font-size:15px;border-color:#f2c9cd}
+
+  /* ==== 사례 카드 ==== */
+  .case{border:1px solid var(--border);border-radius:14px;padding:20px 22px;background:#fff;position:relative}
+  .case::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:4px;border-radius:4px;background:var(--primary)}
+  .case .ctop{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding-left:14px}
+  .case .co{font-size:18px;font-weight:800;color:var(--ink)}
+  .case .cat{font-size:11.5px;font-weight:700;color:var(--muted);background:var(--soft2);padding:4px 10px;border-radius:999px;white-space:nowrap}
+  .case .desc{font-size:13px;color:var(--body);padding-left:14px;margin:6px 0 12px}
+  .metrics{display:flex;flex-wrap:wrap;gap:9px;padding-left:14px}
+  .metric{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:9px 12px;min-width:92px}
+  .metric .mv{font-size:18px;font-weight:800;color:var(--primary-dk);line-height:1}
+  .metric .ml{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.3}
+  .taglist{padding-left:14px;margin-top:12px;font-size:12px;color:var(--faint)}
+  .taglist b{color:var(--body);font-weight:600}
+
+  /* ==== 레퍼런스 컬럼 ==== */
+  .refcol{background:var(--soft);border:1px solid var(--border);border-radius:14px;padding:16px 18px}
+  .refcol .refhd{font-size:13px;font-weight:800;color:var(--primary);padding-bottom:9px;margin-bottom:5px;border-bottom:2px solid #f4ccd0}
+  .refcol ul{margin:0;padding:0;list-style:none}
+  .refcol li{font-size:13.5px;font-weight:600;color:var(--ink);padding:6px 0;border-bottom:1px solid var(--line)}
+  .refcol li:last-child{border-bottom:none}
+  .refcol li span{font-size:11.5px;color:var(--muted);font-weight:500}
+
+  /* ==== MVP 카드 ==== */
+  .mvp{border:1px solid var(--border);border-radius:14px;padding:16px 18px;background:linear-gradient(180deg,#fff,#fdfafa)}
+  .mvp .mh{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+  .mvp .idx{flex:none;width:28px;height:28px;border-radius:8px;background:var(--ink);color:#fff;
+    font-size:12.5px;font-weight:800;display:grid;place-items:center}
+  .mvp .mt{font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.35}
+  .mvp .row{font-size:12.5px;margin:6px 0;display:flex;gap:8px}
+  .mvp .row .tag{flex:none;font-size:11px;font-weight:700;color:var(--muted);width:38px;padding-top:1px}
+  .mvp .row .val{color:var(--body)}
+  .mvp .row .val.tech{color:var(--blue);font-weight:600}
+  .mvp .row .val.eff{color:var(--green);font-weight:600}
+
+  /* ==== 인용 / 콜아웃 ==== */
+  .quote{background:linear-gradient(135deg,#fff5f6,#fdeef0);border:1px solid #f4ccd0;border-radius:14px;padding:22px 24px;position:relative}
+  .quote .q{font-size:19px;font-weight:800;color:var(--primary-dk);line-height:1.4;letter-spacing:-.02em}
+  .quote .by{font-size:12.5px;color:var(--muted);margin-top:10px}
+  .quote .mark{position:absolute;top:6px;right:20px;font-size:60px;color:#f4ccd0;font-family:Georgia,serif;line-height:1}
+
+  /* ==== 타임라인 (플로우) ==== */
+  .flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+  .step{flex:1;min-width:150px;background:var(--soft);border:1px solid var(--border);border-radius:12px;padding:14px 16px;position:relative}
+  .step + .step{margin-left:26px}
+  .step + .step::before{content:"→";position:absolute;left:-22px;top:50%;transform:translateY(-50%);color:var(--primary);font-weight:800;font-size:18px}
+  .step .st{font-size:11.5px;font-weight:700;color:var(--primary);margin-bottom:4px}
+  .step .sd{font-size:13.5px;color:var(--ink);font-weight:700}
+  .step .ss{font-size:12px;color:var(--muted);margin-top:3px}
+
+  /* ==== 과제 카드 ==== */
+  .task{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px}
+  .task .ti{font-size:22px}
+  .task .tt{font-size:14px;font-weight:700;color:var(--ink);margin:8px 0 4px}
+  .task .td{font-size:12px;color:var(--muted)}
+
+  /* ==== 일반 테이블 ==== */
+  .tbl{width:100%;border-collapse:collapse;font-size:13px}
+  .tbl th{background:var(--ink);color:#fff;text-align:left;padding:11px 13px;font-weight:600;font-size:12px}
+  .tbl th:first-child{border-radius:8px 0 0 0}.tbl th:last-child{border-radius:0 8px 0 0}
+  .tbl td{padding:11px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl tbody tr:nth-child(even){background:var(--soft)}
+  .tbl .task-c{font-weight:700;color:var(--ink);white-space:nowrap}
+  .pill{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;margin:2px 3px 2px 0}
+  .pill.b{background:var(--blue-bg);color:var(--blue)}
+  .pill.r{background:#FEF0F0;color:var(--primary)}
+  .pill.g{background:var(--green-bg);color:var(--green)}
+
+  /* ==== Before / After ==== */
+  .ba-head,.ba{display:grid;grid-template-columns:1.05fr 1.15fr 34px 1.15fr .9fr;gap:12px;align-items:center}
+  .ba-head{font-size:11.5px;font-weight:700;color:var(--muted);padding:0 4px 8px}
+  .ba-head .h-after{color:var(--primary)}
+  .ba{padding:9px 4px;border-top:1px solid var(--line)}
+  .ba .task-name{font-weight:700;color:var(--ink);font-size:13px}
+  .ba .before{background:var(--soft2);border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-size:12px;color:var(--muted)}
+  .ba .arrow{text-align:center;color:var(--primary);font-weight:800;font-size:18px}
+  .ba .after{background:#fff5f6;border:1px solid #f4ccd0;border-radius:10px;padding:9px 12px;font-size:12px;color:var(--ink);font-weight:500}
+  .ba .gain{text-align:center;font-size:14px;font-weight:800;color:var(--primary-dk);line-height:1.25}
+
+  /* ==== 견적 테이블 ==== */
+  .est-total{display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;background:linear-gradient(135deg,#EE3E4C,#C92434);color:#fff;border-radius:14px;padding:16px 22px;margin-bottom:12px}
+  .est-total .big{font-size:26px;font-weight:800;letter-spacing:-.02em}
+  .est-total .ko{font-size:13px;opacity:.9;margin-top:3px}
+  .est-total .per{margin-left:auto;font-size:12.5px;font-weight:600;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:8px 14px;border-radius:999px}
+  .est{width:100%;border-collapse:collapse;font-size:11.5px}
+  .est th{background:var(--ink);color:#fff;padding:8px 9px;text-align:center;font-weight:600;font-size:11px;white-space:nowrap}
+  .est th:first-child{border-radius:8px 0 0 0}.est th:last-child{border-radius:0 8px 0 0}
+  .est td{padding:6px 9px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+  .est td.cat{font-weight:800;color:var(--primary);background:var(--soft);font-size:12px}
+  .est td.item{text-align:left;font-weight:600;color:var(--ink)}
+  .est td.r{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink)}
+  .est td.memo{text-align:left;font-size:10px;color:var(--muted)}
+  .est tr.sub td{background:var(--soft);font-weight:700;color:var(--ink)}
+  .est tr.total td{background:var(--ink);color:#fff;font-weight:800;font-size:13px}
+  .est tr.total td.r{color:#fff}
+
+  /* ==== 커리큘럼 표 ==== */
+  .prop{width:100%;border-collapse:collapse;font-size:12px}
+  .prop th{text-align:left;padding:9px 11px;font-size:11px;font-weight:700;letter-spacing:.03em;color:var(--muted);background:var(--soft);border-bottom:2px solid var(--border);white-space:nowrap}
+  .prop th.c{text-align:center}
+  .prop td{padding:9px 11px;line-height:1.45;border-bottom:1px solid var(--line);vertical-align:middle;font-size:11.5px}
+  .prop td.trk{font-weight:800;color:var(--primary);background:var(--soft);white-space:nowrap;text-align:center;line-height:1.3}
+  .prop td.course{font-weight:700;color:var(--ink)}
+  .prop td.core{color:var(--body);font-size:11px}
+  .prop td.tgt{color:var(--muted);font-size:11px;white-space:nowrap;line-height:1.3}
+  .prop td.hrs{color:var(--primary);font-weight:800;text-align:center;white-space:nowrap;line-height:1.3}
+  .prop tr.sumrow td{background:#FFF6F2;font-weight:700;color:var(--ink)}
+  .badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:10.5px;font-weight:700;white-space:nowrap}
+  .badge-red{background:rgba(238,62,76,.12);color:var(--primary-dk)}
+  .badge-blue{background:rgba(37,99,235,.12);color:var(--blue)}
+  .badge-green{background:rgba(14,159,110,.12);color:var(--green)}
+  .badge-purple{background:rgba(124,58,237,.12);color:var(--purple)}
+
+  /* ==== 트랙 카드 ==== */
+  .track{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#fff}
+  .track .th{padding:14px 16px 12px;color:#fff}
+  .track.t1 .th{background:linear-gradient(135deg,#EE3E4C,#C92434)}
+  .track.t2 .th{background:linear-gradient(135deg,#F0736E,#d9524d)}
+  .track.t3 .th{background:linear-gradient(135deg,#8B5CF6,#6D3EE0)}
+  .track.t4 .th{background:linear-gradient(135deg,#2563EB,#1D4FD8)}
+  .track .tk{font-size:11.5px;font-weight:700;opacity:.9}
+  .track .tn{font-size:16px;font-weight:800;margin-top:3px}
+  .track .tp{font-size:12px;opacity:.92;margin-top:2px}
+  .track .tb{padding:13px 16px}
+
+  /* ==== "왜 우리인가" 다크 박스 ==== */
+  .why{background:var(--ink);color:#fff;border-radius:14px;padding:22px}
+  .why h3{color:#fff;margin-bottom:10px}
+  .why ul{margin:0;padding-left:18px;font-size:13.5px;color:rgba(255,255,255,.85)}
+  .why li{margin:8px 0}
+  .why b{color:#ffd0d4}
+
+  /* ==== 노트 ==== */
+  .note{font-size:11.5px;color:var(--faint);margin-top:14px;padding-top:12px;border-top:1px dashed var(--border)}
+
+  /* ==== 내비게이션 UI ==== */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:center;gap:3px;
+    padding:12px 6vw;opacity:.18;transition:opacity .25s}
+  .nav:hover{opacity:.95}
+  .nav-dot{width:22px;height:3px;padding:0;background:rgba(255,255,255,.4);border:0;border-radius:2px;cursor:pointer;transition:all .2s}
+  .nav-dot.active{width:34px;background:var(--primary)}
+  .nav-dot:hover{background:var(--primary)}
+  .slide-num{position:fixed;right:26px;bottom:20px;z-index:1000;color:rgba(255,255,255,.55);
+    font-size:12px;font-weight:700;letter-spacing:.08em;font-variant-numeric:tabular-nums}
+  .hint{position:fixed;left:26px;bottom:20px;z-index:1000;color:rgba(255,255,255,.32);font-size:11px}
+
+  /* ==== 인쇄: A4 가로, 슬라이드 1장=1페이지 ==== */
+  @media print{
+    @page{ size:A4 landscape; margin:0; }
+    html,body{overflow:visible;background:#fff;height:auto}
+    .stage{position:static;display:block}
+    .deck{transform:none!important;box-shadow:none;border-radius:0;width:auto;height:auto}
+    .nav,.slide-num,.hint{display:none}
+    .slide{position:relative;inset:auto;width:100vw;height:100vh;opacity:1;transform:none;
+      page-break-after:always;break-inside:avoid;transition:none}
+    .slide:last-child{page-break-after:auto}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<div class="nav" id="nav" aria-label="슬라이드 목차"></div>
+<div class="slide-num" id="slideNum" aria-live="polite"></div>
+<div class="hint">← → 이동 · F 전체화면 · Ctrl/⌘+P PDF</div>
+
+<div class="stage">
+  <div class="deck" id="deck">
+
+    <!-- =================================================================
+         슬라이드 작성 규칙
+         - 각 <section class="slide"> 이 가로 1장(16:9).
+         - 반드시 .fit-frame > .fit-content 구조를 유지할 것.
+           내용이 720px를 넘으면 JS가 .fit-content 를 자동 축소해 잘림을 방지함.
+         - 표지/맺음말처럼 세로 가운데 정렬이 필요하면 .fit-frame 에 center 추가.
+         - 한 슬라이드에 너무 많이 담지 말 것. 표 행이 12행을 넘거나
+           카드가 6개를 넘으면 두 장으로 분할 권장.
+    ================================================================== -->
+
+    <!-- ===== 예시 1: 표지 ===== -->
+    <section class="slide cover">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <span class="cover-badge">🔴 {{ORG}} &nbsp;×&nbsp; {{CLIENT}}</span>
+          <h1>{{CLIENT}} 임직원<br><span>{{DECK_HEADLINE}}</span></h1>
+          <p class="sub">{{DECK_SUB}}</p>
+          <div class="cover-meta">
+            <span><b>작성</b> · {{ORG}} 비즈팀</span>
+            <span><b>일자</b> · {{DATE}}</span>
+            <span><b>범위</b> · {{SCOPE}}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 예시 2: 일반 콘텐츠(KPI 그리드) ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">02 / 실적</span>
+          <p class="kicker">한눈에 보는 실적</p>
+          <h2>{{SLIDE_TITLE}}</h2>
+          <p class="lead">{{SLIDE_LEAD}}</p>
+          <div class="grid g4">
+            <div class="kpi"><div class="n">30<small>+</small></div><div class="l">지표 설명</div></div>
+            <div class="kpi"><div class="n">+87<small>%</small></div><div class="l">지표 설명</div></div>
+            <div class="kpi"><div class="n">1<small>만+</small></div><div class="l">지표 설명</div></div>
+            <div class="kpi"><div class="n">지표</div><div class="l">지표 설명</div></div>
+          </div>
+          <p class="note">출처 · 근거 표기</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 예시 3: 맺음말 ===== -->
+    <section class="slide closing">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <p class="kicker">맺음말</p>
+          <h2>{{CLOSING_HEADLINE}}</h2>
+          <p class="msg">{{CLOSING_MESSAGE}}</p>
+          <div class="sign">
+            <span><b>{{ORG}}</b> · 비즈팀 · 사업PM</span>
+            <span><b>{{PM_NAME}}</b> · {{PM_EMAIL}}</span>
+            <span>{{PM_PHONE}}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  const deck   = document.getElementById('deck');
+  const nav    = document.getElementById('nav');
+  const numEl  = document.getElementById('slideNum');
+  const slides = Array.from(deck.querySelectorAll('.slide'));
+  const total  = slides.length;
+  let current  = 0;
+
+  // --- 뷰포트에 맞춰 덱 스케일 (진짜 가로 비율 유지) ---
+  function fitStage(){
+    const k = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+    deck.style.transform = 'scale(' + k + ')';
+  }
+
+  // --- 슬라이드 내용이 프레임(720px)을 넘으면 축소해 잘림 방지 ---
+  function fitContent(slide){
+    const frame = slide.querySelector('.fit-frame');
+    const content = slide.querySelector('.fit-content');
+    if(!frame || !content) return;
+    content.style.transform = 'none';
+    const avail = frame.clientHeight;
+    const need  = content.scrollHeight;
+    if(need > avail){
+      content.style.transform = 'scale(' + (avail / need).toFixed(4) + ')';
+    }
+  }
+
+  // --- 내비 점 생성 ---
+  slides.forEach((slide, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot';
+    dot.type = 'button';
+    dot.title = '슬라이드 ' + (i + 1);
+    dot.addEventListener('click', () => go(i));
+    nav.appendChild(dot);
+  });
+  const dots = Array.from(nav.querySelectorAll('.nav-dot'));
+
+  function go(i){
+    if(i < 0 || i >= total) return;
+    slides[current].classList.remove('is-active');
+    dots[current].classList.remove('active');
+    current = i;
+    slides[current].classList.add('is-active');
+    dots[current].classList.add('active');
+    numEl.textContent = (current + 1) + ' / ' + total;
+    fitContent(slides[current]);
+  }
+
+  window.addEventListener('resize', () => { fitStage(); fitContent(slides[current]); });
+  window.addEventListener('load', () => { slides.forEach(fitContent); });
+  window.addEventListener('beforeprint', () => slides.forEach(fitContent));
+
+  document.addEventListener('keydown', e => {
+    if(e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' '){ e.preventDefault(); go(current + 1); }
+    if(e.key === 'ArrowLeft'  || e.key === 'ArrowUp'){ e.preventDefault(); go(current - 1); }
+    if(e.key === 'Home'){ e.preventDefault(); go(0); }
+    if(e.key === 'End'){ e.preventDefault(); go(total - 1); }
+    if(e.key.toLowerCase() === 'f'){
+      if(!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+
+  fitStage();
+  go(0);
+})();
+</script>
+</body>
+</html>

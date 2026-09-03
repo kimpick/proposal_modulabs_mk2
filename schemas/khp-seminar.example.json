@@ -1,0 +1,40 @@
+{
+  "title": "회사명 맞춤형 기초 AI 리터러시 교육 제안",
+  "subtitle": "한 줄 제안 요약",
+  "info": {
+    "keyword": "기초 AI 리터러시",
+    "ax_stage": "인식 전환 및 트렌드 습득",
+    "target": "전사 임직원 (직무 무관)",
+    "duration": "세미나 2H"
+  },
+  "intro": "K-HP 교육 사업 소개 서술",
+  "objective": "교육 목표 요약",
+  "tech_stack": ["ChatGPT", "Claude", "바이브코딩"],
+  "infrastructure": [
+    "인프라/제휴 혜택 항목 1",
+    "인프라/제휴 혜택 항목 2"
+  ],
+  "seminars": [
+    {
+      "step_name": "[AX 분야] 세미나 제목 (연사: 이름)",
+      "duration": "2H",
+      "items": [
+        "추천 대상: ...",
+        "내용: ...",
+        "목적: ..."
+      ]
+    }
+  ],
+  "new_curriculums": [
+    {
+      "step_name": "기초심화 교육 제목",
+      "duration": "4H",
+      "items": [
+        "추천 이유: ...",
+        "주요 활동: ..."
+      ]
+    }
+  ],
+  "output": "<ul><li>산출물 항목</li></ul>",
+  "schedule_message": "※ 일정 안내 메시지"
+}

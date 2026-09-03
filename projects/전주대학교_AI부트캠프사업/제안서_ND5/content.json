@@ -1,0 +1,208 @@
+{
+  "type": "bootcamp",
+  "title": "모두의연구소 × 전주대학교 AI 부트캠프 [ND5 단독]",
+  "subtitle": "ND5 로보틱스 LLM 에이전트 구축(60H) — 하이엔드 아키텍처",
+  "info": {
+    "keyword": "LLM Agent\nLangGraph\nRAG\nVLM",
+    "ax_stage": "고급",
+    "target": "AI 기초/LLM 활용 유경험자",
+    "duration": "총 60시간"
+  },
+  "intro": "본 제안서는 <b>[ND5] 로보틱스 LLM 에이전트 구축</b> 트랙 단독 커리큘럼입니다. 인지된 환경을 바탕으로 LLM 에이전트가 다단계 계획을 수립(Planning)하고, 행동(Action)으로 번역하여 로봇을 제어하는 고수익 하이엔드 역량을 완성합니다.",
+  "objective": "<ul><li>Prompt → VLM → 에이전트 플래닝 → LLM-로봇 통합 순차 심화</li><li>기업 실무 수준 포트폴리오(다단계 작업 계획 에이전트 E2E 시스템) 완성</li></ul>",
+  "nd5_flow": {
+    "title": "ND5 내부 학습 흐름 — 단계별 심화 구조",
+    "subtitle": "주 5일 몰입형 집중과정 · 15H 모듈 심화",
+    "total": "총 60H · 절대평가",
+    "steps": [
+      {
+        "step": "STEP 1",
+        "module": "M2.",
+        "name": "프롬프트 엔지니어링 & RAG 심화",
+        "hours": "15H",
+        "items": [
+          "RAG 파이프라인 단대단(End-to-End) 구현",
+          "로봇 매뉴얼 기반 지식 검색 시스템 구축",
+          "환각 방지 전략 · RAGAS 성능 평가",
+          "JSON 출력 구조화"
+        ],
+        "output": "결과물: 로봇 도메인 RAG Q&A 시스템"
+      },
+      {
+        "step": "STEP 2",
+        "module": "M4.",
+        "name": "멀티모달 LLM(VLM) & Grounding",
+        "hours": "15H",
+        "items": [
+          "LLaVA · GPT-4o 시각 이해 실습",
+          "Grounding DINO 객체 탐지",
+          "자연어 → 좌표 변환 파이프라인 구현",
+          "탐지 실패 케이스 Fallback 설계"
+        ],
+        "output": "결과물: 자연어 → 객체 탐지 → 좌표 출력 파이프라인"
+      },
+      {
+        "step": "STEP 3",
+        "module": "M6.",
+        "name": "에이전트 · 플래닝 · 정렬",
+        "hours": "15H",
+        "items": [
+          "ReAct / Plan-and-Execute 패턴 구현",
+          "Tool-calling 에이전트 구현",
+          "다단계 작업 계획(Task Planning) 수립",
+          "안전 제약 설계 · MLflow 평가"
+        ],
+        "output": "결과물: 다단계 작업 계획 에이전트"
+      },
+      {
+        "step": "STEP 4",
+        "module": "M12.",
+        "name": "LLM · 로봇 시스템 통합 + 캡스톤",
+        "hours": "15H",
+        "items": [
+          "ROS2-LLM 연결 레이어 구현",
+          "LeRobot 통합 · Skill Library 구성",
+          "단대단 파이프라인 완성",
+          "안전 모니터링 · 성능 최적화",
+          "팀 캡스톤 발표 (데모 + Git 포트폴리오)"
+        ],
+        "output": "결과물: LLM-로봇 제어 E2E 시스템",
+        "is_capstone": true
+      }
+    ],
+    "flow_labels": [
+      "M2. RAG 기반 지식 검색",
+      "M4. VLM 환경 인식",
+      "M6. 에이전트 작업 계획",
+      "M12. 로봇 실행 · 통합"
+    ]
+  },
+  "tech_stack": [
+    "Python · PyTorch",
+    "Hugging Face (Transformers)",
+    "LangChain / LlamaIndex / LangGraph",
+    "Ultralytics (YOLO11)",
+    "Open-source VLMs (Florence-2 / Qwen3-VL-3B)",
+    "ROS2 (Humble)",
+    "NVIDIA Isaac Sim 6.0 / MuJoCo",
+    "FoundationPose (6D Pose) / OpenVLA",
+    "MLflow / W&B",
+    "Git / GitHub"
+  ],
+  "infrastructure": [
+    "GPU 기반 AI 클라우드 — 모델 추론 및 서빙 실습 환경",
+    "LLM 서빙 플랫폼 — RAG 파이프라인 · 에이전트 런타임",
+    "MLOps-DevOps 환경 — 실험 이력 관리 · 재현성 보장",
+    "AI LMS / 문제은행 — 전 과정 학습 지원",
+    "물리 시뮬레이션 클러스터 — MuJoCo · Isaac Sim 실습"
+  ],
+  "tracks": [
+    {
+      "track_id": "ND5",
+      "track_name": "ND5. 로보틱스 LLM 에이전트 구축 — 고급 (60H)",
+      "course_title": "LLM으로 로봇을 움직여라 : Prompt·VLM·에이전트·시스템 통합",
+      "target": "AI 기초 수료자 (ND1~ND3 미이수자도 입과 가능)",
+      "duration": "60시간 (동계 2027년 집중이수, 주 5일 몰입형)",
+      "tools": [
+        "Python",
+        "Hugging Face Transformers",
+        "LangChain / LlamaIndex",
+        "FAISS / ChromaDB",
+        "OpenAI API / vLLM",
+        "ROS2 (Humble)",
+        "LeRobot",
+        "MuJoCo",
+        "MLflow / W&B",
+        "Git / GitHub"
+      ],
+      "modules": [
+        {
+          "module_name": "M2. 프롬프트 엔지니어링 & RAG 심화",
+          "duration": "15H",
+          "items": [
+            {
+              "detail": "프롬프트 체인 구조 고도화 전략 및 Perplexity 류의 거대 엔터프라이즈 Search 기반 RAG 파이프라인 구성 사례 분석",
+              "method": "이론/사례",
+              "hours": "4H"
+            },
+            {
+              "detail": "로봇 제조사 PDF 매뉴얼, ROS2 공식 도큐먼트 등 방대한 특화 문서를 쪼개고 색인(ChromaDB)하는 단대단 RAG 정보 시스템 구축",
+              "method": "실습/심화",
+              "hours": "6H"
+            },
+            {
+              "detail": "환각 현상(Hallucination) 억제를 위한 방어막(Guardrail) 설계 및 RAGAS 정량 지표 기반 응답 신뢰성/정확도 개선 비교 실험",
+              "method": "실습/심화",
+              "hours": "5H"
+            }
+          ]
+        },
+        {
+          "module_name": "M4. VLA (Vision-Language-Action) 및 공간 지능의 이해",
+          "duration": "15H",
+          "items": [
+            {
+              "detail": "단순 시각 이해(VLM)를 넘어 입력-시각-행동을 종단간 직결하는 구글 RT-2, Figure 01과 같은 'VLA' 파운데이션 최상위 동향 분석",
+              "method": "이론/사례",
+              "hours": "4H"
+            },
+            {
+              "detail": "OpenVLA와 같은 대표 오픈소스 행동 액션 모델의 레이어 구조 탐구 및, 로봇의 3D 공간 제어 좌표계 반환 메커니즘 해석",
+              "method": "실습/심화",
+              "hours": "5H"
+            },
+            {
+              "detail": "사물 관계(위/아래/옆) 추론 및 지시어(\"빨간 큐브를 파란 접시로 옮겨\")에 숨겨진 공간 지능(Spatial Intelligence) 분해 및 프롬프트 파싱",
+              "method": "실습/심화",
+              "hours": "6H"
+            }
+          ]
+        },
+        {
+          "module_name": "M6. 에이전트 플래닝 및 정렬",
+          "duration": "15H",
+          "items": [
+            {
+              "detail": "전통적 ReAct 구조의 한계 분석과 Devin, AutoGPT 주도 다수 전문 노드들이 협동하는 계층적 멀티 에이전트 트렌드 파악",
+              "method": "이론/사례",
+              "hours": "4H"
+            },
+            {
+              "detail": "LangGraph 프레임워크를 기반으로 상태(State)를 가지는 다단계 워크플로우 제어망(Multi-step Task Planning) 에이전트 구축",
+              "method": "실습/심화",
+              "hours": "6H"
+            },
+            {
+              "detail": "사용 가능한 도구 풀(액션 공간) 정의 실습 및 MLflow 프레임워크 연동을 통한 에이전트 사고 추적(Tracing) 및 플래닝 성능 검증",
+              "method": "실습/심화",
+              "hours": "5H"
+            }
+          ]
+        },
+        {
+          "module_name": "M12. 로봇 시스템 E2E 통합 캡스톤",
+          "duration": "15H",
+          "items": [
+            {
+              "detail": "사용자 인텐트 해석(Task Layer) ➔ 단위 모듈 선택(Skill Layer) ➔ 로봇 기구학 동작(Action Layer) 3원화 시스템 상용 아키텍처 사례",
+              "method": "이론/사례",
+              "hours": "4H"
+            },
+            {
+              "detail": "HuggingFace LeRobot 플랫폼 연계 통신 및, LLM 에이전트의 사고 결과를 ROS2 Action 서버의 목표 좌표로 변환하는 브릿지 레이어 구축",
+              "method": "실습/심화",
+              "hours": "5H"
+            },
+            {
+              "detail": "과정 최종 정리: 가상 시뮬레이터 환경 안에서 사용자의 자연어 지시만으로 '인지 ➔ 플래닝 ➔ 로봇 움직임 ➔ 자체 검증'이 이루어지는 데모 시연",
+              "method": "캡스톤",
+              "hours": "6H"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "<ul><li><b>[ND1 M8/M13 산출물]</b> LLM-ROS2 연동을 통한 에이전트 기반 시뮬레이션 제어 데모 영상</li><li><b>[ND2 산출물]</b> Isaac Sim 도메인 랜덤화 기반 합성 데이터셋 생성 스크립트 및 YOLO11 학습 결과 로그 (PGR 지표 산출)</li><li><b>[ND2 VLM 캡스톤]</b> 교육용 경량 VLM(Florence-2/YOLO11)을 활용한 시뮬레이션 합성 화면 속 객체 Grounding 파이프라인 구축</li><li><b>[ND5 M12 캡스톤]</b> LLM 기반 로봇 제어 단대단(E2E) 시스템 — Git/README + 실행 스크립트 + 데모 영상 (역량 인증 Lv4)</li></ul>",
+  "schedule_message": "동계(겨울학기) 집중이수 기간을 활용하여, **1월에 ND1(기초)과 ND2(데이터/인지)를 순차적으로 연달아 진행**하여 데이터를 제어할 로봇/인지 체력을 집중적으로 다지고, 여기서 도출된 역량을 바탕으로 **2월에 ND5(에이전트 두뇌/행동 통합)**를 이어가는 몰입형 연속 스케줄을 제안합니다. 이를 통해 몰입형 캠프의 교육 연속성과 최종 캡스톤 시스템 완성도를 극대화할 수 있습니다."
+}

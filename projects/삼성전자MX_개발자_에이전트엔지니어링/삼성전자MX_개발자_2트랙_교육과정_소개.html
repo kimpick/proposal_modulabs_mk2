@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>삼성전자MX 개발자 에이전트 엔지니어링 · 2트랙 교육과정 소개</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+/* ============================================================
+   CURRICULUM-INTRO PARENT CSS (가로형 교육과정 소개자료)
+   ------------------------------------------------------------
+   · 원본: 롯데이커머스_3트랙_교육과정_소개.html (2026.07, 골든 샘플)
+   · 규칙: 이 파일은 "통째로 복사"해서 <style> 태그에 인라인.
+          값(색·폰트·간격·radius·shadow) 수정 금지.
+   · 고객사 테마: :root 토큰만 스왑 (--primary 계열).
+          단, 기본값은 모두의연구소 레드(#EE3E4C)를 유지.
+   · [확장] 표기 블록 = 골든 샘플에는 없지만 조합 유연성을 위해
+          추가한 variant. 기존 값은 변경하지 않음.
+   ============================================================ */
+
+/* ── 1. TOKENS ─────────────────────────────────────────── */
+:root{
+  --primary:#EE3E4C; --primary-dk:#C92434; --secondary:#EBBAC0;
+  --ink:#111111; --body:#333333; --muted:#6B7280; --faint:#9AA1AC;
+  --border:#EBEBEB; --line:#F0F0F2; --bg:#ffffff; --soft:#FAFAFB; --soft2:#F5F6F8;
+  --blue:#2563EB; --blue-bg:#EEF4FF; --green:#0E9F6E; --green-bg:#E7F6EF;
+  --shadow:0 1px 2px rgba(17,17,17,.04),0 8px 24px rgba(17,17,17,.06); --radius:16px;
+}
+
+/* ── 2. BASE ───────────────────────────────────────────── */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  color:var(--body);background:var(--soft2);line-height:1.6;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+
+/* ── 3. SECTION SHELL (섹션 1개 = 카드 1개 = 인쇄 1페이지) ── */
+section{background:var(--bg);margin:22px auto;max-width:1120px;border:1px solid var(--border);
+  border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.pad{padding:44px 48px}
+@media(max-width:720px){.pad{padding:30px 22px}}
+
+/* ── 4. SECTION HEAD (sec-num + kicker + h2 + lead) ────── */
+.sec-num{font-size:12px;font-weight:700;color:var(--faint);letter-spacing:.08em}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.04em;
+  color:var(--primary);text-transform:uppercase;margin:8px 0 14px}
+.kicker::before{content:"";width:22px;height:2px;background:var(--primary);border-radius:2px}
+h2{font-size:26px;line-height:1.28;color:var(--ink);margin:0 0 10px;font-weight:800;letter-spacing:-.02em}
+.lead{font-size:15.5px;color:var(--muted);margin:0 0 24px;max-width:820px}
+
+/* ── 5. GRID ───────────────────────────────────────────── */
+.grid{display:grid;gap:16px}
+.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:820px){.g3{grid-template-columns:1fr}}
+/* [확장] 2열/4열 그리드 variant (직군 카드 2개·4개 조합용) */
+.g2{grid-template-columns:repeat(2,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:820px){.g2,.g4{grid-template-columns:1fr}}
+
+/* ── 6. METASTRIP (정보 칩 스트립) ─────────────────────── */
+.metastrip{display:flex;flex-wrap:wrap;gap:10px;margin:2px 0 22px}
+.mchip{background:var(--soft);border:1px solid var(--border);border-radius:10px;padding:9px 14px;min-width:96px}
+.mchip .ml{font-size:10.5px;font-weight:700;color:var(--muted);letter-spacing:.03em}
+.mchip .mv{font-size:14px;font-weight:800;color:var(--ink);margin-top:3px}
+.mchip.hl{background:linear-gradient(135deg,#fff5f6,#fdeef0);border-color:#f4ccd0}
+.mchip.hl .mv{color:var(--primary-dk)}
+
+/* ── 7. DAYGRID / DAYCARD (일차별 커리큘럼 카드) ───────── */
+.daygrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:820px){.daygrid{grid-template-columns:1fr}}
+/* [확장] 2일차/4스텝 조합용 variant */
+.daygrid.cols-2{grid-template-columns:repeat(2,1fr)}
+.daygrid.cols-4{grid-template-columns:repeat(2,1fr)}
+.daycard{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
+.daycard .dh{background:var(--soft);padding:13px 16px;border-bottom:1px solid var(--border)}
+.daycard .dh .dn{font-size:11px;font-weight:800;color:var(--primary);letter-spacing:.04em}
+.daycard .dh .dt{font-size:14.5px;font-weight:800;color:var(--ink);margin-top:3px;line-height:1.3}
+.daycard .dh .dhh{display:inline-block;margin-top:6px;font-size:11px;font-weight:700;color:var(--muted);background:#fff;border:1px solid var(--border);border-radius:999px;padding:2px 9px}
+.daycard .db{padding:12px 16px}
+.daycard .m{font-size:12.5px;color:var(--body);padding:8px 0;border-top:1px solid var(--line);line-height:1.5}
+.daycard .m:first-child{border-top:none}
+.daycard .m .mh{display:block;color:var(--primary-dk);font-weight:700;font-size:10.5px;margin-bottom:1px}
+.daycard .m b{color:var(--ink);font-weight:700}
+
+/* ── 8. OUTBOX (산출물 박스) ───────────────────────────── */
+.outbox{background:var(--soft);border:1px solid var(--border);border-left:4px solid var(--primary);border-radius:12px;padding:15px 18px;margin-top:16px}
+.outbox .ot{font-size:11.5px;font-weight:800;color:var(--primary);letter-spacing:.04em;margin-bottom:9px}
+.outbox .op{display:flex;flex-wrap:wrap;gap:8px}
+.outbox .op span{background:#fff;border:1px solid var(--border);border-radius:999px;padding:6px 13px;font-size:12.5px;font-weight:600;color:var(--ink)}
+
+/* ── 9. JOB CARD (직군 개요 카드) ──────────────────────── */
+.job{border:1px solid var(--border);border-radius:14px;padding:20px;background:#fff;position:relative}
+.job::before{content:"";position:absolute;left:0;top:20px;bottom:20px;width:4px;border-radius:4px;background:var(--primary)}
+.job .jt{font-size:17px;font-weight:800;color:var(--ink);padding-left:12px}
+.job .js{font-size:12px;color:var(--muted);padding-left:12px;margin:4px 0 12px}
+.job ul{margin:0;padding-left:28px;font-size:12.8px;color:var(--body)}
+.job li{margin:5px 0}
+
+/* ── 10. PROP TABLE (전체 요약표) + BADGE ──────────────── */
+.prop{width:100%;border-collapse:collapse;font-size:12px;margin:8px 0 6px}
+.prop th{text-align:left;padding:9px 11px;font-size:11px;font-weight:700;color:var(--muted);background:var(--soft);border-bottom:2px solid var(--border);white-space:nowrap}
+.prop th.c{text-align:center}
+.prop td{padding:10px 11px;line-height:1.5;border-bottom:1px solid var(--line);vertical-align:middle;font-size:12px}
+.prop td.trk{font-weight:800;color:var(--primary);background:var(--soft);white-space:nowrap;text-align:center;line-height:1.3}
+.prop td.course{font-weight:700;color:var(--ink)}
+.prop td.core{color:var(--body);font-size:11.5px}
+.prop td.tgt{color:var(--muted);font-size:11.5px;white-space:nowrap;line-height:1.3}
+.prop td.hrs{color:var(--primary);font-weight:800;text-align:center;white-space:nowrap;line-height:1.3}
+.prop tr.sumrow td{background:#FFF6F2;font-weight:700;color:var(--ink)}
+.badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:10.5px;font-weight:700;white-space:nowrap}
+.badge-red{background:rgba(238,62,76,.12);color:var(--primary-dk)}
+.badge-blue{background:rgba(37,99,235,.12);color:var(--blue)}
+.badge-green{background:rgba(14,159,110,.12);color:var(--green)}
+.badge-purple{background:rgba(124,58,237,.12);color:#7C3AED}
+
+/* ── 11. FLOW (여정 스텝) ──────────────────────────────── */
+.flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin-top:6px}
+.step{flex:1;min-width:180px;background:var(--soft);border:1px solid var(--border);border-radius:12px;padding:16px 18px;position:relative}
+.step + .step{margin-left:26px}
+.step + .step::before{content:"→";position:absolute;left:-22px;top:50%;transform:translateY(-50%);color:var(--primary);font-weight:800;font-size:18px}
+.step .st{font-size:12px;font-weight:800;color:var(--primary);margin-bottom:5px}
+.step .sd{font-size:14px;color:var(--ink);font-weight:700}
+.step .ss{font-size:12.5px;color:var(--muted);margin-top:3px}
+@media(max-width:720px){.step + .step{margin-left:0;margin-top:24px}.step + .step::before{left:50%;top:-20px;transform:translateX(-50%) rotate(90deg)}}
+
+/* ── 12. OP TABLE (운영 차수표) ────────────────────────── */
+.op-tbl{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:4px}
+.op-tbl th{background:var(--ink);color:#fff;text-align:left;padding:11px 14px;font-weight:600;font-size:12.5px}
+.op-tbl th.c{text-align:center}
+.op-tbl td{padding:12px 14px;border-bottom:1px solid var(--line)}
+.op-tbl td.c{text-align:center}
+.op-tbl td.hl{color:var(--primary);font-weight:800;text-align:center}
+.op-tbl tbody tr:nth-child(even){background:var(--soft)}
+.op-tbl tr.tot td{background:var(--ink);color:#fff;font-weight:800}
+.op-tbl tr.tot td.hl{color:#fff}
+
+/* ── 13. NOTE (각주) ───────────────────────────────────── */
+.note{font-size:12px;color:var(--faint);margin-top:16px;padding-top:12px;border-top:1px dashed var(--border)}
+
+/* ── 14. COVER ─────────────────────────────────────────── */
+.cover{color:#fff;border:none;background:radial-gradient(1200px 500px at 80% -10%,#ff5d69 0%,transparent 55%),
+  linear-gradient(135deg,#1a1114 0%,#2a1418 40%,#7a1420 100%)}
+.cover .pad{padding:60px 48px 52px}
+.cover-badge{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:600;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);padding:8px 15px;border-radius:999px}
+.cover h1{font-size:40px;line-height:1.2;font-weight:800;margin:26px 0 14px;letter-spacing:-.03em;color:#fff}
+.cover h1 span{color:#ffd0d4}
+.cover .sub{font-size:16.5px;color:rgba(255,255,255,.86);max-width:680px;margin:0 0 34px}
+.cover-meta{display:flex;flex-wrap:wrap;gap:10px 26px;font-size:13.5px;color:rgba(255,255,255,.7);
+  border-top:1px solid rgba(255,255,255,.18);padding-top:22px}
+.cover-meta b{color:#fff;font-weight:600}
+@media(max-width:720px){.cover h1{font-size:29px}}
+
+/* ── 15. CLOSING / SIGN / FOOT ─────────────────────────── */
+.closing{background:linear-gradient(135deg,#1a1114,#5e1018);color:#fff;border:none}
+.closing .pad{padding:44px 48px}
+.closing h2{color:#fff}
+.closing .msg{font-size:17px;color:rgba(255,255,255,.9);max-width:720px;margin:0 0 24px;line-height:1.55}
+.sign{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:14px;color:rgba(255,255,255,.75);border-top:1px solid rgba(255,255,255,.2);padding-top:20px}
+.sign b{color:#fff}
+.foot{text-align:center;font-size:11.5px;color:var(--faint);padding:8px 0 40px}
+
+/* ── 16. PRINT (가로 A4 · 섹션당 1페이지) ──────────────── */
+@media print{
+  @page{ size:A4 landscape; margin:8mm; }
+  html,body{background:#fff}
+  .daygrid{grid-template-columns:repeat(3,1fr)}
+  .daygrid.cols-2{grid-template-columns:repeat(2,1fr)}
+  .daygrid.cols-4{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  section{box-shadow:none;border:1px solid #e5e5e5;border-radius:12px;margin:0 auto;page-break-before:always;break-inside:auto}
+  section.cover{page-break-before:avoid}
+  .pad{padding:26px 32px}
+  section,.cover,.closing,.daycard .dh,.mchip,.mchip.hl,.job,.outbox,.badge,.prop th,.prop td.trk,
+  .prop tr.sumrow td,.op-tbl th,.op-tbl tr.tot td,.step{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .daycard,.job,.outbox,.prop tr,.op-tbl tr,.step,.mchip{break-inside:avoid}
+  h2{break-after:avoid}
+}
+
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<section class="cover">
+  <div class="pad">
+    <span class="cover-badge">모두의연구소 &nbsp;×&nbsp; 삼성전자 MX사업부</span>
+    <h1>삼성전자 MX 개발자 AI 교육<br><span>AI 팩토리와 지식그래프</span> 실전 2트랙</h1>
+    <p class="sub">에이전트 활용이 지금 어디까지 왔는지 실무 기준으로 짚고, 하루 만에 직접 구축해 현업으로 가져가는 과정. 트랙 1은 개발 워크플로우, 트랙 2는 개인 지식 기반을 다룹니다.</p>
+    <div class="cover-meta">
+      <span><b>대상</b> · MX 개발자 / SW 엔지니어</span>
+      <span><b>구성</b> · 2개 트랙 동시 운영 (각 1일 8H)</span>
+      <span><b>일정</b> · 2026년 9~10월 화·수·목</span>
+      <span><b>운영</b> · 6주 18일 · 36차수</span>
+      <span><b>기반</b> · 엔터프라이즈 구독 계정 (API 키 불필요)</span>
+    </div>
+  </div>
+</section>
+
+<!-- 01 OVERVIEW -->
+<section>
+  <div class="pad">
+    <span class="sec-num">01 / 커리큘럼 개요</span>
+    <p class="kicker">한눈에 보는 2트랙</p>
+    <h2>에이전트 활용의 두 축, AI 팩토리와 지식그래프</h2>
+    <p class="lead">트랙 1은 팀의 개발 워크플로우를 루프·하네스·그래프로 조립해 검증 가능한 AI 팩토리로 전환. 트랙 2는 흩어진 AI 세션과 개인 문서를 지식그래프로 재편해 자율 에이전트의 기반으로 구축. 두 트랙 모두 선행 과정을 전제하지 않아 같은 기간에 병행 운영합니다.</p>
+
+    <div class="flow" style="margin-bottom:22px">
+      <div class="step"><div class="st">사전 준비 · 교육 1주 전</div><div class="sd">환경·계정 점검</div><div class="ss">구독 로그인 확인 · 설치 가이드 배포</div></div>
+      <div class="step"><div class="st">운영 · 9~10월 6주</div><div class="sd">화·수·목 2트랙 동시 운영</div><div class="ss">하루 2차수 · 주 6차수 · 총 36차수</div></div>
+      <div class="step"><div class="st">현업 적용</div><div class="sd">청사진과 비서 가동</div><div class="ss">팀별 팩토리 청사진 · 내 비서 에이전트 이관</div></div>
+    </div>
+
+    <table class="prop">
+      <thead><tr><th>트랙</th><th>과정</th><th>핵심 내용</th><th>대상</th><th class="c">시간</th><th>분류</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="trk">트랙 1</td>
+          <td class="course">AI 팩토리 구축<br>루프·하네스·그래프 종합</td>
+          <td class="core">3단 스택 개관 → 자율 수정 루프(원자) → 룰·린터 하네스(벽) → LangGraph 제어 흐름 → 이슈 티켓 완주 조립·관측</td>
+          <td class="tgt">MX 개발자<br>(선행 과정 불필요)</td>
+          <td class="hrs">8H<br><span style="font-weight:600;color:var(--muted);font-size:10px">1일 · 18차수</span></td>
+          <td><span class="badge badge-purple">심화 · 개발 워크플로우</span></td>
+        </tr>
+        <tr>
+          <td class="trk">트랙 2</td>
+          <td class="course">세컨 브레인 구축<br>LLM Wiki·지식그래프·비서 자동화</td>
+          <td class="core">내 AI 자산 인벤토리 → OKF 지식 재편 → 지식그래프·컨텍스트 파이프라인 → 자율 에이전트 → 지시·생성·메일 발송 E2E</td>
+          <td class="tgt">MX 개발자<br>(선행 트랙 불필요)</td>
+          <td class="hrs">8H<br><span style="font-weight:600;color:var(--muted);font-size:10px">1일 · 18차수</span></td>
+          <td><span class="badge badge-red">심화 · 개인 지식 자동화</span></td>
+        </tr>
+        <tr class="sumrow"><td colspan="4">전체 커리큘럼 · 개발 워크플로우 AI 팩토리 + 개인 지식 기반 자율 에이전트 (2트랙 병행 운영)</td><td class="hrs">총 16H</td><td><span class="badge badge-green">2개 과정 · 36차수</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 02 TRACK 1 -->
+<section>
+  <div class="pad">
+    <span class="sec-num">02 / 트랙 1</span>
+    <p class="kicker">트랙 1 · 개발 워크플로우</p>
+    <h2>AI 팩토리 구축 — 루프·하네스·그래프 종합</h2>
+    <p class="lead">루프(원자)·하네스(벽)·그래프(제어 흐름)를 오전에 각각 구축하고, 오후에 합쳐 이슈 티켓 1건 완주.</p>
+    <div class="metastrip">
+      <div class="mchip"><div class="ml">대상</div><div class="mv">MX 개발자 (선행 과정 불필요)</div></div>
+      <div class="mchip hl"><div class="ml">교육 시간</div><div class="mv">8H · 1일</div></div>
+      <div class="mchip"><div class="ml">실습 환경</div><div class="mv">구독 계정만 · API 키 불필요</div></div>
+      <div class="mchip"><div class="ml">필수 도구</div><div class="mv">Claude Code CLI · LangGraph · Langfuse</div></div>
+    </div>
+    <div class="daygrid cols-2">
+      <div class="daycard">
+        <div class="dh"><div class="dn">STEP 1 · 오전</div><div class="dt">루프와 하네스 레이어 구축</div><span class="dhh">4H</span></div>
+        <div class="db">
+          <div class="m"><span class="mh">M1 · 1H</span><b>AI 팩토리 개관</b> — 루프(원자)→하네스(벽)→팩토리(조직) 3단 스택과 닫힌 루프, <b>[워크숍]</b> 내 워크플로우 팩토리 지도</div>
+          <div class="m"><span class="mh">M2 · 1.5H</span><b>루프 레이어(원자)</b> — AORR 상태 머신, Self-Correcting TDD, 종료 가드레일, <b>[실습]</b> claude&nbsp;-p 자율 수정 루프</div>
+          <div class="m"><span class="mh">M3 · 1.5H</span><b>하네스 레이어(벽)</b> — Agent = Model + Harness, 가이드·센서 이중 통제, <b>[실습]</b> 룰·린터 폐쇄형 제약 사이클</div>
+        </div>
+      </div>
+      <div class="daycard">
+        <div class="dh"><div class="dn">STEP 2 · 오후</div><div class="dt">그래프 제어 흐름과 팩토리 조립</div><span class="dhh">4H</span></div>
+        <div class="db">
+          <div class="m"><span class="mh">M4 · 2.5H</span><b>그래프 레이어(제어 흐름)</b> — State·Node·Edge·종료 4요소, LangGraph 제어 평면, <b>[실습]</b> Supervisor 그래프와 승인 게이트</div>
+          <div class="m"><span class="mh">M5 · 1.5H</span><b>AI 팩토리 조립</b> — Langfuse 트레이스 연결, <b>[통합 실습]</b> 루프+제약+그래프를 합쳐 이슈 티켓 완주</div>
+          <div class="m"><b>의도적 실패와 라이트 스위치</b> — 트레이스 진단, 종료 엣지 수습, 무인화 판정표, 사람이 맡는 바깥 루프</div>
+        </div>
+      </div>
+    </div>
+    <div class="outbox">
+      <div class="ot">산출물</div>
+      <div class="op"><span>HITL 가드레일 자율 수정 루프</span><span>가이드·센서 하네스 템플릿</span><span>LangGraph Supervisor 그래프</span><span>Langfuse 트레이스 · 라이트 스위치 판정표</span><span>팀별 AI 팩토리 청사진</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 TRACK 2 -->
+<section>
+  <div class="pad">
+    <span class="sec-num">03 / 트랙 2</span>
+    <p class="kicker">트랙 2 · 개인 지식 기반</p>
+    <h2>세컨 브레인 구축 — LLM Wiki·지식그래프·비서 자동화</h2>
+    <p class="lead">기존 AI 세션과 개인 문서를 지식 포맷으로 재편하고 그래프로 조직한 뒤, 그 위에서 움직이는 비서 에이전트까지 하루에 완성.</p>
+    <div class="metastrip">
+      <div class="mchip"><div class="ml">대상</div><div class="mv">MX 개발자 (선행 트랙 불필요)</div></div>
+      <div class="mchip hl"><div class="ml">교육 시간</div><div class="mv">8H · 1일</div></div>
+      <div class="mchip"><div class="ml">실습 데이터</div><div class="mv">각자의 AI 세션 · 개인 프로젝트 자료</div></div>
+      <div class="mchip"><div class="ml">필수 도구</div><div class="mv">Claude Code CLI · Google OKF · SMTP 발송</div></div>
+    </div>
+    <div class="daygrid cols-2">
+      <div class="daycard">
+        <div class="dh"><div class="dn">STEP 1 · 오전</div><div class="dt">지식 재편과 지식그래프 구축</div><span class="dhh">4H</span></div>
+        <div class="db">
+          <div class="m"><span class="mh">M1 · 1H</span><b>세컨 브레인 개관</b> — 재편→그래프→에이전트→연동 4단 구성, LLM Wiki 패턴과 Google OKF 규격, <b>[워크숍]</b> 내 AI 자산 인벤토리</div>
+          <div class="m"><span class="mh">M2 · 1.5H</span><b>지식 재편</b> — OKF frontmatter·번들·신뢰 신호, 세션 선별 기준, <b>[실습]</b> 내 AI 세션을 OKF 문서로 재편</div>
+          <div class="m"><span class="mh">M3 · 1.5H</span><b>지식그래프 구축</b> — 상호 링크와 Mermaid 검증, AGENTS.md 컨텍스트 파이프라인, <b>[실습]</b> 출처 추적 질의 사이클</div>
+        </div>
+      </div>
+      <div class="daycard">
+        <div class="dh"><div class="dn">STEP 2 · 오후</div><div class="dt">자율 에이전트와 비서 자동화</div><span class="dhh">4H</span></div>
+        <div class="db">
+          <div class="m"><span class="mh">M4 · 2H</span><b>자율 에이전트 기반</b> — 지식그래프를 읽는 claude&nbsp;-p 워커, 질문 회귀 가드레일, <b>[실습]</b> 자료 생성 에이전트</div>
+          <div class="m"><span class="mh">M5 · 2H</span><b>내 비서 에이전트</b> — 지시 접수 → 자료 생성 → 업무 메일 발송(SMTP) 파이프라인, <b>[통합 실습]</b> E2E 완주</div>
+          <div class="m"><b>선택 실습과 확장 과제</b> — 텔레그램 원격 지시(선택 실습), OpenClaw 자율 에이전트 런타임(확장 과제 자료)</div>
+        </div>
+      </div>
+    </div>
+    <div class="outbox">
+      <div class="ot">산출물</div>
+      <div class="op"><span>OKF 개인 지식 문서 번들</span><span>Mermaid 개인 지식그래프</span><span>AGENTS.md 컨텍스트 파이프라인</span><span>자료 생성 자율 에이전트</span><span>지시→생성→메일 발송 E2E 파이프라인</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 SCHEDULE -->
+<section>
+  <div class="pad">
+    <span class="sec-num">04 / 운영 일정</span>
+    <p class="kicker">9~10월 · 화·수·목</p>
+    <h2>9~10월 6주 18일, 2트랙 동시 운영</h2>
+    <p class="lead">매주 화·수·목 3일 고정. 교육일마다 트랙 1과 트랙 2를 각 1차수씩 동시 운영하며, 공휴일이 낀 주간은 제외.</p>
+    <table class="op-tbl">
+      <thead><tr><th>주차</th><th class="c">화요일</th><th class="c">수요일</th><th class="c">목요일</th><th class="c">주 차수</th><th class="c">누적 차수</th></tr></thead>
+      <tbody>
+        <tr><td><b>1주차</b></td><td class="c">9/8</td><td class="c">9/9</td><td class="c">9/10</td><td class="hl">6차수</td><td class="c">6</td></tr>
+        <tr><td><b>2주차</b></td><td class="c">9/15</td><td class="c">9/16</td><td class="c">9/17</td><td class="hl">6차수</td><td class="c">12</td></tr>
+        <tr><td><b>3주차</b></td><td class="c">9/29</td><td class="c">9/30</td><td class="c">10/1</td><td class="hl">6차수</td><td class="c">18</td></tr>
+        <tr><td><b>4주차</b></td><td class="c">10/13</td><td class="c">10/14</td><td class="c">10/15</td><td class="hl">6차수</td><td class="c">24</td></tr>
+        <tr><td><b>5주차</b></td><td class="c">10/20</td><td class="c">10/21</td><td class="c">10/22</td><td class="hl">6차수</td><td class="c">30</td></tr>
+        <tr><td><b>6주차</b></td><td class="c">10/27</td><td class="c">10/28</td><td class="c">10/29</td><td class="hl">6차수</td><td class="c">36</td></tr>
+        <tr class="tot"><td colspan="4">합계 · 6주 18일 (교육일마다 트랙 1 · 트랙 2 동시 운영)</td><td class="hl">36차수</td><td class="c">288H</td></tr>
+      </tbody>
+    </table>
+    <p class="note">※ 차수 산정 = 18일 × 2트랙 동시 운영 = 36차수, 차수당 8H 기준 총 288H. 제외 주간 — 9/1 주는 사전 준비 기간, 9/22 주는 추석 연휴(9/24~9/26), 10/6 주는 개천절 대체공휴일(10/5)과 한글날(10/9). 3주차의 개천절(10/3)은 토요일이라 화·수·목 운영에 영향 없음. 차수당 인원과 트랙별 총원은 협의 후 확정하며, 인원 규모에 따라 차수 배분 조정 가능.</p>
+  </div>
+</section>
+
+<!-- 05 OPERATION -->
+<section>
+  <div class="pad">
+    <span class="sec-num">05 / 운영 안내</span>
+    <p class="kicker">운영 · 실습 전제</p>
+    <h2>사내 실무와 동일한 환경에서 실습</h2>
+    <p class="lead">두 트랙 모두 엔터프라이즈 구독 계정만으로 동작. API 키를 쓰지 않아 교육에서 만든 파이프라인을 현업에서 그대로 재현할 수 있습니다.</p>
+    <div class="grid g3">
+      <div class="job">
+        <div class="jt">무API 구독 인증 설계</div>
+        <div class="js">구독 계정만으로 전 실습 수행</div>
+        <ul><li>LLM 호출은 구독 인증 CLI 워커가 전담</li><li>제어 평면(LangGraph)·관측(Langfuse)은 LLM API 불필요</li><li>실습 전 API 키 환경변수 정리 가이드 배포</li></ul>
+      </div>
+      <div class="job">
+        <div class="jt">사전 준비</div>
+        <div class="js">교육 1주일 전 배포로 당일 지연 최소화</div>
+        <ul><li>구독 로그인 허용 확인 · 설치 가이드 배포</li><li>트랙 2는 SMTP 발송 계정 준비 (텔레그램 봇은 선택)</li><li>실습 데이터는 각자의 AI 세션·개인 자료</li></ul>
+      </div>
+      <div class="job">
+        <div class="jt">병행 운영 체계</div>
+        <div class="js">하루 2트랙 · 강의실 2실 동시 진행</div>
+        <ul><li>트랙별 주강사 1인 + 보조강사 1인, 교육일당 4인</li><li>스캐폴딩(빈칸 채우기) 코드 · 명령어 한 줄 설명</li><li>트랙별 독립 수강, 수강 순서 제약 없음</li></ul>
+      </div>
+    </div>
+    <div class="metastrip" style="margin-top:20px">
+      <div class="mchip hl"><div class="ml">운영 기간</div><div class="mv">2026년 9~10월 · 6주 18일</div></div>
+      <div class="mchip"><div class="ml">교육 요일</div><div class="mv">매주 화·수·목</div></div>
+      <div class="mchip"><div class="ml">강의장</div><div class="mv">동시 2실 · 트랙 2는 사외망</div></div>
+      <div class="mchip"><div class="ml">차수당 인원</div><div class="mv">협의 후 확정</div></div>
+    </div>
+    <p class="note">※ 일정·인원·차수는 제안 기준이며 확정 일정은 협의 후 조정. 진행 전 확인이 필요한 항목 — ① 조직 관리자의 Claude Code 구독 로그인 허용 여부 ② 사내망에서 langgraph·langfuse 패키지 설치 및 Langfuse 접근 가능 여부 ③ 트랙 2 사외망 강의장 확보와 업무용 메일 테스트 발송 허용 범위.</p>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing">
+  <div class="pad">
+    <p class="kicker" style="color:#ffd0d4">맺음말</p>
+    <h2>교육 다음 날, 현업에서 그대로 가동</h2>
+    <p class="msg">트랙 1은 팀의 개발 워크플로우를 조립한 AI 팩토리를, 트랙 2는 본인의 지식 위에서 움직이는 비서 에이전트를 각각 결과물로 남깁니다. 두 트랙 모두 사내 구독 계정만으로 동작하므로 교육이 끝난 다음 날부터 현업에서 이어집니다.</p>
+    <div class="sign">
+      <span><b>모두의연구소</b> · 비즈팀 · modu.biz@modulabs.co.kr</span>
+    </div>
+  </div>
+</section>
+
+<p class="foot">© 모두의연구소 · 삼성전자MX 개발자 에이전트 엔지니어링 2트랙 교육과정 소개 · 2026.08</p>
+</body>
+</html>

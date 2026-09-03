@@ -1,0 +1,109 @@
+{
+  "title": "Gemini Enterprise 교육 로드맵",
+  "subtitle": "Gemini Enterprise를 활용한 업무 효율화 교육",
+  "info": {
+    "keyword": "Gemini AI, Enterprise AI, Agent",
+    "ax_stage": "기초 단계",
+    "target": "비개발자 및 전사",
+    "duration": "트랙별 1.5시간"
+  },
+  "intro": "Gemini Enterprise의 기본 기능부터 Agent Designer를 활용한 맞춤형 에이전트 설계까지 단계적으로 학습하는 통합 교육 과정입니다. 기본 교육에서는 내장된 기능과 제공 Agent를 활용한 업무 적용 방식을 익히고, 집중 교육(런치박스)에서는 실제 업무를 자동화하는 AI Agent를 직접 설계하고 구현합니다. 이를 통해 조직 데이터 기반의 AI 활용 역량을 확보계를 구축할 수 있습니다.",
+  "objective": "참여자들이 Gemini Enterprise의 기본 기능부터 Agent 활용까지 이해하고, 일상 업무에서 AI를 적극적으로 활용하여 업무 효율을 높일 수 있는 역량을 갖추는 것을 목표로 합니다.",
+  "tech_stack": ["Google Gemini Enterprise", "Agent Designer"],
+  "infrastructure": [
+    "Gemini Enterprise 계정"
+  ],
+  "tracks": [
+    {
+      "track_id": "01",
+      "track_name": "Gemini Enterprise 기본 활용 교육",
+      "course_title": "기본 교육",
+      "modules": [
+        {
+          "module_name": "Gemini Enterprise 핵심 기능 이해",
+          "duration": "20분",
+          "items": [
+            "일반 생성형 AI와의 차이: 조직 데이터 기반 답변 생성 구조 이해",
+            "Enterprise 환경에서 가능한 주요 기능 소개 (사내 문서 검색, 요약, 데이터 질의 등)"
+          ]
+        },
+        {
+          "module_name": "기본 제공 Agent 활용 ① (Deep Research / Idea Generation)",
+          "duration": "20분",
+          "items": [
+            "Deep Research: 다수 자료 기반 리서치 및 보고서 생성 방식 이해",
+            "Idea Generation: 아이디어 발산 및 평가 기준 적용과 선별",
+            "리서치·기획 업무에서 바로 활용 가능한 대표 Agent 시연 중심 설명"
+          ]
+        },
+        {
+          "module_name": "기본 제공 Agent 활용 ② (NotebookLM)",
+          "duration": "20분",
+          "items": [
+            "NotebookLM 개념 및 활용 방식 이해 (내 자료 기반 AI)",
+            "문서 업로드 → 질문 → 요약/정리/시각화/구조화 흐름 실습",
+            "보고서 작성, 학습, 문서 분석 등 개인/팀 단위 활용 시나리오 중심"
+          ]
+        },
+        {
+          "module_name": "커스텀 Agent 개념 및 Agent Designer 소개",
+          "duration": "30분",
+          "items": [
+            "커스텀 Agent가 필요한 상황 이해 (기본 기능으로 해결되지 않는 경우)",
+            "프롬프트 기반 에이전트 제작 시연",
+            "에이전트 제작을 위한 좋은 프롬프트 원칙"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "02",
+      "track_name": "Gemini Enterprise 에이전트 집중 교육",
+      "course_title": "런치 박스",
+      "modules": [
+        {
+          "module_name": "Gemini Enterprise 기본 기능과 Agent 활용 경계 이해",
+          "duration": "10분",
+          "items": [
+            "Gemini Enterprise에서 기본적으로 제공하는 업무 자동화 지원 기능 간단하게 파악",
+            "기본 내장 기능 사용과 커스텀 에이전트 사용의 장단점과 활용 기준 이해"
+          ]
+        },
+        {
+          "module_name": "Agentic Mind Set : Agent 활용 관점 이해",
+          "duration": "15분",
+          "items": [
+            "Agent가 필요한 이유 (단순 Chat의 반복 → 업무 자동화 마인드 열기)",
+            "Agent 활용 사례 및 시나리오 살펴보기: 정책 문의 및 안내 Agent / 프로젝트 리서치 Agent / 회의록 정리 Agent"
+          ]
+        },
+        {
+          "module_name": "Gemini Enterprise Agent 이해",
+          "duration": "15분",
+          "items": [
+            "Agent Designer 사용법과 Agent 구조 이해",
+            "Agent 구성 요소와 꼭 알아야할 원리 짚고 넘어가기: Instructions(요청사항), Model, Connector, Sub Agent 등"
+          ]
+        },
+        {
+          "module_name": "Agent Designer로 Agent 만들기",
+          "duration": "30분",
+          "items": [
+            "Agent 생성 프로세스",
+            "Agent 테스트 방법 (@agent 호출): 실제 동작 여부를 점검 및 자주 나오는 에러 대응"
+          ]
+        },
+        {
+          "module_name": "실습: 업무용 AI Agent 만들기",
+          "duration": "20분",
+          "items": [
+            "주어진 주제의 에이전트 중 하나를 택하여 내 업무 데이터 (혹은 예시 데이터)를 넣고 만들어보기",
+            "실습 주제 예시: 정책 검색 Agent, 프로젝트 리서치 Agent, 회의 요약 Agent"
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "<ul><li>Gemini Enterprise 활용 가이드</li><li>교육 완료 인증서</li><li>Agent Designer 사용 가이드</li></ul>",
+  "schedule_message": "※ 교육 일정은 기업 상황에 따라 조정 가능하며, 기본 교육과 심화 교육을 순차적으로 진행하는 것을 권장합니다."
+}

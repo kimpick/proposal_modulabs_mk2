@@ -1,0 +1,90 @@
+{
+  "title": "IT 관리자를 위한 Agentic AI 실무 구현 과정",
+  "subtitle": "MCP 기반 도구 연결부터 Codex 활용 자동화까지 — 20시간 집중 과정",
+  "info": {
+    "keyword": "Agentic AI 실무 운영",
+    "ax_stage": "3단계 (자동화·내재화)",
+    "target": "IT 관리직 비개발자 (시스템·보안 관제, 계약 운영 관리)",
+    "duration": "5일 (총 20시간, 4시간/일)"
+  },
+  "intro": "한국거래소 IT 관리직 임직원이 단순 챗봇 활용을 넘어, AI가 목표를 인식하고 도구를 선택·실행하는 Agentic AI 방식을 직접 설계하고 운영할 수 있도록 설계된 집중 과정입니다. MCP(Model Context Protocol)를 통한 외부 시스템 연결, Codex 기반 코딩 자동화, 플러그인·Tools 시스템을 활용한 Agent 파이프라인 구성까지 — 전공 지식을 보유한 IT 관리자가 실개발 없이 Agentic AI를 실무에 내재화할 수 있도록 단계별 실습 중심으로 진행합니다.",
+  "objective": "Agentic AI의 인식→계획→실행→피드백 루프를 이해하고, MCP 기반 도구 연결·Codex 코딩 자동화·플러그인 시스템을 활용해 보안 관제·시스템 운영·계약 관리 업무에 즉시 적용 가능한 Agent를 직접 구현·운영할 수 있다.",
+  "tech_stack": [
+    "Agentic AI 플랫폼 (Claude Desktop, Codex)",
+    "MCP(Model Context Protocol) 기반 도구 연결",
+    "플러그인·Tools 시스템 (Claude Tools, OpenAI Actions)"
+  ],
+  "infrastructure": [
+    "사내 교육장 PC 환경 (사외망 접속 가능)",
+    "Claude Desktop 설치 및 Codex 계정",
+    "MCP 서버 연결 실습 환경 (파일 시스템·웹·슬랙)"
+  ],
+  "tracks": [
+    {
+      "track_id": "01",
+      "track_name": "Agentic AI 실무 구현",
+      "course_title": "IT 관리자를 위한 Agentic AI 실무 구현",
+      "target": "IT 관리직 비개발자 20명 (시스템·보안 관제, 계약 운영 관리)",
+      "duration": "5일 (총 20시간)",
+      "tools": [
+        "Agentic AI 플랫폼 (Claude Desktop, Codex)",
+        "MCP(Model Context Protocol) 기반 도구 연결",
+        "플러그인·Tools 시스템 (Claude Tools, OpenAI Actions)"
+      ],
+      "modules": [
+        {
+          "module_name": "Agentic AI 이해",
+          "duration": "4H",
+          "items": [
+            "챗봇 AI vs Agentic AI — '지시받는 AI'에서 '목표 실행 AI'로의 전환",
+            "Agent 인식(Perception)→계획(Planning)→실행(Action)→피드백(Feedback) 루프",
+            "IT 관리 업무의 Agentic AI 시나리오 (보안 관제·시스템 운영·계약 관리)",
+            "실습: Claude Desktop에서 복합 업무 처리 첫 경험"
+          ]
+        },
+        {
+          "module_name": "MCP 기반 도구 연결",
+          "duration": "4H",
+          "items": [
+            "MCP(Model Context Protocol) — AI가 외부 시스템과 연결하는 표준 프로토콜",
+            "MCP 서버 유형별 이해 (파일 시스템·데이터베이스·웹·슬랙·이메일)",
+            "Claude Desktop + MCP 서버 연결 실습 환경 구성",
+            "실습: MCP로 업무 데이터 자동 수집·정리 Agent 구성"
+          ]
+        },
+        {
+          "module_name": "Codex 활용 업무 자동화",
+          "duration": "4H",
+          "items": [
+            "Codex 개요 — AI 코딩 에이전트가 스크립트·쿼리를 대신 작성하는 방식",
+            "IT 관리자를 위한 Codex 활용 패턴 (로그 분석·보안 이벤트 파싱·반복 처리)",
+            "자연어 → 실행 코드: 직접 코딩 없이 AI가 처리하게 하는 방법",
+            "실습: 보안 로그 분석 자동화 스크립트 Codex로 생성·실행"
+          ]
+        },
+        {
+          "module_name": "Agent 파이프라인 설계",
+          "duration": "4H",
+          "items": [
+            "Claude Tools / OpenAI Actions — Agent가 사용하는 도구 정의 방식",
+            "Agent 파이프라인 설계: 트리거→도구 선택→실행→결과 전달 흐름",
+            "보안 뉴스 모니터링 Agent 구현 (MCP + Tools 연동)",
+            "실습: 공지사항 수집·요약·알림 Agent 파이프라인 완성"
+          ]
+        },
+        {
+          "module_name": "실무 Agent 내재화",
+          "duration": "4H",
+          "items": [
+            "내 업무 맞춤 Agent 완성 (보안 관제 / 시스템 운영 / 계약 관리 중 선택)",
+            "팀별 결과물 발표: Agent 설계 의도·도구 구성·실행 결과 공유",
+            "Agentic AI 운영 가이드 (모니터링·오류 대응·개선 사이클)",
+            "실습: Agent 운영 체크리스트 및 자기주도 학습 로드맵 작성"
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "<ul><li>MCP 연결 기반 업무 데이터 자동 수집·정리 Agent</li><li>보안 로그 분석 자동화 스크립트 (Codex 생성)</li><li>공지사항 수집·요약·알림 Agent 파이프라인</li><li>내 업무 맞춤 Agent 설계서 및 구현 결과물</li></ul>",
+  "schedule_message": "※ 교육 당일 사외망 접속 환경 사전 확인이 필요합니다. Claude Desktop 설치 및 Codex 계정, MCP 서버 연결 실습 환경을 교육 시작 전에 준비해 주시면 원활하게 진행됩니다."
+}

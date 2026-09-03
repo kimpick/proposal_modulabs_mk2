@@ -1,0 +1,80 @@
+=== PARAGRAPHS ===
+[0] Style:normal | Align:CENTER (1) | Text:''
+    Runs: (bold=True, size=190500, text='')
+(bold=None, size=None, text='')
+[1] Style:normal | Align:None | Text:'문 서 번 호 : 2026-04-23\n수           신 : 한국산업인력공단 기업지원부 귀하 \n제           목 : 2026년 중소기업 인재 키움 프리미엄 훈련 2차 과정 운영 희망과정 신청의 건'
+    Runs: (bold=True, size=114300, text='문 서 번 호 :')
+(bold=None, size=114300, text=' 2026-04-23\n')
+(bold=True, size=114300, text='수           신 :')
+(bold=None, size=114300, text=' 한국산업인력공단 기업지원부 귀하 \n')
+(bold=True, size=114300, text='제           목 :')
+(bold=None, size=114300, text=' 2026년 중소기업 인재 키움 프리미엄 훈련 2차 과정 운영 희망과정 신청의 건')
+(bold=None, size=None, text='')
+[2] Style:normal | Align:None | Text:''
+    Runs: (bold=None, size=None, text='')
+(bold=None, size=None, text='')
+[3] Style:normal | Align:None | Text:'1. 귀사의 무궁한 발전을 기원합니다.'
+    Runs: (bold=None, size=127000, text='1. 귀사의 무궁한 발전을 기원합니다.')
+[4] Style:normal | Align:None | Text:"2. 국내 AI 및 SW 연구 문화를 선도하는 '모두의연구소'는 양자 기술 분야의 국내외 최신 트렌드를 조망하고, 관련 산업 활성화를 도모하기 위해 <양자컴퓨팅과 AI의 만남: 양자컴퓨터를 활용한 AI 서비스와 글로벌 사례> 세미나를 개최하고자 합니다."
+    Runs: (bold=None, size=127000, text="2. 국내 AI 및 SW 연구 문화를 선도하는 '모두의연구소'는 양자 기술 분야의 국내외 최신 트렌드를 조망하고, 관련 산업 활성화를 도모하기 위해 <양자컴퓨팅과 AI의 만남: 양자컴퓨터를 활용한 AI 서비스와 글로벌 사례> 세미나를 개최하고자 합니다.")
+[5] Style:normal | Align:None | Text:'3. 이에 국내 양자 기술을 선도하며, 특히 양자내성암호(PQC) 및 양자 컴퓨팅 분야에서 독보적인 입지를 구축하고 있는 (주)노르마의 정현철 대표님을 본 세미나의 핵심 연사로 모시고자 합니다.'
+    Runs: (bold=None, size=127000, text='3. 이에 국내 양자 기술을 선도하며, 특히 양자내성암호(PQC) 및 양자 컴퓨팅 분야에서 독보적인 입지를 구축하고 있는 (주)노르마의 정현철 대표님을 본 세미나의 핵심 연사로 모시고자 합니다.')
+[6] Style:normal | Align:None | Text:'4. 귀사의 혁신적인 기술력과 인사이트는 본 행사에 참여하는 현업 종사자 및 연구자들에게 큰 귀감이 될 것으로 확신하며, 아래와 같이 행사 개요를 송부드리오니 긍정적인 검토 부탁드립니다.'
+    Runs: (bold=None, size=127000, text='4. 귀사의 혁신적인 기술력과 인사이트는 본 행사에 참여하는 현업 종사자 및 연구자들에게 큰 귀감이 될 것으로 확신하며, 아래와 같이 행사 개요를 송부드리오니 긍정적인 검토 부탁드립니다.')
+[7] Style:normal | Align:CENTER (1) | Text:'— 아 래 —'
+    Runs: (bold=True, size=127000, text='— 아 래 —')
+[8] Style:normal | Align:None | Text:'가. 교육 과정 개요'
+    Runs: (bold=True, size=127000, text='가. 교육 과정 개요')
+[9] Style:normal | Align:None | Text:''
+    Runs: (bold=None, size=None, text='')
+[10] Style:normal | Align:None | Text:'교육 과정'
+    Runs: (bold=True, size=127000, text='교육 과정')
+(bold=None, size=None, text='')
+[11] Style:normal | Align:None | Text:'ㅎ'
+    Runs: (bold=True, size=127000, text='ㅎ')
+[12] Style:normal | Align:None | Text:'ㅓ'
+    Runs: (bold=True, size=127000, text='ㅓ')
+[13] Style:normal | Align:None | Text:'ㅓ'
+    Runs: (bold=True, size=127000, text='ㅓ')
+[14] Style:normal | Align:None | Text:''
+    Runs: (bold=None, size=None, text='')
+[15] Style:normal | Align:None | Text:'교육 과정 4: 양자 기술 및 AI 분야 현업 종사자, 연구자, 일반인 등 약 00명'
+    Runs: (bold=True, size=127000, text='교육 과정 4:')
+(bold=None, size=127000, text=' 양자 기술 및 AI 분야 현업 종사자, 연구자, 일반인 등 약 00명')
+[16] Style:normal | Align:None | Text:'나. 운영 개요'
+    Runs: (bold=True, size=127000, text='나. 운영 개요')
+[17] Style:normal | Align:None | Text:'세션명: Session 1) 양자 컴퓨터를 활용한 AI 서비스'
+    Runs: (bold=True, size=127000, text='세션명:')
+(bold=None, size=127000, text=' Session 1) 양자 컴퓨터를 활용한 AI 서비스')
+[18] Style:normal | Align:None | Text:'시 간: 19:00 ~ 20:00 (60분)'
+    Runs: (bold=True, size=127000, text='시 간:')
+(bold=None, size=127000, text=' 19:00 ~ 20:00 (60분)')
+[19] Style:normal | Align:None | Text:'내 용: 노르마의 양자 AI 기술 현황 및 적용 사례 등 인사이트 공유'
+    Runs: (bold=True, size=127000, text='내 용:')
+(bold=None, size=127000, text=' 노르마의 양자 AI 기술 현황 및 적용 사례 등 인사이트 공유')
+[20] Style:normal | Align:None | Text:'비 고: 강연 후 참가자 네트워킹(21:00~) 참여 권장'
+    Runs: (bold=True, size=127000, text='비 고:')
+(bold=None, size=127000, text=' 강연 후 참가자 네트워킹(21:00~) 참여 권장')
+[21] Style:normal | Align:None | Text:''
+    Runs: (bold=None, size=None, text='')
+(bold=None, size=None, text='')
+[22] Style:normal | Align:CENTER (1) | Text:'(주)모두의연구소 대표 김승일     (인)'
+    Runs: (bold=True, size=None, text='(주)모두의연구소 대표 김승일     (인)')
+(bold=None, size=None, text='')
+[23] Style:normal | Align:None | Text:''
+    Runs: (bold=None, size=None, text='')
+(bold=None, size=None, text='')
+[24] Style:normal | Align:CENTER (1) | Text:'담당자: 모두의연구소 비즈팀 김도희    |    이메일: dohee.kim@modulabs.co.kr'
+    Runs: (bold=True, size=114300, text='담당자:')
+(bold=None, size=114300, text=' 모두의연구소 비즈팀 김도희    |    ')
+(bold=True, size=114300, text='이메일:')
+(bold=None, size=114300, text=' dohee.kim@modulabs.co.kr')
+(bold=None, size=None, text='')
+
+=== TABLES ===
+
+=== HEADER ===
+''
+
+=== FOOTER ===
+''

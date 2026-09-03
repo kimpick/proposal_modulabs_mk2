@@ -1,0 +1,136 @@
+# ─────────────────────────────────────────────────────────────
+# .gitattributes — 개행(EOL) 정규화 및 바이너리 보호
+# 작성: 2026-08-21
+#
+# 배경: core.autocrlf 미설정 + .gitattributes 부재로, 저장소는 LF인데
+#       Windows 워킹트리가 CRLF로 재작성되어 수정 792건 중 731건(92%)이
+#       "내용은 그대로인데 개행만 다른" 허위 변경으로 잡혔다.
+#
+# 원칙: 저장소 안은 LF로 통일(text=auto eol=lf).
+#       바이너리는 절대 변환 금지(binary). 변환되면 파일이 깨진다.
+#       Office 압축 해제물은 정규화 금지(-text) — 재조립 시 손상 위험.
+# ─────────────────────────────────────────────────────────────
+
+# 기본: 텍스트로 감지되면 저장소·체크아웃 모두 LF
+* text=auto eol=lf
+
+
+# ── 텍스트 확정 (LF) ────────────────────────────────────────
+*.md        text eol=lf
+*.markdown  text eol=lf
+*.txt       text eol=lf
+*.html      text eol=lf
+*.htm       text eol=lf
+*.css       text eol=lf
+*.js        text eol=lf
+*.jsx       text eol=lf
+*.mjs       text eol=lf
+*.json      text eol=lf
+*.jsonl     text eol=lf
+*.py        text eol=lf
+*.yml       text eol=lf
+*.yaml      text eol=lf
+*.csv       text eol=lf
+*.tsv       text eol=lf
+*.svg       text eol=lf
+*.log       text eol=lf
+*.toml      text eol=lf
+*.ini       text eol=lf
+*.sh        text eol=lf
+.gitignore      text eol=lf
+.gitattributes  text eol=lf
+.gitkeep        text eol=lf
+*.gitkeep       text eol=lf
+
+
+# ── Windows 스크립트는 CRLF 유지 ────────────────────────────
+# .bat/.cmd 는 CRLF가 아니면 실행이 깨질 수 있다.
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+*.ps1   text eol=crlf
+
+
+# ── 바이너리: 변환·diff 금지 ────────────────────────────────
+# 문서·오피스
+*.pdf    binary
+*.docx   binary
+*.dotx   binary
+*.doc    binary
+*.xlsx   binary
+*.xlsm   binary
+*.xltx   binary
+*.xls    binary
+*.pptx   binary
+*.potx   binary
+*.ppt    binary
+*.hwp    binary
+*.hwpx   binary
+*.odt    binary
+*.ods    binary
+*.odp    binary
+
+# 이미지
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.webp   binary
+*.bmp    binary
+*.ico    binary
+*.psd    binary
+
+# 폰트 — 특히 .odttf 는 Office 임베디드 폰트(추적 153건).
+#        텍스트로 오인되어 정규화되면 문서가 깨진다.
+*.odttf  binary
+*.ttf    binary
+*.otf    binary
+*.woff   binary
+*.woff2  binary
+*.eot    binary
+
+# 오디오·비디오 (회의록 녹음 등)
+*.m4a    binary
+*.mp3    binary
+*.wav    binary
+*.mp4    binary
+*.mov    binary
+
+# 압축·기타
+*.zip    binary
+*.7z     binary
+*.rar    binary
+*.gz     binary
+*.tar    binary
+*.pyc    binary
+*.pkl    binary
+*.db     binary
+*.sqlite binary
+
+
+# ── 정규화 금지(-text): 텍스트지만 손대면 위험한 것 ─────────
+# RTF: ASCII지만 일부 리더가 개행에 민감
+*.rtf    -text
+
+# Google Drive 포인터 파일
+*.gsheet -text
+*.gdoc   -text
+*.gslides -text
+
+# Office 파일 압축 해제물 — 원본 재조립 시 바이트 일치가 필요.
+# 현재 projects/2026 연세대/히스토리/unpacked_v1/ 아래 486건이 추적 중이다.
+# (근본 해결은 .gitignore + git rm --cached. GITIGNORE_보강안.md 참조)
+**/_rels/**              -text
+**/word/**               -text
+**/ppt/**                -text
+**/xl/**                 -text
+**/docProps/**           -text
+**/customXml/**          -text
+**/unpacked_v*/**        -text
+**/[[]Content_Types[]].xml  -text
+
+
+# ── diff 편의 ───────────────────────────────────────────────
+*.md   diff=markdown
+*.py   diff=python
+*.html diff=html
+*.css  diff=css

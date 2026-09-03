@@ -1,0 +1,71 @@
+{
+  "title": "비개발자를 위한 바이브코딩 업무 자동화 실전 워크샵",
+  "subtitle": "Claude Code·Codex 기반 개인 업무 자동화 2시간 실전 과정",
+  "pdf_title": "바이브코딩 업무 자동화 실전 워크샵",
+  "info": {
+    "keyword": "바이브코딩.AI코딩",
+    "ax_stage": "Level 1",
+    "target": "기획·마케팅·운영·경영지원 등 비개발자 실무자",
+    "duration": "2시간"
+  },
+  "intro": "본 과정은 네이버 스노우 전 직원의 개인 업무 자동화 역량 강화를 목표로, 워크시트 기반의 업무 자기진단부터 Claude Code·Codex를 활용한 자동화 도구 제작, AI Agent와 MCP를 통한 외부 도구 연계 구조 이해까지 2시간 안에 체험하도록 설계되었습니다.",
+  "objective": "바이브코딩과 AI Agent 개념 이해를 기반으로 자신의 반복 업무를 스스로 분석하고, Claude Code·Codex로 자동화 도구의 초안을 직접 구현하는 실행력을 확보합니다.",
+  "tech_stack": [
+    "바이브코딩",
+    "Claude Code",
+    "OpenAI Codex",
+    "AI Agent",
+    "MCP"
+  ],
+  "infrastructure": [
+    "Claude Pro 또는 Codex 유로 계정"
+  ],
+  "modules": [
+    {
+      "module_id": "01",
+      "module_name": "바이브코딩 개요와 업무 자동화 가능성",
+      "subtitle": "AI로 도구를 만드는 시대 이해",
+      "duration": "15분",
+      "items": [
+        "바이브코딩 개념과 '코드 없이 AI로 도구를 만드는 시대'로의 전환 이해",
+        "직군별 자동화 성공 사례 소개 (마케팅·운영·경영지원·서비스기획 부문 별 사례)",
+        "네이버 스노우 직원 관점에서 가능한 자동화 시나리오 미리보기"
+      ]
+    },
+    {
+      "module_id": "02",
+      "module_name": "자동화 가능 업무 발굴 워크시트 실습",
+      "subtitle": "반복 업무 진단과 우선순위 도출",
+      "duration": "25분",
+      "items": [
+        "반복 업무 나열 및 자동화 가능성 자가 진단 (반복성·소요시간·규칙성 3가지 기준)",
+        "규칙 설명만으로 위임 가능한 업무인지 점검",
+        "실습: 내 업무 기반 자동화 후보 리스트 작성 및 자동화 우선순위 Top 3 도출"
+      ]
+    },
+    {
+      "module_id": "03",
+      "module_name": "바이브코딩으로 만드는 개인 생산성 도구",
+      "subtitle": "Claude Code·Codex 기반 도구 초안 제작",
+      "duration": "40분",
+      "items": [
+        "모듈 2에서 발굴한 자동화 아이디어를 AI가 실행 가능한 작업 단계로 변환하기",
+        "Claude Code 또는 Codex로 기본 구조 자동 생성 → 기능 구현 → 오류 수정 루프 경험",
+        "실습: 주간 업무 보고서 자동화 스크립트 또는 반복 데이터 정리 도구 초안 제작"
+      ]
+    },
+    {
+      "module_id": "04",
+      "module_name": "AI Agent와 MCP 기반 업무 자동화 구조 이해",
+      "subtitle": "외부 도구 연계 자동화 설계",
+      "duration": "40분",
+      "items": [
+        "AI Agent 개념 이해: 챗봇(대화)과 에이전트(도구를 써서 직접 실행)의 결정적 차이",
+        "Plan → Act → Observe → Repeat 루프 이해 및 MCP로 Slack·Notion·Drive 등 외부 도구를 연결하는 구조 시연",
+        "비개발자의 역할 정리: 무엇을 자동화할지와 어떤 흐름으로 작동할지 정의하기"
+      ]
+    }
+  ],
+  "output": "<ul style=\"margin:0; padding-left:20px; line-height: 1.9;\"><li>개인 업무 자동화 우선순위 리스트 (워크시트 결과물)</li><li>바이브코딩으로 구현한 업무 자동화 스크립트 초안</li></ul>",
+  "schedule_message": "※ 본 과정은 2시간 압축 워크샵으로 운영되며 30명을 최대 인원으로 진행됩니다."
+}

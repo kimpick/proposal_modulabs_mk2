@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>도쿄일렉트론코리아 — RAG 심화 교육 과정 (제안용 초안)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Pretendard', 'sans-serif'],
+                    },
+                    colors: {
+                        modu: {
+                            navy: '#1A233A',
+                            blue: '#2B4162',
+                            teal: '#00B4A6',
+                            coral: '#FF6B6B',
+                            light: '#F8FAFC',
+                            border: '#E2E8F0'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F3F4F6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .table-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+        .trend-badge {
+            background: linear-gradient(135deg, #00B4A6 0%, #008F84 100%);
+        }
+        .paradigm-badge {
+            background: linear-gradient(135deg, #FF6B6B 0%, #E03E3E 100%);
+        }
+    </style>
+</head>
+
+<body class="p-4 md:p-8">
+    <div class="max-w-7xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden table-shadow">
+        <!-- Header -->
+        <div class="bg-modu-navy p-8 md:p-10 text-white relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-modu-teal rounded-full mix-blend-multiply filter blur-3xl opacity-20 transform translate-x-1/2 -translate-y-1/2"></div>
+            <div class="absolute bottom-0 left-0 w-48 h-48 bg-modu-coral rounded-full mix-blend-multiply filter blur-3xl opacity-10 transform -translate-x-1/2 translate-y-1/2"></div>
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-modu-teal rounded-lg flex items-center justify-center font-bold text-xl tracking-tighter shadow-md">M</div>
+                    <span class="text-xl font-semibold tracking-wide text-gray-100">도쿄일렉트론코리아</span>
+                </div>
+                <div class="text-sm text-gray-300 font-medium px-3 py-1 bg-white/10 rounded-full backdrop-blur-sm border border-white/20">
+                    B2B Enterprise Training
+                </div>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-bold mb-2 leading-tight">RAG 심화 교육 과정 (제안용 초안)</h1>
+            <p class="text-modu-teal text-sm font-medium mb-4">총 24시간 | 기초 과정 이수자 대상</p>
+            <p class="text-gray-300 text-lg max-w-3xl leading-relaxed">기초에서 구축한 RAG 파이프라인을 바탕으로, <strong>온톨로지 + LLM 하이브리드 벡터화</strong>를 핵심으로 데이터를 잘 벡터화하고, 잘 적재하고, 잘 검색하는 엔드-투-엔드 파이프라인을 완성합니다. 최종적으로 사용자가 자연어로 질의하고 정확한 결과를 얻는 검색 경험까지 구현합니다.</p>
+        </div>
+
+        <!-- Content -->
+        <div class="p-8">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-modu-light text-modu-navy border-b-2 border-modu-border uppercase text-sm font-semibold tracking-wider">
+                            <th class="p-4 rounded-tl-lg w-24 text-center">단계</th>
+                            <th class="p-4 w-20 text-center">시간</th>
+                            <th class="p-4 w-56">모듈명</th>
+                            <th class="p-4">핵심 학습 내용</th>
+                            <th class="p-4 rounded-tr-lg w-64">주요 실습 및 구현 스택</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-700 text-sm md:text-base">
+<tr class="border-b border-modu-border hover:bg-gray-50 transition-colors"><td rowspan="3" class="p-4 border-r border-modu-border text-center align-middle bg-gray-50"><div class="font-bold text-modu-blue text-lg mb-1">1단계</div><div class="text-xs text-gray-500 font-medium">하이브리드 벡터화 고도화<br>(8H)</div></td><td class="p-4 text-center font-semibold text-gray-600">3H</td><td class="p-4 font-bold text-modu-navy">온톨로지 스키마 설계 & 엔티티 자동 추출</td><td class="p-4 leading-relaxed"><ul class="list-disc list-outside ml-4 space-y-1 text-gray-600"><li><strong>[Core]</strong> 도메인 특화 온톨로지 스키마 설계 방법론</li><li>LLM 기반 Entity / Relation 대규모 자동 추출</li><li>기초에서 다룬 개념을 실제 장비 매뉴얼 데이터에 적용</li></ul></td><td class="p-4 leading-relaxed text-gray-600 bg-gray-50/50"><ul class="list-disc list-outside ml-4 space-y-1 text-gray-600"><li>Neo4j / NebulaGraph 스키마 모델링</li><li>장비 매뉴얼 기반 Entity/Relation 추출 파이프라인</li></ul></td></tr>
+<tr class="border-b border-modu-border hover:bg-gray-50 transition-colors"><td class="p-4 text-center font-semibold text-gray-600">3H</td><td class="p-4 font-bold text-modu-navy">온톨로지-LLM 하이브리드 벡터화</td><td class="p-4 leading-relaxed"><ul class="list-disc list-outside ml-4 space-y-1 text-gray-600"><li><strong>[Core]</strong> 지식 그래프 구조를 반영한 하이브리드 임베딩 전략</li><li>단순 텍스트 벡터를 넘어 의미 관계를 포함하는 벡터 구성</li><li>온톨로지 노드/엣지 메타데이터를 활용한 검색 정확도 향상</li></ul></td><td class="p-4 leading-relaxed text-gray-600 bg-gray-50/50"><ul class="list-disc list-outside ml-4 space-y-1 text-gray-600"><li>Graph + Vector 하이브리드 인덱스 구축</li><li>메타데이터 기반 필터링 검색 실습</li></ul></td></tr>
+<tr class="border-b-2 border-modu-border hover:bg-gray-50 transition-colors"><td class="p-4 text-center font-semibold text-gray-600">2H</td><td class="p-4 font-bold text-modu-navy">대규모 데이터 적재 및 인덱스 최적화</td><td class="p-4 leading-relaxed"><ul class="list-disc list-outside ml-4 space-y-1 text-gray-600"><li>대용량 문서(수천 건 매뉴얼 등) 배치 처리 파이프라인</li><li>인덱스 갱신 전략 (Incremental vs. Full Rebuild)</li><li>벡터 DB 성능 튜닝 및 샤딩 기초</li></ul></td><td class="p-4 leading-relaxed text-gray-600 bg-gray-50/50"><ul class="list-disc list-outside ml-4 space-y-1 text-gray-600"><li>ChromaDB / Qdrant 대규모 적재 실습</li><li>배치 임베딩 파이프라인 구축</li></ul></td></tr>
+<tr class="border-b border-modu-border hover:bg-gray-50 transition-colors"><td rowspan="3" class="p-4 border-r border-modu-border text-center align-middle bg-gray-50"><div class="font-bold text-modu-blue text-lg mb-1">2단계</div><div class="text-xs text-gray-500 font-medium">고도화된 검색 파이프라인<br>(8H)</div></td><td class="p-4 text-center font-semibold text-gray-600">3H</td><td class="p-4 font-bold text-modu-navy">GraphRAG 기반 관계망 추론</td><td class="p-4 leading-relaxed"><ul class="list-disc list-outside ml-4 space-y-1 text-gray-600"><li><span class="inline-block px-2 py-0.5 text-xs font-semibold text-white paradigm-badge rounded shadow-sm mr-1">Paradigm Shift</span>지식 그래프의 다단계 Hop을 활용한 맥락 검색</li><li>벡터 검색 + 그래프 순회 결합 검색 전략</li><li>파편화된 장비 정보 간 연관성 자동 발굴</li></ul></td><td class="p-4 leading-relaxed text-gray-600 bg-gray-50/50"><ul class="list-disc list-outside ml-4 space-y-1 text-gray-600"><li>Neo4j Cypher 쿼리 + Vector 검색 하이브리드</li><li>Multi-Hop 추론 기반 답변 생성</li></ul></td></tr>
+<tr class="border-b border-modu-border hover:bg-gray-50 transition-colors"><td class="p-4 text-center font-semibold text-gray-600">3H</td><td class="p-4 font-bold text-modu-navy">Agentic RAG & 자가 성찰 (Self-Reflect)</td><td class="p-4 leading-relaxed"><ul class="list-disc list-outside ml-4 space-y-1 text-gray-600"><li><span class="inline-block px-2 py-0.5 text-xs font-semibold text-white paradigm-badge rounded shadow-sm mr-1">Paradigm Shift</span>LLM이 스스로 검색 필요성을 판단하고 Tool을 호출하는 Agent 구조</li><li>CRAG(Corrective RAG): 검색 결과 품질 평가 후 재검색</li><li>Self-RAG: 생성된 답변의 자체 검증 루프</li></ul></td><td class="p-4 leading-relaxed text-gray-600 bg-gray-50/50"><ul class="list-disc list-outside ml-4 space-y-1 text-gray-600"><li>LangGraph 기반 순환형(Cyclic) 파이프라인 구축</li><li>Tool-calling Agent 설계 실습</li></ul></td></tr>
+<tr class="border-b-2 border-modu-border hover:bg-gray-50 transition-colors"><td class="p-4 text-center font-semibold text-gray-600">2H</td><td class="p-4 font-bold text-modu-navy">검색 품질 고도화 및 End-to-End 평가</td><td class="p-4 leading-relaxed"><ul class="list-disc list-outside ml-4 space-y-1 text-gray-600"><li>기초에서 학습한 RAGAS 지표를 심화 파이프라인에 적용</li><li>벡터화 → 적재 → 검색 → 생성 각 단계별 병목 진단</li><li>A/B 테스트 기반 검색 품질 개선 사이클</li></ul></td><td class="p-4 leading-relaxed text-gray-600 bg-gray-50/50"><ul class="list-disc list-outside ml-4 space-y-1 text-gray-600"><li>RAGAS / TruLens 심화 평가 실습</li><li>파이프라인 단계별 성능 프로파일링</li></ul></td></tr>
+<tr class="border-b border-modu-border hover:bg-gray-50 transition-colors"><td rowspan="3" class="p-4 border-r border-modu-border text-center align-middle bg-gray-50 rounded-bl-lg"><div class="font-bold text-modu-blue text-lg mb-1">3단계</div><div class="text-xs text-gray-500 font-medium">사용자 검색 경험 및 프로덕션 배포<br>(8H)</div></td><td class="p-4 text-center font-semibold text-gray-600">3H</td><td class="p-4 font-bold text-modu-navy">사용자 검색 인터페이스 설계</td><td class="p-4 leading-relaxed"><ul class="list-disc list-outside ml-4 space-y-1 text-gray-600"><li><strong>[Core]</strong> 자연어 질의 → 의도 분석 → 검색 → 결과 렌더링 전체 흐름</li><li>검색 결과 UI 패턴: 요약 카드, 출처 표시, 관련 문서 추천</li><li>대화형 검색 (Follow-up Question) 설계</li></ul></td><td class="p-4 leading-relaxed text-gray-600 bg-gray-50/50"><ul class="list-disc list-outside ml-4 space-y-1 text-gray-600"><li>FastAPI 기반 검색 API 엔드포인트 구현</li><li>Streamlit / Gradio 검색 데모 UI 구축</li></ul></td></tr>
+<tr class="border-b border-modu-border hover:bg-gray-50 transition-colors"><td class="p-4 text-center font-semibold text-gray-600">3H</td><td class="p-4 font-bold text-modu-navy">사내 인프라 통합 (Azure Databricks)</td><td class="p-4 leading-relaxed"><ul class="list-disc list-outside ml-4 space-y-1 text-gray-600"><li>Azure Databricks 환경에 RAG 파이프라인 배포</li><li>Telnuat 플랫폼 연동 아키텍처 매핑</li><li>사내 데이터 소스(DB, 문서 저장소)와의 연결</li></ul></td><td class="p-4 leading-relaxed text-gray-600 bg-gray-50/50"><ul class="list-disc list-outside ml-4 space-y-1 text-gray-600"><li>Databricks Notebook 기반 배포 실습</li><li>사내 REST API 연동 설계 리뷰</li></ul></td></tr>
+<tr class=" hover:bg-gray-50 transition-colors"><td class="p-4 text-center font-semibold text-gray-600">2H</td><td class="p-4 font-bold text-modu-navy">AI Guardrails & 운영 체계</td><td class="p-4 leading-relaxed"><ul class="list-disc list-outside ml-4 space-y-1 text-gray-600"><li>환각(Hallucination) 방지 가드레일 적용</li><li>민감 데이터(사내 기밀) 유출 차단</li><li>검색 로그 모니터링 및 품질 지표 대시보드 기초</li></ul></td><td class="p-4 leading-relaxed text-gray-600 bg-gray-50/50 rounded-br-lg"><ul class="list-disc list-outside ml-4 space-y-1 text-gray-600"><li>NeMo Guardrails 적용 실습</li><li>검색 품질 모니터링 대시보드 설계</li></ul></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-8 pt-6 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between">
+                <p class="text-sm text-gray-500 mb-4 md:mb-0">* 본 과정은 기초 교육 이수자를 대상으로 하며, 사내 인프라(Databricks) 환경에 맞춘 실습을 포함합니다.</p>
+                <button onclick="window.print()"
+                    class="bg-modu-navy hover:bg-modu-blue text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center space-x-2 shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                    </svg>
+                    <span>로드맵 PDF 인쇄</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

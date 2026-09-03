@@ -1,0 +1,158 @@
+{
+  "title": "모두의연구소 × 전주대학교 피지컬 AI 부트캠프",
+  "subtitle": "LLM 기초부터 로보틱스 AI 에이전트 구축까지 — AI 기초(45H) + ND5(90H) 통합 패키지",
+  "info": {
+    "keyword": "피지컬 AI · LLM 에이전트 · 로보틱스",
+    "ax_stage": "초급(AI 기초) → 고급(ND5)",
+    "target": "전주대학교 AI 부트캠프 수강생 (비전공자 포함)",
+    "duration": "총 135시간 (AI 기초 45H + ND5 로보틱스 LLM 에이전트 구축 90H)"
+  },
+  "intro": "<b>피지컬 AI 시대, 모두의연구소가 시작과 완성을 함께합니다.</b><br><br>이 패키지는 전주대학교 AI 부트캠프에서 모두의연구소가 담당하는 두 과정을 하나의 스토리라인으로 연결합니다.<br><br><ul><li><b>[AI 기초 — 초급, 45H]</b>: LLM/Transformer 기초부터 로봇·시뮬레이션 맥락 이해까지. AI 부트캠프의 출발점이자 ND5로 직행하는 선수 과정.</li><li><b>[ND5 — 고급, 90H]</b>: Prompt Engineering &amp; RAG, 멀티모달 LLM(VLM), 에이전트·플래닝, LLM-로봇 시스템통합까지. AI 기초만 이수하면 누구나 도전 가능하도록 과목 내부 커리큘럼을 재설계.</li></ul><br>AI 기초에서 <b>LLM의 원리와 로봇·시뮬레이션을 \"이해하는\" 수준</b>을 갖추고, ND5에서 <b>LLM으로 로봇을 실제로 제어하는 수준</b>까지 도달합니다. 두 과정을 모두 수료하면 피지컬 AI 분야 기업이 요구하는 Lv3(현장형) 이상의 역량을 보유하게 됩니다.",
+  "objective": "<ul><li>AI 기초: LLM 원리 이해 + 로봇/시뮬레이션 기초 맥락 습득 → ND5 직행 역량 확보</li><li>ND5: Prompt/RAG → VLM → 에이전트 플래닝 → LLM-로봇 통합 순차 심화 → 기업 실무 수준 포트폴리오 완성</li><li>수료 후 역량 인증 Lv3(현장형) 이상 달성, 피지컬 AI 기업 채용 연계</li></ul>",
+  "tech_stack": [
+    "Python", "PyTorch", "Hugging Face Transformers",
+    "LangChain / LlamaIndex", "OpenAI API / vLLM",
+    "ROS2 (Humble)", "LeRobot (HuggingFace)",
+    "MuJoCo / Isaac Sim (개요)", "FAISS / ChromaDB",
+    "MLflow / W&B", "Git / GitHub"
+  ],
+  "infrastructure": [
+    "GPU 기반 AI 클라우드 (모델 파인튜닝 및 서빙 실습)",
+    "LLM 서빙 플랫폼 (RAG 파이프라인, 에이전트 런타임)",
+    "MLOps-DevOps 환경 (실험 이력 관리, 재현성)",
+    "AI LMS / 문제은행 (전 과정 학습 지원)",
+    "물리 시뮬레이션 클러스터 (피지컬 AI 시뮬레이션 실습)"
+  ],
+  "tracks": [
+    {
+      "track_id": "AI기초",
+      "track_name": "AI 기초 — 초급 (45H)",
+      "course_title": "LLM과 피지컬 AI의 첫걸음: ND5 직행 선수과정",
+      "target": "AI 부트캠프 입과자 전원 (비전공자 포함, 사전 지식 불필요)",
+      "duration": "45시간 (집중이수, 금·토 주말 야간·플립러닝 혼용)",
+      "tools": ["Python", "Jupyter Notebook", "Hugging Face", "ROS2 (개요)", "MuJoCo (개요)"],
+      "modules": [
+        {
+          "module_name": "① LLM / Transformer 기초",
+          "duration": "20H",
+          "items": [
+            "(이론 4H) 언어 모델의 역사와 Transformer 등장 배경: N-gram → RNN → Attention → BERT/GPT 계보",
+            "(이론 4H) Transformer 핵심 구조 심화: Self-Attention 수식, Multi-Head Attention, Positional Encoding, Layer Normalization",
+            "(이론 2H) 토크나이저와 임베딩: BPE / WordPiece / SentencePiece, 벡터 공간에서의 의미 표현",
+            "(이론 2H) 사전학습(Pre-training) vs 파인튜닝(Fine-tuning): GPT 계열과 BERT 계열 비교, 스케일링 법칙",
+            "(실습 4H) Hugging Face Transformers 기초: 모델 로드, 토크나이저 사용, 추론 파이프라인 실행",
+            "(실습 2H) 텍스트 임베딩 실습: 문장 유사도 계산, 간단한 시맨틱 검색 구현",
+            "(실습 2H) GPT API 활용 기초: OpenAI / HuggingFace API 호출, 시스템 프롬프트 설정, 응답 파싱",
+            "실습 과제: '나만의 간단한 텍스트 Q&A 봇 만들기' (API + 간단한 컨텍스트 주입)"
+          ]
+        },
+        {
+          "module_name": "⑦ 로봇공학 기초: 좌표계·기구학·센서",
+          "duration": "10H",
+          "items": [
+            "(이론 2H) 로봇의 기본 개념: 로봇 분류(산업/협동/이동 로봇), 자유도(DoF), 엔드이펙터 개념",
+            "(이론 2H) 좌표계와 기구학 맥락: 월드/로봇/그리퍼 좌표계, 순기구학(FK) · 역기구학(IK) 개념 이해 (수식 암기 불필요, LLM이 Task를 Skill로 변환할 때 필요한 맥락)",
+            "(이론 2H) 로봇 센서 생태계: 카메라(RGB/Depth), LiDAR, IMU, 접촉 센서 — 각 센서가 어떤 데이터를 생성하는가",
+            "(실습 2H) ROS2 기초 개념 체험: Node, Topic, Service, Action 개념 이해 + 간단한 Publisher/Subscriber 실행",
+            "(실습 2H) LLM-로봇 연결 맥락 실습: 자연어 명령('물컵을 집어라') → Task 분해 → Skill 호출 흐름 개념 실습 (LeRobot 데모 시연 위주)",
+            "학습 목표: 로봇 전문가가 되는 것이 아니라, ND5에서 LLM이 로봇을 제어할 때 사용하는 인터페이스를 이해하는 수준 도달"
+          ]
+        },
+        {
+          "module_name": "⑧ ROS2 실습: 통신·TF·Nav 개요",
+          "duration": "10H",
+          "items": [
+            "(이론 2H) ROS2 아키텍처 이해: DDS 기반 통신, 노드 그래프, 토픽/서비스/액션의 차이",
+            "(실습 2H) 환경 설정 및 기본 명령어: ROS2 Humble 설치 확인, ros2 topic list/echo, rqt_graph 활용",
+            "(실습 3H) 직접 Publisher/Subscriber 작성: Python으로 간단한 센서 데이터 발행/구독 노드 작성",
+            "(실습 2H) TF(Transform) 개념: 좌표 변환 트리 이해, tf2_ros 기초 활용 — 로봇 팔 기준점 변환 시각화",
+            "(실습 1H) Navigation 개요: Nav2 스택 구조 이해, 자율 이동 명령 흐름 개념 파악",
+            "학습 목표: ROS2 통신 구조를 이해하고 ND5에서 LLM 명령을 ROS2 토픽으로 변환하는 흐름을 예측할 수 있는 수준"
+          ]
+        },
+        {
+          "module_name": "⑬ 물리시뮬레이션 기초: 강체·접촉·마찰",
+          "duration": "5H",
+          "items": [
+            "(이론 2H) 물리 시뮬레이션 필요성: 왜 실제 로봇 대신 시뮬레이션인가? — 비용, 안전, 데이터 확보 (Sim2Real 개념 입문)",
+            "(이론 1H) 물리 엔진 주요 개념: 강체(Rigid Body), 관절(Joint), 접촉 모델(마찰계수, 반발계수), Isaac Sim vs MuJoCo 차이",
+            "(실습 2H) MuJoCo 기초 체험: 간단한 로봇팔 모델 로드 → 중력 하 낙하 시뮬레이션 → 관절 각도 제어 체험",
+            "학습 목표: 시뮬레이션 환경이 왜 필요한지 이해하고 ND5에서 LLM 에이전트가 시뮬레이션을 활용하는 맥락을 파악하는 수준"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "ND5",
+      "track_name": "ND5. 로보틱스 LLM 에이전트 구축 — 고급 (90H)",
+      "course_title": "LLM으로 로봇을 움직여라: Prompt·VLM·에이전트·시스템통합",
+      "target": "AI 기초 수료자 (ND1~ND3 미이수자도 입과 가능)",
+      "duration": "90시간 (주5일 몰입형 집중이수 2주, 동계 27.1~2월)",
+      "tools": [
+        "Python", "Hugging Face Transformers", "LangChain / LlamaIndex",
+        "FAISS / ChromaDB", "OpenAI API / vLLM",
+        "ROS2 (Humble)", "LeRobot", "MuJoCo",
+        "MLflow / W&B", "Git / GitHub"
+      ],
+      "modules": [
+        {
+          "module_name": "② Prompt Engineering & RAG 심화",
+          "duration": "18H",
+          "items": [
+            "(이론 2H) 프롬프트 엔지니어링 전략 체계: Zero-shot / Few-shot / Chain-of-Thought / ReAct 패턴 비교, 피지컬 AI 도메인 적용 관점",
+            "(이론 2H) RAG(Retrieval-Augmented Generation) 아키텍처: 벡터 DB 구조, 임베딩 모델 선택, 청킹 전략, 리트리버 설계",
+            "(실습 3H) RAG 파이프라인 구축: FAISS/ChromaDB 기반 문서 인덱싱 → 쿼리 → LLM 응답 생성 End-to-End 구현",
+            "(실습 3H) 로봇 매뉴얼 기반 RAG 실습: 로봇 조작 매뉴얼 문서를 청킹 → 인덱싱 → '이 로봇으로 XX 작업을 어떻게 하나요?' 질의 응답 시스템 구현",
+            "(실습 4H) 프롬프트 최적화 실습: 환각(Hallucination) 감지 및 방지 전략, 컨텍스트 윈도우 관리, 출력 구조화(JSON 모드)",
+            "(실습 4H) 평가 및 개선: RAG 시스템 성능 지표 설계(정밀도/재현율/RAGAS), A/B 테스트로 프롬프트 개선 반복",
+            "산출물: 로봇 도메인 RAG Q&A 시스템 (Git README + 실행 스크립트 포함)"
+          ]
+        },
+        {
+          "module_name": "④ 멀티모달 LLM(VLM) & Grounding",
+          "duration": "20H",
+          "items": [
+            "(이론 2H) Vision-Language Model(VLM) 개요: CLIP, BLIP-2, LLaVA, GPT-4o 구조 비교, 이미지-텍스트 정렬 원리",
+            "(이론 2H) Grounding 개념: Open-Vocabulary Detection, DETIC / Grounding DINO 원리, 로봇 pick-and-place에서의 활용 맥락",
+            "(실습 4H) VLM 기초 활용: Hugging Face에서 LLaVA 로드 → 이미지 캡셔닝 → 시각적 Q&A → 로봇 환경 이미지 설명 생성",
+            "(실습 4H) Grounding 실습: Grounding DINO로 로봇 작업 공간 이미지에서 객체 탐지 → 바운딩 박스 좌표 추출 → 자연어 연결",
+            "(실습 4H) VLM + Grounding 통합: '물컵을 집어라' 명령 → VLM이 환경 인식 → Grounding으로 위치 확정 → Task 분해 파이프라인 구현",
+            "(실습 4H) 성능 측정 및 실패 분석: 탐지 실패 케이스 분류, 폴백(Fallback) 전략 설계, 실험 로그 기록",
+            "산출물: 자연어 명령 → 객체 탐지 → 위치 좌표 출력 파이프라인 (데모 영상 포함)"
+          ]
+        },
+        {
+          "module_name": "⑥ 에이전트·플래닝·정렬 (RLHF / Preference)",
+          "duration": "22H",
+          "items": [
+            "(이론 2H) LLM 에이전트 아키텍처: ReAct / Reflexion / Plan-and-Execute 패턴, Tool-calling 구조, 메모리 유형(Short-term/Long-term/Episodic)",
+            "(이론 2H) Task Planning 심화: 계층적 Task 분해(HTN), Skill Library 설계, 로봇 도메인 Action Space 정의",
+            "(이론 2H) 정렬(Alignment) 개요: RLHF 원리, DPO(Direct Preference Optimization), 로봇 에이전트 Safety 제약 설계",
+            "(실습 4H) ReAct 에이전트 구현: LangChain/LlamaIndex로 Tool-calling 에이전트 구축, 로봇 시뮬레이션 API를 Tool로 등록",
+            "(실습 4H) 멀티스텝 Task 플래닝: '물건을 A에서 B로 옮겨라' 명령 → 에이전트가 Pick → Move → Place 계획 생성 → Skill 순차 실행",
+            "(실습 4H) Safety 제약 구현: 금지 행동 목록 정의, 에이전트 출력 검증 레이어 추가, 안전 위반 감지 시 폴백 동작 구현",
+            "(실습 4H) 에이전트 평가: 성공률/지연 시간/안전 위반 횟수 지표 측정, 실험 로그 → MLflow 기록",
+            "산출물: 멀티스텝 Task 플래닝 에이전트 (안전 제약 포함, Git 포트폴리오)"
+          ]
+        },
+        {
+          "module_name": "⑫ LLM·로봇 시스템통합: Task→Skill→Safety",
+          "duration": "30H",
+          "items": [
+            "(이론 2H) LLM-로봇 시스템 아키텍처 전체 조망: Task Layer(LLM) → Skill Layer(ROS2/LeRobot) → Safety Layer(모니터링) 구조 설계",
+            "(이론 2H) Skill Library 설계 원칙: Atomic Skill vs Composite Skill, Skill 인터페이스 표준화, 버전 관리 전략",
+            "(실습 4H) ROS2-LLM 연결 레이어 구현: LLM 에이전트가 생성한 JSON 명령 → ROS2 액션 서버 호출 → 로봇 동작 (MuJoCo 시뮬레이션 환경)",
+            "(실습 4H) LeRobot 통합 실습: LeRobot 정책 모델 로드 → LLM이 어떤 Skill을 언제 호출할지 결정 → 모방 학습 기반 Skill 실행",
+            "(실습 6H) End-to-End 파이프라인 구축: '테이블 위 물건 정리' 시나리오 → VLM 환경 인식 → 에이전트 Task 플래닝 → Skill 실행 → 결과 검증 전체 흐름 구현",
+            "(실습 4H) Safety 모니터링 시스템: 실시간 이상 감지(속도/힘 한계치 초과), 비상 정지 트리거, 운영 로그 기록 및 사후 분석",
+            "(실습 4H) 성능 최적화: 지연 시간 프로파일링, 병목 지점 개선, 경량화 전략 (프롬프트 캐싱, Skill 사전 컴파일)",
+            "(캡스톤 4H) 팀 프로젝트 발표: 시나리오 선택 → 전체 파이프라인 구현 → 데모 영상 + Git 포트폴리오 제출",
+            "팀 캡스톤 주제 예시: ① 창고 물류 자동화 에이전트 (Pick & Place LLM 제어) ② 실험실 로봇 어시스턴트 (자연어 명령 기반 샘플 준비) ③ 재활 보조 로봇 Safety 에이전트"
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "<ul><li><b>[AI 기초 산출물]</b> 텍스트 기반 Q&A 봇 (LLM API + 컨텍스트 주입) — Git README + 실행 스크립트</li><li><b>[ND5 모듈② 산출물]</b> 로봇 도메인 RAG Q&A 시스템 — 매뉴얼 기반 지식 검색 + LLM 응답 생성</li><li><b>[ND5 모듈④ 산출물]</b> 자연어 명령 → 객체 탐지 → 좌표 출력 파이프라인 — 데모 영상 포함</li><li><b>[ND5 모듈⑥ 산출물]</b> 멀티스텝 Task 플래닝 에이전트 — 안전 제약 포함, MLflow 실험 로그</li><li><b>[ND5 캡스톤 산출물]</b> LLM 기반 로봇 제어 End-to-End 시스템 — Git/README + 실행 스크립트 + 실험 로그 + 데모 영상 (역량 인증 Lv3~Lv4 기준 충족)</li></ul>",
+  "schedule_message": "※ 운영 일정: AI 기초 — 2026년 1학기(4~6월) 또는 2학기(10~12월) 금·토 집중이수 | ND5 — 2027년 동계(1~2월) 주5일 몰입형 2주 과정 | AI 기초 수료 후 ND5 직행 입과 가능 (ND1~ND3 사전 이수 불필요)"
+}

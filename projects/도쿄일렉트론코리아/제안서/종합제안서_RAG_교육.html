@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<style>/* ═══════════════════════════════════════════════════════════
+   모두의연구소 AI교육 제안서 — 공용 디자인 시스템 (base.css)
+   Primary  : #EE3E4C   Secondary : #EBBAC0
+   Border   : #EBEBEB   Text-Dark : #111111   Text-Body : #333333
+   ═══════════════════════════════════════════════════════════ */
+
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+body {
+    font-family: 'Pretendard', sans-serif;
+    color: #333333;
+    margin: 0;
+    padding: 60px;
+    background-color: #ffffff;
+}
+
+/* ─ 헤더 ─ */
+.header {
+    border-bottom: 1px solid #EBEBEB;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+.header-text {
+    color: #EE3E4C;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: right;
+    margin-bottom: 20px;
+}
+.title {
+    font-size: 30px;
+    font-weight: 800;
+    color: #111111;
+    margin: 0 0 10px 0;
+}
+.subtitle {
+    font-size: 14px;
+    color: #555555;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* ─ 4-Block Info Grid ─ */
+.info-grid {
+    display: flex;
+    gap: 12px;
+    margin: 30px 0 40px 0;
+}
+.info-box {
+    flex: 1;
+    border: 1px solid #EBEBEB;
+    border-radius: 10px;
+    padding: 18px 20px;
+    background: #ffffff;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.info-label {
+    color: #EE3E4C;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+.info-value {
+    font-size: 12px;
+    font-weight: 700;
+    color: #111111;
+    line-height: 1.65;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    hyphens: none;
+}
+
+/* ─ 섹션 타이틀 ─ */
+.section-title {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 800;
+    color: #111111;
+    margin: 36px 0 16px 0;
+}
+.section-num {
+    color: #EBBAC0;
+    font-size: 30px;
+    font-weight: 900;
+    margin-right: 10px;
+    line-height: 1;
+}
+
+/* ─ 텍스트 콘텐츠 박스 (왼쪽 Red 라인) ─ */
+.content-box {
+    border: 1px solid #EBEBEB;
+    border-left: 5px solid #EE3E4C;
+    border-radius: 10px;
+    padding: 24px 28px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #333333;
+    margin-bottom: 24px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    white-space: pre-line;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.content-box ul {
+    margin: 4px 0;
+    padding-left: 18px;
+}
+.content-box li {
+    margin-bottom: 2px;
+}
+
+/* ─ 핵심 기술 (Pill Badge) ─ */
+.tech-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+.tech-badge {
+    border: 1px solid #EBEBEB;
+    border-radius: 50px;
+    padding: 7px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #111111;
+}
+
+/* ─ 인프라 박스 (왼쪽 Red 라인) ─ */
+.infra-box {
+    border: 1px solid #EBEBEB;
+    border-left: 5px solid #EE3E4C;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+.infra-box ul {
+    margin: 0;
+    padding-left: 18px;
+}
+.infra-box li {
+    margin-bottom: 8px;
+    color: #EE3E4C;
+    font-size: 13px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.infra-box li span {
+    color: #333333;
+}
+
+/* ─ 모듈 박스 (Flex 레이아웃) ─ */
+.module-box {
+    border: 1px solid #EBEBEB;
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+.module-left {
+    width: 130px;
+    flex-shrink: 0;
+    padding-right: 16px;
+    border-right: 1px solid #EBEBEB;
+    margin-right: 20px;
+}
+.module-label {
+    color: #EE3E4C;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+}
+.module-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: #111111;
+    line-height: 1.55;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    hyphens: none;
+}
+.module-right {
+    flex-grow: 1;
+    min-width: 0;
+}
+.module-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+.module-title-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: #111111;
+    line-height: 1.5;
+    word-break: keep-all;
+}
+.module-right ul {
+    margin: 0;
+    padding-left: 14px;
+    padding-right: 36px;
+}
+.module-right li {
+    margin-bottom: 6px;
+    color: #EE3E4C;
+    font-size: 13px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.module-right li span {
+    color: #333333;
+    line-height: 1.7;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.module-hours {
+    font-size: 11px;
+    font-weight: 800;
+    color: #aaaaaa;
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding-top: 1px;
+}
+
+/* ─ 5대 패턴 인라인 번호 리스트 ─ */
+.pattern-list {
+    list-style: decimal;
+    margin: 6px 0 2px 0;
+    padding-left: 20px;
+}
+.pattern-list li {
+    color: #444444;
+    margin-bottom: 4px;
+    font-size: 12.5px;
+    line-height: 1.65;
+}
+
+/* ─ 트랙 소제목 (track 타입용) ─ */
+.track-heading {
+    margin: 30px 0 16px 0;
+    page-break-after: avoid;
+    break-after: avoid;
+}
+.track-label {
+    font-size: 10px;
+    font-weight: 800;
+    color: #EE3E4C;
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+}
+.track-name {
+    font-size: 15px;
+    font-weight: 800;
+    color: #111111;
+    margin: 0 0 6px 0;
+}
+.track-meta {
+    font-size: 12px;
+    color: #777;
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+.track-tools {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.tool-chip {
+    border: 1px solid #EBEBEB;
+    border-radius: 50px;
+    padding: 3px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #333333;
+}
+.track-divider {
+    border: none;
+    border-top: 1px solid #EBEBEB;
+    margin: 24px 0;
+}
+
+/* ─ 일정 Placeholder ─ */
+.schedule-placeholder {
+    border: 1px dashed #EBBAC0;
+    background-color: #fdf8f8;
+    border-radius: 10px;
+    padding: 28px;
+    text-align: center;
+    font-size: 13px;
+    color: #888888;
+    line-height: 1.9;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin-bottom: 24px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+/* ─ 연간 계획 테이블 (roadmap 타입용) ─ */
+.plan-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+.plan-table th, .plan-table td {
+    border: 1px solid #EBEBEB;
+    padding: 15px;
+    vertical-align: middle;
+}
+.plan-table th {
+    background-color: #fafafa;
+    font-weight: 800;
+    color: #555;
+    text-align: center;
+}
+.plan-month {
+    color: #EE3E4C;
+    font-weight: 800;
+    text-align: center !important;
+    white-space: nowrap;
+}
+.plan-title {
+    font-weight: 700;
+    color: #111;
+}
+
+/* ─ 페이지 분리 ─ */
+.page-break {
+    page-break-before: always;
+}
+
+/* ─ 푸터 ─ */
+.footer {
+    margin-top: 60px;
+    padding-top: 18px;
+    border-top: 1px solid #EBEBEB;
+    text-align: center;
+    font-size: 11px;
+    color: #aaaaaa;
+}
+</style>
+<style>
+/* ─ 커리큘럼 가독성 ─ */
+.module-box { padding: 24px 24px; margin-bottom: 12px; }
+.module-right li span { font-size: 13.5px; line-height: 1.8; }
+.module-name { font-size: 13px; }
+
+/* ─ 목표 인라인 ─ */
+.course-goal {
+    font-size: 12.5px;
+    color: #555;
+    line-height: 1.7;
+    margin: 0 0 20px 0;
+    padding: 0;
+}
+
+/* ─ 일정 테이블 ─ */
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 13px;
+}
+.schedule-table th, .schedule-table td {
+    border: 1px solid #EBEBEB;
+    padding: 14px 16px;
+    vertical-align: middle;
+}
+.schedule-table th {
+    background-color: #fafafa;
+    font-weight: 800;
+    color: #555;
+    text-align: center;
+}
+.schedule-round {
+    color: #EE3E4C;
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+}
+.schedule-dates {
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* ─ 환경 구성 리스트 ─ */
+.env-section {
+    margin-bottom: 16px;
+}
+.env-section-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #EE3E4C;
+    margin-bottom: 6px;
+}
+.env-code {
+    background: #f7f7f7;
+    border: 1px solid #EBEBEB;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-family: 'Consolas', 'Menlo', monospace;
+    font-size: 11.5px;
+    line-height: 1.7;
+    color: #333;
+    word-break: break-all;
+    overflow-wrap: break-word;
+    margin: 8px 0 16px 0;
+}
+
+/* ─ 커리큘럼 태그 뱃지 ─ */
+.curriculum-tag {
+    display: inline;
+    font-size: inherit;
+    font-weight: 400;
+    padding: 1px 4px;
+    border-radius: 3px;
+    margin: 0;
+    vertical-align: baseline;
+    letter-spacing: 0.01em;
+}
+.tag-core { background: #FEF0F0; color: #EE3E4C; }
+.tag-trend { background: #EEF4FF; color: #2563EB; }
+.tag-paradigm { background: #F5F0FF; color: #7C3AED; }
+.tag-shift { background: #FFF8EB; color: #D97706; }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <div class="header-text">모두의연구소 AI교육 커리큘럼 2026</div>
+    <h1 class="title">도쿄일렉트론코리아 RAG 교육 제안서</h1>
+    <p class="subtitle">기초 (24H) | RAG 파이프라인 구축부터 GraphRAG·Agentic RAG까지 | 총 24시간</p>
+</div>
+
+<div class="info-grid">
+    <div class="info-box"><div class="info-label">키워드 구분</div><div class="info-value">RAG 파이프라인 구축</div></div>
+    <div class="info-box"><div class="info-label">과정 구성</div><div class="info-value">기초 과정</div></div>
+    <div class="info-box"><div class="info-label">권장 수강 대상</div><div class="info-value">사내 엔지니어</div></div>
+    <div class="info-box"><div class="info-label">총 기간</div><div class="info-value">3일×2회, 총 6일</div></div>
+</div>
+
+<div class="section-title"><span class="section-num">01</span>과정 소개</div>
+<div class="content-box">본 과정은 특정 벤더에 종속되지 않는 오픈소스 프레임워크(LangChain 등)를 기반으로, RAG 파이프라인의 기본 작동 원리부터 GraphRAG, Agentic RAG까지 엔드-투-엔드로 다룹니다.
+
+1일차에서 RAG 기본 구조와 고급 프롬프트 엔지니어링으로 이론적 기반을 확립하고, 2일차에서 검색 고도화와 GraphRAG를 실습하며, 3일차에서 평가·Agentic RAG를 다루고 미니 경진대회로 학습 내용을 종합 적용합니다.</div>
+
+<div class="section-title"><span class="section-num">02</span>교육 목표</div>
+<div class="content-box"><strong>RAG 파이프라인 핵심 구조 이해 및 구현:</strong> 임베딩, 벡터 검색, 청킹의 원리를 이해하고 직접 구현. <strong>고급 프롬프트 엔지니어링:</strong> 프롬프트 구조 설계, 컨텍스트 주입, Grounding, Citation으로 LLM 제어 역량 확보. <strong>GraphRAG 실무 적용:</strong> 지식그래프 기반 검색, Multi-Hop 맥락 검색, Neo4j 실습. <strong>Agentic RAG 기초:</strong> CRAG, Self-RAG 개념 습득 및 LangGraph 실습. <strong>정량적 평가 역량:</strong> RAGAS/TruLens 기반 RAG 성능 측정 및 개선.</div>
+
+<div style="display: flex; gap: 40px; page-break-inside: avoid; break-inside: avoid;">
+    <div style="flex: 1;">
+        <div class="section-title"><span class="section-num">03</span>핵심 기술</div>
+        <div class="tech-container">
+            <div class="tech-badge">LangChain</div><div class="tech-badge">LangGraph</div><div class="tech-badge">ChromaDB</div><div class="tech-badge">Qdrant</div><div class="tech-badge">Neo4j</div><div class="tech-badge">RAGAS</div><div class="tech-badge">TruLens</div>
+        </div>
+    </div>
+    <div style="flex: 1.2;">
+        <div class="section-title"><span class="section-num">04</span>필요 인프라</div>
+        <div class="infra-box">
+            <ul><li><span>개인 노트북 (Python 3.10+ 환경 구축)</span></li><li><span>OpenAI API Key (LLM 호출 및 임베딩용)</span></li><li><span>Docker Desktop (Neo4j 실행 — GraphRAG 실습용)</span></li><li><span>모두의연구소 강남캠퍼스 교육장 (Wi-Fi, 전원 제공)</span></li></ul>
+        </div>
+    </div>
+</div>
+
+
+<div style="page-break-inside: avoid; break-inside: avoid; margin-top: 16px;">
+    <div class="section-title"><span class="section-num">05</span>사전 환경 구성 안내 (개인 PC)</div>
+    <div class="infra-box">
+        <ul><li><span>개인 노트북 (Windows / macOS)</span></li><li><span>Python 3.10 이상 및 conda 가상환경</span></li><li><span>VS Code 또는 동급 코드 편집기</span></li><li><span>Git</span></li><li><span>OpenAI API Key</span></li><li><span>Docker Desktop (Neo4j 실행용)</span></li></ul>
+    </div>
+    <div style="font-size: 12.5px; color: #888; margin-top: 8px; line-height: 1.6;">
+        자세한 설치 가이드 및 Python 패키지 목록은 교육 일정 확정 후 사전 안내드릴 예정입니다.
+    </div>
+</div>
+
+
+<div class="page-break"></div>
+<div class="section-title"><span class="section-num">06</span>상세 커리큘럼 (24H)</div>
+<p class="course-goal"><strong>목표:</strong> RAG 파이프라인의 핵심 구조를 이해하고 직접 구현. 고급 프롬프트 엔지니어링으로 LLM 제어 역량 확보. GraphRAG, Agentic RAG 기초 개념 습득. RAGAS 기반 정량적 평가 역량 확보.</p>
+
+<div class="module-box">
+    <div class="module-left">
+        <div class="module-label">1일차</div>
+        <div class="module-name">RAG 기초 및 프롬프트 엔지니어링</div>
+    </div>
+    <div class="module-right">
+        <ul><li><span><strong>RAG 패러다임 & LangChain 기본 (1.5H)</strong>: Naive RAG 한계, Advanced RAG 진화, LangChain 기본 구조 + 간단한 Chain 실습</span></li><li><span><strong>프롬프트 엔지니어링 고급 (2H)</strong>: 프롬프트 구조 설계(System/Context/Instruction), 컨텍스트 주입, Grounding, Citation, Few-shot/Chain-of-Thought를 활용한 답변 품질 제어</span></li><li><span><strong>벡터 검색 / 임베딩 핵심 개념 (2.5H)</strong>: 임베딩 변환 원리(Dense/Sparse), 코사인 유사도, ChromaDB/Qdrant 벡터 DB 구축 및 인덱싱</span></li><li><span><strong>비정형 데이터 파싱 & 시맨틱 청킹 (2H)</strong>: <span class="curriculum-tag tag-trend">Trend</span>Vision LLM 기반 PDF 파싱, Contextual & Semantic Chunking, 메타데이터 추출</span></li></ul>
+    </div>
+    <div class="module-hours">8H</div>
+</div>
+
+<div class="module-box">
+    <div class="module-left">
+        <div class="module-label">2일차</div>
+        <div class="module-name">검색 고도화 및 Graph RAG</div>
+    </div>
+    <div class="module-right">
+        <ul><li><span><strong>하이브리드 검색 및 Re-ranking (2.5H)</strong>: 키워드+시맨틱 결합, Cross-Encoder Re-ranking, Reciprocal Rank Fusion(RRF) 구현</span></li><li><span><strong>Query Transformation (2.5H)</strong>: <span class="curriculum-tag tag-trend">Trend</span>Query Rewriting, HyDE, Semantic Routing, LLM Query 분해/재작성 파이프라인</span></li><li><span><strong>Graph RAG (3H)</strong>: <span class="curriculum-tag tag-paradigm">Paradigm</span>지식 그래프 개념, Entity/Relation 추출, Multi-Hop 맥락 검색, 그래프 순회+벡터 결합 검색, Neo4j 실습</span></li></ul>
+    </div>
+    <div class="module-hours">8H</div>
+</div>
+
+<div class="module-box">
+    <div class="module-left">
+        <div class="module-label">3일차</div>
+        <div class="module-name">평가, Agentic RAG 및 미니 경진대회</div>
+    </div>
+    <div class="module-right">
+        <ul><li><span><strong>Multi-Representation 인덱싱 (2H)</strong>: <span class="curriculum-tag tag-paradigm">Paradigm</span>Multi-Vector Retriever, 계층적 인덱싱, BM25 Sparse+Dense 결합</span></li><li><span><strong>RAG 성능 측정 및 정량적 평가 (2H)</strong>: <span class="curriculum-tag tag-trend">Trend</span>RAG 핵심 5대 지표 분석, LLM-as-a-Judge, RAGAS/TruLens 실습</span></li><li><span><strong>Agentic RAG 기초 (2H)</strong>: <span class="curriculum-tag tag-shift">Paradigm Shift</span>CRAG(Corrective RAG), Self-RAG 개념, LangGraph 순환형 파이프라인 미니 실습</span></li><li><span><strong>RAG 미니 경진대회 (2H)</strong>: 교육 전체 내용 종합 적용, 팀별 RAG 파이프라인 구축 경쟁, 결과 발표 및 피드백</span></li></ul>
+    </div>
+    <div class="module-hours">8H</div>
+</div>
+
+
+
+<div style="page-break-inside: avoid; break-inside: avoid;">
+    <div class="section-title"><span class="section-num">07</span>예상 산출물</div>
+    <div class="content-box"><ul><li>LangChain 기반 RAG 파이프라인 완성 + RAGAS 평가 리포트</li><li>GraphRAG 기반 지식그래프 검색 실습 결과물</li><li>RAG 미니 경진대회 팀 프로젝트 산출물</li></ul></div>
+</div>
+
+
+<div style="page-break-inside: avoid; break-inside: avoid;">
+    <div class="section-title"><span class="section-num">08</span>교육 일정 제안</div>
+    <table class="schedule-table">
+        <tr>
+            <th style="width: 20%;">회차</th>
+            <th style="width: 35%;">일정</th>
+            <th style="width: 25%;">과정</th>
+            <th style="width: 20%;">비고</th>
+        </tr>
+        
+        <tr>
+            <td class="schedule-round">1차</td>
+            <td class="schedule-dates">5/12 (화) ~ 5/14 (목)</td>
+            <td style="text-align: center;">기초 과정</td>
+            <td style="text-align: center; color: #777;">1그룹</td>
+        </tr>
+        
+        <tr>
+            <td class="schedule-round">2차</td>
+            <td class="schedule-dates">5/26 (화) ~ 5/28 (목)</td>
+            <td style="text-align: center;">기초 과정</td>
+            <td style="text-align: center; color: #777;">2그룹</td>
+        </tr>
+        
+    </table>
+    <div style="font-size: 12px; color: #888; margin-top: 6px; margin-bottom: 24px;">※ 상기 일정은 강사 섭외 상황에 따라 조정 가능하며, 교육 전 사전 공지드립니다.</div>
+</div>
+
+
+<div style="page-break-inside: avoid; break-inside: avoid;">
+    <div class="section-title"><span class="section-num">09</span>교육장 안내</div>
+    <div class="content-box"><strong>장소:</strong> 모두의연구소 강남캠퍼스 교육장
+<strong>시간:</strong> 09:00 ~ 18:00 (점심시간 12:00~13:00)
+<strong>준비물:</strong> 개인 노트북 (사전 환경 구성 완료 필수)
+
+※ 모두의연구소 강남캠퍼스 일정 불가 시 타 장소 대관으로 변경될 수 있으며, 대관 요청 시 대관료가 별도 발생할 수 있습니다.</div>
+</div>
+
+<div class="footer">
+    &copy; 2026 MODULABS - 모두의연구소 AI 기업교육 커리큘럼
+</div>
+
+</body>
+</html>

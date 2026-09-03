@@ -1,0 +1,171 @@
+{
+  "title": "AI 에이전트로 완성하는 콘텐츠 DB화·자동 제작 파이프라인 구축",
+  "subtitle": "26년 축적 교재·문항·실험 콘텐츠의 자산화 — 창의와탐구(와이즈만 영재교육) 콘텐츠 자동화 TF 맞춤 2일 집중 과정",
+  "pdf_filename": "[모두의연구소]창의와탐구_AI교육_제안서",
+  "author": "이은경",
+  "info": {
+    "keyword": "자동화 / 에이전트<br>AI 에이전트 · 멀티모달 추출 · Structured Output · RAG",
+    "ax_stage": "Level 2 — 콘텐츠 DB화·제작 자동화 파이프라인 구축",
+    "target": "콘텐츠 자동화 TF로 편성된 비개발 직군(교재개발·교수설계·출판)과 개발자 혼합 팀",
+    "duration": "총 16시간 (8시간 × 2일)"
+  },
+  "intro": "학령인구 감소와 교육업계 AX 경쟁 속에서, 기업이 보유한 <b>콘텐츠 자산을 AI로 재활용하는 역량</b>이 곧 경쟁력이 되고 있습니다. 창의와탐구(와이즈만 영재교육)는 26년간 축적한 교재·문항·실험 콘텐츠를 보유하고 있으며, 본 과정은 이 자산을 <b>추출→구조화→저장→생성</b>으로 이어지는 콘텐츠 자동화 파이프라인으로 전환하는 전 구간을 다룹니다.\nDay 1에는 Gemini·Gems 기반 프롬프트 설계와 유즈케이스 정의를 거쳐 <b>Google AI Studio에서 콘텐츠 스키마를 직접 설계·검증</b>하고, Day 2에는 비개발·개발 혼합 조를 편성해 실제 사내 샘플 콘텐츠로 <b>추출·구조화 에이전트, DB 적재·검색, RAG 기반 생성 에이전트</b>까지 엔드투엔드로 구축합니다.\n교육 종료 시점에는 <b>자사 콘텐츠로 작동하는 DB화 파이프라인 프로토타입</b>과 이를 전체 콘텐츠로 확장하기 위한 운영 로드맵을 확보하게 됩니다.",
+  "objective": "AI 에이전트 기반 콘텐츠 자동화 파이프라인을 TF가 직접 구축·운영함으로써, 사내 레거시 콘텐츠의 DB화와 신규 콘텐츠 제작 자동화 역량을 확보합니다.<ul style=\"margin:10px 0 0; padding-left:20px; line-height:1.9;\"><li><b>파이프라인 전 구간 이해</b> — 추출→구조화→저장→생성 4단계 구조를 자사 콘텐츠 기준으로 설계</li><li><b>비개발·개발 협업 체계</b> — 프롬프트·스키마 담당과 구현 담당이 실제 업무 흐름 그대로 협업하는 TF 운영 역량 확보</li><li><b>작동하는 프로토타입</b> — 원본 투입→DB화→신규 콘텐츠 초안 생성까지 엔드투엔드로 작동하는 파이프라인 완성</li><li><b>운영 거버넌스</b> — 콘텐츠 IP 보호 정책과 전체 콘텐츠 이관 로드맵 수립</li></ul>",
+  "tech_stack": [
+    "AI 에이전트 설계",
+    "Gemini API (멀티모달)",
+    "Google AI Studio Structured Output",
+    "Gemini · Gems",
+    "RAG",
+    "ChromaDB (벡터 DB)",
+    "Python · VS Code",
+    "Claude (코딩 보조)"
+  ],
+  "infrastructure": [
+    "개발 환경: Python, VS Code",
+    "API/모델: Gemini API <b>유료 API 키 필수</b> (Google Cloud 결제 계정 연결 — 무료 티어는 입력 데이터가 모델 학습에 활용될 수 있어 콘텐츠 IP 보호 불가, 전원 동시 실습에도 한도 부족)",
+    "유료 플랜: Gemini API 유료 티어(AI Studio에서 동일 키 사용), Claude 구독(개발자 코딩 보조, 고객사 기보유)",
+    "데이터: 사내 교재·문항·실험자료 샘플 3~5건 (NDA 하 사전 공유, 한글 HWP 원본은 PDF 변환 후 투입)",
+    "툴/라이브러리: ChromaDB, Gemini Python SDK(신규 통합 SDK google-genai 기준)"
+  ],
+  "modules": [
+    {
+      "module_id": "01",
+      "module_name": "과정 소개 및 학습 목표 정렬",
+      "subtitle": "Day 1 · 공통",
+      "duration": "0.5H",
+      "items": [
+        "<b>과정 목표·산출물 안내</b> — DB화 파이프라인 프로토타입 완성이라는 최종 목표와 2일 여정 공유",
+        "<b>TF 구성원 정렬</b> — 직무·기대사항 공유 및 실습 환경 점검(계정·API 키)"
+      ]
+    },
+    {
+      "module_id": "02",
+      "module_name": "AI 에이전트 개념과 콘텐츠 자동화 파이프라인",
+      "subtitle": "Day 1 · 공통",
+      "duration": "1.5H",
+      "items": [
+        "<b>에이전트 vs 단순 LLM 호출</b> — 다단계 자율 수행이 만드는 차이 이해",
+        "<b>4단계 파이프라인 구조</b> — 추출→구조화→저장→생성 전 구간 구조 이해 (Gemini 데모)",
+        "<b>저장·생성 핵심 개념 미리보기</b> — 벡터 검색(임베딩)·RAG의 원리와 정형 DB+벡터 DB를 함께 쓰는 이유 소개 (Day 2 실습 대비)",
+        "<b>교육업계 AX 사례</b> — 콘텐츠 자산 재활용 전략과 업계 적용 사례"
+      ]
+    },
+    {
+      "module_id": "03",
+      "module_name": "Gemini·Gems 기반 콘텐츠 프롬프트 실습",
+      "subtitle": "Day 1 · 공통",
+      "duration": "2H",
+      "items": [
+        "<b>프롬프트 기본 구조</b> — 역할·지시·맥락·출력 4요소 설계",
+        "<b>콘텐츠 변환·재구성 패턴</b> — Gemini 앱에서 변환 프롬프트 패턴 실습 및 Gems 저장·공유",
+        "<b>실습 주제 예시</b> — 교재 지문→사고력 문항 변환 / 실험 안내문 학년별 리라이팅"
+      ]
+    },
+    {
+      "module_id": "04",
+      "module_name": "콘텐츠 DB화 유즈케이스 정의 워크숍",
+      "subtitle": "Day 1 · 공통",
+      "duration": "2H",
+      "items": [
+        "<b>재사용 시나리오 도출</b> — 모듈 03에서 실습한 변환 패턴을 토대로 보유 콘텐츠(교재·문항·실험자료) 유형별 재사용 시나리오 정의",
+        "<b>파일럿 대상 선정</b> — DB화 우선순위 수립 및 파일럿 대상 콘텐츠 확정",
+        "<b>실습 주제 예시</b> — “초등 과학 실험 콘텐츠 → 신규 문항 자동 초안” 시나리오 설계"
+      ]
+    },
+    {
+      "module_id": "05",
+      "module_name": "콘텐츠 스키마 설계·검증 실습",
+      "subtitle": "Day 1 · 공통",
+      "duration": "2H",
+      "items": [
+        "<b>메타데이터 필드 정의</b> — 학년·단원·사고력 유형·난이도 등 자사 콘텐츠 스키마 설계",
+        "<b>노코드 스키마 검증</b> — Google AI Studio Structured Output으로 JSON 스키마를 노코드 정의하고 즉시 테스트",
+        "<b>실습 주제 예시</b> — 샘플 문항 투입→스키마 v1 정의대로 추출되는지 전원 검증 후 확정"
+      ]
+    },
+    {
+      "module_id": "06",
+      "module_name": "조 편성 및 실습 목표 브리핑",
+      "subtitle": "Day 2 · 조별 통합 실습",
+      "duration": "0.5H",
+      "items": [
+        "<b>혼합 조 편성</b> — 비개발+개발 혼합 2~3개 조 편성 및 역할 분담 (프롬프트·스키마 담당 / 구현 담당)",
+        "<b>조별 목표 설정</b> — 파이프라인 엔드투엔드 완주 목표 확정, 조별 실습 가이드 배포"
+      ]
+    },
+    {
+      "module_id": "07",
+      "module_name": "조별 실습 ① 추출·구조화 파이프라인 구축",
+      "subtitle": "Day 2 · 조별 통합 실습",
+      "duration": "3H",
+      "items": [
+        "<b>프롬프트 담당</b> — Google AI Studio에서 구조화 프롬프트·예외 케이스 정교화 후 코드 export",
+        "<b>구현 담당</b> — export 결과를 즉시 이식해 Gemini API 멀티모달 추출(PDF·스캔, 한글 HWP는 PDF 변환 후 투입) 구현, VS Code·Claude 코딩 보조 병행(강사 조별 순회 코칭)",
+        "<b>실습 주제 예시</b> — 샘플 교재 투입→구조화 JSON 출력, 조별 상호 검증"
+      ]
+    },
+    {
+      "module_id": "08",
+      "module_name": "조별 실습 ② DB 적재와 자연어 검색",
+      "subtitle": "Day 2 · 조별 통합 실습",
+      "duration": "2H",
+      "items": [
+        "<b>구현 담당</b> — 정형 DB + 벡터 DB(ChromaDB) 이중 적재 파이프라인 구현",
+        "<b>프롬프트 담당</b> — 태깅 품질 교차 검증 및 자연어 검색 질의 시나리오 작성",
+        "<b>실습 주제 예시</b> — “실험 연계 가능한 도형 문항 찾아줘” 조별 검색 테스트"
+      ]
+    },
+    {
+      "module_id": "09",
+      "module_name": "RAG 생성 에이전트 완성과 조별 데모",
+      "subtitle": "Day 2 · 조별 통합 실습",
+      "duration": "1.5H",
+      "items": [
+        "<b>RAG 기반 생성</b> — 자사 DB 근거 생성(RAG)으로 ‘자사다움’ 유지 원리 이해 및 구현",
+        "<b>엔드투엔드 시연</b> — 원본 투입→DB화→신규 콘텐츠 초안까지 조별 데모와 상호 리뷰",
+        "<b>실습 주제 예시</b> — 기존 문항 3건 참조 신규 문항 초안 생성·검수"
+      ]
+    },
+    {
+      "module_id": "10",
+      "module_name": "운영 거버넌스와 확장 로드맵",
+      "subtitle": "Day 2 · 공통(랩업)",
+      "duration": "1H",
+      "items": [
+        "<b>콘텐츠 IP 보호 원칙</b> — AI Studio 무료 티어의 학습 활용 정책 vs 유료 API 데이터 보호 차이 이해",
+        "<b>정책·로드맵 확정</b> — 외부 LLM 입력 정책 수립, 전체 콘텐츠 이관 로드맵 및 TF 역할 분담 확정"
+      ]
+    }
+  ],
+  "instructors": [
+    {
+      "category": "콘텐츠 DB화 파이프라인 과정",
+      "name": "차*재",
+      "headline": "에듀테크 AI 파이프라인·LLMOps / 프롬프트 엔지니어링 교육 전문",
+      "bio": "에듀테크 기업 크레버스에서 AI 기반 교육 콘텐츠 자동화 파이프라인을 직접 상용화한 현업 AI 엔지니어(MLOps/LLMOps·Prompt Engineer)입니다. 3~5일 걸리던 영어 과제 채점을 실시간 자동 평가·첨삭으로 전환하며 프롬프트 설계부터 백엔드 파이프라인·DB 적재까지 전 구간을 구축한 경험은, 본 과정의 추출→구조화→저장→생성 파이프라인과 정확히 같은 구조입니다. 교육업계 도메인 이해와 파이프라인 실무 경험을 겸비해, 비개발·개발 혼합 조의 프롬프트 담당과 구현 담당을 모두 코칭할 수 있는 적임 강사입니다.",
+      "expertise": [
+        "에듀테크 AI 파이프라인",
+        "프롬프트 엔지니어링",
+        "LLMOps·MLOps",
+        "DB 설계·운영(SQL·NoSQL·벡터)",
+        "머신러닝·딥러닝"
+      ],
+      "experience": [
+        "크레버스(에듀테크) AI Biz. 팀 — i-Learning 영어 자동 평가·첨삭 엔진 개발·상용화 주도, 기존 3~5일 소요 채점을 실시간 자동 평가로 전환(비용 20~85% 절감), Prompt Engineering 총괄 리드",
+        "AWS SageMaker·Hugging Face 기반 LLMOps 파이프라인 및 Azure ML·AKS 기반 MLOps 인프라 설계·구축 — FastAPI·PostgreSQL·Docker 기반 확장형 백엔드 개발",
+        "서울시립대 스마트시티대학원 AI 강사(7학기) — 머신러닝 입문·도시데이터 코딩 / 동북권 ICT 이노베이션 스퀘어 AI+MLOps 80시간 강의",
+        "패스트캠퍼스 인공지능·딥러닝·머신러닝·확률통계 4과목 온라인 강의 및 AI·MLOps 부문 문제출제위원",
+        "한빛출판사 <딥러닝의 정석> 2판 역자 / 현대카드 AI FDS 고도화 PL 등 금융·공공 AI 솔루션 구축 다수 — BigQuery·MongoDB·ClickHouse 등 DB 운영 전문성 보유"
+      ],
+      "metrics": [
+        { "value": "실시간", "label": "채점 자동화 (기존 3~5일)" },
+        { "value": "80H", "label": "AI·MLOps 강의" },
+        { "value": "7학기", "label": "대학원 AI 강의" }
+      ]
+    }
+  ],
+  "output": "<ul style=\"margin:0; padding-left:20px; line-height:1.9;\"><li><b>사내 콘텐츠 메타데이터 스키마(JSON)</b> — 검증 완료된 구조화 프롬프트 세트 포함</li><li><b>작동하는 파이프라인 프로토타입</b> — 원본 투입→DB화→신규 콘텐츠 초안 생성까지 엔드투엔드 완주</li><li><b>콘텐츠 IP 보호 정책 및 전체 콘텐츠 이관 로드맵</b> — TF 역할 분담 포함 운영 거버넌스</li></ul>",
+  "section_07_title": "운영 방식 · 준비 요청사항 · 일정 협의",
+  "schedule_message": "<div style='text-align:left;color:#333;'><p style='margin:0 0 8px;'><b>1) 운영 방식</b></p><table class='curriculum-table' style='margin-bottom:18px;'><thead><tr><th style='width:22%;'>구분</th><th>내용</th></tr></thead><tbody><tr><td>교육 형태</td><td>오프라인 실습 중심 (온/오프 혼합 조정 가능), 8시간 × 2일</td></tr><tr><td>운영 구조</td><td><b>조별 통합 실습형</b> — 비개발+개발 혼합 2~3개 조 편성, 강사 1명이 조별 순회 밀착 코칭</td></tr><tr><td>협업 설계</td><td>프롬프트·스키마 담당(비개발)과 구현 담당(개발)이 한 조에서 실시간 협업 — 비개발 담당이 AI Studio에서 검증한 프롬프트를 개발 담당이 즉시 파이프라인에 이식하는 실제 업무 흐름 그대로 실습</td></tr><tr><td>자율 진행 지원</td><td>단계별 체크포인트가 담긴 조별 실습 가이드를 사전 제작·배포하여, 강사 순회 중에도 조 단위 자율 진행 가능</td></tr><tr><td>성과 확인</td><td>Day 2 종료 시 조별 엔드투엔드 데모(원본 투입→DB화→신규 콘텐츠 초안 산출) 및 상호 리뷰</td></tr></tbody></table><p style='margin:0 0 8px;'><b>2) 교육 준비 요청사항</b></p><table class='curriculum-table' style='margin-bottom:18px;'><thead><tr><th style='width:30%;'>항목</th><th>내용</th></tr></thead><tbody><tr><td>Google Cloud 결제 계정 + API 키</td><td>Gemini API 유료 티어 발급 — AI Studio에서 동일 키 사용 (모두의연구소가 발급 가이드 제공)</td></tr><tr><td>Workspace 관리자 설정 확인</td><td>조직 계정의 Google AI Studio 접근 허용 여부 사전 점검</td></tr><tr><td>샘플 콘텐츠 3~5건</td><td>교재·문항·실험자료의 실제 형태(한글/PDF/스캔) 확인 — 스키마 설계와 실습 난이도 확정에 필수, NDA 하 공유</td></tr><tr><td>개발자 실습 환경</td><td>VS Code + Python 설치, Claude 구독 계정(기보유) 확인</td></tr></tbody></table><p style='margin:0;color:#888;font-size:12px;'>※ 본 제안은 커리큘럼 확정안 기반 초안이며, 샘플 콘텐츠 확인 결과와 TF 구성(인원·직무 비율)에 따라 실습 난이도와 조 편성을 정교화합니다. 교육 일정은 협의 후 확정하며, 견적은 운영 형태 확정 후 상세 견적으로 제출합니다.</p></div>"
+}

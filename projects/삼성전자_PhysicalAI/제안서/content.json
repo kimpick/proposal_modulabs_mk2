@@ -1,0 +1,187 @@
+{
+  "title": "Physical AI 실무 교육 제안",
+  "subtitle": "시뮬레이션 중심 설계로 장비 없이 VLA까지 — 1일 8시간 / 5일 40시간",
+  "info": {
+    "keyword": "Physical AI\nVLA 파인튜닝\n시뮬레이션 중심\n장비 최소화",
+    "ax_stage": "체험·이해 (8H) → 실무 구현 (40H)",
+    "target": "비개발 실무자 (8H) · 연구원·엔지니어 (40H)",
+    "duration": "8H (1일) / 40H (5일)"
+  },
+  "intro": "<b>Physical AI 교육의 가장 큰 걸림돌은 장비입니다.</b><br><br>로봇팔 1대를 3~4명이 나눠 쓰면 실습 밀도가 무너지고, 설치와 캘리브레이션에 실습 시간의 상당 부분이 소모됩니다. 장비를 인원수만큼 갖추면 이번엔 예산이 문제가 됩니다.<br><br><b>2026년 현재, 이 문제는 기술적으로 해소 가능합니다.</b><br><br>SmolVLA(450M)처럼 단일 소비자 GPU에서 파인튜닝이 가능한 경량 VLA 모델이 등장했고, LIBERO 같은 시뮬레이션 벤치마크가 표준 평가셋으로 자리 잡으면서 실물 텔레오퍼레이션 없이도 데이터 수집–학습–평가 전 과정을 완주할 수 있게 되었습니다. LeRobot v2 데이터 포맷이 시뮬레이터와 파운데이션 모델 사이의 공통 규격 역할을 하면서, 시뮬레이션에서 익힌 것이 향후 실물 도입 시 그대로 이어집니다.<br><br>본 제안은 <b>로봇 장비 없이 브라우저만으로 VLA 파인튜닝까지 완주하는 커리큘럼</b>입니다. 대상과 목표에 따라 <b>1일 8시간 체험형</b>과 <b>5일 40시간 엔지니어 심화형</b> 두 가지로 구성했습니다.",
+  "section_02_title": "2026 Physical AI 기술 지형과 커리큘럼 최신화 방향",
+  "objective": "1. [8H] 비개발 실무자가 Physical AI의 작동 원리를 체감하고, 자사 업무 적용 가능성을 판단할 수 있다\n2. [40H] 엔지니어가 시뮬레이션 환경에서 VLA 모델을 직접 파인튜닝하고 벤치마크로 성능을 평가할 수 있다\n3. 로봇 장비 없이 1인 1환경을 확보해 실습 밀도를 극대화한다\n4. 시뮬레이션에서 확보한 자산(데이터·정책·포맷)이 향후 실물 도입 시 그대로 이어지도록 설계한다",
+  "tech_stack": [
+    "Google Colab (전 실습 공통)",
+    "MuJoCo / MJX",
+    "LIBERO 벤치마크",
+    "LeRobot v2 (Hugging Face)",
+    "SmolVLA (450M)",
+    "OpenVLA",
+    "PPO / SAC",
+    "ACT / Diffusion Policy / Flow matching",
+    "NVIDIA Cosmos (World Model)",
+    "Python · PyTorch"
+  ],
+  "infrastructure": [
+    "개인 노트북 + 브라우저 — 로컬 설치 일절 불필요",
+    "Google Colab Pro 또는 사내 GPU 서버 (1인 1환경)",
+    "GPU 요구사항: 24GB VRAM급 1장 (SmolVLA 파인튜닝 기준)",
+    "로봇 실물 장비 — 불필요 (전 과정 시뮬레이션)",
+    "[옵션] LeRobot 데모 스테이션 2~4대 — 전원 실습용이 아닌 시연·체험용"
+  ],
+  "curriculum_title": "과정별 상세 커리큘럼",
+  "use_simple_track_label": true,
+  "tracks": [
+    {
+      "track_id": "01",
+      "track_name": "체험형 · 1일 8H",
+      "course_title": "Physical AI 이해와 체험 — 비개발 실무자 과정",
+      "target": "비개발 실무자 · 기획 담당자 (사전 지식 불필요, 코드 작성 없음)",
+      "duration": "총 8시간 (1일)",
+      "tools": [
+        "Google Colab",
+        "MuJoCo",
+        "SmolVLA",
+        "LIBERO"
+      ],
+      "modules": [
+        {
+          "module_name": "[이해] Physical AI란 무엇이고, 왜 지금인가",
+          "duration": "1H",
+          "items": [
+            "LLM(Brain) · 로봇(Body) · 시뮬레이션(World)의 3축 구조",
+            "2026 VLA 파운데이션 모델 지형 — GR00T · π0.5 · Gemini Robotics",
+            "제조·물류·모빌리티 현장 적용 사례",
+            "'대화하는 AI'와 '움직이는 AI'는 무엇이 다른가"
+          ]
+        },
+        {
+          "module_name": "[이해] 로봇이 배우는 세 가지 방식",
+          "duration": "1H",
+          "items": [
+            "강화학습 — 시행착오로 스스로 익힌다 (보상이란 무엇인가)",
+            "모방학습 — 사람의 시연을 보고 복제한다 (ACT · Diffusion Policy)",
+            "VLA — 말로 지시하면 행동으로 옮긴다",
+            "세 방식의 장단점과 현장에서의 선택 기준"
+          ]
+        },
+        {
+          "module_name": "[실습] 브라우저에서 로봇 세우기",
+          "duration": "1.5H",
+          "items": [
+            "설치 없이 Colab에서 MuJoCo 시뮬레이션 환경 실행",
+            "로봇 팔의 관절 구조 살펴보기 — 제공 노트북 셀 실행",
+            "관절 값을 바꿔가며 로봇 자세 변화 관찰",
+            "물리 엔진이 계산하는 것 — 중력 · 충돌 · 마찰 직접 확인"
+          ]
+        },
+        {
+          "module_name": "[실습] 사전학습 VLA 모델로 로봇 움직이기",
+          "duration": "1.5H",
+          "items": [
+            "LIBERO 시뮬레이션 태스크 둘러보기 (Spatial · Object · Goal · Long)",
+            "사전학습된 SmolVLA 모델 불러와 추론 실행",
+            "모델이 이미지와 명령을 받아 행동을 만드는 과정 관찰",
+            "성공 케이스와 실패 케이스 비교"
+          ]
+        },
+        {
+          "module_name": "[실습] 내 문장으로 로봇 제어하기",
+          "duration": "2H",
+          "items": [
+            "자연어 명령을 바꿔가며 로봇 행동 변화 확인",
+            "어떤 표현이 잘 통하고 어떤 표현이 실패하는가",
+            "실패 원인 분석 — 학습되지 않은 물체 · 모호한 지시 · 물리적 제약",
+            "[산출물] 본인 명령으로 동작시킨 로봇 시연 영상"
+          ]
+        },
+        {
+          "module_name": "[적용] 우리 업무에 어디 쓸 수 있을까",
+          "duration": "1H",
+          "items": [
+            "Physical AI 도입이 유효한 업무의 조건",
+            "현재 기술 수준에서 가능한 것과 아직 어려운 것 구분",
+            "조별 적용 시나리오 도출 및 공유",
+            "[산출물] 사내 적용 후보 리스트"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "02",
+      "track_name": "엔지니어 심화 · 5일 40H",
+      "course_title": "Physical AI 구현 — VLA 파인튜닝 실무 과정",
+      "target": "연구원 · 엔지니어 (Python 및 딥러닝 기초 이해 필요)",
+      "duration": "총 40시간 (8H × 5일)",
+      "tools": [
+        "MuJoCo / MJX",
+        "Isaac Lab",
+        "LeRobot v2",
+        "SmolVLA / OpenVLA",
+        "LIBERO",
+        "NVIDIA Cosmos"
+      ],
+      "modules": [
+        {
+          "module_name": "[1일차] Physical AI 지형과 시뮬레이션 기초",
+          "duration": "8H",
+          "items": [
+            "2026 VLA 파운데이션 모델 비교 — GR00T N1.7 · π0.5 · Gemini Robotics · SmolVLA",
+            "로보틱스 기초 — Rotation, Forward/Inverse Kinematics, Control",
+            "MuJoCo / MJX 환경 구축 및 로봇 모델(URDF·MJCF) 로딩",
+            "시뮬레이터 지형 개관 — Isaac Lab, Genesis의 위치와 선택 기준",
+            "LeRobot v2 데이터 포맷 구조 분석 — 왜 이 포맷이 표준이 되었나"
+          ]
+        },
+        {
+          "module_name": "[2일차] 강화학습 기반 로봇 제어",
+          "duration": "8H",
+          "items": [
+            "MDP · 벨만 방정식 · Value/Policy 기반 접근 정리",
+            "DQN에서 Policy Gradient로 — REINFORCE · A2C",
+            "PPO / SAC 알고리즘 원리 및 하이퍼파라미터 감각",
+            "보상 함수 설계 — 로봇 제어에서 자주 실패하는 패턴",
+            "[실습] MuJoCo 로봇 팔 정책 학습 및 학습 곡선 분석"
+          ]
+        },
+        {
+          "module_name": "[3일차] 모방학습과 데이터 파이프라인",
+          "duration": "8H",
+          "items": [
+            "Behavior Cloning · DAgger · Inverse RL · GAIL 계보 정리",
+            "ACT (Action Chunking Transformer) 구조와 chunking의 의미",
+            "Diffusion Policy — 행동 생성을 확산 과정으로 보기",
+            "Flow matching — π0 계열이 discrete token 예측을 대체한 이유",
+            "[실습] LIBERO 데이터셋 구조 분석 및 LeRobot v2 포맷 변환"
+          ]
+        },
+        {
+          "module_name": "[4일차] VLA 파인튜닝 — 본 과정의 핵심",
+          "duration": "8H",
+          "items": [
+            "VLM에서 VLA로 — CLIP/BLIP → RT-2 → OpenVLA → π0 → GR00T 계보",
+            "SmolVLA 450M 아키텍처 분석 — 경량화가 가능했던 설계 선택",
+            "[실습] LIBERO-Spatial 태스크에 SmolVLA 파인튜닝 (단일 GPU)",
+            "[실습] 벤치마크 평가 — 태스크 성공률 측정 및 베이스라인 대비 분석",
+            "실패 케이스 분석 — 공간 이해 실패 · 물체 일반화 실패 구분"
+          ]
+        },
+        {
+          "module_name": "[5일차] 월드모델 · Sim2Real · 캡스톤",
+          "duration": "8H",
+          "items": [
+            "World Model 개요 — NVIDIA Cosmos Predict / Transfer의 역할",
+            "합성 데이터로 학습 데이터 다양성 확보하기",
+            "Sim2Real 갭의 정체와 도메인 랜덤화 전략",
+            "실물 이관 경로 설계 — 시뮬레이션 자산을 실물 로봇으로 옮기는 법",
+            "[캡스톤] 팀별 태스크 선정 → 파인튜닝 → 평가 → 결과 발표"
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "【 1일 8H 체험형 】\n    · 본인의 자연어 명령으로 동작시킨 로봇 시연 영상\n    · Physical AI 기술 지형 이해 및 적용 가능/불가능 판단 기준\n    · 조별 사내 적용 시나리오 후보 리스트\n\n【 5일 40H 엔지니어 심화형 】\n    · 직접 파인튜닝한 SmolVLA 정책 체크포인트\n    · LIBERO 벤치마크 성능 리포트 (성공률 · 베이스라인 대비 · 실패 분석)\n    · LeRobot v2 포맷 데이터 파이프라인 구축 경험\n    · 팀별 캡스톤 프로젝트 결과물 및 발표 자료\n    · 실물 로봇 도입 시 활용 가능한 Sim2Real 이관 설계안",
+  "section_07_title": "운영 방안 — 장비를 최소화하면서 실습 밀도를 지키는 법",
+  "schedule_message": "본 커리큘럼의 설계는 실제 28시간 Physical AI 과정을 운영하며 확인한 문제들을 기반으로 합니다.\n\n■ 장비 공유가 실습 밀도를 무너뜨립니다\n  로봇팔을 3~4명이 공유하면 대기 시간이 실습 시간을 잠식합니다.\n  전 과정을 시뮬레이션으로 설계해 1인 1환경을 확보했습니다.\n\n■ 설치 시간은 실습 시간이 아닙니다\n  로컬 설치가 필요한 도구를 모두 제거하고 Colab 기반으로 통일했습니다.\n  수강생은 브라우저만 열면 곧바로 실습을 시작합니다.\n\n■ 시뮬레이션이 '가짜 실습'이 되지 않도록\n  LIBERO는 실제 VLA 모델 논문들이 성능을 보고하는 표준 벤치마크입니다.\n  여기서 측정한 성공률은 학계·산업계와 같은 기준으로 비교 가능한 숫자입니다.\n\n■ 실물 경험이 필요하다면 — 데모 스테이션 옵션\n  LeRobot 2~4대를 전원 실습용이 아닌 시연·체험용으로 배치하면,\n  장비 예산을 크게 줄이면서도 '실물을 만져본 경험'을 확보할 수 있습니다.\n\n\n■ 사전 확인이 필요한 사항\n  · GPU 환경 — Colab Pro 사용 여부 또는 사내 GPU 서버 활용 가능 여부\n  · 외부 네트워크 정책 — Hugging Face 모델·데이터셋 다운로드 허용 여부\n  · 수강 인원 및 사전 역량 수준 (40H 과정은 Python·딥러닝 기초 전제)\n\n교육 일정과 인원이 확정되면 세부 운영 계획과 견적을 드리겠습니다.",
+  "design_framework": "【 2026년, Physical AI 기술 지형의 다섯 가지 변화 】\n\n  ■ 1. VLA 파운데이션 모델 경쟁 본격화\n      GR00T N1.7(3B) · π0.5(3.3B) · Gemini Robotics가 잇따라 공개되며\n      범용 로봇 모델 경쟁이 시작됐습니다.\n      → 모델 지형도를 읽는 눈 자체가 교육 내용이 됩니다.\n\n  ■ 2. Flow matching이 행동 생성의 표준으로\n      π0 계열이 RT-2·OpenVLA의 discrete token 예측을 대체했습니다.\n      접촉이 많은 조작에서 더 매끄러운 궤적을 만듭니다.\n      → ACT → Diffusion Policy → Flow matching 계보로 재구성했습니다.\n\n  ■ 3. World Model이 Sim2Real의 새 축으로\n      NVIDIA Cosmos Predict/Transfer가 물리 시뮬레이션만으로는\n      메우지 못하던 '시각적 사실성 갭'을 메우기 시작했습니다.\n      → 5일 과정에 신규 모듈로 반영했습니다.\n\n  ■ 4. 경량 VLA로 단일 GPU 학습이 가능해짐\n      SmolVLA 450M은 24GB VRAM 1장에서 파인튜닝을 완주합니다.\n      고가 GPU 클러스터가 없어도 됩니다.\n      → 장비 최소화 설계를 가능하게 한 결정적 변화입니다.\n\n  ■ 5. LIBERO가 표준 평가 벤치마크로 정착\n      Robosuite 기반 130개 언어조건 태스크(Spatial·Object·Goal·Long)로\n      실물 텔레오퍼레이션 없이 데이터 수집~평가를 완주할 수 있습니다.\n      → 로봇 장비 없이도 논문과 같은 기준의 성능 숫자를 얻습니다.\n\n\n【 이 변화가 커리큘럼에 미치는 결론 】\n\n  장비를 줄이면 실습이 얕아진다는 전제가 2026년에는 더 이상 성립하지 않습니다.\n  시뮬레이션 중심으로 설계하면 오히려 1인 1환경 · 설치 시간 0 · 표준 벤치마크 평가라는\n  세 가지를 동시에 얻습니다. 본 제안은 이 전제 위에 세워졌습니다."
+}

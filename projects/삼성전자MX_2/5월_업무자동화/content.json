@@ -1,0 +1,82 @@
+{
+  "title": "업무 자동화 AI 에이전트 만들기",
+  "subtitle": "에이전틱 코딩으로 이메일·문서·일정을 자동화하는 AI 에이전트 구축 과정",
+  "info": {
+    "keyword": "업무 자동화 · Claude CoWork · OpenClaw · Claude Skills",
+    "ax_stage": "주제별 바이브 코딩 시리즈",
+    "target": "본인 업무의 에이전틱 파이프라인을 구축하려는 모든 직무 담당자",
+    "duration": "1일 (8시간)"
+  },
+  "intro": "매일 반복되는 이메일 처리, 문서 작성, 일정 관리, 승인 프로세스를 AI 에이전틱 파이프라인이 대신 수행하도록 자동화합니다.\nClaude CoWork로 데스크톱 업무를 자동화하고, OpenClaw로 파일·브라우저를 제어하며, Claude Skills로 표준화된 에이전틱 파이프라인을 설계하여 실무에 즉시 적용 가능한 업무 자동화 에이전틱 파이프라인을 구축합니다.",
+  "objective": "반복 업무를 자동화할 수 있는 에이전틱 파이프라인의 설계 원리를 이해하고, Claude CoWork와 OpenClaw를 활용하여 이메일 분류·응답, 보고서 자동 생성, 승인 프로세스 자동화 에이전틱 파이프라인을 직접 구축합니다. Claude Skills를 활용하여 팀 단위로 재사용 가능한 에이전틱 파이프라인를 표준화합니다.",
+  "tech_stack": [
+    "Claude Desktop (CoWork 모드)",
+    "OpenClaw (로컬 AI 어시스턴트)",
+    "Claude Code + Skills",
+    "Google Workspace (Gmail, Docs, Sheets, Calendar)"
+  ],
+  "infrastructure": [
+    "Claude Desktop 앱 설치 (Pro 이상 구독 권장)",
+    "OpenClaw 로컬 설치 완료 (사전 가이드 제공)",
+    "외부망 접속 가능 노트북 (수강생 1인 1대)",
+    "Chrome 또는 Edge 브라우저",
+    "Google 계정 (Google Workspace 연동용)"
+  ],
+  "modules": [
+    {
+      "module_id": "01",
+      "module_name": "업무 자동화와 AI 에이전트 개요",
+      "subtitle": "자동화 패러다임 이해",
+      "duration": "1.5H",
+      "items": [
+        "업무 자동화의 진화 — RPA에서 AI 에이전트 자동화로의 전환",
+        "AI 에이전트 기반 자동화의 핵심 원리: 관찰(Observe) → 판단(Decide) → 실행(Act) → 검증(Verify)",
+        "자동화 대상 업무 식별 프레임워크 — 반복성 × 규칙성 × 데이터 의존도 매트릭스",
+        "Claude CoWork · OpenClaw · Claude Skills 도구 에코시스템 소개 및 역할 분담",
+        "사례: AI 에이전트로 주 5시간 절약한 업무 자동화 Before/After 데모"
+      ]
+    },
+    {
+      "module_id": "02",
+      "module_name": "Claude CoWork 이메일·문서 자동화",
+      "subtitle": "데스크톱 자동화 실습",
+      "duration": "2.5H",
+      "items": [
+        "Claude CoWork 에이전트 모드 설정 및 멀티스텝 자동화 원리",
+        "이메일 자동 분류·우선순위 태깅 — 수신 메일을 카테고리별로 자동 정리",
+        "이메일 자동 응답 초안 생성 — 유형별 템플릿 기반 답변 생성",
+        "문서 자동 생성 — 데이터 입력 → 정형화된 보고서·제안서 자동 작성",
+        "일정 자동 관리 — 캘린더 이벤트 생성, 회의 일정 조율 자동화",
+        "실습: '일일 이메일 정리 + 주간 업무 보고서 자동 생성' 워크플로우 구축"
+      ]
+    },
+    {
+      "module_id": "03",
+      "module_name": "OpenClaw 승인 프로세스 자동화",
+      "subtitle": "프로세스 자동화 실습",
+      "duration": "2H",
+      "items": [
+        "OpenClaw 설치·보안 설정 및 파일·브라우저 자동화 기능 이해",
+        "승인 프로세스 자동화 설계 — 요청 접수 → 검토 → 승인/반려 → 알림",
+        "파일 기반 자동화 — 대량 파일 이름 변경, 폴더 정리, 데이터 추출·병합",
+        "브라우저 자동화 — 웹 기반 업무 시스템 데이터 입력·조회 자동화",
+        "실습: '경비 청구 → 자동 검증 → 승인 알림' 프로세스 에이전트 구축"
+      ]
+    },
+    {
+      "module_id": "04",
+      "module_name": "나만의 업무 자동화 에이전트 설계 워크샵",
+      "subtitle": "에이전트 설계 워크샵",
+      "duration": "2H",
+      "items": [
+        "개인 업무 프로세스 맵핑 — 일일 업무 흐름에서 자동화 포인트 발굴",
+        "Claude Skills로 자동화 워크플로우 표준화 — 팀 공유 가능한 스킬 작성",
+        "자동화 에이전트 설계서 작성 — 입력·처리·출력·예외 처리 정의",
+        "팀별 아이디어 발표 (5분) + 피어 리뷰 + 실무 적용 로드맵 작성",
+        "산출물: 개인별 '업무 자동화 에이전트 설계서' 1건 + 자동화 워크플로우 데모"
+      ]
+    }
+  ],
+  "output": "<ul style=\"margin:0; padding-left:20px; line-height: 1.9;\"><li>Claude CoWork 기반 이메일·문서 에이전틱 파이프라인 1건</li><li>OpenClaw 기반 승인 프로세스 자동화 에이전트 1건</li><li>개인별 업무 자동화 에이전틱 파이프라인 설계서 1건</li></ul>",
+  "schedule_message": "※ 본 과정은 5월 주제별 바이브 코딩 시리즈로, 1일 8시간 집중 교육으로 편성됩니다.<br>재택(온라인) 환경에서 진행되며, Claude Desktop 및 OpenClaw 사전 설치가 필요합니다."
+}

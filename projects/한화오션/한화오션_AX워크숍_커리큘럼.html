@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>한화오션 AX 수용성 강화 워크숍 — 커리큘럼</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<style>
+  :root{
+    --coral:#FF5252; --coral-soft:#FF8A80;
+    --dark:#1A1A1A; --gray:#888888;
+    --offwhite:#F7F6F3; --cream:#FFFDF8;
+    --beige:#F5D8B0; --gold:#C8902A; --border:#E8E6E0;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:"Pretendard","맑은 고딕","Malgun Gothic",sans-serif;
+    background:var(--offwhite); color:var(--dark);
+    line-height:1.6; padding:48px 20px;
+  }
+  .wrap{max-width:980px; margin:0 auto;}
+
+  /* Header */
+  .header{margin-bottom:36px;}
+  .eyebrow{
+    display:inline-block; font-size:13px; font-weight:700; letter-spacing:1px;
+    color:var(--coral); border:1.5px solid var(--coral);
+    padding:5px 12px; border-radius:20px; margin-bottom:16px;
+  }
+  h1{font-size:32px; font-weight:800; line-height:1.3; margin-bottom:10px;}
+  h1 .pt{color:var(--coral);}
+  .sub{font-size:16px; color:var(--gray); font-weight:500;}
+  .rule{height:4px; width:64px; background:linear-gradient(90deg,var(--coral),var(--coral-soft));
+    border-radius:2px; margin:20px 0 0;}
+
+  /* Concept callout */
+  .concept{
+    background:#fff; border:1px solid var(--border); border-left:5px solid var(--coral);
+    border-radius:12px; padding:22px 26px; margin:28px 0 40px;
+  }
+  .concept .tag{font-size:14px; font-weight:800; color:var(--coral); margin-bottom:8px;}
+  .concept p{font-size:14.5px; color:#3a3a3a;}
+  .concept b{color:var(--dark);}
+
+  /* Track section */
+  .track{margin-bottom:44px;}
+  .track-head{display:flex; align-items:center; gap:14px; margin-bottom:16px;}
+  .badge{
+    flex:none; font-size:13px; font-weight:800; color:#fff;
+    background:linear-gradient(135deg,var(--coral),var(--coral-soft));
+    padding:7px 14px; border-radius:8px;
+  }
+  .track-title{font-size:21px; font-weight:800;}
+  .track-meta{font-size:14px; color:var(--gray); font-weight:600; margin-left:auto;}
+
+  /* Table */
+  .card{background:#fff; border:1px solid var(--border); border-radius:14px; overflow:hidden;}
+  table{width:100%; border-collapse:collapse; font-size:14px;}
+  thead th{
+    background:var(--coral); color:#fff; font-weight:700; text-align:left;
+    padding:13px 16px; font-size:14px;
+  }
+  th.c-mod{width:27%;} th.c-time{width:11%; text-align:center;}
+  tbody td{padding:14px 16px; vertical-align:top; border-top:1px solid var(--border);}
+  tbody tr:nth-child(even) td{background:var(--cream);}
+  .mod{font-weight:700; color:var(--dark);}
+  .time{text-align:center; font-weight:800; color:var(--coral); white-space:nowrap;}
+  ul.learn{list-style:none;}
+  ul.learn li{position:relative; padding-left:14px; margin:3px 0; color:#3a3a3a;}
+  ul.learn li::before{content:""; position:absolute; left:0; top:9px;
+    width:5px; height:5px; border-radius:50%; background:var(--gold);}
+  ul.learn li.ex{color:var(--coral); font-weight:600;}
+  ul.learn li.ex::before{background:var(--coral);}
+
+  /* Footer */
+  .footer{margin-top:8px; padding-top:22px; border-top:2px solid var(--border);
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;}
+  .footer .brand{font-weight:800; font-size:15px;}
+  .footer .brand .pt{color:var(--coral);}
+  .footer .note{font-size:12.5px; color:var(--gray);}
+
+  @media print{
+    body{background:#fff; padding:0;}
+    .track{page-break-inside:avoid;}
+    .concept{page-break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <span class="eyebrow">PROPOSAL · 콘텐츠 기획안</span>
+    <h1>한화오션 <span class="pt">AX 수용성 강화 워크숍</span><br>커리큘럼 구성안</h1>
+    <p class="sub">MS Copilot 활용 · 게이미피케이션 기반 체감형 워크숍</p>
+    <div class="rule"></div>
+  </div>
+
+  <div class="concept">
+    <div class="tag">핵심 게임 메커닉 — 타임 배틀(Time Battle)</div>
+    <p>동일 과업을 <b>① 기존 방식(수기·검색·복붙)</b>과 <b>② Copilot 방식</b>으로 나란히 수행하고,
+    <b>소요시간을 측정 → 점수화 → 랭킹</b>으로 시각화합니다. 머리로 이해하는 것이 아니라
+    스톱워치로 격차를 체감하게 만들어, "AI를 안 쓰면 안 되겠다"는 전환점을 디브리핑에서 합의로 굳힙니다.
+    리더는 이 체감을 <b>팀 단위 Legacy Zero 지정</b>으로, 구성원은 <b>개인 업무 발굴(Problem Pool 등록)</b>으로 연결합니다.</p>
+  </div>
+
+  <!-- 리더 트랙 -->
+  <section class="track">
+    <div class="track-head">
+      <span class="badge">리더 트랙</span>
+      <span class="track-title">AX 전환 리더십</span>
+      <span class="track-meta">대상: 리더 · 2.5H</span>
+    </div>
+    <div class="card">
+      <table>
+        <thead>
+          <tr><th class="c-mod">모듈</th><th>학습 내용</th><th class="c-time">시간</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="mod">왜 리더가 먼저인가:<br>AX 변화관리와 리더의 역할</td>
+            <td><ul class="learn">
+              <li>AX 수용성 = 변화관리 '공감(Engagement)' 단계임을 이해</li>
+              <li>구성원 저항 심리와 리더의 스폰서십·롤모델 역할</li>
+              <li>한화오션 AX 전환 흐름 속 리더의 위치 정렬</li>
+            </ul></td>
+            <td class="time">25분</td>
+          </tr>
+          <tr>
+            <td class="mod">[미션] 아날로그 vs Copilot<br>업무 시간 대결</td>
+            <td><ul class="learn">
+              <li>동일 과업을 수기 방식과 Copilot 방식으로 수행, 소요시간 기록·점수화</li>
+              <li>리더가 직접 체감하는 시간 격차 시각화</li>
+              <li class="ex">미션 주제 예시 : 장문 회의록 요약·액션아이템 추출, 협력사 메일 스레드 정리·회신 초안</li>
+            </ul></td>
+            <td class="time">50분</td>
+          </tr>
+          <tr>
+            <td class="mod">시간 단축 디브리핑과<br>팀 적용 포인트</td>
+            <td><ul class="learn">
+              <li>팀별 절감 시간 집계·공유로 'AI 활용 필수' 공감대 형성</li>
+              <li>우리 팀 반복업무 중 AX 적용 우선순위 도출</li>
+            </ul></td>
+            <td class="time">30분</td>
+          </tr>
+          <tr>
+            <td class="mod">팀 Legacy Zero 선정과<br>실행 서약</td>
+            <td><ul class="learn">
+              <li>팀에서 없앨 레거시 업무 1개 이상 선정(L-ZERO)</li>
+              <li>적용 책임자·기한 지정 및 팀 단위 서약</li>
+              <li class="ex">산출물 예시 : 팀 Legacy Zero 서약서, Problem Pool 등록 항목</li>
+            </ul></td>
+            <td class="time">45분</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 구성원 트랙 -->
+  <section class="track">
+    <div class="track-head">
+      <span class="badge">구성원 트랙</span>
+      <span class="track-title">AX 업무 실전</span>
+      <span class="track-meta">대상: 구성원 · 3.5H</span>
+    </div>
+    <div class="card">
+      <table>
+        <thead>
+          <tr><th class="c-mod">모듈</th><th>학습 내용</th><th class="c-time">시간</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="mod">Copilot 핵심 기능<br>빠른 이해</td>
+            <td><ul class="learn">
+              <li>사무 업무에서 바로 쓰는 Copilot 기능 맵(Outlook·Word·Excel·PPT·Teams)</li>
+              <li>프롬프트 기본 구조(역할·지시·맥락·출력)</li>
+              <li>한화오션 업무 적용 가능 영역 미리보기</li>
+            </ul></td>
+            <td class="time">25분</td>
+          </tr>
+          <tr>
+            <td class="mod">[미션 1] 아날로그 vs Copilot<br>시간 대결</td>
+            <td><ul class="learn">
+              <li>동일 과업을 수기 방식과 Copilot 방식으로 수행, 소요시간 측정·점수화</li>
+              <li>절감 시간 즉시 체감(게이미피케이션 랭킹)</li>
+              <li class="ex">미션 주제 예시 : 일일 업무보고 초안 작성, 회의록 요약, 안전점검 결과 정리</li>
+            </ul></td>
+            <td class="time">55분</td>
+          </tr>
+          <tr>
+            <td class="mod">[미션 2] 직무 업무<br>Copilot 연계 실습</td>
+            <td><ul class="learn">
+              <li>Excel→Word→PPT로 이어지는 업무 흐름을 Copilot으로 연결</li>
+              <li>직무별 산출물 완성하기</li>
+              <li class="ex">미션 주제 예시 : 생산 실적 표 분석·차트화→주간보고서, 품질 이슈 데이터 요약→보고용 슬라이드</li>
+            </ul></td>
+            <td class="time">55분</td>
+          </tr>
+          <tr>
+            <td class="mod">시간 단축 체감 디브리핑</td>
+            <td><ul class="learn">
+              <li>미션별 절감 시간·결과물 공유</li>
+              <li>내 업무에 바로 적용할 포인트 정리</li>
+            </ul></td>
+            <td class="time">25분</td>
+          </tr>
+          <tr>
+            <td class="mod">개인 Legacy 업무 발굴과<br>Problem Pool 등록</td>
+            <td><ul class="learn">
+              <li>내 반복·소모성 업무에서 없앨 레거시 1개 이상 발굴</li>
+              <li>표준 양식(Forms)으로 As-Is/To-Be·절감효과 기록</li>
+              <li class="ex">산출물 예시 : 개인 Legacy 업무 카드, Problem Pool 데이터셋 1건</li>
+            </ul></td>
+            <td class="time">35분</td>
+          </tr>
+          <tr>
+            <td class="mod">개인별 AX 활용 서약<br>(L-ZERO)</td>
+            <td><ul class="learn">
+              <li>발굴한 레거시 업무의 AX 전환 다짐 작성·공유</li>
+              <li>후속 적용 체크포인트 안내</li>
+            </ul></td>
+            <td class="time">15분</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="footer">
+    <span class="brand">모두의연구소 <span class="pt">Modulabs</span></span>
+    <span class="note">※ 실습 주제 예시는 조선·중공업 사무직 기준 가안이며, 확정 직무군에 맞춰 조정 예정</span>
+  </div>
+
+</div>
+</body>
+</html>

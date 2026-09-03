@@ -1,0 +1,83 @@
+{
+  "title": "[임원 교육] 업무를 위한 바이브코딩 워크샵",
+  "subtitle": "내 노하우를 에이전트에게 가르친다 — 팅크웨어 임원을 위한 5회차 실무 바이브코딩 과정",
+  "info": {
+    "keyword": "실무 바이브코딩 · 운영 노하우 에이전트화 · 비개발자 임원 맞춤형",
+    "ax_stage": "2~3단계 (노하우 명문화 → 에이전트 위임 → 하네스 설계)",
+    "target": "C-Level 대표 및 D-Level 본부장 (비개발자, IT 기반 조직)",
+    "duration": "총 5회 × 3시간 (15시간)"
+  },
+  "intro": "임원이 가진 운영·관리 노하우는 조직에서 가장 값진 자산입니다. 이 워크샵은 그 노하우를 에이전트에게 가르쳐 실무에 작동시키는 과정입니다. '내가 보고서를 볼 때 어떤 기준으로 보는가', '회의 후 어떤 액션아이템이 중요한가' — 이 판단 기준을 Codex App으로 명세화하고, Codex CLI로 반복 실행 가능한 하네스로 엮습니다. 코딩을 배우는 것이 아니라, 20년 경험을 에이전트에게 위임하는 법을 익히는 워크샵입니다.",
+  "objective": "① 1~2회차: 본인의 운영·관리 방식을 언어로 꺼내고, 그 기준을 Codex 태스크 명세(SPEC)로 번역해 에이전트에게 처음으로 위임<br>② 3회차: Codex CLI로 위임한 업무를 반복·자동 실행 가능한 구조로 발전시켜, 내가 없어도 내 기준이 작동하는 흐름 설계<br>③ 4~5회차: 개인 노하우 하네스를 완성·검증하고, 팀별 데모로 조직 자산화 방향을 함께 수립",
+  "tech_stack": ["Codex App", "Codex CLI"],
+  "infrastructure": [
+    "수강생 개인 노트북 — Codex App·CLI 사전 설치 (교육 1주일 전 설치 가이드 배포, IT팀 사전 협의)",
+    "교육장 와이파이 및 빔프로젝터 환경 (팅크웨어 직접 대관)",
+    "인터넷 접속 환경 필수 (Codex App·CLI 실시간 사용)",
+    "분반 운영 시 (10명 × 2반) 회차별 2회 진행"
+  ],
+  "modules": [
+    {
+      "module_id": "01",
+      "module_name": "[1회차] 내 업무 방식을 언어로",
+      "subtitle": "노하우 언어화 & 첫 위임",
+      "duration": "3시간",
+      "items": [
+        "<b>에이전트는 어떻게 다른가</b><span style=\"display:block;color:#666666;margin-top:3px;line-height:1.7;\">도구는 내가 질문할 때만 답한다. 에이전트는 목표를 받으면 계획을 세우고 스스로 처리한다. 리더가 AI를 제대로 쓰려면 '질문'이 아니라 '기준'을 줘야 하는 이유다.</span><span style=\"display:block;margin-top:6px;padding-top:5px;border-top:1px solid #f0f0f0;\"><span style=\"background:#fdf0f1;color:#CC3344;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:3px;\">직접 해보기</span><span style=\"display:block;color:#555555;margin-top:3px;line-height:1.7;\">Codex App 시연으로 에이전트가 업무 목표를 받았을 때 어떻게 움직이는지 관찰</span></span>",
+        "<b>내 판단 기준 꺼내기</b><span style=\"display:block;color:#666666;margin-top:3px;line-height:1.7;\">20년 경력자의 의사결정 기준은 대부분 말로 정리된 적이 없다. 세 가지 질문(이 상황에서 중요한 건 뭔가 / 빠지면 안 되는 건 뭔가 / 결과물이 어떤 모습이어야 하는가)으로 그 기준을 텍스트로 끌어낸다.</span><span style=\"display:block;margin-top:6px;padding-top:5px;border-top:1px solid #f0f0f0;\"><span style=\"background:#fdf0f1;color:#CC3344;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:3px;\">직접 해보기</span><span style=\"display:block;color:#555555;margin-top:3px;line-height:1.7;\">'내가 보고서를 볼 때 먼저 보는 것' 워크샵 — 본인의 기준을 한 문단으로 정리</span></span>",
+        "<b>재지시로 결과를 끌어올리기</b><span style=\"display:block;color:#666666;margin-top:3px;line-height:1.7;\">첫 결과물이 기대에 못 미치는 건 당연하다. 중요한 건 '무엇이 빠졌는가'를 찾아 다시 지시하는 루프다. 이 과정 자체가 기준을 정교하게 다듬는 방법이다.</span><span style=\"display:block;margin-top:6px;padding-top:5px;border-top:1px solid #f0f0f0;\"><span style=\"background:#fdf0f1;color:#CC3344;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:3px;\">직접 해보기</span><span style=\"display:block;color:#555555;margin-top:3px;line-height:1.7;\">Codex App에 내 기준 입력 → 결과물 확인 → 재지시 1~2회 반복</span></span>",
+        "<b>2회차 준비</b><span style=\"display:block;color:#666666;margin-top:3px;line-height:1.7;\">매주 반복하는 산출물 한 가지와, 내가 그걸 만들 때 쓰는 판단 기준을 메모. 2회차에서 이것을 에이전트 명세로 바꾼다.</span>"
+      ]
+    },
+    {
+      "module_id": "02",
+      "module_name": "[2회차] 노하우를 SPEC으로",
+      "subtitle": "판단 기준 → 에이전트 명세",
+      "duration": "3시간",
+      "items": [
+        "<b>SPEC의 네 가지 구성 요소</b><span style=\"display:block;color:#666666;margin-top:3px;line-height:1.7;\">에이전트가 내 방식대로 움직이게 하는 명세의 기본 틀: 상황(언제·어떤 맥락), 기준(무엇이 중요한가), 제약(빠뜨리면 안 되는 것), 형식(어떤 모습으로 출력할 것인가).</span><span style=\"display:block;margin-top:6px;padding-top:5px;border-top:1px solid #f0f0f0;\"><span style=\"background:#fdf0f1;color:#CC3344;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:3px;\">직접 해보기</span><span style=\"display:block;color:#555555;margin-top:3px;line-height:1.7;\">1회차 메모를 네 요소로 나눠 SPEC 초안 작성</span></span>",
+        "<b>좋은 SPEC과 부족한 SPEC의 차이</b><span style=\"display:block;color:#666666;margin-top:3px;line-height:1.7;\">결과물이 매번 다르게 나온다면 기준이 빠진 것이고, 엉뚱한 방향으로 간다면 상황 설명이 불충분한 것이다. 어디서 틀렸는지를 눈으로 확인하면 고치는 감이 생긴다.</span><span style=\"display:block;margin-top:6px;padding-top:5px;border-top:1px solid #f0f0f0;\"><span style=\"background:#fdf0f1;color:#CC3344;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:3px;\">직접 해보기</span><span style=\"display:block;color:#555555;margin-top:3px;line-height:1.7;\">SPEC 없이 vs 내 SPEC으로 동일 업무 실행 — 결과물 품질 차이 직접 비교</span></span>",
+        "<b>수정 루프로 완성도 높이기</b><span style=\"display:block;color:#666666;margin-top:3px;line-height:1.7;\">SPEC의 어느 요소가 결과물을 흔드는지 찾아내는 방법과, 3회 이내 수정으로 실무에 바로 쓸 수 있는 결과물을 만드는 과정.</span><span style=\"display:block;margin-top:6px;padding-top:5px;border-top:1px solid #f0f0f0;\"><span style=\"background:#fdf0f1;color:#CC3344;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:3px;\">직접 해보기</span><span style=\"display:block;color:#555555;margin-top:3px;line-height:1.7;\">보고서·회의록·분석 메모 중 본인 업무를 골라 수정 반복 실습</span></span>",
+        "<b>동료 리더 SPEC 리뷰</b><span style=\"display:block;color:#666666;margin-top:3px;line-height:1.7;\">다른 리더의 SPEC에서 내 것에 없던 기준이 보인다. 피드백의 핵심은 '이 기준이 내 업무에도 통하는가'.</span><span style=\"display:block;margin-top:6px;padding-top:5px;border-top:1px solid #f0f0f0;\"><span style=\"background:#fdf0f1;color:#CC3344;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:3px;\">직접 해보기</span><span style=\"display:block;color:#555555;margin-top:3px;line-height:1.7;\">각자 SPEC과 결과물을 2~3분씩 공유, 동료 피드백</span></span>"
+      ]
+    },
+    {
+      "module_id": "03",
+      "module_name": "[3회차] Codex CLI로 반복 실행",
+      "subtitle": "내 기준의 자동 실행 구조화",
+      "duration": "3시간",
+      "items": [
+        "<b>CLI와 App의 차이</b><span style=\"display:block;color:#666666;margin-top:3px;line-height:1.7;\">App은 대화창에서 한 번씩 실행하고, CLI는 명령으로 반복·자동 실행이 가능하다. 완성한 SPEC을 '매주 자동으로 돌아가는 구조'로 만드는 것이 CLI다.</span><span style=\"display:block;margin-top:6px;padding-top:5px;border-top:1px solid #f0f0f0;\"><span style=\"background:#fdf0f1;color:#CC3344;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:3px;\">직접 해보기</span><span style=\"display:block;color:#555555;margin-top:3px;line-height:1.7;\">동일 SPEC을 App과 CLI로 각각 실행 — 결과와 효율 차이 비교</span></span>",
+        "<b>CLI 기본 사용법</b><span style=\"display:block;color:#666666;margin-top:3px;line-height:1.7;\">Codex CLI의 핵심 패턴은 세 단계다: 입력 파일 지정 → SPEC 참조 → 결과물 저장. 터미널이 처음이어도 이 구조만 익히면 실무에 쓸 수 있다.</span><span style=\"display:block;margin-top:6px;padding-top:5px;border-top:1px solid #f0f0f0;\"><span style=\"background:#fdf0f1;color:#CC3344;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:3px;\">직접 해보기</span><span style=\"display:block;color:#555555;margin-top:3px;line-height:1.7;\">2회차에서 완성한 SPEC을 CLI로 재실행, 결과물 파일로 저장</span></span>",
+        "<b>반복 업무 자동 실행 구조 만들기</b><span style=\"display:block;color:#666666;margin-top:3px;line-height:1.7;\">정기 업무를 에이전트에게 위임하는 구조의 핵심 세 가지: 어떤 데이터가 들어왔을 때(트리거) / 어떤 SPEC으로 처리하고(노하우) / 어디에 저장하는가(출력 경로).</span><span style=\"display:block;margin-top:6px;padding-top:5px;border-top:1px solid #f0f0f0;\"><span style=\"background:#fdf0f1;color:#CC3344;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:3px;\">직접 해보기</span><span style=\"display:block;color:#555555;margin-top:3px;line-height:1.7;\">'매주 월요일 실적 데이터 → 내 SPEC → 보고 초안 저장' 흐름을 CLI로 설계</span></span>",
+        "<b>하네스란 무엇인가</b><span style=\"display:block;color:#666666;margin-top:3px;line-height:1.7;\">에이전트(실행자)·입력(데이터)·SPEC(노하우)·트리거(실행 조건) 네 가지를 하나로 묶어 제어하는 구조. 4회차에서 본인 업무의 하네스를 직접 만든다.</span><span style=\"display:block;margin-top:6px;padding-top:5px;border-top:1px solid #f0f0f0;\"><span style=\"background:#fdf0f1;color:#CC3344;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:3px;\">직접 해보기</span><span style=\"display:block;color:#555555;margin-top:3px;line-height:1.7;\">4회차에서 만들 하네스 구조 초안 설계</span></span>"
+      ]
+    },
+    {
+      "module_id": "04",
+      "module_name": "[4회차] 노하우 하네스 완성",
+      "subtitle": "개인 자산에서 조직 자산으로",
+      "duration": "3시간",
+      "items": [
+        "<b>하네스 설계하기</b><span style=\"display:block;color:#666666;margin-top:3px;line-height:1.7;\">실무 하네스를 만드는 순서: 반복 빈도가 높고 데이터가 있는 업무 선정 → SPEC 정교화 → 입력·출력·트리거 정의. 처음에는 작게, 실제로 작동하는 것부터 시작한다.</span><span style=\"display:block;margin-top:6px;padding-top:5px;border-top:1px solid #f0f0f0;\"><span style=\"background:#fdf0f1;color:#CC3344;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:3px;\">직접 해보기</span><span style=\"display:block;color:#555555;margin-top:3px;line-height:1.7;\">주간 보고·회의 후 액션아이템·시장 동향 요약 중 본인 업무로 하네스 완성</span></span>",
+        "<b>결과물 검증하기</b><span style=\"display:block;color:#666666;margin-top:3px;line-height:1.7;\">하네스가 실무에 쓸 만한지 판단하는 기준 세 가지: 내가 직접 쓴 것과 품질이 비슷한가 / 데이터가 바뀌어도 같은 구조로 나오는가 / 결과가 틀렸을 때 어디를 고치면 되는가.</span><span style=\"display:block;margin-top:6px;padding-top:5px;border-top:1px solid #f0f0f0;\"><span style=\"background:#fdf0f1;color:#CC3344;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:3px;\">직접 해보기</span><span style=\"display:block;color:#555555;margin-top:3px;line-height:1.7;\">실제 업무 데이터로 하네스 실행 → 세 기준으로 검증 → 수정</span></span>",
+        "<b>팀에 넘길 수 있는 하네스 만들기</b><span style=\"display:block;color:#666666;margin-top:3px;line-height:1.7;\">내가 없어도 작동하는 하네스의 조건: SPEC에 배경 설명을 담고, 수정 이력을 남기고, 처음 보는 사람도 실행할 수 있게 정리한다.</span><span style=\"display:block;margin-top:6px;padding-top:5px;border-top:1px solid #f0f0f0;\"><span style=\"background:#fdf0f1;color:#CC3344;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:3px;\">직접 해보기</span><span style=\"display:block;color:#555555;margin-top:3px;line-height:1.7;\">내 하네스를 팀원에게 넘긴다면 무엇을 추가해야 하는지 점검</span></span>",
+        "<b>5회차 데모 준비</b><span style=\"display:block;color:#666666;margin-top:3px;line-height:1.7;\">비기술 청중에게 하네스를 설명하는 구조: 어떤 노하우를 담았나 → 어떻게 실행되나 → 시간이 얼마나 줄었나.</span><span style=\"display:block;margin-top:6px;padding-top:5px;border-top:1px solid #f0f0f0;\"><span style=\"background:#fdf0f1;color:#CC3344;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:3px;\">직접 해보기</span><span style=\"display:block;color:#555555;margin-top:3px;line-height:1.7;\">3분 시연 초안 작성</span></span>"
+      ]
+    },
+    {
+      "module_id": "05",
+      "module_name": "[5회차] 데모 데이 & 조직 자산화",
+      "subtitle": "노하우를 나누고 조직으로",
+      "duration": "3시간",
+      "items": [
+        "<b>노하우 하네스 데모</b><span style=\"display:block;color:#666666;margin-top:3px;line-height:1.7;\">각자 완성한 하네스를 3분씩 시연. 어떤 운영·관리 노하우를 담았고, 에이전트가 어떻게 실행하며, 실제 업무 시간을 얼마나 줄이는가. 완성도보다 시도의 가치에 집중한다.</span>",
+        "<b>실효성 중심 피드백</b><span style=\"display:block;color:#666666;margin-top:3px;line-height:1.7;\">하네스를 평가하는 세 관점: 지금 바로 쓸 수 있는가(실효성), 범위를 더 넓힐 수 있는가(확장성), 다른 사람도 쓸 수 있는가(이관 가능성).</span><span style=\"display:block;margin-top:6px;padding-top:5px;border-top:1px solid #f0f0f0;\"><span style=\"background:#fdf0f1;color:#CC3344;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:3px;\">직접 해보기</span><span style=\"display:block;color:#555555;margin-top:3px;line-height:1.7;\">강사 피드백 + 동료 리뷰로 각자 개선 방향 정리</span></span>",
+        "<b>조직으로 퍼뜨리기</b><span style=\"display:block;color:#666666;margin-top:3px;line-height:1.7;\">개인 하네스를 팀 자산으로 만드는 세 가지 방법: SPEC 문서 공유 / AI 담당자(챔피언) 지정 / 후임 인수인계 가이드 작성.</span><span style=\"display:block;margin-top:6px;padding-top:5px;border-top:1px solid #f0f0f0;\"><span style=\"background:#fdf0f1;color:#CC3344;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:3px;\">직접 해보기</span><span style=\"display:block;color:#555555;margin-top:3px;line-height:1.7;\">내 하네스를 조직에 어떻게 확산할지 실행 계획 한 가지 수립</span></span>",
+        "<b>교육 이후를 위한 안내</b><span style=\"display:block;color:#666666;margin-top:3px;line-height:1.7;\">Codex 심화 기능, 하네스 고도화 방향, 사내 AI 에이전트 확산 로드맵 가이드.</span>"
+      ]
+    }
+  ],
+  "output": "<ul><li><b>1~2회차</b>: 나만의 업무 SPEC — 암묵적 노하우를 언어화한 에이전트 지시 명세 (1건)</li><li><b>3회차</b>: Codex CLI 정기 실행 구조 — 내 기준이 반복 작동하는 자동화 흐름</li><li><b>4회차</b>: 노하우 하네스 완성본 — 실제 업무 데이터로 검증된 에이전트 워크플로우</li><li><b>5회차</b>: 데모 발표 자료 + 조직 자산화 실행 계획</li></ul>",
+  "schedule_message": "<p>총 <b>5회차 × 3시간</b>, 화·수·목 오후 13:00–16:00 기준으로 협의합니다.</p><p>오프라인 교육 / 판교 근처 교육장 (팅크웨어 직접 대관) / <b>6월 중순 시작</b> 권장</p><p>분반 운영(10명 × 2반) 시 회차별 2회 진행으로 강사 투입 시간이 2배 산정됩니다. 구체적 일정은 협의하여 확정합니다.</p>"
+}

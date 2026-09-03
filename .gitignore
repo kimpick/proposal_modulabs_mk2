@@ -1,0 +1,113 @@
+# Build outputs
+*.pdf
+!projects/전주대학교_AI부트캠프사업/**/*.pdf
+proposal_render.html
+!projects/삼성전자MX_토큰최적화/제안서/proposal_render.html
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Gemini
+.gemini/
+
+# AI agent local config
+.claude/*
+!.claude/skills/
+# 팀 공유 대상: hook·권한 설정 (settings.local.json은 개인용이라 계속 제외)
+!.claude/settings.json
+.omc/
+.sisyphus/
+
+# Credentials
+token.json
+projects/claude-settings.json
+
+# Temp files
+templates/nul
+templates/temp_content.txt
+templates/pdf_raw_text.txt
+templates/section_*.txt
+projects/biz-greeting-review-iter1.html
+
+# Version snapshots (local only, too large for git)
+versions/
+
+# Cloudflare Worker (deployed separately)
+status-worker/
+
+# Environment / secrets
+automation/.env
+.openclaw/
+.hermes/
+
+# AI agent identity/state files (local only)
+HEARTBEAT.md
+IDENTITY.md
+SOUL.md
+TOOLS.md
+USER.md
+
+# Temp scratch files (root)
+tmp_read/
+gemini-api-test.html
+read_hyundai.py
+draft.docx
+rfp_actual.docx
+xlsx_estimate.xlsx
+step0_login.png
+step1_after_login.png
+zapier_state.png
+
+# Secrets (never commit)
+slack_token.json.rtf
+
+# Local agent workspace / repo backups (large, local only)
+hermes/
+.omo/
+.git_broken_backup_*/
+
+# Office temp lock files
+~$*
+
+# ─────────────────────────────────────────────────────────
+# 보강 (2026-08-24) — 하위 경로 누출 및 압축 해제물 차단
+# 근거: docs/GIT_정리_런북.md STEP 2-A
+# ─────────────────────────────────────────────────────────
+
+# ① AI 에이전트 설정을 하위 경로까지 적용
+#    기존 `.claude/*` 는 루트에만 걸려 projects/*/.claude 가 새어나갔다
+**/.claude/*
+!**/.claude/skills/
+!**/.claude/settings.json
+**/.claude/worktrees/
+
+# ② Office 파일 압축 해제물 (원본 .docx/.xlsx 만 관리)
+#    런북 원안은 `**/unpacked_v*/` 였으나 projects/현대카드/unpacked_draft/ 가
+#    누락되어 `unpacked_*` 로 넓혔다
+**/unpacked_*/
+
+# ③ 임시·상태 파일
+tmp_commit_msg.txt
+template_dump.txt
+openclaw-workspace-state.json
+
+# ④ Google Drive 포인터 파일
+*.gsheet
+*.gdoc
+*.gslides
+
+# ⑤ 에이전트 세션 로그 (개인 대화 기록 포함)
+#    memory/clients/ 는 고객 정보 팀 자산이라 제외하지 않는다
+memory/20??-??-??-*.md

@@ -1,0 +1,82 @@
+{
+  "title": "삼성전자 하네스 엔지니어링 입문",
+  "subtitle": "AI와 함께 첫 앱 만들기 — 비즈니스 하네스으로 시작하는 에이전틱 AI 개발 입문 과정",
+  "info": {
+    "keyword": "비즈니스 하네스 · Google AI Studio · Claude CoWork",
+    "ax_stage": "하네스 엔지니어링 Level 1 (입문)",
+    "target": "AI 코딩 경험이 없거나 적은 개발자 · 기획자",
+    "duration": "1일 (8시간)"
+  },
+  "intro": "에이전틱 AI 시대의 새로운 소프트웨어 개발 패러다임을 이해하고, Google AI Studio와 Claude CoWork를 활용하여 코드를 직접 작성하지 않고도 실무에 활용 가능한 웹 애플리케이션을 만들어 봅니다.\n자연어로 앱을 만드는 '비즈니스 하네스'부터 시작하여, AI 에이전트가 데스크톱 작업을 자동화하는 'Claude CoWork'까지 체험하며, 하네스 엔지니어링의 전체 생태계를 조망합니다.\n단순 프롬프트 작성을 넘어, 에이전트에게 필요한 초기 지식을 구성하는 컨텍스트 엔지니어링(Context Engineering)의 기초를 학습합니다.",
+  "objective": "비즈니스 하네스과 Harness Engineering의 개념적 차이를 이해하고, Google AI Studio의 Prompt-to-App 기능으로 실제 동작하는 웹앱을 제작합니다. Claude CoWork의 데스크톱 자동화 기능을 활용한 반복 업무 자동화를 체험하고, 본인 업무에 적용할 AI 앱 아이디어를 기획합니다.",
+  "tech_stack": [
+    "Google AI Studio (Gemini)",
+    "Claude Desktop (CoWork 모드)",
+    "Firebase (자동 연동)",
+    "Cloud Run (원클릭 배포)"
+  ],
+  "infrastructure": [
+    "Google 계정 (Google AI Studio 접속용)",
+    "Claude Desktop 앱 설치 (Pro 이상 구독 권장)",
+    "외부망 접속 가능 노트북 (수강생 1인 1대)",
+    "Chrome 또는 Edge 브라우저"
+  ],
+  "modules": [
+    {
+      "module_id": "01",
+      "module_name": "에이전트 개발 환경(Harness)과 컨텍스트의 이해",
+      "subtitle": "패러다임 이해",
+      "duration": "1.5H",
+      "items": [
+        "에이전틱 AI 시대 개요 — 프롬프트 엔지니어링에서 컨텍스트 엔지니어링으로의 전환",
+        "Vibe Coding: 직관적·대화형·Human-in-the-loop, 프로토타이핑과 탐색에 최적화",
+        "Agentic Coding: 자율적·목표지향·CI/CD 통합, 엔터프라이즈 자동화에 최적화",
+        "2026년 에이전틱 코딩 툴 에코시스템 전체 맵 (Google AI Studio → Claude Code → OpenClaw → NanoClaw)",
+        "사례: Vibe Coding으로 30분 만에 만든 실무 웹앱 (Before/After 데모)",
+        "Context Engineering 기초: 에이전트에 지식과 가이드라인 주입하기"
+      ]
+    },
+    {
+      "module_id": "02",
+      "module_name": "Google AI Studio Prompt-to-App 실전",
+      "subtitle": "바이브 코딩 실습",
+      "duration": "2.5H",
+      "items": [
+        "Google AI Studio 인터페이스 및 Build 모드 이해",
+        "자연어 프롬프트로 웹 애플리케이션 생성 — 프론트엔드·백엔드·AI 기능 통합",
+        "Firebase 자동 연동 (Firestore DB, Authentication) — 단일 프롬프트로 풀스택 구현",
+        "라이브 프리뷰 & 반복 수정 — 음성 입력·후속 프롬프트로 앱 개선",
+        "Cloud Run 원클릭 배포 — 프로덕션 레디 호스팅",
+        "실습: 자연어로 '팀 업무 현황 대시보드' 웹앱 제작 (데이터 입력·시각화·공유 기능 포함)"
+      ]
+    },
+    {
+      "module_id": "03",
+      "module_name": "Claude CoWork 데스크톱 자동화",
+      "subtitle": "에이전트 자동화 체험",
+      "duration": "2H",
+      "items": [
+        "Claude Desktop 설치 및 CoWork 에이전트 모드 활성화",
+        "CoWork의 멀티스텝 작업 실행 원리 — 계획(Plan) → 실행(Execute) → 검증(Verify)",
+        "파일 관리 자동화 — 폴더 정리, 파일 이름 변경, 대량 파일 처리",
+        "애플리케이션 연동 자동화 — 스프레드시트 데이터 추출·가공, 문서 자동 생성",
+        "실습: Claude CoWork로 '주간 보고서 자동 생성' 워크플로우 구축 (데이터 수집 → 정리 → 보고서 작성)"
+      ]
+    },
+    {
+      "module_id": "04",
+      "module_name": "나만의 AI 앱 아이디어 기획 워크샵",
+      "subtitle": "아이디어 기획",
+      "duration": "2H",
+      "items": [
+        "업무 Pain Point 인벤토리 작성 — 반복적·시간 소모적·오류 발생 업무 식별",
+        "AI 자동화 적합성 매트릭스 — Impact × Feasibility 기준 우선순위 도출",
+        "Google AI Studio로 상위 아이디어 빠른 프로토타입 제작 (30분 스프린트)",
+        "팀별 아이디어 발표 (5분) + 피어 리뷰 + 실무 적용 로드맵 작성",
+        "산출물: 개인별 'AI 앱 아이디어 기획서' 1건 + 프로토타입 URL"
+      ]
+    }
+  ],
+  "output": "<ul style=\"margin:0; padding-left:20px; line-height: 1.9;\"><li>Google AI Studio로 제작한 실무 웹앱 프로토타입 1건 (배포 URL 포함)</li><li>Claude CoWork 업무 자동화 워크플로우 1건</li><li>개인별 AI 앱 아이디어 기획서 1건</li></ul>",
+  "schedule_message": "※ 본 과정은 하네스 엔지니어링 Level 1 (입문) 과정으로, 1일 8시간 집중 교육으로 편성됩니다.<br>재택(온라인) 환경에서 진행되며, Google AI Studio 계정 및 Claude Desktop 설치가 사전에 필요합니다."
+}

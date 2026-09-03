@@ -1,0 +1,11 @@
+주차,Day,주제,간략 설명,시간 구성,WG 대응 / 프로젝트 과제,핵심 산출물
+W1 (진입 심화),D1,LangChain 기초 + 고급 프롬프트 엔지니어링,Chains/Tools/Structured Output 기본기 + Few-shot·CoT·Self-Consistency·Role/Format 제어·Constitutional 프롬프팅 실습,이론 40% / 실습 50% / 리뷰 10%,전 WG 공통 기반,프롬프트 라이브러리 초안
+W1 (진입 심화),D2,RAG 심화 패턴,Hybrid(Sparse+Dense) → Router-First → Graph RAG → LLM Re-ranking → Iterative/Self-RAG를 MS Office·Confluence 데이터로 단계별 실습,이론 40% / 실습 50% / 리뷰 10%,WG-A 챗봇 / WG-C 컨플·Jira,사내 문서 RAG POC
+W1 (진입 심화),D3,MCP 서버 개발,사내 Confluence·Jira·파일시스템을 LLM이 직접 호출하도록 MCP 서버를 직접 구현 + 권한·스키마·에러 핸들링 설계,이론 40% / 실습 50% / 리뷰 10%,WG-D 사양 자동화 (#13),동작하는 사내 MCP 서버
+W1 (진입 심화),D4,LangGraph Orchestration + HITL,상태 그래프·분기·재시도·사람 승인 게이트를 갖춘 멀티스텝 에이전트를 LangGraph로 구현,이론 40% / 실습 50% / 리뷰 10%,WG-A 챗봇 / WG-C Jira 자동화,HITL 포함 에이전트 템플릿
+W1 (진입 심화),D5,Memory Architecture & Governance,Vector+Graph+KV 하이브리드 메모리 + TTL/Provenance/Audit Log + PII·역할권한으로 감사 가능한 기억 구축,이론 40% / 실습 50% / 리뷰 10%,WG-A 대화이력 / WG-C 이슈이력,Governed Memory 레이어
+W2 (프로젝트 심화),D6,Agentic Evals & 관측성 + 프로젝트 킥오프,Promptfoo·LangSmith + 평가 데이터셋 구축 + 비용·레이턴시·품질 관측. 평가셋부터 짜고 프로젝트 시작,오전 강의 / 오후 팀 프로젝트,팀별 프로젝트 스코프·성공기준·평가셋 정의,팀별 프로젝트 정의서 + 평가셋
+W2 (프로젝트 심화),D7,TI 연계 심화,CVE/KEV/EPSS/MITRE ATT&CK 구조 + UN R155/R156 + Auto-ISAC를 MCP로 연결해 Agentic 상관분석,오전 강의 / 오후 팀 프로젝트,팀A(보안 챗봇에 TI 주입) / 팀D(사양서에 규제·CVE 연결) 핵심 / 팀B·C 진행,TI MCP 서버 + 연결된 에이전트
+W2 (프로젝트 심화),D8,Red Teaming 기초 + LLM 보안,PyRIT·Garak·Promptfoo 자동 Red Team 스위트 + Prompt Injection·Jailbreak + OWASP LLM Top 10 (2026),오전 강의 / 오후 팀 프로젝트,각 팀 프로젝트에 Red Team 스위트 적용 + 결함 리포트,Red Team 리포트 + 완화 조치
+W2 (프로젝트 심화),D9,Adaptive / Self-Reflective Red Teaming + 고도화,공격 실패→원인 요약→전략 재구성→재시도 루프 + HITL Gate 심화 + Memory Loop 결합한 자가 개선 에이전트,오전 강의 / 오후 팀 프로젝트,프로젝트 최종 고도화 + 시연 리허설,고도화된 에이전트 v1.0
+W2 (프로젝트 심화),D10,캡스톤 발표 + 운영 이관,팀별 데모·코드리뷰·Q&A + 사내 배포·모니터링·운영 가이드(관측성·알람·롤백),오전 발표 / 오후 피어리뷰·이관,발표 / 팀간 피어리뷰 / 사내 이관 체크리스트,데모 + 운영 이관 README

@@ -1,0 +1,67 @@
+{
+  "title": "기웅정보통신 개발자 AI 기초 교육안",
+  "subtitle": "Claude Code CLI 중심 바이브코딩 · 기초 RAG · LangGraph 입문 — AI 코딩 및 에이전트 개발 기초 과정",
+  "info": {
+    "keyword": "바이브코딩 · 기초 RAG · LangGraph 입문",
+    "ax_stage": "3단계 (개발자 AI 내재화 — 기초)",
+    "target": "AI · RAG 경험이 적은 기웅정보통신 개발팀 전체",
+    "duration": "총 3일 (모듈별 1일, 일 7시간)"
+  },
+  "intro": "기웅정보통신 개발팀의 AI 활용 개발 역량 강화를 위한 기초 입문 과정입니다.\nClaude Code CLI + VS Code를 핵심 개발 도구로 사용하며, 모듈별 1일씩 총 3일 집중 실습 형태로 진행합니다.\n사전에 공동주택 관리 규정 등 실제 사내 문서를 예제로 활용하여, 교육 종료 시 실무에 즉시 적용 가능한 프로토타입 결과물을 보유하는 것을 목표로 합니다.",
+  "objective": "Claude Code CLI + VS Code 환경에서 실제 개발 업무에 즉시 적용 가능한 바이브코딩 방법론을 체득하고, 사내 문서 기반 기본 RAG 챗봇을 직접 구축합니다. 나아가 LangChain의 한계를 이해하고 LangGraph의 상태(State) 기반 워크플로우로의 전환 기반을 마련합니다.",
+  "tech_stack": [
+    "Claude Code CLI",
+    "VS Code",
+    "Claude API (claude.ai 포함)",
+    "LangGraph (LangChain 전환)",
+    "Vector DB (ChromaDB — 로컬)",
+    "OpenAI API (보조 · 선택)"
+  ],
+  "infrastructure": [
+    "GitHub 계정 (1인 1계정 필수)",
+    "Python 3.11 이상 개발 환경 (로컬 설치)",
+    "VS Code 설치 + Claude Code CLI 설치 (npm 기반)",
+    "Claude API Key (Anthropic — Pay-as-you-go, 실습 토큰 비용만 발생)",
+    "외부망 접속 가능 노트북 (수강생 1인 1대)"
+  ],
+  "modules": [
+    {
+      "module_id": "01",
+      "module_name": "Claude Code CLI 중심의 바이브코딩 방법론",
+      "subtitle": "AI 코딩 기초",
+      "duration": "1일 (7시간)",
+      "items": [
+        "Claude Code CLI 설치 및 기본 사용법 — VS Code 터미널 연동, 프로젝트 컨텍스트 주입",
+        "Claude API 기반 프롬프트 엔지니어링 (컨텍스트/맥락 최적화 및 System Prompt 설계)",
+        "PRD(제품 요구사항 문서) 기반 AI 주도 신속 프로토타이핑 실습",
+        "실습: Claude Code CLI + VS Code로 공동주택 관리 업무용 미니 웹앱 프로토타입 설계 및 코드 생성"
+      ]
+    },
+    {
+      "module_id": "02",
+      "module_name": "기초 RAG — 정보 검색 및 생성 시스템 이해",
+      "subtitle": "기초 RAG",
+      "duration": "1일 (7시간)",
+      "items": [
+        "RAG 패턴 기본 원리 이해 (Vector DB 셋업, 임베딩, 검색, 생성 파이프라인)",
+        "ChromaDB 로컬 설정 및 사내 문서 인덱싱 실습",
+        "LangChain 기본 Chain을 활용한 문서 Q&A 파이프라인 구성",
+        "실습: 사내 공동주택 관리 규정 PDF 기반 기본 질의응답 챗봇 구축"
+      ]
+    },
+    {
+      "module_id": "03",
+      "module_name": "LangChain에서 LangGraph로 전환",
+      "subtitle": "프레임워크 전환",
+      "duration": "1일 (7시간)",
+      "items": [
+        "단순 Chain 구조의 한계와 Agentic Workflow(LangGraph)의 기본 개념 학습",
+        "상태(State) 그래프 — 노드(Node) · 엣지(Edge) · 조건부 분기 실습",
+        "기존 LangChain RAG 파이프라인을 LangGraph 구조로 마이그레이션",
+        "실습: LangGraph State 기반 단순 에이전트 플로우 직접 구현 (문서 검색 → 답변 생성 → 검증)"
+      ]
+    }
+  ],
+  "output": "<ul style=\"margin:0; padding-left:20px; line-height: 1.9;\"><li>Claude Code CLI + VS Code 기반 미니 웹앱 프로토타입 코드 1건</li><li>사내 문서 기반 기초 RAG 챗봇 코드 1건 (공동주택 관리 규정 Q&A)</li><li>LangGraph State 기반 기초 에이전트 플로우 코드 1건</li><li>개인별 AI 코딩 활용 가이드 문서 작성</li></ul>",
+  "schedule_message": "※ 본 과정은 MODULE 01~03 각 1일(7시간), 총 3일로 편성됩니다.<br>출강 일정(3일 연속 집중 또는 주 1회 분산 개설)은 기웅정보통신 교육 담당자와 사전 협의하여 확정합니다.<br>구체적인 강의 일정표는 교육 협약 체결과 함께 운영팀을 통해 상세히 안내드릴 예정입니다."
+}

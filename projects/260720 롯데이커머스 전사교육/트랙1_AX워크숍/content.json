@@ -1,0 +1,221 @@
+{
+  "title": "AI Agent 기반 AX 워크숍 — 전사 공통 과정 상세 커리큘럼",
+  "subtitle": "전 직군 대상 Gemini Gems 1인 1에이전트 구축, 12시간 워크숍",
+  "info": {
+    "keyword": "Gems 1인 1에이전트 워크숍",
+    "ax_stage": "Level 1 — 전사 공통 AX 입문",
+    "target": "롯데이커머스 전 직군 (팀 단위/유관부서 그룹 권장)",
+    "duration": "12시간 (4시간 × 3일)"
+  },
+  "intro": "직무와 관계없이 어느 직군이든 참여할 수 있는 전사 공통 워크숍입니다. Gemini Enterprise 기초 실습부터 시작해 팀 단위로 업무 페인포인트를 발굴하고, 이를 해결하는 <b>자신만의 에이전트를 Gemini Gems로 1인 1개씩</b> 직접 설계·제작합니다. 3일에 걸쳐 What to AX(무엇을 AI로 전환할지)와 How to AX(어떻게 고도화할지)를 순서대로 다루며, 마지막 날에는 도입 전후 업무 시간을 비교해 성과를 수치로 확인합니다. 교육에서 만든 에이전트는 일회성 파일럿이 아니라 <b>실제 업무에서 지속 사용·고도화</b>하는 것을 목표로 하며, SK지주사 임원·C레벨 대상 Gemini Enterprise 교육에서 검증된 에이전트 제작 방식을 전사 규모로 확장한 과정입니다.",
+  "objective": "<ul style='margin:0; padding-left:20px; line-height:1.7;'><li><b>AI 저항감 해소:</b> 프롬프트 작성 경험이 없는 인원도 Gemini Enterprise 기초부터 단계적으로 실습</li><li><b>1인 1에이전트 구축:</b> 팀 공통 페인포인트를 발굴하고 각자 자기 업무 버전의 Gems 에이전트를 직접 완성</li><li><b>성과 가시화:</b> As-is/To-be 업무 시간 측정으로 도입 효과를 수치로 확인</li><li><b>지속 활용·확산 기반:</b> 완성한 에이전트를 실무에서 계속 고도화하고, 팀장급은 팀원 에이전트를 연결·관리하는 오케스트레이션 설계 관점을 익힘</li></ul>",
+  "tech_stack": [
+    "Gemini Enterprise",
+    "Gemini Gems",
+    "NotebookLM",
+    "Google Workspace"
+  ],
+  "infrastructure": [
+    "오프라인 교육장 1개 (팀 단위 착석, 20명 기준)",
+    "Gemini Enterprise 전사 계정 (8월 이후 정식 도입)",
+    "빔프로젝터 및 수강생 개인 노트북 (사전 설치 안내)",
+    "실습용 팀 업무 자료 (문서·스프레드시트 등, 수강생 사전 준비)"
+  ],
+  "tracks": [
+    {
+      "track_id": "01",
+      "track_name": "Day 1 — AI 리터러시와 페인포인트 발굴",
+      "course_title": "생성형 AI 현황 진단부터 팀 페인포인트 발굴까지",
+      "duration": "4H",
+      "tools": [
+        "Gemini Enterprise",
+        "NotebookLM"
+      ],
+      "modules": [
+        {
+          "module_name": "생성형 AI 트렌드와 현황 진단",
+          "duration": "1H",
+          "items": [
+            "생성형 AI 활용 동향과 이커머스 업계 적용 사례 점검",
+            "NotebookLM으로 그룹 AI 전환 관련 자료와 시장 동향 정리",
+            "롯데이커머스 AI Agent 구축·전파 미션의 배경과 목표 공유"
+          ]
+        },
+        {
+          "module_name": "Gemini Enterprise 실습 세팅",
+          "duration": "1.5H",
+          "items": [
+            "Gemini Enterprise 계정 로그인 및 기본 인터페이스 익히기",
+            "프롬프트 작성 기초 — 역할, 맥락, 출력 형식 구성 연습",
+            "실습 주제 예시: 업무 메일 초안, 회의록 요약 등 기본 과제로 익히기"
+          ]
+        },
+        {
+          "module_name": "팀 페인포인트 발굴과 MVP 후보 도출",
+          "duration": "1.5H",
+          "items": [
+            "팀 단위로 반복 업무·병목 업무 목록 작성",
+            "페인포인트를 AI 적용 가능성 기준으로 분류",
+            "MVP 후보 3개 도출 및 각자 만들 에이전트 주제 선정"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "02",
+      "track_name": "Day 2 — 에이전트 설계와 Gems 프로토타입 제작",
+      "course_title": "MVP 선정, 에이전트 설계부터 1인 1 Gems 프로토타입 제작까지",
+      "duration": "4H",
+      "tools": [
+        "Gemini Enterprise",
+        "Gemini Gems"
+      ],
+      "modules": [
+        {
+          "module_name": "MVP 선정 — 우선순위 매트릭스",
+          "duration": "1H",
+          "items": [
+            "임팩트·난이도 기준 매트릭스로 MVP 후보 평가",
+            "개인별 에이전트 주제 확정 및 목표 정의",
+            "확정 MVP의 기대 효과(시간 단축 등) 가설 설정"
+          ]
+        },
+        {
+          "module_name": "에이전트 설계 — 페르소나·지시문·지식 소스",
+          "duration": "2H",
+          "items": [
+            "에이전트 페르소나와 응답 범위 정의",
+            "시스템 지시문 작성 및 예외 처리 규칙 설계",
+            "지식 소스 준비 — 업무 문서·스프레드시트 업로드 범위 결정",
+            "Gemini Gems 빌더로 자신만의 에이전트 초안 구성"
+          ]
+        },
+        {
+          "module_name": "1인 1 Gems 프로토타입 제작",
+          "duration": "1H",
+          "items": [
+            "설계안을 바탕으로 각자 Gems 에이전트 프로토타입 완성",
+            "샘플 입력값으로 응답 품질 1차 점검",
+            "팀 내 상호 시연 및 피드백 수집"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "03",
+      "track_name": "Day 3 — 고도화와 성과 측정",
+      "course_title": "Google Workspace 연동 고도화, 팀장 오케스트레이션과 As-is/To-be 성과 측정",
+      "duration": "4H",
+      "tools": [
+        "Gemini Enterprise",
+        "Gemini Gems",
+        "Google Workspace"
+      ],
+      "modules": [
+        {
+          "module_name": "에이전트 고도화와 Google Workspace 연동",
+          "duration": "2H",
+          "items": [
+            "테스트 케이스 확장 및 지시문 수정으로 응답 정확도 개선",
+            "Google Workspace(Docs, Sheets 등) 기본 연동으로 실제 업무 흐름 반영",
+            "사내 데이터 커넥터 연동은 롯데 측 커넥터 개발 일정과 연계해 적용 범위 협의",
+            "예외 상황 대응 규칙 보완"
+          ]
+        },
+        {
+          "module_name": "As-is/To-be 업무 시간 측정",
+          "duration": "1H",
+          "items": [
+            "기존 업무 처리 시간(As-is) 기록 정리",
+            "에이전트 적용 후 처리 시간(To-be) 측정",
+            "시간 절감 효과를 수치로 정리"
+          ]
+        },
+        {
+          "module_name": "발표·팀장 오케스트레이션 관점과 확산 계획",
+          "duration": "1H",
+          "items": [
+            "개인별 에이전트 시연 및 As-is/To-be 결과 발표",
+            "팀장급 대상: 팀원들이 만든 에이전트를 연결·관리하는 오케스트레이션 설계 관점 안내",
+            "우수 사례 선정 및 타 팀·계열사 공유 방안 논의",
+            "교육 종료 후 각자 에이전트를 지속 업데이트하는 운영 계획 수립"
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "<ul style='margin:0; padding-left:20px; line-height:1.8;'><li><b>1인 1 Gems 에이전트</b> (개인별 업무 맞춤 프로토타입)</li><li>팀 페인포인트-해결 매트릭스 및 팀 대표 에이전트 선정</li><li>As-is/To-be 업무 시간 측정 리포트</li><li>교육 후 지속 고도화를 위한 개인별 에이전트 운영 계획</li></ul>",
+  "curriculum_title": "일자별 상세 커리큘럼",
+  "schedule_message": "<p style='margin:0'>본 워크숍은 팀 단위/유관부서 그룹으로 참여하며, 차수당 20명 기준 오프라인 1개 교육장에서 진행합니다. 사전 설문으로 수강생의 AI 활용 수준(초·중·고)을 진단해 차수 편성 또는 수준별 하이브리드 진행에 반영하며, 8월 말~9월 초 시작 일정으로 차수를 협의해 확정합니다.</p>",
+  "show_instructors": true,
+  "instructors": [
+    {
+      "category": "비개발자 과정",
+      "name": "송O호",
+      "headline": "비개발자 대상 생성형 AI·데이터 활용 교육 전문",
+      "bio": "인천대학교 정보기술대학원 강사로 직장인 대상 LLM 프롬프트 엔지니어링·생성형 AI 활용 강의 진행 중. (주)더아이엠씨 빅데이터·인공지능 전문강사로 KOTRA·서울대·고려대 등 대학·공공기관·기업 대상 빅데이터/AI 강의를 다수 수행. 신문방송학 박사로 비전공자 관점에서 복잡한 개념을 일상적 비유로 풀어내는 '눈높이 교육'에 특화되어 있으며, 모두의연구소와 다수 협업 이력을 보유.",
+      "expertise": [
+        "생성형 AI 활용",
+        "프롬프트 엔지니어링",
+        "텍스트마이닝·빅데이터",
+        "데이터 분석",
+        "미디어 리터러시"
+      ],
+      "experience": [
+        "인천대학교 정보기술대학원 강사 (직장인 대상 LLM·생성형 AI)",
+        "(주)더아이엠씨 빅데이터/인공지능 전문강사",
+        "KOTRA·서울대·고려대 등 대학·공공기관·기업 AI 강의 다수",
+        "생성형 AI 관련 도서 집필 · KCI 등재지 논문 다수",
+        "모두의연구소 기업교육 협업 다수"
+      ],
+      "metrics": [
+        {
+          "value": "4.98",
+          "label": "강사 만족도"
+        },
+        {
+          "value": "4.97",
+          "label": "과정 만족도"
+        },
+        {
+          "value": "200H+",
+          "label": "AI·데이터 강의"
+        }
+      ]
+    },
+    {
+      "category": "비개발자 과정 · Gemini Enterprise",
+      "name": "곽O철",
+      "headline": "SKT Gemini Enterprise 도입 교육 · 생성형 AI 업무 자동화 실무",
+      "bio": "SKT Gemini Enterprise 도입 교육을 진행한 GE 실전 경험 보유 강사. MCP Korea를 직접 운영하며 AI 통역 서비스 Osay Co-Founder, 지피터스 파트너로 활동 중. SK mySuni·SK Innovation·SK broadband·한화시스템·LG인화원·멀티캠퍼스 등 대기업 대상 생성형 AI·업무 자동화 교육을 다수 진행했으며, 입문자 대상 전달력이 검증된 비개발자 교육 전문가.",
+      "expertise": [
+        "Gemini Enterprise",
+        "생성형 AI 활용",
+        "업무 자동화 (n8n·Make)",
+        "프롬프트 엔지니어링",
+        "MCP"
+      ],
+      "experience": [
+        "SKT Gemini Enterprise 도입 교육 진행",
+        "SK mySuni·SK Innovation·한화시스템·LG인화원 등 대기업 교육 다수",
+        "MCP Korea 운영 · AI 통역 서비스 Osay Co-Founder",
+        "2024 항해99 해커톤 최우수상 · 서울경제진흥원 G밸리 프롬프트 최우수상",
+        "지피터스 기초 강의 누적 300명+ 수강"
+      ],
+      "metrics": [
+        {
+          "value": "4.6",
+          "label": "강의 만족도 (5.0)"
+        },
+        {
+          "value": "300+",
+          "label": "누적 수강생"
+        },
+        {
+          "value": "2회",
+          "label": "경진대회 최우수상"
+        }
+      ]
+    }
+  ]
+}

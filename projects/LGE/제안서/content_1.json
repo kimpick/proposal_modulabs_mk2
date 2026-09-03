@@ -1,0 +1,300 @@
+{
+  "title": "LG Electronics AI 교육 과정 제안",
+  "subtitle": "4가지 선택형 과정 — 하네스 엔지니어링(기초/심화) + RAG 시스템(기초/심화)",
+  "pdf_filename": "[모두의연구소]LGE_AI교육_제안서",
+  "info": {
+    "keyword": "하네스 엔지니어링\nLoop Engineering\nRAG 시스템 구축",
+    "ax_stage": "AI 개발자 역량 강화\n→ 에이전트 설계·지식 시스템 구축",
+    "target": "사내 소프트웨어 개발자 (Python 기초 이상)",
+    "duration": "과정별 3일(24H) 또는 5일(40H)\n4가지 안 중 선택"
+  },
+  "intro": "본 제안은 LG Electronics 소프트웨어 개발자를 위한 <b>4가지 선택형 교육 과정</b>입니다. 두 가지 주제(하네스 엔지니어링, RAG 시스템)에 대해 각각 기초(3일)와 심화(5일) 과정을 운영합니다.\n\n<b>주제 1: 하네스 엔지니어링</b> — 개인 업무 생산성 향상을 위한 <b>업무별 에이전틱 루프 설계</b>에 집중합니다. 기초 과정에서는 Codex Desktop 기반으로 개인 단위 업무 자동화 루프를 구축합니다. 심화 과정에서는 <b>Loop Engineering</b> 방법론을 도입하여, Tmux 환경에서 복잡한 다단계 업무를 자율적으로 순환 처리하는 멀티에이전트 하네스를 설계합니다. VMAO(검증 루프), DOVA(숙고 우선) 등 2026년 실전 방법론을 적용합니다.\n\n<b>주제 2: RAG 시스템 구축</b> — 기초 과정에서는 LangChain 기반으로 임베딩·검색 파이프라인을 구축합니다. 심화 과정에서는 기초 내용을 간략히 복습한 후 GraphRAG, Agentic RAG(LangGraph), RAGAS 정량 평가까지 사내 문서 기반 RAG 아키텍처를 고도화합니다.",
+  "objective": "<ul><li><b>하네스 엔지니어링 내재화</b>: 컨텍스트·제약·엔트로피 3원칙 기반으로 업무별 에이전틱 루프를 직접 설계·구현</li><li><b>Loop Engineering 습득</b>: VMAO/DOVA 방법론으로 자율 순환 루프를 설계하고, Tmux 멀티에이전트 환경에서 실전 구동</li><li><b>RAG 파이프라인 구축</b>: LangChain 기초부터 LangGraph 기반 Agentic RAG까지 엔드투엔드 구현</li><li><b>사내 적용 산출물</b>: LGE 환경에 맞는 에이전틱 루프 설계서 또는 RAG 파이프라인 완성</li></ul>",
+  "tech_stack": [
+    "Codex Desktop",
+    "Codex CLI",
+    "Tmux",
+    "OpenAI API",
+    "LangChain",
+    "LangGraph",
+    "ChromaDB",
+    "Neo4j",
+    "RAGAS",
+    "GitHub CI/CD"
+  ],
+  "infrastructure": [
+    "사내 개발 환경 (Python 3.10+, VS Code, Git)",
+    "안정적인 인터넷 접속 환경 (API 호출 다수)",
+    "OpenAI API 키 — 교육용 계정",
+    "기초 과정: Codex Desktop 설치 (별도 코딩 환경 불필요)",
+    "심화 과정: 터미널 환경, Docker, Tmux 설치",
+    "RAG 심화: Neo4j Community Edition 설치 (GraphRAG 실습용)",
+    "그룹당 12~15명 권장, 1~2그룹 운영 가능",
+    "주강사 1인 + 보조강사 1인 운영 권장"
+  ],
+  "use_simple_track_label": false,
+  "curriculum_title": "4가지 과정 커리큘럼 — 주제별 기초(3일) / 심화(5일)",
+  "tracks": [
+    {
+      "track_id": "01",
+      "track_name": "안 1 · 개인 업무 하네스 엔지니어링 기초",
+      "course_title": "Codex Desktop으로 업무별 에이전틱 루프 설계하는 3일 과정",
+      "target": "사내 소프트웨어 개발자 (Python 기초 이상, 에이전틱 AI 경험 불필요)",
+      "duration": "3일 (24시간)",
+      "tools": [
+        "Codex Desktop",
+        "OpenAI API"
+      ],
+      "modules": [
+        {
+          "module_name": "Day 1 · 하네스 기초",
+          "duration": "8H",
+          "items": [
+            "<b>에이전틱 AI 개요 (1.5H)</b> — 하네스 엔지니어링 패러다임, Context/Constraints/Entropy 3원칙, 에이전틱 루프란",
+            "<b>Codex Desktop 환경 세팅 (1.5H)</b> — 설치, 프로젝트 생성, 자연어 기반 코드 생성 체험",
+            "<b>컨텍스트 엔지니어링 (2H)</b> — 에이전트에 맥락·제약·역할을 전달하는 AGENTS.md 작성법",
+            "<b>개인 업무 정의 워크숍 (3H)</b> — 내 업무를 \"역할·입력·처리·출력\"으로 정의, AI 적용 시나리오 도출"
+          ]
+        },
+        {
+          "module_name": "Day 2 · 루프 설계",
+          "duration": "8H",
+          "items": [
+            "<b>에이전틱 루프 설계법 (2H)</b> — 단일 업무 AI 루프: 입력→판단→실행→검증→피드백",
+            "<b>Codex Desktop 실습 (2.5H)</b> — 정의한 업무 시나리오를 Codex에서 구현, 루프 자동화 체험",
+            "<b>제약(Constraints) 설계 (1.5H)</b> — 에이전트 행동 범위 통제, 가드레일 설정, 엔트로피 관리 기초",
+            "<b>업무별 루프 프로토타입 (2H)</b> — 개인별 1개 업무 루프 완성 → <b>산출물: 루프 설계서 + 프로토타입</b>"
+          ]
+        },
+        {
+          "module_name": "Day 3 · 최적화·실무",
+          "duration": "8H",
+          "items": [
+            "<b>루프 검증·개선 (2H)</b> — 에이전틱 루프 실행 결과 분석, 오작동 사례 진단, 루프 안정화",
+            "<b>다중 업무 루프 설계 (2H)</b> — 연관 업무 간 루프 연결, 데이터 흐름 설계, 우선순위 관리",
+            "<b>팀 공유·피어리뷰 (2H)</b> — 팀별 에이전틱 루프 시연, 상호 피드백, 개선점 도출",
+            "<b>실무 적용 계획 (2H)</b> — LGE 환경 적용 로드맵, 심화 과정 안내 → <b>산출물: 실무 적용 계획서</b>"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "02",
+      "track_name": "안 2 · Loop Engineering 심화",
+      "course_title": "Tmux 기반 Loop Engineering으로 복잡 업무를 자율 순환 처리하는 5일 과정",
+      "target": "사내 소프트웨어 개발자 (기초 과정 수료 또는 동급 역량)",
+      "duration": "5일 (40시간)",
+      "tools": [
+        "Codex CLI",
+        "Tmux",
+        "OpenAI API",
+        "GitHub CI/CD"
+      ],
+      "modules": [
+        {
+          "module_name": "Day 1 · 하네스 심화",
+          "duration": "8H",
+          "items": [
+            "<b>하네스 2단계 심화 (1.5H)</b> — 기초 복습 + 복잡 업무 분해법, 다단계 워크플로우 설계 원칙",
+            "<b>Codex CLI 환경 세팅 (1.5H)</b> — 터미널 기반 에이전틱 코딩, CLI 프로젝트 하네스 구축",
+            "<b>Tmux 멀티세션 환경 (2H)</b> — Tmux 설치·활용, 멀티 패널에서 복수 에이전트 동시 실행 환경 구축",
+            "<b>복잡 업무 분해 실습 (3H)</b> — LGE 복잡 업무를 다단계 태스크로 분해, 에이전트 배치 설계"
+          ]
+        },
+        {
+          "module_name": "Day 2 · 멀티에이전트",
+          "duration": "8H",
+          "items": [
+            "<b>멀티에이전트 패턴 (1.5H)</b> — Sequential, Parallel, Manager-Worker, Reflection 패턴",
+            "<b>Sequential 파이프라인 (2H)</b> — Tmux에서 순차 실행 에이전트 체인 구현, 중간 결과 검증",
+            "<b>Manager-Worker (2.5H)</b> — 관리 에이전트가 작업 에이전트에 지시·검증하는 구조 구현",
+            "<b>엔트로피 관리 (2H)</b> — 다중 에이전트 컨텍스트 누락·충돌 제어, 상태 일관성 유지"
+          ]
+        },
+        {
+          "module_name": "Day 3 · Loop 핵심",
+          "duration": "8H",
+          "items": [
+            "<b>Loop Engineering 개요 (1.5H)</b> — 1-shot 에이전트에서 자율 순환 루프로의 진화, VMAO/DOVA 방법론",
+            "<b>VMAO 검증 루프 (2.5H)</b> — Verify→Measure→Act→Observe 순환 구조 설계 및 Tmux 구현",
+            "<b>DOVA 숙고 우선 (2H)</b> — Deliberate→Over-Verify→Act: 에이전트가 행동 전 충분히 숙고하는 루프 설계",
+            "<b>Self-Healing 루프 (2H)</b> — 에이전트 오류 자동 감지·복구, 에스컬레이션(인간 개입) 전략"
+          ]
+        },
+        {
+          "module_name": "Day 4 · Loop 실전",
+          "duration": "8H",
+          "items": [
+            "<b>Tmux 루프 티밍 (3H)</b> — Tmux에서 다수 Codex CLI 에이전트를 Loop Engineering 패턴으로 운영",
+            "<b>CI/CD 통합 루프 (2H)</b> — Loop Engineering 파이프라인을 GitHub Actions에 통합, 자동 실행 환경 구축",
+            "<b>가드레일·검증 (2H)</b> — 자동화 루프에 제약·검증·롤백 메커니즘 내장, 비용·성능 최적화"
+          ]
+        },
+        {
+          "module_name": "Day 5 · 종합 프로젝트",
+          "duration": "8H",
+          "items": [
+            "<b>LGE Loop 설계 (2H)</b> — 팀별 LGE 실무 복잡 업무 선정, Loop Engineering 기반 하네스 설계서 작성",
+            "<b>프로토타입 구현 (3H)</b> — Tmux 기반 Loop Engineering 파이프라인 구현, VMAO/DOVA 적용 테스트",
+            "<b>팀별 발표 (2H)</b> — Loop 설계서·프로토타입 발표, 상호 피어리뷰",
+            "<b>도입 로드맵 (1H)</b> — LGE Loop Engineering 도입 실행 계획 → <b>산출물: 완성본 + 로드맵</b>"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "03",
+      "track_name": "안 3 · RAG 활용 기초",
+      "course_title": "LangChain 기반 비정형 문서·빅데이터 AI 지식 활용 3일 과정",
+      "target": "사내 소프트웨어 개발자 (Python 기초 이상, RAG 경험 불필요)",
+      "duration": "3일 (24시간)",
+      "tools": [
+        "LangChain",
+        "ChromaDB",
+        "OpenAI API",
+        "Codex Desktop"
+      ],
+      "modules": [
+        {
+          "module_name": "Day 1 · RAG 기초",
+          "duration": "8H",
+          "items": [
+            "<b>RAG 개요 (1.5H)</b> — RAG(Retrieval-Augmented Generation) 원리, Naive RAG 한계, 왜 RAG인가",
+            "<b>임베딩 기초 (2H)</b> — 텍스트를 벡터로 변환하는 원리, Dense 임베딩, OpenAI Embeddings 실습",
+            "<b>벡터 DB 구축 (2.5H)</b> — ChromaDB 설치·실습, 문서 인덱싱, 유사도 검색 원리와 실습",
+            "<b>LangChain 기초 (2H)</b> — LangChain 아키텍처, Chain 개념, 기본 RAG Chain 구현"
+          ]
+        },
+        {
+          "module_name": "Day 2 · 문서 처리",
+          "duration": "8H",
+          "items": [
+            "<b>비정형 데이터 파싱 (2H)</b> — PDF, Word, HTML 등 다양한 포맷 문서 파싱, 텍스트 추출",
+            "<b>청킹(Chunking) 전략 (2H)</b> — Semantic Chunking, Recursive Splitting, 청크 크기 최적화",
+            "<b>검색 파이프라인 (2H)</b> — 쿼리 처리, Top-K 검색, 유사도 임계값 설정, 검색 결과 랭킹",
+            "<b>Codex RAG 실습 (2H)</b> — Codex Desktop에서 문서 기반 Q&A 봇 구축 체험"
+          ]
+        },
+        {
+          "module_name": "Day 3 · 파이프라인",
+          "duration": "8H",
+          "items": [
+            "<b>빅데이터 처리 (2H)</b> — 대량 문서 처리, 배치 인덱싱, 메타데이터 관리, 컬렉션 설계",
+            "<b>RAG 평가 기초 (2H)</b> — 정성 평가(정확성·관련성), 기본 정량 지표, 환각(Hallucination) 감지",
+            "<b>팀 프로젝트 (2H)</b> — LGE 문서 데이터로 RAG 파이프라인 구축·시연",
+            "<b>공유·적용 계획 (2H)</b> — 팀별 발표, 피어리뷰, 사내 적용 로드맵 → <b>산출물: RAG 파이프라인 완성본 + 적용 계획서</b>"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "04",
+      "track_name": "안 4 · 고급 RAG 아키텍처 심화",
+      "course_title": "기초 RAG 복습 + GraphRAG·Agentic RAG(LangGraph)로 사내 RAG 고도화 5일 과정",
+      "target": "사내 소프트웨어 개발자 (RAG 기초 과정 수료 또는 동급 역량)",
+      "duration": "5일 (40시간)",
+      "tools": [
+        "LangChain",
+        "LangGraph",
+        "Neo4j",
+        "ChromaDB",
+        "RAGAS",
+        "Codex CLI",
+        "OpenAI API"
+      ],
+      "modules": [
+        {
+          "module_name": "Day 1 · RAG 심화",
+          "duration": "8H",
+          "items": [
+            "<b>기초 RAG 복습 + Advanced RAG (2H)</b> — 임베딩·벡터DB·LangChain 복습, 기초 한계와 개선 방향",
+            "<b>하이브리드 검색 (2.5H)</b> — BM25(Sparse)+Dense 결합, Cross-Encoder Re-ranking, RRF 구현",
+            "<b>Query Transformation (2H)</b> — Query Rewriting, HyDE, Semantic Routing, LLM Query 분해",
+            "<b>Codex CLI RAG 실습 (1.5H)</b> — 터미널 환경에서 고급 RAG 파이프라인 구축"
+          ]
+        },
+        {
+          "module_name": "Day 2 · 그래프",
+          "duration": "8H",
+          "items": [
+            "<b>지식그래프 기초 (2H)</b> — Entity·Relation 추출, 그래프 데이터 모델링, Neo4j 설치·실습",
+            "<b>GraphRAG 파이프라인 (3H)</b> — 문서에서 지식그래프까지 검색 파이프라인 구현, Community Detection",
+            "<b>Multi-Hop 검색 (2H)</b> — 다단계 추론 검색, 그래프 순회, 벡터+그래프 하이브리드 검색",
+            "<b>산출물</b>: GraphRAG 파이프라인 + Neo4j 지식그래프"
+          ]
+        },
+        {
+          "module_name": "Day 3 · 에이전트",
+          "duration": "8H",
+          "items": [
+            "<b>Agentic RAG (1.5H)</b> — 정적 RAG에서 자율형 RAG로, 에이전트가 검색을 판단하는 구조",
+            "<b>LangGraph RAG (2.5H)</b> — StateGraph로 순환형 RAG 파이프라인 설계, 조건 분기·루프 구현",
+            "<b>Self-RAG (2H)</b> — 검색 필요성 판단, 생성 품질 검증, 자기 피드백 루프로 환각 통제",
+            "<b>CRAG 실습 (2H)</b> — Corrective RAG, 검색 결과 품질 평가·보정·재검색 자동화"
+          ]
+        },
+        {
+          "module_name": "Day 4 · 평가·보안",
+          "duration": "8H",
+          "items": [
+            "<b>RAGAS 정량 평가 (2H)</b> — Faithfulness, Answer Relevancy, Context Precision/Recall 자동 평가",
+            "<b>Memory Architecture (2H)</b> — 세션·장기·에피소드 메모리 하이브리드 설계, 대화형 RAG",
+            "<b>엔터프라이즈 보안 (2H)</b> — PII 필터링, 접근 제어, 사내 데이터 권한 관리",
+            "<b>사내 데이터 연동 (2H)</b> — LGE 내부 시스템 API·DB 연동 설계 → <b>산출물: Agentic RAG 프로토타입</b>"
+          ]
+        },
+        {
+          "module_name": "Day 5 · 사내 적용",
+          "duration": "8H",
+          "items": [
+            "<b>사내 데이터 RAG (3H)</b> — LGE 실무 데이터(기술 문서, 규정 등) 고급 RAG 시스템 완성",
+            "<b>팀 경진대회 (2H)</b> — 사내 데이터 기반 RAG 최적화·성능 비교·RAGAS 정량 평가",
+            "<b>팀별 발표 (2H)</b> — 구축 결과물 발표, 정량 평가 공유, 피어리뷰",
+            "<b>도입 로드맵 (1H)</b> — LGE RAG 고도화 실행 계획 → <b>산출물: 사내 고급 RAG 완성본 + 로드맵</b>"
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "<ul><li><b>[안 1] 하네스 엔지니어링 기초 산출물</b></li><li>Day 1: 개인 업무 정의서 + AGENTS.md</li><li>Day 2: 업무별 에이전틱 루프 설계서 + 프로토타입</li><li>Day 3: 실무 적용 계획서</li></ul><ul><li><b>[안 2] Loop Engineering 심화 산출물</b></li><li>Day 1~2: Tmux 멀티에이전트 파이프라인 프로토타입</li><li>Day 3: VMAO/DOVA 기반 Loop Engineering 설계서</li><li>Day 4: CI/CD 통합 Loop 자동화 파이프라인</li><li>Day 5: 팀별 Loop Engineering 완성본 + 도입 로드맵</li></ul><ul><li><b>[안 3] RAG 기초 산출물</b></li><li>Day 1~2: LangChain 임베딩 파이프라인 + 검색 시스템</li><li>Day 3: LGE 문서 기반 RAG 파이프라인 완성본 + 적용 계획서</li></ul><ul><li><b>[안 4] 고급 RAG 심화 산출물</b></li><li>Day 1: 하이브리드 검색 + Query Transformation 파이프라인</li><li>Day 2: GraphRAG 파이프라인 + Neo4j 지식그래프</li><li>Day 3~4: LangGraph 기반 Agentic RAG 프로토타입</li><li>Day 5: 사내 데이터 고급 RAG 완성본 + RAGAS 평가 리포트 + 도입 로드맵</li></ul>",
+  "instructors": [
+    {
+      "category": "AI 개발자 과정",
+      "name": "석*희",
+      "headline": "백엔드·검색/RAG 인프라 실무 전문",
+      "bio": "무신사 검색플랫폼팀 백엔드 엔지니어(5년)로 대규모 트래픽 검색 시스템 설계·운영. Elasticsearch 기반 검색 엔진 고도화·성능 최적화(검색 속도 40%↑), 블랙프라이데이 트래픽 대응(처리량 30%↑·응답시간 20%↓), Kafka 실시간 데이터 파이프라인·Kubernetes(EKS) 오케스트레이션 등 백엔드 인프라 전 영역 경험 보유. KB국민은행 신입 자바 백엔드 교육(평가 5.0점) 등 비전공자 대상 실전형 교육 다수 진행 중.",
+      "expertise": [
+        "Java · Spring Boot",
+        "Elasticsearch · 검색/RAG",
+        "Kafka · 데이터 파이프라인",
+        "MSA · Kubernetes",
+        "Redis"
+      ],
+      "experience": [
+        "KB국민은행 신입사원 자바 백엔드 교육 (평가 5.0점)",
+        "무신사 검색플랫폼팀 백엔드 엔지니어 (대규모 트래픽 검색 시스템)",
+        "써머스플랫폼 검색 엔진 고도화 (에누리·다나와)",
+        "GPT 프롬프트·노코드 자동화(Make·n8n) 커뮤니티 세미나",
+        "TCP School 온라인 강의 & 경기도청 거꾸로교실 (웹·네트워크·AI 입문)",
+        "고려대학교 세종캠퍼스 AI Agent 교육"
+      ],
+      "metrics": [
+        {
+          "value": "4.64",
+          "label": "전체 만족도"
+        },
+        {
+          "value": "4.4",
+          "label": "교육자료 유용성"
+        },
+        {
+          "value": "64점",
+          "label": "추천지수 NPS"
+        }
+      ]
+    }
+  ],
+  "instructor_note": "* 해당 강사는 계약 확정 후 변경될 수 있습니다.",
+  "section_07_title": "운영 안내",
+  "schedule_message": "<div style='text-align: left; color: #333;'><p style='margin-bottom: 12px;'><b>4가지 과정 구성 안내</b></p><table class='curriculum-table' style='margin-bottom: 20px;'><thead><tr><th style='width: 24%;'>과정</th><th style='width: 14%;'>기간</th><th style='width: 14%;'>시간</th><th style='width: 18%;'>실습 도구</th><th>내용</th></tr></thead><tbody><tr><td><b>안 1</b> 하네스 기초</td><td>3일</td><td>24시간</td><td>Codex Desktop</td><td>개인 업무 에이전틱 루프 설계 기초 (하네스 2단계 기초)</td></tr><tr><td><b>안 2</b> 하네스 심화</td><td>5일</td><td>40시간</td><td>Codex CLI + Tmux</td><td>Loop Engineering (VMAO/DOVA) + 멀티에이전트 하네스 (하네스 2단계 심화)</td></tr><tr style='background:#F8F8F8'><td><b>안 3</b> RAG 기초</td><td>3일</td><td>24시간</td><td>LangChain + ChromaDB</td><td>비정형 문서 RAG 파이프라인 구축 기초</td></tr><tr style='background:#F8F8F8'><td><b>안 4</b> RAG 심화</td><td>5일</td><td>40시간</td><td>LangGraph + Neo4j</td><td>기초 복습 + GraphRAG, Agentic RAG(LangGraph) 고도화</td></tr></tbody></table><p style='margin-bottom: 8px;'><b>선택 가이드</b></p><ul style='margin-top: 0; margin-bottom: 16px;'><li><b>안 1 &#8594; 안 2</b>: 하네스 기초(3일) 수료 후 Loop Engineering 심화(5일) 진행 권장</li><li><b>안 3 &#8594; 안 4</b>: RAG 기초(3일) 수료 후 고급 RAG(5일) 진행 권장</li><li><b>안 1+안 3</b>: 하네스 기초 + RAG 기초 동시 수강 가능 (6일)</li><li><b>안 2+안 4</b>: Loop Engineering 심화 + 고급 RAG 동시 수강 가능 (10일)</li></ul><p style='margin-bottom: 8px;'><b>운영 조건</b></p><ul style='margin-top: 0; margin-bottom: 16px;'><li><b>그룹 규모</b>: 12~15명 권장, 최대 2그룹 동시 운영</li><li><b>사전 역량 진단</b>: 수강 전 Python 기초, Git 기본 역량 확인</li><li><b>일정 협의</b>: 과정별 독립 또는 연속 운영 (협의 후 확정)</li><li><b>실습 환경</b>: Python 3.10+, VS Code, Git. 기초: Codex Desktop. 심화: Tmux + Docker</li><li><b>API 키</b>: OpenAI API 교육용 계정 필요</li><li><b>강사 구성</b>: 주강사 1인 + 보조강사 1인 권장</li></ul></div>"
+}

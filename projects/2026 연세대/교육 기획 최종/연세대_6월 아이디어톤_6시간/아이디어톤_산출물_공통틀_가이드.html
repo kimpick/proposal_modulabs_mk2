@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>아이디어톤 산출물 공통 틀 가이드 | 모두의연구소</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#030712;-webkit-font-smoothing:antialiased;touch-action:pan-y;-webkit-tap-highlight-color:transparent}
+
+/* ── Navigator ── */
+.nav{position:fixed;top:56px;left:0;right:0;z-index:210;display:flex;justify-content:center;gap:3px;padding:10px 40px;opacity:0.15;transition:opacity .4s}
+.nav:hover{opacity:0.85}
+.nav-dot{width:28px;height:3px;background:rgba(255,255,255,.25);border-radius:2px;border:none;cursor:pointer;transition:all .25s;flex-shrink:0}
+.nav-dot.active{background:#F7585C;width:36px}
+.nav-dot:hover{background:rgba(247,88,92,.6)}
+body.light-slide .nav-dot{background:rgba(0,0,0,.12)}
+body.light-slide .nav-dot.active{background:#F7585C}
+body.light-slide .nav-dot:hover{background:rgba(247,88,92,.5)}
+
+/* ── Track Tabs ── */
+.track-tabs{position:fixed;top:0;left:0;right:0;z-index:250;display:flex;justify-content:center;gap:6px;padding:10px 16px;background:transparent;transition:background .4s;-webkit-tap-highlight-color:transparent}
+body:not(.light-slide) .track-tabs{background:linear-gradient(180deg,rgba(3,7,18,.6) 0%,transparent 100%)}
+.track-tab{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:999px;border:1.5px solid transparent;background:rgba(255,255,255,.08);color:rgba(255,255,255,.65);font-size:.9rem;font-weight:600;cursor:pointer;transition:all .25s;font-family:inherit;letter-spacing:.2px;min-height:40px}
+body.light-slide .track-tab{background:rgba(0,0,0,.04);color:#5F656C;border-color:rgba(0,0,0,.08)}
+.track-tab:hover{transform:translateY(-1px)}
+.track-tab .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;opacity:.85}
+.track-tab[data-track="all"] .dot{background:#5F656C}
+.track-tab[data-track="1"] .dot{background:#3B82F6}
+.track-tab[data-track="2"] .dot{background:#F7585C}
+.track-tab[data-track="3"] .dot{background:#10B981}
+.track-tab.active{font-weight:700}
+.track-tab.active[data-track="all"]{background:#030712;color:#fff;border-color:#030712}
+.track-tab.active[data-track="1"]{background:#3B82F6;color:#fff;border-color:#3B82F6}
+.track-tab.active[data-track="2"]{background:#F7585C;color:#fff;border-color:#F7585C}
+.track-tab.active[data-track="3"]{background:#10B981;color:#fff;border-color:#10B981}
+.t-exclusive{}
+.card+.card{margin-top:12px}
+:where(.grid-3,.grid-2) .card+.card{margin-top:0}
+
+/* ── Jump Button (끝 페이지) ── */
+.jump-btn{position:fixed;bottom:54px;right:36px;z-index:200;display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;border:1.5px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:rgba(255,255,255,.62);font-size:.82rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .25s;-webkit-tap-highlight-color:transparent}
+body.light-slide .jump-btn{background:rgba(0,0,0,.04);color:#5F656C;border-color:rgba(0,0,0,.1)}
+.jump-btn:hover{background:#F7585C;color:#fff;border-color:#F7585C;transform:translateY(-1px)}
+
+/* ── Slide Number ── */
+.slide-num{position:fixed;bottom:24px;right:36px;font-size:.75rem;color:rgba(255,255,255,.15);z-index:100;font-variant-numeric:tabular-nums;letter-spacing:1px;transition:color .5s}
+body.light-slide .slide-num{color:rgba(0,0,0,.12)}
+
+/* ── Deck & Slides ── */
+.deck{width:100%;height:100%;position:relative}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;padding:112px 96px 56px;opacity:0;transition:opacity .45s ease;pointer-events:none;overflow:hidden}
+.slide.active{opacity:1;pointer-events:auto}
+
+/* ── Slide Themes ── */
+.s-white{background:#fff;color:#030712}
+.s-light{background:#F4F6F8;color:#030712}
+.s-dark{background:#030712;color:#fff}
+.s-accent{background:#F7585C;color:#fff}
+.s-coral{background:#FFF2F2;color:#030712}
+.s-gradient{background:linear-gradient(135deg,#030712 0%,#1a1f2e 100%);color:#fff}
+
+/* ── Typography ── */
+.s-label{font-size:.78rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#F7585C;margin-bottom:14px}
+.s-dark .s-label,.s-gradient .s-label,.s-accent .s-label{color:rgba(255,255,255,.45)}
+
+.s-title{font-size:2.6rem;font-weight:700;line-height:1.35;margin-bottom:36px;max-width:80%;word-break:keep-all}
+
+.s-body{flex:1;display:flex;flex-direction:column;justify-content:flex-start}
+
+.t-main{font-size:1.45rem;line-height:1.75;color:#2E3339;max-width:75%;word-break:keep-all}
+.s-dark .t-main,.s-gradient .t-main{color:rgba(255,255,255,.82)}
+.s-accent .t-main{color:rgba(255,255,255,.92)}
+
+.t-sub{font-size:1.05rem;line-height:1.65;color:#5F656C;margin-top:14px;max-width:70%;word-break:keep-all}
+.s-dark .t-sub,.s-gradient .t-sub{color:rgba(255,255,255,.4)}
+.s-accent .t-sub{color:rgba(255,255,255,.6)}
+
+.t-quote{font-size:1.5rem;line-height:1.8;border-left:4px solid #F7585C;padding-left:24px;margin:16px 0;max-width:72%;word-break:keep-all}
+.s-dark .t-quote{border-left-color:rgba(255,255,255,.2)}
+.s-accent .t-quote{border-left-color:rgba(255,255,255,.4)}
+
+.t-huge{font-size:9rem;font-weight:800;line-height:1;color:#F7585C;letter-spacing:-4px}
+.t-big{font-size:3rem;font-weight:700;line-height:1.4;word-break:keep-all}
+.t-emphasis{font-size:2rem;font-weight:700;line-height:1.55;word-break:keep-all}
+
+.hl{color:#F7585C}
+.s-accent .hl{color:#fff;text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:4px}
+.dim{opacity:.45}
+
+/* ── Cover ── */
+.slide.cover{justify-content:center;padding-top:0}
+.cover .s-title{font-size:3.2rem;max-width:80%;margin-bottom:20px}
+.cover-sub{font-size:1.15rem;color:#5F656C;margin-bottom:6px}
+.s-dark .cover-sub{color:rgba(255,255,255,.4)}
+.cover-brand{font-size:.85rem;color:#F7585C;font-weight:700;letter-spacing:1.5px;margin-top:12px}
+
+/* ── Cards ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:92%}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;max-width:97%}
+
+.card{padding:24px 26px;border-radius:14px;background:#F4F6F8}
+.s-dark .card,.s-gradient .card{background:rgba(255,255,255,.06)}
+.s-light .card{background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.card-icon{font-size:1.8rem;margin-bottom:14px}
+.card-title{font-size:1.15rem;font-weight:700;margin-bottom:8px;line-height:1.4}
+.card-desc{font-size:.95rem;line-height:1.6;color:#5F656C}
+.s-dark .card-desc,.s-gradient .card-desc{color:rgba(255,255,255,.55)}
+
+/* ── Track tag ── */
+.tk-tag{display:inline-block;padding:4px 12px;border-radius:6px;font-size:.78rem;font-weight:700;letter-spacing:.5px;margin-bottom:12px}
+.tk1{background:rgba(59,130,246,.13);color:#3B82F6}
+.tk2{background:rgba(247,88,92,.13);color:#F7585C}
+.tk3{background:rgba(16,185,129,.13);color:#10B981}
+
+/* ── Comparison Table ── */
+.cmp-table{width:96%;border-collapse:collapse;margin-top:8px}
+.cmp-table th{text-align:left;padding:12px 16px;font-size:.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#5F656C;border-bottom:2px solid #E5E7EB}
+.cmp-table td{padding:13px 16px;font-size:1rem;line-height:1.5;border-bottom:1px solid #F0F0F0;vertical-align:top}
+.cmp-table td:first-child{font-weight:600;color:#030712;width:22%}
+.s-dark .cmp-table th,.s-gradient .cmp-table th{color:rgba(255,255,255,.5);border-bottom-color:rgba(255,255,255,.15)}
+.s-dark .cmp-table td,.s-gradient .cmp-table td{color:rgba(255,255,255,.8);border-bottom-color:rgba(255,255,255,.08)}
+.s-dark .cmp-table td:first-child,.s-gradient .cmp-table td:first-child{color:#fff}
+
+/* ── Number List ── */
+.num-list{list-style:none;padding:0;counter-reset:item}
+.num-list li{font-size:1.25rem;line-height:1.5;padding:11px 0 11px 50px;position:relative;counter-increment:item;word-break:keep-all}
+.num-list li::before{content:counter(item);position:absolute;left:0;top:9px;width:34px;height:34px;border-radius:50%;background:#F7585C;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700}
+.s-accent .num-list li::before{background:rgba(255,255,255,.25)}
+
+/* ── Check List ── */
+.chk-list{list-style:none;padding:0}
+.chk-list li{font-size:1.25rem;line-height:1.5;padding:9px 0 9px 38px;position:relative;word-break:keep-all}
+.chk-list li::before{content:'';position:absolute;left:0;top:14px;width:16px;height:16px;border-radius:50%;background:#F7585C}
+.s-accent .chk-list li::before{background:rgba(255,255,255,.3)}
+.s-dark .chk-list li{color:rgba(255,255,255,.82)}
+
+/* ── Template box (빈 양식) ── */
+.tpl-box{background:#F4F6F8;border:2px dashed #C7CDD4;border-radius:12px;padding:18px 22px;margin-bottom:12px}
+.tpl-box .field{font-size:1rem;line-height:1.6;padding:6px 0;color:#2E3339}
+.tpl-box .field b{color:#030712}
+.tpl-box .ph{color:#9198A1;font-style:italic}
+.s-dark .tpl-box{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.2)}
+.s-dark .tpl-box .field{color:rgba(255,255,255,.8)}
+
+/* ── Flow ── */
+.flow{display:flex;align-items:stretch;gap:0;max-width:97%;margin-top:10px}
+.flow-step{flex:1;background:#F4F6F8;border-radius:12px;padding:20px 18px;text-align:center}
+.flow-step .fs-stage{font-size:.72rem;font-weight:700;letter-spacing:1px;color:#F7585C;text-transform:uppercase;margin-bottom:8px}
+.flow-step .fs-name{font-size:1.15rem;font-weight:700;margin-bottom:6px;line-height:1.3}
+.flow-step .fs-desc{font-size:.85rem;color:#5F656C;line-height:1.5}
+.flow-arrow{display:flex;align-items:center;font-size:1.4rem;color:#C7CDD4;padding:0 10px;flex-shrink:0}
+
+/* ── eyebrow note ── */
+.note{font-size:.95rem;color:#5F656C;margin-top:18px;padding:12px 18px;background:#FFF2F2;border-radius:8px;max-width:88%;line-height:1.6}
+.note b{color:#F7585C}
+
+/* ── Animation ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.slide.active .s-label{animation:fadeUp .45s ease .08s both}
+.slide.active .s-title{animation:fadeUp .45s ease .16s both}
+.slide.active .s-body>*{animation:fadeUp .45s ease .28s both}
+.slide.active .s-body>*:nth-child(2){animation-delay:.36s}
+.slide.active .s-body>*:nth-child(3){animation-delay:.42s}
+
+/* ── Center Variant ── */
+.slide.centered{align-items:center;text-align:center}
+.centered .s-title{max-width:90%;text-align:center}
+.centered .t-main{max-width:80%;text-align:center;margin:0 auto}
+.centered .t-sub{max-width:70%;text-align:center;margin:14px auto 0}
+
+/* ── Responsive ── */
+@media(max-width:1100px){
+  .slide{padding:96px 56px 40px}
+  .s-title{font-size:2.1rem}
+  .cover .s-title{font-size:2.6rem}
+  .t-huge{font-size:6.5rem}
+  .t-main{font-size:1.25rem}
+  .grid-2,.grid-3{max-width:100%}
+}
+</style>
+</head>
+<body class="light-slide">
+<div class="nav" id="nav"></div>
+<div class="track-tabs" id="trackTabs" role="tablist" aria-label="트랙 선택">
+  <button class="track-tab active" data-track="all" role="tab" type="button"><span class="dot"></span>전체</button>
+  <button class="track-tab" data-track="1" role="tab" type="button"><span class="dot"></span>트랙1 연구</button>
+  <button class="track-tab" data-track="2" role="tab" type="button"><span class="dot"></span>트랙2 커리어</button>
+  <button class="track-tab" data-track="3" role="tab" type="button"><span class="dot"></span>트랙3 사업</button>
+</div>
+<div class="slide-num" id="slideNum"></div>
+<button class="jump-btn" id="jumpLast" title="마지막 페이지 (End 키)" type="button"><span>끝</span><span aria-hidden="true">▶▶</span></button>
+<div class="deck" id="deck">
+
+<!-- 1. 커버 -->
+<div class="slide s-light cover" data-theme="light">
+  <div class="cover-brand">모두의연구소 × 연세대학교 · 2026 여름 AX 캠프</div>
+  <h1 class="s-title" style="margin-top:16px">아이디어톤 산출물<br><span class="hl">공통 틀 가이드</span></h1>
+  <p class="cover-sub">AI 100인 챌린지 · 6/24 아이디어톤</p>
+  <p class="cover-sub dim">슬라이드 3항목 + 트랙별 AI 활용 보고서 · 예시 포함</p>
+</div>
+
+<!-- 2. 산출물 2타입 개요 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">왜 이 산출물인가</p>
+  <h2 class="s-title">아이디어톤 산출물은 <span class="hl">두 가지</span>입니다</h2>
+  <div class="s-body">
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-icon">🖥️</div>
+        <div class="card-title">타입 1 — 발표 슬라이드</div>
+        <div class="card-desc">① 아이디어 리스트 → ② 선정 평가표 → ③ 기획안<br>세 가지 항목을 한 덱에 담아 공유·발표합니다. <b>모든 트랙 공통 구조</b>입니다.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">📄</div>
+        <div class="card-title">타입 2 — AI 활용 보고서 (워드)</div>
+        <div class="card-desc">트랙 주제에 맞는 실제 산출물.<br>트랙1 논문 초록 · 트랙2 콘텐츠 전략 기획 · 트랙3 사업계획서</div>
+      </div>
+    </div>
+    <div class="note">이 산출물은 <b>6/26 트랙별 60인(트랙당 20인) 선발 심사 자료</b>이자, <b>7월 현장워크숍의 출발점</b>이 됩니다. 완성도 높은 결과보다 <b>AI와 함께 얼마나 선명하게 만들었는가</b>를 봅니다.</div>
+  </div>
+</div>
+
+<!-- 3. 디자인씽킹 흐름 매핑 -->
+<div class="slide s-light" data-theme="light">
+  <p class="s-label">설계 원리</p>
+  <h2 class="s-title">디자인씽킹의 <span class="hl">발산 → 수렴 → 구체화</span></h2>
+  <div class="s-body">
+    <div class="flow">
+      <div class="flow-step">
+        <div class="fs-stage">Diverge · 발산</div>
+        <div class="fs-name">① 아이디어 리스트</div>
+        <div class="fs-desc">트랙 주제에 맞는<br>후보 3~5개를 펼친다</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="fs-stage">Converge · 수렴</div>
+        <div class="fs-name">② 선정 평가표</div>
+        <div class="fs-desc">기준으로 비교해<br>하나를 고른다</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="fs-stage">Prototype · 구체화</div>
+        <div class="fs-name">③ 기획안</div>
+        <div class="fs-desc">선정안을 실행 가능한<br>계획으로 만든다</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="fs-stage">Deliver · 산출</div>
+        <div class="fs-name">AI 활용 보고서</div>
+        <div class="fs-desc">트랙별 워드 산출물로<br>완성한다</div>
+      </div>
+    </div>
+    <div class="note">아이디어톤 타임라인의 <b>① Empathize → ② Define → ③ Ideation·Prototype → 공유·회고</b> 흐름과 그대로 맞물립니다.</div>
+  </div>
+</div>
+
+<!-- 4. 공통 구조 한눈에 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">공통 구조</p>
+  <h2 class="s-title">슬라이드 덱 <span class="hl">구성 순서</span></h2>
+  <div class="s-body">
+    <ol class="num-list">
+      <li><b>표지</b> — 트랙명 · 이름(팀) · 한 줄 미션</li>
+      <li><b>① 아이디어 리스트</b> — 트랙 주제 후보 3~5개 (발산)</li>
+      <li><b>② 아이디어 선정 평가표</b> — 기준별 점수 → 1개 선정 (수렴)</li>
+      <li><b>③ 기획안</b> — 선정한 아이디어를 구체적 계획으로</li>
+      <li><b>AI 활용 보고서 연결</b> — 트랙별 워드 산출물 요약/링크</li>
+    </ol>
+    <p class="t-sub" style="margin-top:18px">② · ③의 <b>평가 기준과 기획안 양식만 트랙별로 분기</b>합니다. 나머지 뼈대는 3트랙이 동일합니다.</p>
+  </div>
+</div>
+
+<!-- 5. 표지 작성 가이드 + 예시 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">구성 0 · 표지</p>
+  <h2 class="s-title">표지에는 <span class="hl">방향</span>을 한 장에</h2>
+  <div class="s-body">
+    <div class="grid-2">
+      <div>
+        <div class="tpl-box">
+          <div class="field"><b>트랙</b> · <span class="ph">트랙1 연구 / 트랙2 커리어 / 트랙3 사업</span></div>
+          <div class="field"><b>이름 / 팀명</b> · <span class="ph">홍길동</span></div>
+          <div class="field"><b>한 줄 미션</b> · <span class="ph">나는 [누구]의 [무엇]을 [어떻게] 바꾸고 싶다</span></div>
+        </div>
+        <p class="t-sub">미션 한 줄은 인터스텔라·자기관찰에서 길어 올린 <b>"내 인생에 AI를 갖고 무엇을 할 것인가"</b>의 압축입니다.</p>
+      </div>
+      <div>
+        <div class="card" data-track="1">
+          <span class="tk-tag tk1">예시 · 트랙1 연구</span>
+          <div class="card-title">"AI가 나의 메타인지를 어떻게 바꾸는가"</div>
+          <div class="card-desc">나는 <b>스스로 사고하는 습관</b>이 AI 사용에 어떤 영향을 받는지를 연구한다.</div>
+        </div>
+        <div class="card" data-track="2">
+          <span class="tk-tag tk2">예시 · 트랙2 커리어</span>
+          <div class="card-title">"비전공자도 데이터로 말하게"</div>
+          <div class="card-desc">나는 <b>숫자가 두려운 기획자</b>가 <b>데이터로 자기 주장을 증명</b>하도록 돕는 콘텐츠를 만든다.</div>
+        </div>
+        <div class="card" data-track="3">
+          <span class="tk-tag tk3">예시 · 트랙3 사업</span>
+          <div class="card-title">"자취생의 장보기를 AI가 돕는다"</div>
+          <div class="card-desc">나는 <b>자취생</b>의 <b>장보기·결제 분쟁</b>을 <b>AI Agent가 예방·해결</b>하도록 돕는 서비스를 만든다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 6. ① 아이디어 리스트 작성 가이드 -->
+<div class="slide s-light" data-theme="light">
+  <p class="s-label">구성 1 · 발산</p>
+  <h2 class="s-title">① 아이디어 리스트 — <span class="hl">좁히기 전에 펼치기</span></h2>
+  <div class="s-body">
+    <div class="grid-2">
+      <div>
+        <ul class="chk-list">
+          <li>트랙 주제에 맞는 후보 <b>3~5개</b></li>
+          <li>각 후보는 <b>한 문장</b>으로 정의</li>
+          <li>AI(Codex·ChatGPT)에게 <b>"내 관심·경험 기반 후보를 찾아줘"</b></li>
+          <li>좋은 아이디어보다 <b>다양한 각도</b>가 먼저</li>
+        </ul>
+      </div>
+      <div>
+        <div class="tpl-box">
+          <div class="field"><b>후보 1</b> · <span class="ph">한 문장 정의</span></div>
+          <div class="field"><b>후보 2</b> · <span class="ph">한 문장 정의</span></div>
+          <div class="field"><b>후보 3</b> · <span class="ph">한 문장 정의</span></div>
+          <div class="field"><b>후보 4~5</b> · <span class="ph">(선택)</span></div>
+        </div>
+        <p class="t-sub">AI와의 대화 로그도 함께 남기면 ②·③에서 근거로 쓰입니다.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 7. ① 트랙별 예시 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">구성 1 · 트랙별 예시</p>
+  <h2 class="s-title">같은 틀, <span class="hl">다른 주제</span></h2>
+  <div class="s-body">
+    <div class="grid-3">
+      <div class="card" data-track="1">
+        <span class="tk-tag tk1">트랙1 · 연구</span>
+        <div class="card-desc" style="line-height:1.7">• AI 사용이 대학생 메타인지에 미치는 영향<br>• 숏폼 소비와 집중력의 상관<br>• 캠퍼스 분리수거 행동 변화 요인<br>• 도서관 좌석 혼잡 예측</div>
+      </div>
+      <div class="card" data-track="2">
+        <span class="tk-tag tk2">트랙2 · 커리어</span>
+        <div class="card-desc" style="line-height:1.7">• 비전공자를 위한 데이터 직관<br>• 이공계의 글쓰기 생존법<br>• 교환학생 준비 올인원<br>• 입문자용 UX 리서치</div>
+      </div>
+      <div class="card" data-track="3">
+        <span class="tk-tag tk3">트랙3 · 사업</span>
+        <div class="card-desc" style="line-height:1.7">• 자취생 식단·장보기 관리<br>• 전공책 중고·스터디 매칭<br>• 동아리 회계 자동화<br>• 캠퍼스 분실물 봇</div>
+      </div>
+    </div>
+    <p class="t-sub" style="margin-top:18px">후보는 <b>자기 관심·전공·경험</b>에서 출발합니다. 거창함보다 <b>"내가 계속 파고들 수 있는가"</b>가 기준입니다.</p>
+  </div>
+</div>
+
+<!-- 8. ② 선정 평가표 작성 가이드 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">구성 2 · 수렴</p>
+  <h2 class="s-title">② 선정 평가표 — <span class="hl">고른 이유</span>를 남기기</h2>
+  <div class="s-body">
+    <table class="cmp-table">
+      <thead><tr><th>후보</th><th>기준 A</th><th>기준 B</th><th>기준 C</th><th>합계</th></tr></thead>
+      <tbody>
+        <tr><td>후보 1</td><td>4</td><td>3</td><td>5</td><td class="hl"><b>12</b></td></tr>
+        <tr><td>후보 2</td><td>3</td><td>5</td><td>3</td><td>11</td></tr>
+        <tr><td>후보 3</td><td>2</td><td>4</td><td>4</td><td>10</td></tr>
+      </tbody>
+    </table>
+    <p class="t-sub" style="margin-top:16px">각 기준 <b>1~5점</b>으로 비교하고, 점수만이 아니라 <b>"왜 이걸 골랐는지" 한 줄 근거</b>를 반드시 적습니다. 기준은 트랙별로 다릅니다 →</p>
+  </div>
+</div>
+
+<!-- 9. ② 트랙별 평가 기준 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">구성 2 · 트랙별 평가 기준</p>
+  <h2 class="s-title">트랙마다 <span class="hl">보는 눈</span>이 다릅니다</h2>
+  <div class="s-body">
+    <div class="t-exclusive" data-track="all">
+      <div class="grid-3">
+        <div class="card">
+          <span class="tk-tag tk1">트랙1 · 연구</span>
+          <div class="card-desc" style="line-height:1.8">A. Research Gap 명확성<br>B. 기여 가능성<br>C. 검증·데이터 확보 가능성<br>D. 관심·전공 연결</div>
+        </div>
+        <div class="card">
+          <span class="tk-tag tk2">트랙2 · 커리어</span>
+          <div class="card-desc" style="line-height:1.8">A. 스윗스팟(지식×취향×관점)<br>B. 차별적 각도<br>C. 커리어 연결성<br>D. 지속 가능성</div>
+        </div>
+        <div class="card">
+          <span class="tk-tag tk3">트랙3 · 사업</span>
+          <div class="card-desc" style="line-height:1.8">A. 문제 선명도<br>B. 사업성(지불 의사)<br>C. 실행 가능성<br>D. AI Agent 활용도</div>
+        </div>
+      </div>
+      <p class="t-sub" style="margin-top:18px">평가 기준은 각 트랙 <b>강의계획서의 평가 루브릭</b>과 연결됩니다. 내 트랙 탭을 누르면 <b>기대 역량 상세</b>가 펼쳐집니다.</p>
+    </div>
+
+    <div class="t-exclusive" data-track="1">
+      <div class="grid-3">
+        <div class="card">
+          <span class="tk-tag tk1">정량 평가</span>
+          <div class="card-desc" style="line-height:1.7">• 연구 산출물 완성도 (설계서·초록)<br>• 선행연구 조사 개수·인용 정확성</div>
+        </div>
+        <div class="card">
+          <span class="tk-tag tk1">정성 · 설계 완성도</span>
+          <div class="card-desc" style="line-height:1.7">• 질문 명확성 · <b>Research Gap</b> 겨냥<br>• 가설 + 자신만의 기여 포인트<br>• 검증·데이터 수집 현실성</div>
+        </div>
+        <div class="card">
+          <span class="tk-tag tk1">AI 활용 역량</span>
+          <div class="card-desc" style="line-height:1.7">• 초록·문헌리뷰·설계 생성·변형<br>• 자신만의 LLM 연구 워크플로우<br>• 환각·인용 <b>비판적 검증</b> + 논증 재구성</div>
+        </div>
+      </div>
+      <p class="t-sub" style="margin-top:18px">아이디어톤 즉시 기준 <b>A. Gap · B. 기여 · C. 검증 · D. 관심·전공</b> (1~5점). 위 3축 역량이 그 밑바탕.</p>
+    </div>
+
+    <div class="t-exclusive" data-track="2">
+      <div class="grid-3">
+        <div class="card">
+          <span class="tk-tag tk2">정량 (참고 지표)</span>
+          <div class="card-desc" style="line-height:1.7">• 콘텐츠 생산량<br>• Engagement (좋아요·댓글·공유)<br><span class="dim">내러티브 도달의 참고 지표로만</span></div>
+        </div>
+        <div class="card">
+          <span class="tk-tag tk2">정성 · 전략 완성도</span>
+          <div class="card-desc" style="line-height:1.7">• 오디언스 타겟팅 명확성<br>• 타깃+틸트+관점 <b>일관된 커리어 스토리</b><br>• 플랫폼·커리어 연결 현실성</div>
+        </div>
+        <div class="card">
+          <span class="tk-tag tk2">AI 활용 역량</span>
+          <div class="card-desc" style="line-height:1.7">• 단문·중문·이미지·영상 생성·변형<br>• 자신만의 LLM 콘텐츠 워크플로우<br>• 비판적 수정 + <b>관점 재구성</b></div>
+        </div>
+      </div>
+      <p class="t-sub" style="margin-top:18px">아이디어톤 즉시 기준 <b>A. 스윗스팟 · B. 차별 각도 · C. 커리어 연결 · D. 지속성</b> (1~5점). 팔로워 수가 아니라 목적지와 길의 일관성.</p>
+    </div>
+
+    <div class="t-exclusive" data-track="3">
+      <div class="grid-2">
+        <div class="card">
+          <span class="tk-tag tk3">시점별 (아이디어톤)</span>
+          <div class="card-desc" style="line-height:1.8">• <b>문제 선명도</b> — 고객·페인 한 줄<br>• <b>AI 활용 과정</b> — Agent 대화 깊이<br>• <b>실행 가능성</b> — 첫 100인 시그널</div>
+        </div>
+        <div class="card">
+          <span class="tk-tag tk3">6역량 루브릭 (선발·수료)</span>
+          <div class="card-desc" style="line-height:1.7">• Agentic Work 습관 · 미션 정의<br>• 사업 설계 · AI Agent 활용<br>• 팀워크 · 실험과 지표<br><span class="dim">초급·중급 도달로 100인→60인 선발</span></div>
+        </div>
+      </div>
+      <p class="t-sub" style="margin-top:18px">아이디어톤 즉시 기준 <b>A. 문제 선명도 · B. 사업성 · C. 실행 가능성 · D. AI Agent 활용도</b>. 6역량은 선발·수료 공통 눈.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 10. ③ 기획안 작성 가이드 -->
+<div class="slide s-light" data-theme="light">
+  <p class="s-label">구성 3 · 구체화</p>
+  <h2 class="s-title">③ 기획안 — <span class="hl">실행 가능</span>하게</h2>
+  <div class="s-body">
+    <div class="grid-2">
+      <div>
+        <p class="t-main" style="font-size:1.2rem;max-width:100%">선정한 아이디어 <b>하나</b>를 7월 워크숍에서 발전시킬 수 있는 <b>출발 계획</b>으로 만듭니다.</p>
+        <ul class="chk-list" style="margin-top:14px">
+          <li>무엇을 / 누구를 위해 / 어떻게</li>
+          <li>완료 조건(성공 지표)</li>
+          <li>AI를 어디에 쓸 것인가</li>
+        </ul>
+      </div>
+      <div>
+        <p class="t-sub" style="margin-top:0;margin-bottom:10px">기획안 양식은 트랙별로 다릅니다 →</p>
+        <div class="card" data-track="1">
+          <span class="tk-tag tk1">예시 · 트랙1 연구 설계</span>
+          <div class="card-desc" style="line-height:1.7">연구 질문 / 가설·기여 포인트 / 검증 방법 / 데이터 수집 전략</div>
+        </div>
+        <div class="card" data-track="2">
+          <span class="tk-tag tk2">예시 · 트랙2 커리어 계획서</span>
+          <div class="card-desc" style="line-height:1.7">정체성/Sweet Spot / 전문성 스토리아크 / 가치 제안·타깃 / 1년·10년 목표</div>
+        </div>
+        <div class="card" data-track="3">
+          <span class="tk-tag tk3">예시 · 트랙3 사업 기획안</span>
+          <div class="card-desc" style="line-height:1.7">미션·고객·문제 / 오퍼(1줄) / AI Agent 핵심 가치 / 초기 시그널(첫 100인)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 11. ③ 트랙별 기획안 양식 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">구성 3 · 트랙별 기획안 양식</p>
+  <h2 class="s-title">기획안 <span class="hl">항목</span></h2>
+  <div class="s-body">
+    <div class="grid-3">
+      <div class="card" data-track="1">
+        <span class="tk-tag tk1">트랙1 · 연구 설계 개요</span>
+        <div class="card-desc" style="line-height:1.8">• 연구 질문<br>• 가설 / 기여 포인트<br>• 검증 방법<br>• 데이터 수집 전략</div>
+      </div>
+      <div class="card" data-track="2">
+        <span class="tk-tag tk2">트랙2 · 커리어 계획서</span>
+        <div class="card-desc" style="line-height:1.8">• 정체성 · Sweet Spot<br>• 전문성 스토리아크<br>• 가치 제안 · 차별 각도<br>• 1년 / 10년 목표</div>
+      </div>
+      <div class="card" data-track="3">
+        <span class="tk-tag tk3">트랙3 · 사업 기획안</span>
+        <div class="card-desc" style="line-height:1.8">• 미션 / 고객 / 문제<br>• 오퍼 / 가격·결제<br>• 첫 채널(첫 100명)<br>• AI Agent 활용</div>
+      </div>
+    </div>
+    <p class="t-sub" style="margin-top:18px">이 기획안이 <b>AI 활용 보고서(타입 2)</b>의 뼈대가 됩니다.</p>
+  </div>
+</div>
+
+<!-- 12. AI 활용 보고서 연결 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">타입 2 · 워드 보고서</p>
+  <h2 class="s-title">기획안은 <span class="hl">트랙별 보고서</span>로 완성됩니다</h2>
+  <div class="s-body">
+    <table class="cmp-table">
+      <thead><tr><th>트랙</th><th>AI 활용 보고서</th><th>핵심 내용</th></tr></thead>
+      <tbody>
+        <tr data-track="1"><td>트랙1 연구</td><td class="hl"><b>논문 초록</b></td><td>제목 · 배경 · 방법 · 예상 결과 · 키워드</td></tr>
+        <tr data-track="2"><td>트랙2 커리어</td><td class="hl"><b>콘텐츠 전략 기획</b></td><td>콘텐츠 주제 · 채널 · 워크플로우 · 캘린더 · 지표</td></tr>
+        <tr data-track="3"><td>트랙3 사업</td><td class="hl"><b>사업계획서</b></td><td>고객 · 문제 · 오퍼 · 결제 · 그로스 · 팀</td></tr>
+      </tbody>
+    </table>
+    <p class="t-sub" style="margin-top:16px">보고서는 <b>AI와 함께 작성한 흔적(프롬프트·대화 로그)</b>을 함께 남깁니다.</p>
+  </div>
+</div>
+
+<!-- 13a. 트랙1 심화 -->
+<div class="slide s-coral" data-theme="light" data-track="1">
+  <p class="s-label">트랙1 심화 안내</p>
+  <h2 class="s-title">연구 설계 <span class="hl">→</span> 논문 초록</h2>
+  <div class="s-body">
+    <div class="flow" style="max-width:92%">
+      <div class="flow-step" style="background:#fff">
+        <div class="fs-stage">먼저 · 슬라이드 ③</div>
+        <div class="fs-name">연구 설계</div>
+        <div class="fs-desc">"어떻게 검증할 것인가" (HOW)<br>질문 · 가설 · 검증 방법 · 데이터 수집</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step" style="background:#fff">
+        <div class="fs-stage">이를 위해 · 워드</div>
+        <div class="fs-name">논문 초록</div>
+        <div class="fs-desc">"그래서 무엇이 바뀌는가" (SO WHAT)<br>예상 결과 · 학문적 기여 · 시사점</div>
+      </div>
+    </div>
+    <div class="note"><b>연구 설계가 방법(HOW)</b>이면, <b>논문 초록은 그 의미(SO WHAT)</b>입니다. 실험 과정 나열이 아니라 '이 연구가 학문·실무에 무엇을 여는가'를 씁니다. 예상 결과의 근거와 기여를 봅니다.</div>
+  </div>
+</div>
+
+<!-- 13b. 트랙2 심화 -->
+<div class="slide s-coral" data-theme="light" data-track="2">
+  <p class="s-label">트랙2 심화 안내</p>
+  <h2 class="s-title">커리어 계획서 <span class="hl">→</span> 콘텐츠 전략 기획</h2>
+  <div class="s-body">
+    <div class="flow" style="max-width:92%">
+      <div class="flow-step" style="background:#fff">
+        <div class="fs-stage">먼저 · 슬라이드 ③</div>
+        <div class="fs-name">커리어 계획서</div>
+        <div class="fs-desc">"나는 누구이고, 어디로 갈 것인가" (WHO/WHERE)<br>정체성 · 스토리아크 · 가치제안 · 1년/10년 목표</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step" style="background:#fff">
+        <div class="fs-stage">이를 위해 · 워드</div>
+        <div class="fs-name">콘텐츠 전략 기획</div>
+        <div class="fs-desc">"어떤 콘텐츠를, 어떻게 만들 것인가" (WHAT/HOW)<br>주제 · 채널 · 워크플로우 · 캘린더 · 지표</div>
+      </div>
+    </div>
+    <div class="note"><b>커리어 계획서가 목적지(③ 기획안)</b>, <b>콘텐츠 전략 기획이 그 길(워드 보고서)</b>입니다. 먼저 나의 방향을 정한 뒤, 그 방향을 증명할 구체적 콘텐츠 실행안을 만듭니다. 팔로워 수가 아니라 <b>목적지와 길이 얼마나 일관된 스토리</b>인지를 봅니다.</div>
+  </div>
+</div>
+
+<!-- 13c. 트랙3 심화 -->
+<div class="slide s-coral" data-theme="light" data-track="3">
+  <p class="s-label">트랙3 심화 안내</p>
+  <h2 class="s-title">사업 기획안 <span class="hl">→</span> 사업계획서</h2>
+  <div class="s-body">
+    <div class="flow" style="max-width:92%">
+      <div class="flow-step" style="background:#fff">
+        <div class="fs-stage">먼저 · 슬라이드 ③</div>
+        <div class="fs-name">사업 기획안 1장</div>
+        <div class="fs-desc">"무엇을, 왜" (WHY/WHAT)<br>미션 · 고객 · 문제 · 오퍼 · AI 활용</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step" style="background:#fff">
+        <div class="fs-stage">이를 위해 · 워드</div>
+        <div class="fs-name">사업계획서</div>
+        <div class="fs-desc">"어떻게, 얼마로, 언제" (HOW/MUCH/WHEN)<br>실행 로드맵 · 수익·재무 · 일정 · 팀 · 리스크</div>
+      </div>
+    </div>
+    <div class="note"><b>사업 기획안이 '무엇(WHAT)'</b>이면, <b>사업계획서는 '어떻게 돈과 일정으로 만들까(HOW/MUCH/WHEN)'</b>입니다. 아이디어 감동이 아니라 <b>작동하는 비즈니스</b>를 증명합니다. 실행 가능성과 숫자가 뒷받침되어야 합니다.</div>
+  </div>
+</div>
+
+<!-- 14. 제출·선발 안내 -->
+<div class="slide s-light" data-theme="light">
+  <p class="s-label">제출 · 선발</p>
+  <h2 class="s-title">100인 → <span class="hl">트랙별 20명</span> 선발</h2>
+  <div class="s-body">
+    <div class="grid-2">
+      <div>
+        <div class="card-title" style="margin-bottom:14px;font-size:1.05rem;color:#F7585C">제출물 체크</div>
+        <ul class="chk-list">
+          <li>슬라이드 덱 (① · ② · ③)</li>
+          <li>AI 활용 보고서 (트랙별 워드)</li>
+          <li>AI 대화 로그 / 프롬프트</li>
+        </ul>
+      </div>
+      <div>
+        <div class="card-title" style="margin-bottom:14px;font-size:1.05rem;color:#F7585C">심사가 보는 것</div>
+        <ul class="chk-list">
+          <li>문제·주제의 선명도</li>
+          <li>AI 활용 과정의 깊이</li>
+          <li>7월 워크숍에서의 성장 가능성</li>
+        </ul>
+      </div>
+    </div>
+    <p class="t-sub" style="margin-top:18px">완성도보다 <b>"AI와 함께 얼마나 선명하게 만들었는가"</b> — 6/26, <b>트랙당 20명·총 60명</b>이 선발됩니다.</p>
+  </div>
+</div>
+
+<!-- 15. 클로징 -->
+<div class="slide s-accent centered" data-theme="dark">
+  <h2 class="s-title">펼치고 · 고르고 · 만든다</h2>
+  <div class="s-body">
+    <p class="t-main">아이디어톤의 결과물은 끝이 아니라 <span class="hl">7월의 시작</span>입니다.<br>AI와 함께, 나만의 첫 한 걸음을 선명하게.</p>
+    <p class="t-sub">모두의연구소 × 연세대학교 · 2026 여름 AX 캠프</p>
+  </div>
+</div>
+
+</div>
+<script>
+(function(){
+  const allSlides = Array.from(document.querySelectorAll('.slide'));
+  const nav = document.getElementById('nav');
+  const numEl = document.getElementById('slideNum');
+  const tabs = document.querySelectorAll('.track-tab');
+  let activeTrack = 'all';
+  let visibleSlides = [];
+  let current = 0;
+
+  function applyFilter(){
+    document.querySelectorAll('[data-track]').forEach(el => {
+      if (el.classList.contains('track-tab') || el.closest('.track-tabs')) return;
+      const t = el.getAttribute('data-track');
+      const exclusive = el.classList.contains('t-exclusive');
+      const show = exclusive ? (activeTrack === t) : (activeTrack === t || activeTrack === 'all');
+      el.style.display = show ? '' : 'none';
+    });
+  }
+
+  function recomputeSlides(){
+    visibleSlides = allSlides.filter(slide => {
+      if (slide.style.display === 'none') return false;
+      const divergent = slide.querySelectorAll('[data-track]');
+      if (divergent.length === 0) return true;
+      return Array.from(divergent).some(el => el.style.display !== 'none');
+    });
+    nav.innerHTML = '';
+    visibleSlides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'nav-dot';
+      dot.title = `Slide ${i + 1}`;
+      dot.addEventListener('click', () => go(i));
+      nav.appendChild(dot);
+    });
+    if (current >= visibleSlides.length) current = 0;
+  }
+
+  function setTrack(track){
+    activeTrack = track;
+    applyFilter();
+    tabs.forEach(tab => tab.classList.toggle('active', tab.getAttribute('data-track') === track));
+    const url = new URL(window.location);
+    if (track === 'all') url.searchParams.delete('track');
+    else url.searchParams.set('track', track);
+    history.replaceState(null, '', url);
+    recomputeSlides();
+    go(0);
+  }
+
+  function go(index){
+    if (index < 0 || index >= visibleSlides.length) return;
+    allSlides.forEach(s => s.classList.remove('active'));
+    const dots = nav.querySelectorAll('.nav-dot');
+    dots.forEach(d => d.classList.remove('active'));
+    current = index;
+    visibleSlides[current].classList.add('active');
+    if (dots[current]) dots[current].classList.add('active');
+    const theme = visibleSlides[current].dataset.theme;
+    document.body.classList.toggle('light-slide', theme === 'light');
+    numEl.textContent = `${current + 1} / ${visibleSlides.length}`;
+  }
+
+  tabs.forEach(tab => tab.addEventListener('click', () => setTrack(tab.getAttribute('data-track'))));
+
+  const jumpLast = document.getElementById('jumpLast');
+  if (jumpLast) jumpLast.addEventListener('click', () => go(visibleSlides.length - 1));
+
+  const pTrack = new URLSearchParams(window.location.search).get('track');
+  setTrack(['1','2','3'].includes(pTrack) ? pTrack : 'all');
+
+  document.addEventListener('keydown', e => {
+    if (e.key === '1' || e.key === '2' || e.key === '3') { e.preventDefault(); setTrack(e.key); return; }
+    if (e.key === '0') { e.preventDefault(); setTrack('all'); return; }
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); go(current + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); go(current - 1); }
+    if (e.key === 'Home') { e.preventDefault(); go(0); }
+    if (e.key === 'End') { e.preventDefault(); go(visibleSlides.length - 1); }
+    if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+
+  let touchStartX = 0, touchStartY = 0;
+  const SWIPE_THRESHOLD = 50, SWIPE_RESTR = 0.5;
+  document.addEventListener('touchstart', e => {
+    const t = e.touches[0];
+    touchStartX = t.clientX; touchStartY = t.clientY;
+  }, { passive: true });
+  document.addEventListener('touchend', e => {
+    if (e.touches.length > 0) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - touchStartX, dy = t.clientY - touchStartY;
+    const adx = Math.abs(dx), ady = Math.abs(dy);
+    if (adx > SWIPE_THRESHOLD && adx * SWIPE_RESTR > ady) {
+      if (dx < 0) go(current + 1); else go(current - 1);
+    }
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>

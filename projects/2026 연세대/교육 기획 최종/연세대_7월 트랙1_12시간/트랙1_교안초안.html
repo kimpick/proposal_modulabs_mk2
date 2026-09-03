@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Track 1 · AI 연구자동화 / 논문 작성 | 모두의연구소 × 연세대</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#030712;-webkit-font-smoothing:antialiased}
+
+/* ── Navigator ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:center;gap:3px;padding:10px 40px;opacity:0.15;transition:opacity .4s}
+.nav:hover{opacity:0.85}
+.nav-dot{width:28px;height:3px;background:rgba(255,255,255,.25);border-radius:2px;border:none;cursor:pointer;transition:all .25s;flex-shrink:0}
+.nav-dot.active{background:#F7585C;width:36px}
+.nav-dot:hover{background:rgba(247,88,92,.6)}
+body.light-slide .nav-dot{background:rgba(0,0,0,.12)}
+body.light-slide .nav-dot.active{background:#F7585C}
+body.light-slide .nav-dot:hover{background:rgba(247,88,92,.5)}
+
+/* ── Slide Number ── */
+.slide-num{position:fixed;bottom:24px;right:36px;font-size:.75rem;color:rgba(255,255,255,.15);z-index:100;font-variant-numeric:tabular-nums;letter-spacing:1px;transition:color .5s}
+body.light-slide .slide-num{color:rgba(0,0,0,.12)}
+
+/* ── Deck & Slides ── */
+.deck{width:100%;height:100%;position:relative}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;padding:72px 96px 56px;opacity:0;transition:opacity .45s ease;pointer-events:none;overflow:hidden}
+.slide.active{opacity:1;pointer-events:auto}
+
+/* ── Slide Themes ── */
+.s-white{background:#fff;color:#030712}
+.s-light{background:#F4F6F8;color:#030712}
+.s-dark{background:#030712;color:#fff}
+.s-accent{background:#F7585C;color:#fff}
+.s-coral{background:#FFF2F2;color:#030712}
+.s-gradient{background:linear-gradient(135deg,#030712 0%,#1a1f2e 100%);color:#fff}
+
+/* ── Typography ── */
+.s-label{font-size:.78rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#F7585C;margin-bottom:14px}
+.s-dark .s-label,.s-gradient .s-label,.s-accent .s-label{color:rgba(255,255,255,.45)}
+
+.s-title{font-size:2.6rem;font-weight:700;line-height:1.35;margin-bottom:36px;max-width:80%;word-break:keep-all}
+
+.s-body{flex:1;display:flex;flex-direction:column;justify-content:flex-start}
+
+.t-main{font-size:1.45rem;line-height:1.75;color:#2E3339;max-width:75%;word-break:keep-all}
+.s-dark .t-main,.s-gradient .t-main{color:rgba(255,255,255,.82)}
+.s-accent .t-main{color:rgba(255,255,255,.92)}
+
+.t-sub{font-size:1.05rem;line-height:1.65;color:#5F656C;margin-top:14px;max-width:70%;word-break:keep-all}
+.s-dark .t-sub,.s-gradient .t-sub{color:rgba(255,255,255,.4)}
+.s-accent .t-sub{color:rgba(255,255,255,.6)}
+
+.t-quote{font-size:1.5rem;line-height:1.8;border-left:4px solid #F7585C;padding-left:24px;margin:16px 0;max-width:72%;word-break:keep-all}
+.s-dark .t-quote{border-left-color:rgba(255,255,255,.2)}
+.s-accent .t-quote{border-left-color:rgba(255,255,255,.4)}
+
+.t-huge{font-size:9rem;font-weight:800;line-height:1;color:#F7585C;letter-spacing:-4px}
+.t-big{font-size:3rem;font-weight:700;line-height:1.4;word-break:keep-all}
+.t-emphasis{font-size:2rem;font-weight:700;line-height:1.55;word-break:keep-all}
+
+.hl{color:#F7585C}
+.s-accent .hl{color:#fff;text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:4px}
+.dim{opacity:.45}
+
+/* ── Cover ── */
+.slide.cover{justify-content:center;padding-top:0}
+.cover .s-title{font-size:3.2rem;max-width:72%;margin-bottom:20px}
+.cover-sub{font-size:1.15rem;color:#5F656C;margin-bottom:6px}
+.s-dark .cover-sub{color:rgba(255,255,255,.4)}
+.cover-brand{font-size:.85rem;color:#F7585C;font-weight:700;letter-spacing:1.5px;margin-top:12px}
+
+/* ── Cards ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:92%}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;max-width:95%}
+
+.card{padding:28px 30px;border-radius:14px;background:#F4F6F8}
+.s-dark .card,.s-gradient .card{background:rgba(255,255,255,.06)}
+.s-light .card{background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.card-icon{font-size:1.8rem;margin-bottom:14px}
+.card-title{font-size:1.15rem;font-weight:700;margin-bottom:8px;line-height:1.4}
+.card-desc{font-size:.95rem;line-height:1.6;color:#5F656C}
+.s-dark .card-desc,.s-gradient .card-desc{color:rgba(255,255,255,.55)}
+
+/* ── Product Cards ── */
+.product-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:92%}
+.product-card{display:flex;align-items:flex-start;gap:16px;padding:22px 26px;border-radius:12px;background:#fff}
+.s-light .product-card{background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.product-icon{font-size:1.8rem;flex-shrink:0;line-height:1.3}
+.product-name{font-weight:700;font-size:1.1rem;margin-bottom:5px}
+.product-desc{font-size:.92rem;color:#5F656C;line-height:1.55}
+
+/* ── Comparison Table ── */
+.cmp-table{width:90%;border-collapse:collapse;margin-top:8px}
+.cmp-table th{text-align:left;padding:14px 18px;font-size:.82rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#5F656C;border-bottom:2px solid #E5E7EB}
+.cmp-table td{padding:16px 18px;font-size:1.05rem;line-height:1.5;border-bottom:1px solid #F0F0F0}
+.cmp-table td:first-child{font-weight:600;color:#030712;width:30%}
+.cmp-table .old{color:#9198A1}
+.cmp-table .new{color:#F7585C;font-weight:700}
+
+/* ── Venn Diagram ── */
+.venn-wrap{display:flex;align-items:center;gap:0;margin:10px 0}
+.venn-circle{width:190px;height:190px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.95rem;text-align:center;line-height:1.4;flex-shrink:0}
+.vc-1{background:rgba(247,88,92,.13);color:#F7585C;margin-right:-28px;z-index:1}
+.vc-2{background:rgba(59,130,246,.13);color:#3B82F6;margin-right:-28px;z-index:2}
+.vc-3{background:rgba(16,185,129,.13);color:#10B981;z-index:1}
+.venn-label{margin-left:48px;font-size:1.15rem;line-height:1.7;color:#5F656C;max-width:360px}
+
+/* ── Number List ── */
+.num-list{list-style:none;padding:0;counter-reset:item}
+.num-list li{font-size:1.3rem;line-height:1.5;padding:12px 0 12px 50px;position:relative;counter-increment:item;word-break:keep-all}
+.num-list li::before{content:counter(item);position:absolute;left:0;top:12px;width:34px;height:34px;border-radius:50%;background:#F7585C;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700}
+.s-accent .num-list li::before{background:rgba(255,255,255,.25)}
+
+/* ── Check List ── */
+.chk-list{list-style:none;padding:0}
+.chk-list li{font-size:1.35rem;line-height:1.5;padding:10px 0 10px 40px;position:relative;word-break:keep-all}
+.chk-list li::before{content:'';position:absolute;left:0;top:16px;width:18px;height:18px;border-radius:50%;background:#F7585C}
+.s-accent .chk-list li::before{background:rgba(255,255,255,.3)}
+
+/* ── Demo Tag ── */
+.demo-tag{display:inline-block;padding:6px 16px;background:#F7585C;color:#fff;border-radius:6px;font-size:.8rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px}
+
+/* ── Animation ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.slide.active .s-label{animation:fadeUp .45s ease .08s both}
+.slide.active .s-title{animation:fadeUp .45s ease .16s both}
+.slide.active .s-body>*{animation:fadeUp .45s ease .28s both}
+.slide.active .s-body>*:nth-child(2){animation-delay:.36s}
+.slide.active .s-body>*:nth-child(3){animation-delay:.42s}
+
+/* ── Center Variant ── */
+.slide.centered{align-items:center;text-align:center}
+.centered .s-title{max-width:90%;text-align:center}
+.centered .t-main{max-width:80%;text-align:center;margin:0 auto}
+.centered .t-sub{max-width:70%;text-align:center;margin:14px auto 0}
+
+/* ── Responsive ── */
+@media(max-width:1100px){
+  .slide{padding:56px 56px 40px}
+  .s-title{font-size:2.1rem}
+  .cover .s-title{font-size:2.6rem}
+  .t-huge{font-size:6.5rem}
+  .t-main{font-size:1.25rem}
+  .venn-circle{width:150px;height:150px;font-size:.82rem}
+  .grid-2,.grid-3,.product-grid{max-width:100%}
+}
+</style>
+</head>
+<body class="light-slide">
+<!-- Navigator -->
+<div class="nav" id="nav"></div>
+<!-- Slide Number -->
+<div class="slide-num" id="slideNum"></div>
+<div class="deck" id="deck">
+
+<!-- 1. 커버 -->
+<div class="slide s-dark cover" data-theme="dark">
+  <div class="cover-brand">모두의연구소 · 2026 연세대 AX 역량 강화 교육</div>
+  <h1 class="s-title" style="margin-top:16px">AI 연구자동화 / 논문 작성</h1>
+  <p class="cover-sub">LLM과 함께, 연구 질문부터 논문 초안까지 — <span class="hl">Track 1 · 3주 · 12시간</span></p>
+  <p class="cover-sub dim">김민현 · 커먼컴퓨터 대표 / 前 구글 엔지니어 · 자율 AI 에이전트 & AI Network</p>
+</div>
+
+<!-- 2. 왜 이 트랙인가 -->
+<div class="slide s-light" data-theme="light">
+  <p class="s-label">왜 이 트랙인가</p>
+  <h2 class="s-title">LLM은 검색 도구가 아니라, <span class="hl">연구 파트너</span>입니다</h2>
+  <div class="s-body">
+    <p class="t-main">대부분의 연구자는 LLM을 '요약 도구' 수준에서 씁니다. 그런데 사실 LLM은 문헌 탐색 · 갭 분석 · 설계 · 초안 작성까지 — 연구 파이프라인 전체를 함께 돌릴 수 있는 동료입니다.</p>
+    <p class="t-sub">3주 동안 이 동료와 진짜 협업하는 법을 배웁니다. 그리고 마지막에는 내 논문 초안을 들고 나갑니다.</p>
+  </div>
+</div>
+
+<!-- 3. 트랙 미션 -->
+<div class="slide s-accent centered" data-theme="dark">
+  <p class="s-label">TRACK MISSION</p>
+  <h2 class="s-title">3주 만에, LLM과 함께<br>내 <span class="hl">논문 초안</span>을 완성한다</h2>
+  <div class="s-body">
+    <p class="t-main">설계 → 섹션 초안 → IMRaD 완성본.<br>수업이 끝나면 손에 한 편의 논문 초안이 있습니다.</p>
+  </div>
+</div>
+
+<!-- 4. 3주 로드맵 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">3-WEEK ROADMAP</p>
+  <h2 class="s-title">3주 × 4H = 12시간, 한눈에</h2>
+  <div class="s-body">
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon">①</div>
+        <div class="card-title">1주차 · 질문과 설계</div>
+        <div class="card-desc">나만의 연구 질문을 찾고, 설계서 초안을 만든다</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">②</div>
+        <div class="card-title">2주차 · 파이프라인과 실험</div>
+        <div class="card-desc">AI 연구 파이프라인을 짜고, 논문 섹션 초안을 쓴다</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">③</div>
+        <div class="card-title">3주차 · 평가와 완성</div>
+        <div class="card-desc">논문을 다듬고, 피어 리뷰로 완성한다</div>
+      </div>
+    </div>
+    <p class="t-sub" style="margin-top:24px">DT 2H(오프닝 1H · 클로징 1H) + 본과정 10H</p>
+  </div>
+</div>
+
+<!-- 5. 누가 참여하나 -->
+<div class="slide s-coral" data-theme="light">
+  <p class="s-label">WHO · 대상과 전제</p>
+  <h2 class="s-title">코딩을 몰라도 괜찮습니다</h2>
+  <div class="s-body">
+    <ul class="chk-list">
+      <li>연세대 학부·대학원생 (전공 무관)</li>
+      <li>비코딩 환영 — 프롬프팅 · Claude · OMC 스킬 기반</li>
+      <li>아이디어톤을 통과한 60인 중 트랙별 20인</li>
+      <li>논문 한 편을 직접 써보고 싶은 모든 사람</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 6. 주차별 산출물 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">DELIVERABLES</p>
+  <h2 class="s-title">3주가 끝나면 손에 무엇이 있나</h2>
+  <div class="s-body">
+    <table class="cmp-table">
+      <thead><tr><th>주차</th><th>중간 산출물</th><th>최종 산출물</th></tr></thead>
+      <tbody>
+        <tr><td>1주차</td><td class="old">선행연구 매트릭스</td><td class="new">연구 설계서 v1</td></tr>
+        <tr><td>2주차</td><td class="old">논문 섹션 초안 3종</td><td class="new">연구 진행 계획서</td></tr>
+        <tr><td>3주차</td><td class="old">피어 리뷰 메모</td><td class="new">최종 논문 초안 (초록 + IMRaD)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 7. 핵심 도구 스택 -->
+<div class="slide s-light" data-theme="light">
+  <p class="s-label">TOOL STACK</p>
+  <h2 class="s-title">이번 3주, 함께 일할 도구들</h2>
+  <div class="s-body">
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-icon">🤖</div>
+        <div><div class="product-name">Claude</div><div class="product-desc">논문 작성 파트너. 초안 · 비판적 검토 · 재구성</div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-icon">⌨️</div>
+        <div><div class="product-name">Claude Code</div><div class="product-desc">연구 워크플로우 자동화. 반복 업무를 코드로</div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-icon">🎭</div>
+        <div><div class="product-name">Oh My Claude Code (OMC)</div><div class="product-desc">멀티 에이전트 오케스트레이션. 연구 봇 팀 운영</div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-icon">🔁</div>
+        <div><div class="product-name">auto research (Karpathy)</div><div class="product-desc">5분 단위 자율 연구 루프. AI가 코드 수정→평가→개선 반복</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 8. DT 세션의 역할 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">DT SESSIONS</p>
+  <h2 class="s-title">양끝의 1시간은, <span class="hl">방향</span>을 잡는 시간</h2>
+  <div class="s-body">
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-icon">🎬</div>
+        <div class="card-title">오프닝 DT · 1H<br>(1주차 첫 시간)</div>
+        <div class="card-desc">아이스브레이킹 · 아이디어톤 결과 공유 · 트랙 로드맵 제시</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎯</div>
+        <div class="card-title">클로징 DT · 1H<br>(3주차 마지막)</div>
+        <div class="card-desc">3주 회고 · 8월 프로토타입 방향 합의</div>
+      </div>
+    </div>
+    <p class="t-sub" style="margin-top:24px">나머지 10시간은 전부 실습 중심으로 진행됩니다</p>
+  </div>
+</div>
+
+<!-- 9. 평가 루브릭 -->
+<div class="slide s-light" data-theme="light">
+  <p class="s-label">EVALUATION</p>
+  <h2 class="s-title">평가는 3축으로 진행됩니다</h2>
+  <div class="s-body">
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <div class="card-title">정량적 평가</div>
+        <div class="card-desc">문헌 개수 · 인용 정확성 · 산출물 완성도 (설계서/초록/IMRaD)</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔬</div>
+        <div class="card-title">정성적 평가</div>
+        <div class="card-desc">질문의 명확성 · Research Gap 견냥 · 설계→실험→논문의 일관성</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🤝</div>
+        <div class="card-title">AI 활용 역량</div>
+        <div class="card-desc">LLM 워크플로우 구축 · 환각·인용 비판적 검증 · 자신의 논증 재구성</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 10. 3주가 끝나면 -->
+<div class="slide s-gradient centered" data-theme="dark">
+  <p class="s-label">WHAT'S NEXT</p>
+  <h2 class="s-title">7월의 기획이, 8월에 실구동합니다</h2>
+  <div class="s-body">
+    <p class="t-main">7월 Track 1 — 연구 설계 + 논문 초안 완성<br>↓<br>8월 프로토타입 — <span class="hl">연구 자동화 파이프라인 실구동</span></p>
+    <p class="t-sub">9월 성과 공유회 · 1인 부스에서 데모</p>
+  </div>
+</div>
+
+<!-- 11. 파트 전환 -->
+<div class="slide s-coral cover" data-theme="light">
+  <div class="cover-brand">PART B</div>
+  <h1 class="s-title" style="margin-top:16px">3주 × 4H<br><span class="hl">교안 핵심 뼈대</span></h1>
+  <p class="cover-sub">주차별 타임라인 · 핵심 활동 · 산출물</p>
+</div>
+
+<!-- 12. 1주차 타임라인 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">WEEK 1 · TIMELINE</p>
+  <h2 class="s-title">1주차 — 나의 연구 질문 찾기와 연구 설계</h2>
+  <div class="s-body">
+    <ol class="num-list">
+      <li>오프닝 DT 1H — 아이스브레이킹 · 아이디어톤 결과 공유</li>
+      <li>연구자동화 · AI 논문 작성 개념 강의</li>
+      <li>LLM Research Gap 발굴</li>
+      <li>LLM 선행연구 리서치 실습</li>
+      <li>LLM 연구 설계서 작성</li>
+    </ol>
+  </div>
+</div>
+
+<!-- 13. 오프닝 DT -->
+<div class="slide s-coral" data-theme="light">
+  <p class="s-label">OPENING DT · 1H</p>
+  <h2 class="s-title">먼저, 서로의 질문을 압니다</h2>
+  <div class="s-body">
+    <ul class="chk-list">
+      <li>아이디어톤에서 가져온 내 주제 1줄 소개</li>
+      <li>"나의 연구 질문" 1줄 발표 — 전원 공유</li>
+      <li>트랙 로드맵 · 산출물 · 평가 기준 확인</li>
+      <li>동료와 페어 매칭 (3주 내내 함께 갈 조)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 14. 연구자동화 개념 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">CONCEPT</p>
+  <h2 class="s-title">연구자동화란 — LLM이 파이프라인에 들어가면</h2>
+  <div class="s-body">
+    <p class="t-main">문헌 탐색 → 요약 → <span class="hl">Research Gap 분석</span> → 설계 → 초안 작성<br>이 전체를 LLM과 함께 돌립니다.</p>
+    <p class="t-sub">Research Gap이란? 기존 문헌이 답하지 않은 '빈틈'. 좋은 연구는 좋은 Gap에서 나옵니다.</p>
+  </div>
+</div>
+
+<!-- 15. 선행연구 리서치 실습 -->
+<div class="slide s-light" data-theme="light">
+  <p class="s-label">HANDS-ON</p>
+  <h2 class="s-title">선행연구 리서치 — 출처를 검증하며</h2>
+  <div class="s-body">
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-icon">🔎</div>
+        <div class="card-title">Claude로 탐색</div>
+        <div class="card-desc">주제 키워드 → 웹 검색으로 출처를 확인하며 리서치. "이 논문이 정말 있는지"까지 검증</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">📚</div>
+        <div class="card-title">Claude Projects로 그라운딩</div>
+        <div class="card-desc">논문 5~10건 업로드 → 인용 각주가 달린 요약·비교표 생성</div>
+      </div>
+    </div>
+    <p class="t-sub" style="margin-top:20px">산출: 선행연구 매트릭스 5건 (저자 · 핵심 · 한계 · 내 연구와의 관계)</p>
+  </div>
+</div>
+
+<!-- 16. 1주차 산출물 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">WEEK 1 · OUTPUT</p>
+  <h2 class="s-title">1주차 산출물 — 연구 설계서 v1</h2>
+  <div class="s-body">
+    <ul class="chk-list">
+      <li>연구 주제 (1줄)</li>
+      <li>초록 초안 (200자 내외)</li>
+      <li>연구 문제 · 가설</li>
+      <li>검증 방법 / 데이터 수집 계획</li>
+      <li>나만의 기여 포인트 1개</li>
+    </ul>
+    <p class="t-sub" style="margin-top:18px">⭐ 이 설계서가 2·3주차 모든 활동의 기준이 됩니다</p>
+  </div>
+</div>
+
+<!-- 17. 2주차 타임라인 -->
+<div class="slide s-light" data-theme="light">
+  <p class="s-label">WEEK 2 · TIMELINE</p>
+  <h2 class="s-title">2주차 — 워크플로우 개발 및 실험·분석</h2>
+  <div class="s-body">
+    <ol class="num-list">
+      <li>1주차 과제 리뷰 + AI 파이프라인 개요</li>
+      <li>LLM 논문 구조 설계 (IMRaD)</li>
+      <li>AI 연구 보조 도구 실습</li>
+      <li>LLM 논문 섹션 초안 작성</li>
+      <li>데이터 수집·분석 방법 + 연구 진행 계획서</li>
+    </ol>
+  </div>
+</div>
+
+<!-- 18. AI 연구 파이프라인 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">PIPELINE</p>
+  <h2 class="s-title">무엇을 LLM에 맡기고, 무엇을 내가 판단할까</h2>
+  <div class="s-body">
+    <table class="cmp-table">
+      <thead><tr><th>단계</th><th>LLM에게 맡기는 것</th><th>내가 판단하는 것</th></tr></thead>
+      <tbody>
+        <tr><td>탐색</td><td>관련 논문 후보 추천</td><td>진짜 읽을 논문 선별</td></tr>
+        <tr><td>분석</td><td>요약 · 비교표 생성</td><td>Gap 발견 · 해석</td></tr>
+        <tr><td>작성</td><td>섹션 초안 작성</td><td>논증 · 인용 검증 · 수정</td></tr>
+      </tbody>
+    </table>
+    <p class="t-sub" style="margin-top:18px">맡긴다고 다 끝나는 게 아니라 — 맡기고 검증하고, 다시 내 논증으로 다시 씁니다</p>
+  </div>
+</div>
+
+<!-- 19. 논문 구조 설계 IMRaD -->
+<div class="slide s-light" data-theme="light">
+  <p class="s-label">IMRaD STRUCTURE</p>
+  <h2 class="s-title">논문은 결국 4 + 1개의 블록입니다</h2>
+  <div class="s-body">
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon">📖</div>
+        <div class="card-title">Introduction</div>
+        <div class="card-desc">왜 이 연구가 필요한가. Gap과 기여</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧪</div>
+        <div class="card-title">Methods</div>
+        <div class="card-desc">어떻게 검증했는가. 재현 가능성</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">📈</div>
+        <div class="card-title">Results</div>
+        <div class="card-desc">무엇을 발견했는가. 데이터와 해석</div>
+      </div>
+    </div>
+    <p class="t-sub" style="margin-top:20px">+ Discussion (결과의 의미·한계·다음 연구) · + Abstract (한 줄 요약)</p>
+  </div>
+</div>
+
+<!-- 20. 논문 섹션 초안 작성 실습 -->
+<div class="slide s-coral" data-theme="light">
+  <p class="s-label">HANDS-ON</p>
+  <h2 class="s-title">초안은 LLM이, 검토는 내가</h2>
+  <div class="s-body">
+    <ul class="chk-list">
+      <li>서론 · 관련연구 · 방법 — 섹션별로 LLM과 함께 초안 작성</li>
+      <li>환각 체크: 인용이 진짜 논문인지 교차 검증</li>
+      <li>나의 관점 덧입히기: LLM 초안을 내 논증으로 다시 쓰기</li>
+    </ul>
+    <p class="t-sub" style="margin-top:18px">산출: 섹션별 초안 3종 (서론 · 관련연구 · 방법)</p>
+  </div>
+</div>
+
+<!-- 21. 2주차 산출물 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">WEEK 2 · OUTPUT</p>
+  <h2 class="s-title">2주차 산출물 — 섹션 초안 + 진행 계획서</h2>
+  <div class="s-body">
+    <ul class="chk-list">
+      <li>논문 섹션 초안 (서론 · 관련연구 · 방법)</li>
+      <li>연구 진행 계획서 — 3주차에 무엇을 완성할지</li>
+      <li>데이터 수집/분석 방법 메모</li>
+    </ul>
+    <p class="t-sub" style="margin-top:18px">3주차에는 이 초안에 Results · Discussion을 마저 붙입니다</p>
+  </div>
+</div>
+
+<!-- 22. 3주차 타임라인 -->
+<div class="slide s-light" data-theme="light">
+  <p class="s-label">WEEK 3 · TIMELINE</p>
+  <h2 class="s-title">3주차 — 연구 결과 평가 및 논문 개선</h2>
+  <div class="s-body">
+    <ol class="num-list">
+      <li>좋은 논문 vs 게재 가능 논문</li>
+      <li>[심화] Skills 자동화</li>
+      <li>연구 결과 해석 · 논문 수정</li>
+      <li>최종 설계서 · 논문 공유 · 피어 리뷰</li>
+      <li>팀별 대표자 발표</li>
+      <li>클로징 DT 1H — 회고 + 8월 방향 설정</li>
+    </ol>
+  </div>
+</div>
+
+<!-- 23. 좋은 논문 vs 게재 가능 논문 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">TWO BARS</p>
+  <h2 class="s-title">좋은 논문 vs 게재 가능 논문</h2>
+  <div class="s-body">
+    <table class="cmp-table">
+      <thead><tr><th>기준</th><th>좋은 논문</th><th>게재 가능 논문</th></tr></thead>
+      <tbody>
+        <tr><td>질문</td><td>선명하다</td><td>선명 + 학계가 인정하는 프레임</td></tr>
+        <tr><td>기여</td><td>무엇을 새로 아는지 명확</td><td>기존 문헌과 정확히 연결</td></tr>
+        <tr><td>검증</td><td>재현 가능 정도를 파악</td><td>재현 절차·한계 명시</td></tr>
+        <tr><td>표현</td><td>읽힌다</td><td>포맷·인용 양식 충족</td></tr>
+      </tbody>
+    </table>
+    <p class="t-sub" style="margin-top:18px">둘 다 목표로. 3주차에는 후자까지 끌어올립니다</p>
+  </div>
+</div>
+
+<!-- 24. Skills 자동화 심화 -->
+<div class="slide s-coral" data-theme="light">
+  <p class="s-label">DEEP DIVE</p>
+  <h2 class="s-title">[심화] 반복되는 일은 Skills에게</h2>
+  <div class="s-body">
+    <p class="t-main">인용 정리 · 요약 포맷 · 챕터별 구조 변환 — 반복 태스크를 Claude Code와 OMC 스킬로 자동화합니다.</p>
+    <p class="t-sub">3주차 안에 "나만의 연구 워크플로우" v0를 한 번 만들어 봅니다. 이게 8월 프로토타입의 씨앗입니다.</p>
+  </div>
+</div>
+
+<!-- 25. 피어 리뷰 + 대표자 발표 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">PEER REVIEW</p>
+  <h2 class="s-title">서로의 논문을 읽어 줍니다</h2>
+  <div class="s-body">
+    <ul class="chk-list">
+      <li>팀별 논문 초안 교환 — 구조 · 인용 · 논증 체크</li>
+      <li>피드백 메모 교환 → 1차 수정</li>
+      <li>팀별 대표자 1인 발표 (5분 · 슬라이드 3장)</li>
+    </ul>
+    <p class="t-sub" style="margin-top:18px">평가는 완성도가 아니라 — "AI와 함께 얼마나 선명하게 만들었나"</p>
+  </div>
+</div>
+
+<!-- 26. 클로징 DT -->
+<div class="slide s-coral" data-theme="light">
+  <p class="s-label">CLOSING DT · 1H</p>
+  <h2 class="s-title">3주를 돌아보고, 8월로 갑니다</h2>
+  <div class="s-body">
+    <ul class="chk-list">
+      <li>3주 회고 — 잘된 점 · 막혔던 점 · 배운 점</li>
+      <li>8월 프로토타입 방향 1줄씩 공유</li>
+      <li>"8월에 만들 것" 정의 (Definition of Done)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 27. 3주차 산출물 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">WEEK 3 · OUTPUT</p>
+  <h2 class="s-title">최종 산출물 — 한 편의 논문 초안</h2>
+  <div class="s-body">
+    <ul class="chk-list">
+      <li>최종 연구 설계서 (1주차 v1 → v3)</li>
+      <li>최종 논문 초안 — 초록 + IMRaD (Introduction · Methods · Results · Discussion)</li>
+      <li>(옵션) 나만의 Skills/GPTs 1개 프로토타입</li>
+    </ul>
+    <p class="t-sub" style="margin-top:18px">⭐ 이 초안이 9월 성과 공유회 1인 부스 제출 자격</p>
+  </div>
+</div>
+
+<!-- 28. 3주 여정 요약 -->
+<div class="slide s-gradient centered" data-theme="dark">
+  <p class="s-label">JOURNEY</p>
+  <h2 class="s-title">질문 → 설계 → 파이프라인 → 초안 → 완성</h2>
+  <div class="s-body">
+    <p class="t-main">12시간이면 한 편의 논문 초안이 됩니다.<br>그리고 8월에는 — 그 초안이 실제로 작동하는 파이프라인이 됩니다.</p>
+  </div>
+</div>
+
+<!-- 29. 마지막 -->
+<div class="slide s-dark centered" data-theme="dark">
+  <p class="s-label">LET'S GO</p>
+  <h2 class="s-title">경쟁이 아닌, 상생.</h2>
+  <div class="s-body">
+    <p class="t-main">함께 쓰고, 함께 읽고, 함께 완성합니다.<br>질문은 언제든 — 김민현에게.</p>
+    <p class="t-sub" style="margin-top:24px">모두의연구소 × 연세대 · 2026 AX 역량 강화 교육</p>
+  </div>
+</div>
+
+</div>
+<script>
+(function(){
+  const slides = document.querySelectorAll('.slide');
+  const nav = document.getElementById('nav');
+  const numEl = document.getElementById('slideNum');
+  const total = slides.length;
+  let current = 0;
+
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot';
+    dot.title = `Slide ${i + 1}`;
+    dot.addEventListener('click', () => go(i));
+    nav.appendChild(dot);
+  });
+  const dots = nav.querySelectorAll('.nav-dot');
+
+  function go(index) {
+    if (index < 0 || index >= total) return;
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = index;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+    const theme = slides[current].dataset.theme;
+    document.body.classList.toggle('light-slide', theme === 'light');
+    numEl.textContent = `${current + 1} / ${total}`;
+    numEl.className = 'slide-num' + (theme === 'dark' ? '' : '');
+  }
+
+  go(0);
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); go(current + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); go(current - 1); }
+    if (e.key === 'Home') { e.preventDefault(); go(0); }
+    if (e.key === 'End') { e.preventDefault(); go(total - 1); }
+    if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+})();
+</script>
+</body>
+</html>

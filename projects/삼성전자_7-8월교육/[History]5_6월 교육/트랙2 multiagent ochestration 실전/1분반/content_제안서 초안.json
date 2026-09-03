@@ -1,0 +1,64 @@
+{
+  "title": "멀티에이전트 오케스트레이션 실전",
+  "subtitle": "업무 상황별 최적의 AI 협업 패턴 선택과 하이브리드 파이프라인 구축",
+  "info": {
+    "keyword": "하네스 엔지니어링 · 멀티 에이전트 오케스트레이션 패턴 · Codex · Claude Code CLI(GLM-5.1)",
+    "ax_stage": "에이전트 협업 파이프라인 구축",
+    "target": "사내 개발 파이프라인 설계 및 자동화 리드 개발자",
+    "duration": "1일 (8시간)"
+  },
+  "intro": "단일 AI 에이전트의 한계를 넘어, 복잡한 업무 워크플로우에 다수의 에이전트를 적재적소로 투입하고 조율하는 '멀티에이전트 오케스트레이션' 실전 과정입니다.\n본 과정은 하네스 엔지니어링의 이해를 바탕으로 2026년 5대 핵심 오케스트레이션 패턴을 분석하고, 현업 상황에 맞춰 가장 적합한 개발 파이프라인 조립도를 설계하는 능력을 배양합니다.\n실습에서는 Codex와 Claude Code CLI(GLM-5.1)를 활용해 에이전트 실행 하네스를 구성하고, CrewAI로 Manager-Worker orchestration을 구현하며, LangGraph로 State Graph와 Self-Healing Loop를 설계합니다.\n궁극적으로 개인 개발 워크플로우 내에서 발생하는 병목, 컨텍스트 누락, 에이전트 간 덮어쓰기와 같은 충돌 이슈를 제어할 수 있는 하이브리드 오케스트레이션 역량을 체득합니다.",
+  "objective": "단순 명령 구문과 단독 에이전트의 한계를 넘어, 복잡한 업무를 처리하는 멀티에이전트 오케스트레이션 패턴 도입 능력을 기릅니다. 하네스 엔지니어링 관점에서 컨텍스트 설계, 가드레일, 검증 루프를 함께 설계함으로써 VMAO(검증 루프) 및 DOVA(숙고 우선) 등의 고급 방법론을 코드 레벨에 내재화하고, AI가 안정적으로 협업하는 차세대 개발 파이프라인을 구현합니다.",
+  "tech_stack": [
+    "Codex",
+    "Claude Code CLI(GLM-5.1)",
+    "CrewAI (Manager-Worker Orchestration)",
+    "LangGraph (State Graph Control)",
+    "MCP 개념"
+  ],
+  "infrastructure": [
+    "Node.js 18+ 및 Python 3.11+",
+    "Codex 및 Claude Code CLI(GLM-5.1) 사용 환경",
+    "외부망 접속 가능 컴퓨터"
+  ],
+  "modules": [
+    {
+      "module_id": "01",
+      "module_name": "멀티에이전트 오케스트레이션 패턴과 도입 전략",
+      "subtitle": "5대 오케스트레이션 패턴 이해",
+      "duration": "2H",
+      "items": [
+        "패러다임 변화: 단독 AI를 넘어서, 컨텍스트 설계·가드레일·검증 루프를 포함한 하네스 엔지니어링 관점에서 멀티에이전트 오케스트레이션을 설계하는 이유",
+        "상황별 5대 핵심 패턴 전략:<ol class=\"pattern-list\"><li><b>패턴 1: Routing</b>: 사용자 요청 판별 및 특정 에이전트로 트래픽 분기</li><li><b>패턴 2: Parallelization</b>: 태스크 분할 타겟팅 및 동시 작업 병합</li><li><b>패턴 3: Orchestrator-Workers</b>: 메인 매니저 에이전트의 순차적 위임 및 전역 통제</li><li><b>패턴 4: Evaluator-Optimizer</b>: 생성자와 검증자를 분리한 Self-Healing 구조</li><li><b>패턴 5: Swarm / Network</b>: 위계 없는 자율 피드백 합의 프로세스</li></ol>"
+      ]
+    },
+    {
+      "module_id": "02",
+      "module_name": "[실습] CrewAI 기반 'Manager-Worker' 조직망 구축",
+      "subtitle": "패턴 2·3 실습: Parallelization과 Orchestrator-Workers",
+      "duration": "3H",
+      "items": [
+        "[실습 시나리오] 하나의 요구사항을 FrontEnd Worker와 BackEnd Worker로 분할해 병렬 처리하고, Manager가 최종 결과를 통합하는 풀스택 코드 제너레이터 구축 — 예) API 서버 코드(BE) + React 페이지(FE) 동시 생성",
+        "[패턴 3] CrewAI 기반 Manager가 FE·BE 에이전트에게 업무를 분배하고 통합하는 Manager-Worker orchestration 구조 코딩",
+        "[패턴 2] FE·BE 에이전트가 동시에 독립적으로 코드를 작성하도록 세팅하고, 권한·컨텍스트 범위를 분리해 개발 속도 극대화",
+        "[DOVA] 개발자의 요구사항을 받아 Manager가 API 스펙·인터페이스를 먼저 Deliberation(숙고)하도록 제약을 설계하고, Codex·Claude Code CLI(GLM-5.1)를 실행 인터페이스로 연결"
+      ]
+    },
+    {
+      "module_id": "03",
+      "module_name": "[실습] LangGraph 기반 State Graph·Self-Healing Loop 구현",
+      "subtitle": "패턴 1·4·5 실습: Routing, Evaluator-Optimizer, Swarm / Network",
+      "duration": "3H",
+      "items": [
+        "[실습] LangGraph 기반 State Graph 위에서 빌드 에러 및 테스트 실패를 Human 개입 없이 복구하는 Self-Healing Loop 구축 — 예) 린트 실패 시 자동 수정 후 재빌드",
+        "[패턴 1] Codex와 Claude Code CLI(GLM-5.1)가 생성한 코드(State)를 LangGraph가 Routing하고, Lint 통과 시 Checker로 진행하며 실패 시 수정 노드로 회귀시키는 제어 구조 설계",
+        "[패턴 4] Maker가 작성한 코드를 Checker가 검사하고, 통과 시까지 Evaluator-Optimizer 루프와 Conflict Resolution 규칙을 통해 반복 개선",
+        "[패턴 5] 복수 Checker·Reviewer 에이전트가 동일 산출물을 교차 검토하고 합의 결과를 Final Reviewer에 전달하는 Swarm / Network 피드백 구조 설계",
+        "[VMAO] 무한 핑퐁 방지를 위한 검증 노드와 종료 조건을 LangGraph 엣지에 명시적으로 배치"
+      ]
+    }
+  ],
+  "output": "<ul style=\"margin:0; padding-left:20px; line-height: 1.9;\"><li>CrewAI 기반 Manager-Worker 오케스트레이션 파이프라인 1건</li><li>LangGraph 기반 State Graph·Self-Healing Loop 1건</li></ul>",
+  "section_07_title": "비고",
+  "schedule_message": "※ 본 과정은 멀티에이전트 오케스트레이션 실전 과정으로, 하네스 엔지니어링의 이해를 바탕으로 에이전트 협업 구조와 제어 아키텍처를 설계하는 능력을 배양합니다.<br>Codex·Claude Code CLI와 Python/Node 환경 구축에 익숙할수록 원활한 수강이 가능합니다."
+}

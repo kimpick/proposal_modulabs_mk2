@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>모두의연구소 AI 기업교육 레퍼런스</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#030712;-webkit-font-smoothing:antialiased}
+
+/* ── Navigator ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:center;gap:3px;padding:10px 40px;opacity:0.15;transition:opacity .4s}
+.nav:hover{opacity:0.85}
+.nav-dot{width:28px;height:3px;background:rgba(255,255,255,.25);border-radius:2px;border:none;cursor:pointer;transition:all .25s;flex-shrink:0}
+.nav-dot.active{background:#F7585C;width:36px}
+.nav-dot:hover{background:rgba(247,88,92,.6)}
+body.light-slide .nav-dot{background:rgba(0,0,0,.12)}
+body.light-slide .nav-dot.active{background:#F7585C}
+body.light-slide .nav-dot:hover{background:rgba(247,88,92,.5)}
+
+/* ── Slide Number ── */
+.slide-num{position:fixed;bottom:20px;right:32px;font-size:.72rem;color:rgba(255,255,255,.15);z-index:100;font-variant-numeric:tabular-nums;letter-spacing:1px}
+body.light-slide .slide-num{color:rgba(0,0,0,.12)}
+
+/* ── Deck & Slides ── */
+.deck{width:100%;height:100%;position:relative}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;padding:48px 72px 36px;opacity:0;transition:opacity .45s ease;pointer-events:none;overflow:hidden}
+.slide.active{opacity:1;pointer-events:auto}
+
+/* ── Themes ── */
+.s-white{background:#fff;color:#030712}
+.s-light{background:#F4F6F8;color:#030712}
+.s-dark{background:#030712;color:#fff}
+.s-accent{background:#F7585C;color:#fff}
+.s-gradient{background:linear-gradient(135deg,#030712 0%,#1a1f2e 100%);color:#fff}
+
+/* ── Typography ── */
+.s-label{font-size:.75rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#F7585C;margin-bottom:10px}
+.s-dark .s-label,.s-gradient .s-label{color:rgba(255,255,255,.4)}
+.s-title{font-size:2.2rem;font-weight:700;line-height:1.35;margin-bottom:18px;max-width:90%;word-break:keep-all}
+.s-body{flex:1;display:flex;flex-direction:column;justify-content:flex-start;min-height:0}
+.t-main{font-size:1.4rem;line-height:1.7;color:#2E3339;max-width:75%;word-break:keep-all}
+.s-dark .t-main,.s-gradient .t-main{color:rgba(255,255,255,.82)}
+.t-sub{font-size:1rem;line-height:1.6;color:#5F656C;margin-top:12px;max-width:70%;word-break:keep-all}
+.s-dark .t-sub,.s-gradient .t-sub{color:rgba(255,255,255,.4)}
+.hl{color:#F7585C}
+.dim{opacity:.4}
+
+/* ── Cover ── */
+.slide.cover{justify-content:center}
+.cover .s-title{font-size:3rem;max-width:80%;margin-bottom:14px}
+.cover-sub{font-size:1.1rem;color:rgba(255,255,255,.5);margin-bottom:6px;max-width:70%;word-break:keep-all}
+.cover-brand{font-size:.82rem;color:#F7585C;font-weight:700;letter-spacing:1.5px;margin-bottom:4px}
+.cover-date{font-size:.88rem;color:rgba(255,255,255,.25);margin-top:12px}
+
+/* ── Animation ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.slide.active .s-label{animation:fadeUp .4s ease .06s both}
+.slide.active .s-title{animation:fadeUp .4s ease .14s both}
+.slide.active .s-body>*{animation:fadeUp .4s ease .24s both}
+.slide.active .s-body>*:nth-child(2){animation-delay:.32s}
+.slide.active .s-body>*:nth-child(3){animation-delay:.38s}
+.slide.active .s-body>*:nth-child(4){animation-delay:.42s}
+
+/* ── Section Divider ── */
+.section-big-num{position:absolute;top:36px;right:72px;font-size:8rem;font-weight:800;line-height:1;color:rgba(247,88,92,.12);letter-spacing:-4px;pointer-events:none}
+.section-title-lg{font-size:2.6rem;font-weight:700;line-height:1.35;max-width:72%;word-break:keep-all;margin-bottom:14px}
+.section-desc{font-size:1rem;color:rgba(255,255,255,.42);max-width:62%;line-height:1.65;word-break:keep-all}
+.section-chips{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+.s-chip{padding:6px 16px;border-radius:20px;font-size:.8rem;font-weight:600;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.55)}
+.s-chip.active-chip{background:rgba(247,88,92,.2);border-color:#F7585C;color:#F7585C}
+
+/* ── Reference Slides Common ── */
+.ref-top{display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.ref-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;background:#F7585C;color:#fff;border-radius:6px;font-size:.8rem;font-weight:700;flex-shrink:0;white-space:nowrap}
+.ref-meta{display:flex;gap:14px;flex-wrap:wrap;font-size:.77rem;color:#5F656C;align-items:center}
+.ref-meta span{white-space:nowrap}
+.ref-meta span+span::before{content:'·';margin-right:14px;color:#ccc}
+
+/* Tech stack pills */
+.stack-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:11px}
+.pill{padding:2px 9px;border-radius:12px;font-size:.67rem;font-weight:600}
+.pill-blue{background:#EBF4FF;color:#1B6CA8}
+.pill-red{background:#FFF0F0;color:#C0392B}
+.pill-green{background:#F0FDF4;color:#166534}
+.pill-gray{background:#F0F2F5;color:#4B5563}
+.pill-purple{background:#F5F0FF;color:#6D28D9}
+
+/* Output bar */
+.output-bar{margin-top:9px;padding:6px 14px;background:rgba(247,88,92,.07);border-left:3px solid #F7585C;border-radius:0 6px 6px 0;font-size:.75rem;color:#2E3339;line-height:1.55;flex-shrink:0}
+.output-bar strong{color:#F7585C;font-weight:700}
+
+/* ── SAMSUNG 4-LEVEL GRID ── */
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;flex:1}
+.level-card{padding:14px 16px;border-radius:10px;background:#F8FAFB;border-top:3px solid #F7585C;display:flex;flex-direction:column}
+.level-num{font-size:.62rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#F7585C;margin-bottom:3px}
+.level-name{font-size:.86rem;font-weight:700;margin-bottom:5px;line-height:1.3;color:#030712}
+.level-kw{font-size:.66rem;color:#9198A1;margin-bottom:8px;line-height:1.4;font-style:italic}
+.level-list{list-style:none;padding:0;flex:1}
+.level-list li{font-size:.73rem;line-height:1.45;padding:2px 0 2px 11px;position:relative;color:#3E454D;word-break:keep-all}
+.level-list li::before{content:'›';position:absolute;left:0;color:#F7585C;font-weight:700;font-size:.85rem;line-height:1.3}
+
+/* ── TEK 3-DAY GRID ── */
+.day-3-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;flex:1}
+.day-3-card{padding:15px 17px;border-radius:10px;background:#fff;border-left:3px solid #F7585C;box-shadow:0 1px 4px rgba(0,0,0,.05);display:flex;flex-direction:column}
+.s-light .day-3-card{background:#fff}
+.day-3-label{font-size:.64rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#F7585C;margin-bottom:4px}
+.day-3-title{font-size:.88rem;font-weight:700;margin-bottom:8px;line-height:1.35;color:#030712}
+.day-3-list{list-style:none;padding:0;flex:1}
+.day-3-list li{font-size:.76rem;line-height:1.5;padding:3px 0 3px 12px;position:relative;color:#2E3339;word-break:keep-all}
+.day-3-list li::before{content:'›';position:absolute;left:0;color:#F7585C;font-weight:700;font-size:.85rem;line-height:1.3}
+.day-3-list .topic{font-weight:600;color:#1a1f2e}
+.day-3-list .desc{color:#5F656C;font-size:.7rem}
+
+/* ── HYUNDAI 5-DAY GRID ── */
+.day-grid-5{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}
+.day-card{padding:10px 12px;border-radius:9px;background:#F8FAFB;border-top:3px solid #DEE2E8;display:flex;flex-direction:column}
+.s-light .day-card{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.day-card.hl-card{border-top-color:#F7585C}
+.day-card.hl-blue{border-top-color:#3B82F6}
+.day-num{font-size:.6rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#9198A1;margin-bottom:3px}
+.day-num.blue{color:#3B82F6}
+.day-title-sm{font-size:.74rem;font-weight:700;margin-bottom:5px;line-height:1.3;color:#030712;min-height:2.5em}
+.day-list{list-style:none;padding:0;flex:1}
+.day-list li{font-size:.67rem;line-height:1.42;padding:1px 0 1px 9px;position:relative;color:#4B5563;word-break:keep-all}
+.day-list li::before{content:'·';position:absolute;left:0;color:#F7585C}
+
+/* Week label for 심화 */
+.week-label{font-size:.64rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;border-radius:4px;display:inline-block;margin-bottom:7px;flex-shrink:0}
+.w1-label{background:rgba(247,88,92,.1);color:#F7585C}
+.w2-label{background:rgba(59,130,246,.1);color:#3B82F6}
+.week-block{margin-bottom:8px}
+.week-block:last-of-type{margin-bottom:0}
+
+/* Responsive */
+@media(max-width:1280px){
+  .slide{padding:40px 56px 30px}
+  .cover .s-title{font-size:2.5rem}
+  .s-title{font-size:1.9rem}
+  .section-title-lg{font-size:2.2rem}
+}
+</style>
+</head>
+<body>
+<div class="nav" id="nav"></div>
+<div class="slide-num" id="slideNum"></div>
+<div class="deck" id="deck">
+
+<!-- 1. 커버 -->
+<div class="slide s-dark cover" data-theme="dark">
+  <div class="cover-brand">MODULABS · AI 기업교육</div>
+  <h1 class="s-title" style="margin-top:18px">모두의연구소<br>AI 기업교육 레퍼런스</h1>
+  <p class="cover-sub">하네스 엔지니어링 기반 에이전틱 AI<br>GraphRAG &amp; Agentic RAG 시스템 구축</p>
+  <p class="cover-date">2026. 06</p>
+</div>
+
+<!-- 2. Part 1 섹션 -->
+<div class="slide s-gradient" data-theme="dark" style="justify-content:center;position:relative">
+  <div class="section-big-num">01</div>
+  <p class="s-label">Part 1</p>
+  <h2 class="section-title-lg">하네스 엔지니어링 기반<br>에이전틱 AI 활용 과정</h2>
+  <p class="section-desc">Harness Engineering 패러다임 — Context / Constraints / Entropy 3원칙으로<br>AI 에이전트를 실무에 안전하게 통합</p>
+  <div class="section-chips">
+    <span class="s-chip active-chip">Context Engineering</span>
+    <span class="s-chip active-chip">Multi-Agent</span>
+    <span class="s-chip">MCP</span>
+    <span class="s-chip">Enterprise Governance</span>
+    <span class="s-chip">Entropy Management</span>
+  </div>
+</div>
+
+<!-- 3. 삼성전자 MX사업부 레퍼런스 -->
+<div class="slide s-white" data-theme="light">
+  <div class="ref-top">
+    <span class="ref-badge">🏢 삼성전자 MX사업부</span>
+    <div class="ref-meta">
+      <span>에이전틱 코딩 시리즈 — 하네스 엔지니어링 Level 1~4</span>
+      <span>개발자 (수준별 분반)</span>
+      <span>재택 온라인</span>
+      <span>4개 과정 × 8시간 (1일)</span>
+    </div>
+  </div>
+  <div class="stack-row">
+    <span class="pill pill-red">Google AI Studio</span>
+    <span class="pill pill-red">Claude CoWork</span>
+    <span class="pill pill-red">Claude Code</span>
+    <span class="pill pill-gray">Cline</span>
+    <span class="pill pill-gray">OpenClaw</span>
+    <span class="pill pill-gray">MCP</span>
+    <span class="pill pill-gray">NanoClaw</span>
+    <span class="pill pill-gray">Docker</span>
+    <span class="pill pill-gray">v0 · 21st.dev</span>
+  </div>
+  <div class="s-body">
+    <div class="grid-4">
+      <div class="level-card">
+        <div class="level-num">Level 1 · 입문</div>
+        <div class="level-name">하네스 엔지니어링 입문</div>
+        <div class="level-kw">비즈니스 하네스 · Google AI Studio · Claude CoWork</div>
+        <ul class="level-list">
+          <li>에이전트 개발환경(Harness) 개념과 컨텍스트 이해</li>
+          <li>Google AI Studio Prompt-to-App으로 웹앱 직접 제작</li>
+          <li>Claude CoWork 데스크톱 자동화 체험</li>
+          <li>컨텍스트 엔지니어링 기초 (Context Engineering)</li>
+          <li>AI 앱 아이디어 기획 워크숍</li>
+        </ul>
+      </div>
+      <div class="level-card">
+        <div class="level-num">Level 2 · 실전</div>
+        <div class="level-name">하네스 엔지니어링 실전</div>
+        <div class="level-kw">Claude Code · 바이브코딩 · 컨텍스트 설계</div>
+        <ul class="level-list">
+          <li>Claude Code CLI 기반 AI 페어 프로그래밍</li>
+          <li>CLAUDE.md 기반 프로젝트 하네스 구축</li>
+          <li>컨텍스트 계층 설계 (Context / Constraints / Entropy)</li>
+          <li>실무 코드베이스에 AI 자동화 적용 실습</li>
+          <li>하네스 설계 패턴 워크숍</li>
+        </ul>
+      </div>
+      <div class="level-card">
+        <div class="level-num">Level 3 · 발전</div>
+        <div class="level-name">자율 에이전트와 협업하기</div>
+        <div class="level-kw">Cline · OpenClaw · 멀티 에이전트 · MCP</div>
+        <ul class="level-list">
+          <li>Cline 자율 실행(Act Mode) — VS Code 내 AI 코더</li>
+          <li>OpenClaw MCP 서버 연동 + 쉘·파일·브라우저 자동화</li>
+          <li>멀티 에이전트 협업 패턴 (Reflection / Planning)</li>
+          <li>Entropy Management — 지속 가능한 코드베이스 설계</li>
+          <li>팀별 멀티 에이전트 아키텍처 설계서 산출</li>
+        </ul>
+      </div>
+      <div class="level-card">
+        <div class="level-num">Level 4 · 심화</div>
+        <div class="level-name">엔터프라이즈 하네스 거버넌스</div>
+        <div class="level-kw">NanoClaw · 보안 · 거버넌스 · 엔터프라이즈</div>
+        <ul class="level-list">
+          <li>NanoClaw (Docker/MicroVM) 컨테이너 격리 아키텍처</li>
+          <li>AI 생성 코드 품질 보증 (SAST/DAST 자동 스캔)</li>
+          <li>Supply Chain 보안 · DLP · Shadow AI 방지</li>
+          <li>대규모 에이전트 오케스트레이션 · 비용 최적화</li>
+          <li>팀별 AI 에이전트 보안 정책서 + 도입 로드맵 산출</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4. Part 2 섹션 -->
+<div class="slide s-dark" data-theme="dark" style="justify-content:center;position:relative">
+  <div class="section-big-num">02</div>
+  <p class="s-label">Part 2</p>
+  <h2 class="section-title-lg">GraphRAG · Agentic RAG &amp;<br>데이터 벡터화 시스템 구축</h2>
+  <p class="section-desc">RAG 파이프라인 기초부터 GraphRAG · Agentic RAG까지<br>사내 데이터 기반 지능형 검색·자동화 구현</p>
+  <div class="section-chips">
+    <span class="s-chip active-chip">GraphRAG</span>
+    <span class="s-chip active-chip">Agentic RAG</span>
+    <span class="s-chip">Vector DB</span>
+    <span class="s-chip">Memory Architecture</span>
+    <span class="s-chip">LangGraph</span>
+    <span class="s-chip">Security Agent</span>
+  </div>
+</div>
+
+<!-- 5. 도쿄일렉트론코리아 -->
+<div class="slide s-light" data-theme="light">
+  <div class="ref-top">
+    <span class="ref-badge">🏭 도쿄일렉트론코리아</span>
+    <div class="ref-meta">
+      <span>RAG 교육 — 파이프라인 구축부터 GraphRAG · Agentic RAG까지</span>
+      <span>사내 엔지니어</span>
+      <span>2그룹 × 24시간 (총 3일 과정, 2회 운영)</span>
+    </div>
+  </div>
+  <div class="stack-row">
+    <span class="pill pill-blue">LangChain</span>
+    <span class="pill pill-blue">LangGraph</span>
+    <span class="pill pill-blue">ChromaDB</span>
+    <span class="pill pill-blue">Qdrant</span>
+    <span class="pill pill-green">Neo4j</span>
+    <span class="pill pill-green">RAGAS</span>
+    <span class="pill pill-green">TruLens</span>
+  </div>
+  <div class="s-body">
+    <div class="day-3-grid">
+      <div class="day-3-card">
+        <div class="day-3-label">Day 1 · 8H</div>
+        <div class="day-3-title">RAG 기초 및 프롬프트 엔지니어링</div>
+        <ul class="day-3-list">
+          <li><span class="topic">RAG 패러다임 &amp; LangChain (1.5H)</span><br><span class="desc">Naive RAG 한계, Advanced RAG 진화, Chain 실습</span></li>
+          <li><span class="topic">프롬프트 엔지니어링 고급 (2H)</span><br><span class="desc">프롬프트 구조 설계, Grounding, Citation, Few-shot/CoT</span></li>
+          <li><span class="topic">벡터 검색 / 임베딩 핵심 (2.5H)</span><br><span class="desc">Dense/Sparse 임베딩, ChromaDB/Qdrant 구축 및 인덱싱</span></li>
+          <li><span class="topic">비정형 데이터 파싱 &amp; 청킹 (2H)</span><br><span class="desc">Vision LLM 기반 PDF 파싱, Semantic Chunking</span></li>
+        </ul>
+      </div>
+      <div class="day-3-card">
+        <div class="day-3-label">Day 2 · 8H</div>
+        <div class="day-3-title">검색 고도화 및 Graph RAG</div>
+        <ul class="day-3-list">
+          <li><span class="topic">하이브리드 검색 &amp; Re-ranking (2.5H)</span><br><span class="desc">BM25+Dense, Cross-Encoder Re-ranking, RRF 구현</span></li>
+          <li><span class="topic">Query Transformation (2.5H)</span><br><span class="desc">Query Rewriting, HyDE, Semantic Routing, LLM Query 분해</span></li>
+          <li><span class="topic">Graph RAG (3H)</span><br><span class="desc">지식 그래프 구축, Entity/Relation 추출, Multi-Hop 맥락 검색, Neo4j 실습</span></li>
+        </ul>
+      </div>
+      <div class="day-3-card">
+        <div class="day-3-label">Day 3 · 8H</div>
+        <div class="day-3-title">평가 · Agentic RAG · 미니 경진대회</div>
+        <ul class="day-3-list">
+          <li><span class="topic">Multi-Representation 인덱싱 (2H)</span><br><span class="desc">Multi-Vector Retriever, 계층적 인덱싱, BM25+Dense</span></li>
+          <li><span class="topic">RAG 성능 측정 (2H)</span><br><span class="desc">RAGAS/TruLens 정량 평가, LLM-as-a-Judge</span></li>
+          <li><span class="topic">Agentic RAG 기초 (2H)</span><br><span class="desc">CRAG, Self-RAG, LangGraph 순환형 파이프라인</span></li>
+          <li><span class="topic">미니 경진대회 (2H)</span><br><span class="desc">팀별 RAG 파이프라인 구축 · 발표</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="output-bar"><strong>산출물</strong>&nbsp; LangChain 기반 RAG 파이프라인 + RAGAS 평가 리포트 &nbsp;·&nbsp; GraphRAG 지식그래프 검색 실습 결과물 &nbsp;·&nbsp; 미니 경진대회 팀 프로젝트</div>
+  </div>
+</div>
+
+<!-- 6. 현대자동차 기초 1주차 -->
+<div class="slide s-white" data-theme="light">
+  <div class="ref-top">
+    <span class="ref-badge">🚗 현대자동차 차량사이버보안개발팀</span>
+    <div class="ref-meta">
+      <span>Security Agent &amp; RAG 실무 과정 — <strong>기초 1주차</strong> (AI App &amp; Agentic RAG)</span>
+      <span>차량사이버보안 개발자 · 보안 실무진</span>
+      <span>35시간 (5일 × 7시간)</span>
+    </div>
+  </div>
+  <div class="stack-row">
+    <span class="pill pill-blue">Python</span>
+    <span class="pill pill-blue">LangChain</span>
+    <span class="pill pill-blue">LangGraph</span>
+    <span class="pill pill-blue">Vector DB</span>
+    <span class="pill pill-green">RAGAS</span>
+    <span class="pill pill-red">Claude Code</span>
+  </div>
+  <div class="s-body">
+    <div class="day-grid-5">
+      <div class="day-card hl-card">
+        <div class="day-num">Day 1 · 7H</div>
+        <div class="day-title-sm">AI App &amp; Agentic RAG 기초</div>
+        <ul class="day-list">
+          <li>LLM 작동 원리 + 실습 환경 세팅 (Python, Claude Code)</li>
+          <li>LangChain 컴포넌트 (PromptTemplate, LLM, Output Parser)</li>
+          <li>LCEL 다중 체인 설계 & Agentic RAG 기초 파이프라인</li>
+        </ul>
+      </div>
+      <div class="day-card hl-card">
+        <div class="day-num">Day 2 · 7H</div>
+        <div class="day-title-sm">데이터 연동형 RAG 파이프라인</div>
+        <ul class="day-list">
+          <li>RAG 파이프라인 구조: Loader / Text Splitter / Embedding</li>
+          <li>MS Office · Confluence 환경 기준 전처리 실습</li>
+          <li>Vector DB 적재·인덱싱 + LLM 답변 생성 파이프라인</li>
+        </ul>
+      </div>
+      <div class="day-card hl-card">
+        <div class="day-num">Day 3 · 7H</div>
+        <div class="day-title-sm">RAG 고도화 및 성능 개선</div>
+        <ul class="day-list">
+          <li>Hybrid Retrieval (Sparse BM25 + Dense) + 청킹 전략</li>
+          <li>Router-First RAG / Multi Query / LLM Re-Ranking</li>
+          <li>Iterative Self-RAG 루프 + RAGAS 기반 정량 평가</li>
+        </ul>
+      </div>
+      <div class="day-card hl-card">
+        <div class="day-num">Day 4 · 7H</div>
+        <div class="day-title-sm">Agentic RAG 메모리 아키텍처</div>
+        <ul class="day-list">
+          <li>LangGraph (StateGraph/Node/Edge) 순환형 워크플로우</li>
+          <li>Memory Architecture & Governance (세션/장기/에피소드)</li>
+          <li>Vector+Graph+KV 설계 + HITL 연계 설계</li>
+        </ul>
+      </div>
+      <div class="day-card hl-card">
+        <div class="day-num">Day 5 · 7H</div>
+        <div class="day-title-sm">내부 프로젝트 적용 &amp; Q&amp;A</div>
+        <ul class="day-list">
+          <li>HKMC 내부 아젠다 기반 팀별 Agentic RAG 구현</li>
+          <li>디버깅 클리닉 + Hallucination 통제 점검</li>
+          <li>내부 프로젝트 리뷰 &amp; Q&amp;A</li>
+        </ul>
+      </div>
+    </div>
+    <div class="output-bar"><strong>산출물</strong>&nbsp; 사내 데이터(MS Office/Confluence) 연동 Agentic RAG 파이프라인 구현 결과 1건</div>
+  </div>
+</div>
+
+<!-- 7. 현대자동차 기초 2주차 -->
+<div class="slide s-light" data-theme="light">
+  <div class="ref-top">
+    <span class="ref-badge">🚗 현대자동차 차량사이버보안개발팀</span>
+    <div class="ref-meta">
+      <span>Security Agent &amp; RAG 실무 과정 — <strong>기초 2주차</strong> (Autonomous Security Agent)</span>
+      <span>35시간 (5일 × 7시간) · 중간 현업 미션 포함</span>
+    </div>
+  </div>
+  <div class="stack-row">
+    <span class="pill pill-red">OpenClaw</span>
+    <span class="pill pill-blue">LangGraph</span>
+    <span class="pill pill-red">Claude Code</span>
+    <span class="pill pill-gray">CVE/KEV/EPSS</span>
+    <span class="pill pill-gray">HITL Policy Engine</span>
+    <span class="pill pill-blue">Vector DB</span>
+  </div>
+  <div class="s-body">
+    <div class="day-grid-5">
+      <div class="day-card hl-card">
+        <div class="day-num">Day 1 · 7H</div>
+        <div class="day-title-sm">미션 리뷰 &amp; Security by Design</div>
+        <ul class="day-list">
+          <li>1주차 현업 미션(RAG) 산출물 공유 · 트러블슈팅</li>
+          <li>Claude Code CLI 기반 보안 점검 루틴</li>
+          <li>CLAUDE.md 보안 가이드라인 (ASIL 등) 에이전트 주입</li>
+          <li>PR 단계 가정 SAST 파이프라인 구현</li>
+        </ul>
+      </div>
+      <div class="day-card hl-card">
+        <div class="day-num">Day 2 · 7H</div>
+        <div class="day-title-sm">OpenClaw 기반 실행 자동화</div>
+        <ul class="day-list">
+          <li>OpenClaw 샌드박스 제어 (브라우저/터미널/파일)</li>
+          <li>커스텀 Skill 플러그인 제작 — Nmap 등 스캐너 연동</li>
+          <li>DAST/Fuzzing 로그 파싱 + 자동 리포팅 파이프라인</li>
+        </ul>
+      </div>
+      <div class="day-card hl-card">
+        <div class="day-num">Day 3 · 7H</div>
+        <div class="day-title-sm">중앙 통제소 &amp; 메모리 통제</div>
+        <ul class="day-list">
+          <li>LangGraph 분석 에이전트(Claude) + 실행 에이전트(OpenClaw) 오케스트레이션</li>
+          <li>Risk-aware Memory Filter + HITL Policy Engine 승인</li>
+          <li>Audit Log 장기 메모리 (Vector DB + KV) 적재</li>
+        </ul>
+      </div>
+      <div class="day-card hl-card">
+        <div class="day-num">Day 4 · 7H</div>
+        <div class="day-title-sm">Threat Intelligence 결합 보안 에이전트</div>
+        <ul class="day-list">
+          <li>Recon 자동화 및 공격 표면 식별</li>
+          <li>CVE/KEV/EPSS 조회·상관분석 기반 취약점 시나리오</li>
+          <li>Adaptive Red Teaming: Self-Reflective Pentest 루프</li>
+        </ul>
+      </div>
+      <div class="day-card hl-card">
+        <div class="day-num">Day 5 · 7H</div>
+        <div class="day-title-sm">통합 PoC 실행 &amp; 최종 리뷰</div>
+        <ul class="day-list">
+          <li>PoC 시나리오 킥오프 + 타깃 환경 점검</li>
+          <li>Secure Tool-augmented RAG + Memory 통합 실행</li>
+          <li>자동화 보안 점검 리포트 리뷰 · 도입 전략 Q&amp;A</li>
+        </ul>
+      </div>
+    </div>
+    <div class="output-bar"><strong>산출물</strong>&nbsp; TI(CVE/KEV/EPSS) 결합형 Autonomous Security Agent PoC 1건 &nbsp;·&nbsp; 자동화 보안 점검 리포트 1건</div>
+  </div>
+</div>
+
+<!-- 8. 현대자동차 심화 -->
+<div class="slide s-white" data-theme="light">
+  <div class="ref-top">
+    <span class="ref-badge">🚗 현대자동차 차량사이버보안개발팀</span>
+    <div class="ref-meta">
+      <span>AI Agent <strong>심화 과정</strong> — 10일 집중 실무 + 사내 과제 캡스톤</span>
+      <span>1차 교육(70H) 수료자 5~10명</span>
+      <span>총 70시간 · 오전 강의 + 오후 팀 프로젝트</span>
+    </div>
+  </div>
+  <div class="stack-row">
+    <span class="pill pill-blue">LangChain</span>
+    <span class="pill pill-blue">LangGraph</span>
+    <span class="pill pill-blue">MCP</span>
+    <span class="pill pill-red">Claude Code Team</span>
+    <span class="pill pill-green">Promptfoo</span>
+    <span class="pill pill-green">LangSmith</span>
+    <span class="pill pill-gray">PyRIT</span>
+    <span class="pill pill-gray">Garak</span>
+    <span class="pill pill-gray">CVE/KEV/EPSS</span>
+  </div>
+  <div class="s-body">
+    <div class="week-block">
+      <div class="week-label w1-label">Week 1 — 진입 심화 &nbsp;(5일 × 7시간)</div>
+      <div class="day-grid-5">
+        <div class="day-card hl-card">
+          <div class="day-num">Day 1</div>
+          <div class="day-title-sm">LangChain 심화 + 프롬프트 엔지니어링</div>
+          <ul class="day-list">
+            <li>2026 LLM 스택·MCP·Subagents 개관</li>
+            <li>LCEL 복합 체인 설계 심화</li>
+            <li>CoT · Self-Consistency · Constitutional</li>
+          </ul>
+        </div>
+        <div class="day-card hl-card">
+          <div class="day-num">Day 2</div>
+          <div class="day-title-sm">RAG 심화 패턴</div>
+          <ul class="day-list">
+            <li>Hybrid Retrieval · MS Office 최적화 청킹</li>
+            <li>Router-First RAG / Graph RAG (Neo4j)</li>
+            <li>LLM Re-Ranking · Self-RAG 피드백 루프</li>
+          </ul>
+        </div>
+        <div class="day-card hl-card">
+          <div class="day-num">Day 3</div>
+          <div class="day-title-sm">MCP 서버 개발</div>
+          <ul class="day-list">
+            <li>MCP 스펙 · Resources/Tools/Prompts</li>
+            <li>Confluence · Jira MCP 서버 직접 구현</li>
+            <li>통합 테스트 · 보안 검증 프록시</li>
+          </ul>
+        </div>
+        <div class="day-card hl-card">
+          <div class="day-num">Day 4</div>
+          <div class="day-title-sm">LangGraph Orchestration + HITL</div>
+          <ul class="day-list">
+            <li>StateGraph · 조건 분기 · Subgraph 패턴</li>
+            <li>HITL 승인 게이트 · Interrupt 패턴</li>
+            <li>Multi-Agent Supervisor 실습</li>
+          </ul>
+        </div>
+        <div class="day-card hl-card">
+          <div class="day-num">Day 5</div>
+          <div class="day-title-sm">Memory Architecture &amp; Governance</div>
+          <ul class="day-list">
+            <li>Vector+Graph+KV 하이브리드 메모리 설계</li>
+            <li>TTL · Provenance · Audit Log · PII 필터</li>
+            <li>Self-Reflective Memory Loop 구현</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="week-block">
+      <div class="week-label w2-label">Week 2 — 프로젝트 심화 + 사내 과제 캡스톤 &nbsp;(5일 × 7시간)</div>
+      <div class="day-grid-5">
+        <div class="day-card hl-blue">
+          <div class="day-num blue">Day 6</div>
+          <div class="day-title-sm">Agentic Evals &amp; 팀 킥오프</div>
+          <ul class="day-list">
+            <li>Promptfoo · LangSmith 평가 데이터셋</li>
+            <li>팀A~D WG 과제 스코프 · 성공기준 정의</li>
+          </ul>
+        </div>
+        <div class="day-card hl-blue">
+          <div class="day-num blue">Day 7</div>
+          <div class="day-title-sm">TI 연계 심화</div>
+          <ul class="day-list">
+            <li>CVE/MITRE ATT&CK · UN R155/R156</li>
+            <li>TI MCP 서버 + Graph RAG 상관분석</li>
+          </ul>
+        </div>
+        <div class="day-card hl-blue">
+          <div class="day-num blue">Day 8</div>
+          <div class="day-title-sm">Red Teaming 기초</div>
+          <ul class="day-list">
+            <li>PyRIT · Garak · OWASP LLM Top 10 (2026)</li>
+            <li>팀 프로젝트 Red Team 스위트 적용</li>
+          </ul>
+        </div>
+        <div class="day-card hl-blue">
+          <div class="day-num blue">Day 9</div>
+          <div class="day-title-sm">Adaptive Red Teaming + 고도화</div>
+          <ul class="day-list">
+            <li>Self-Reflective 공격 루프 · HITL Gate 심화</li>
+            <li>프로젝트 최종 고도화 · 시연 리허설</li>
+          </ul>
+        </div>
+        <div class="day-card hl-blue">
+          <div class="day-num blue">Day 10</div>
+          <div class="day-title-sm">캡스톤 발표 + 운영 이관</div>
+          <ul class="day-list">
+            <li>4팀 최종 발표 · 데모 · 피어리뷰</li>
+            <li>운영 이관 README · 지속 개선 로드맵</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="output-bar"><strong>산출물</strong>&nbsp; 팀별 작동 데모 4건 &nbsp;·&nbsp; Evals 리포트 &nbsp;·&nbsp; Red Team 리포트 &nbsp;·&nbsp; Memory Governance 설계서 &nbsp;·&nbsp; 운영 이관 README</div>
+  </div>
+</div>
+
+</div><!-- /.deck -->
+
+<script>
+(function(){
+  const slides = document.querySelectorAll('.slide');
+  const nav = document.getElementById('nav');
+  const numEl = document.getElementById('slideNum');
+  const total = slides.length;
+  let current = 0;
+
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot';
+    dot.title = 'Slide ' + (i + 1);
+    dot.addEventListener('click', () => go(i));
+    nav.appendChild(dot);
+  });
+  const dots = nav.querySelectorAll('.nav-dot');
+
+  function go(index) {
+    if (index < 0 || index >= total) return;
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = index;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+    const theme = slides[current].dataset.theme;
+    document.body.classList.toggle('light-slide', theme === 'light');
+    numEl.textContent = (current + 1) + ' / ' + total;
+  }
+
+  go(0);
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); go(current + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); go(current - 1); }
+    if (e.key === 'Home') { e.preventDefault(); go(0); }
+    if (e.key === 'End') { e.preventDefault(); go(total - 1); }
+    if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+})();
+</script>
+</body>
+</html>

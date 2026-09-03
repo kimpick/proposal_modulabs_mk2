@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude 활용 임베디드 제어시스템 개발 — 기업교육 제안서</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+  :root{
+    --primary:#EE3E4C; --primary-dk:#C92434; --secondary:#EBBAC0;
+    --ink:#111111; --body:#333333; --muted:#5B6270; --faint:#8A919C;
+    --border:#EBEBEB; --line:#F0F0F2; --bg:#ffffff; --soft:#FAFAFB; --soft2:#F5F6F8;
+    --blue:#2563EB; --blue-bg:#EEF4FF; --green:#0E9F6E; --green-bg:#E7F6EF;
+    --amber:#B45309; --amber-bg:#FEF3E2; --purple:#7C3AED;
+    --shadow:0 1px 2px rgba(17,17,17,.04),0 10px 30px rgba(17,17,17,.08);
+    --radius:16px;
+    --slide-w:1280px; --slide-h:720px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;overflow:hidden;background:#0a0c11;
+    font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+
+  .stage{position:fixed;inset:0;display:grid;place-items:center}
+  .deck{position:relative;width:var(--slide-w);height:var(--slide-h);transform-origin:center center;
+    box-shadow:0 20px 60px rgba(0,0,0,.45);border-radius:6px;overflow:hidden;background:var(--bg)}
+
+  .slide{position:absolute;inset:0;width:var(--slide-w);height:var(--slide-h);background:var(--bg);
+    overflow:hidden;opacity:0;pointer-events:none;transform:translateX(24px);
+    transition:opacity .4s ease,transform .4s ease}
+  .slide.is-active{opacity:1;pointer-events:auto;transform:translateX(0)}
+  .fit-frame{position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start}
+  .fit-frame.center{justify-content:center}
+  .fit-content{padding:40px 58px;transform-origin:top center}
+  .fit-frame.center .fit-content{transform-origin:center center}
+
+  .sec-num{font-size:14px;font-weight:700;color:var(--faint);letter-spacing:.08em}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:14.5px;font-weight:700;
+    letter-spacing:.04em;color:var(--primary);text-transform:uppercase;margin:8px 0 12px}
+  .kicker::before{content:"";width:24px;height:2.5px;background:var(--primary);border-radius:2px}
+  h2{font-size:33px;line-height:1.25;color:var(--ink);margin:0 0 10px;font-weight:800;letter-spacing:-.02em}
+  h3{font-size:21px;color:var(--ink);margin:0;font-weight:700}
+  .lead{font-size:17.5px;color:var(--muted);margin:0 0 20px;max-width:1000px;line-height:1.5}
+
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .split{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:center}
+
+  .cover{background:radial-gradient(1200px 520px at 82% -12%,#ff5d69 0%,transparent 55%),
+    linear-gradient(135deg,#1a1114 0%,#2a1418 40%,#7a1420 100%);color:#fff}
+  .cover .cover-badge{display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:600;
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);padding:9px 17px;border-radius:999px}
+  .cover h1{font-size:52px;line-height:1.18;font-weight:800;margin:24px 0 16px;letter-spacing:-.03em;color:#fff}
+  .cover h1 span{color:#ffd0d4}
+  .cover .sub{font-size:21px;color:rgba(255,255,255,.9);max-width:800px;margin:0 0 34px;line-height:1.5}
+  .cover-meta{display:flex;flex-wrap:wrap;gap:10px 30px;font-size:15.5px;color:rgba(255,255,255,.75);
+    border-top:1px solid rgba(255,255,255,.18);padding-top:22px}
+  .cover-meta b{color:#fff;font-weight:600}
+  .closing{background:linear-gradient(135deg,#1a1114,#5e1018);color:#fff}
+  .closing h2{color:#fff;font-size:36px}
+  .closing .msg{font-size:20px;color:rgba(255,255,255,.9);max-width:900px;margin:18px 0 30px;line-height:1.6}
+  .closing .sign{display:flex;flex-wrap:wrap;gap:8px 30px;font-size:16px;color:rgba(255,255,255,.78);
+    border-top:1px solid rgba(255,255,255,.2);padding-top:22px}
+  .closing .sign b{color:#fff}
+  .cover .kicker,.closing .kicker{color:#ffd0d4}
+  .cover .kicker::before,.closing .kicker::before{background:#ffd0d4}
+
+  .kpi{background:var(--soft);border:1px solid var(--border);border-radius:14px;padding:22px 18px;text-align:center}
+  .kpi .n{font-size:40px;font-weight:800;color:var(--primary);letter-spacing:-.03em;line-height:1}
+  .kpi .n small{font-size:21px;font-weight:700}
+  .kpi .l{font-size:15px;color:var(--muted);margin-top:10px;font-weight:500;line-height:1.35}
+
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+  .chip{font-size:16px;font-weight:700;color:var(--ink);background:#fff;border:1px solid var(--border);
+    padding:10px 17px;border-radius:10px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  .chip.big{font-size:17px;border-color:#f2c9cd}
+
+  .refcol{background:var(--soft);border:1px solid var(--border);border-radius:14px;padding:16px 18px}
+  .refcol .refhd{font-size:15px;font-weight:800;color:var(--primary);padding-bottom:9px;margin-bottom:5px;border-bottom:2px solid #f4ccd0}
+  .refcol ul{margin:0;padding:0;list-style:none}
+  .refcol li{font-size:15px;font-weight:600;color:var(--ink);padding:6px 0;border-bottom:1px solid var(--line)}
+  .refcol li:last-child{border-bottom:none}
+  .refcol li span{font-size:13px;color:var(--muted);font-weight:500}
+
+  .mvp{border:1px solid var(--border);border-radius:14px;padding:18px 20px;background:linear-gradient(180deg,#fff,#fdfafa)}
+  .mvp .mh{display:flex;gap:11px;align-items:flex-start;margin-bottom:11px}
+  .mvp .idx{flex:none;width:32px;height:32px;border-radius:9px;background:var(--ink);color:#fff;
+    font-size:14px;font-weight:800;display:grid;place-items:center}
+  .mvp .mt{font-size:17.5px;font-weight:700;color:var(--ink);line-height:1.35}
+  .mvp .row{font-size:14.5px;margin:7px 0;display:flex;gap:9px;line-height:1.45}
+  .mvp .row .tag{flex:none;font-size:13px;font-weight:700;color:var(--muted);width:40px;padding-top:1px}
+  .mvp .row .val{color:var(--body)}
+  .mvp .row .val.tech{color:var(--blue);font-weight:600}
+  .mvp .row .val.eff{color:var(--green);font-weight:600}
+
+  .quote{background:linear-gradient(135deg,#fff5f6,#fdeef0);border:1px solid #f4ccd0;border-radius:14px;padding:24px 26px;position:relative}
+  .quote .q{font-size:23px;font-weight:800;color:var(--primary-dk);line-height:1.42;letter-spacing:-.02em}
+  .quote .by{font-size:15px;color:var(--muted);margin-top:11px;line-height:1.5}
+
+  .flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+  .step{flex:1;min-width:150px;background:var(--soft);border:1px solid var(--border);border-radius:12px;padding:17px 19px;position:relative}
+  .step + .step{margin-left:28px}
+  .step + .step::before{content:"→";position:absolute;left:-23px;top:50%;transform:translateY(-50%);color:var(--primary);font-weight:800;font-size:21px}
+  .step .st{font-size:13px;font-weight:700;color:var(--primary);margin-bottom:5px;letter-spacing:.04em}
+  .step .sd{font-size:18px;color:var(--ink);font-weight:800}
+  .step .ss{font-size:15px;color:var(--muted);margin-top:6px;line-height:1.5}
+
+  .task{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px}
+  .task .ti{font-size:26px}
+  .task .tt{font-size:17px;font-weight:700;color:var(--ink);margin:9px 0 5px}
+  .task .td{font-size:14.5px;color:var(--muted);line-height:1.5}
+
+  .tbl{width:100%;border-collapse:collapse;font-size:15.5px}
+  .tbl th{background:var(--ink);color:#fff;text-align:left;padding:12px 14px;font-weight:600;font-size:14.5px}
+  .tbl th:first-child{border-radius:8px 0 0 0}.tbl th:last-child{border-radius:0 8px 0 0}
+  .tbl td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.5}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl tbody tr:nth-child(even){background:var(--soft)}
+  .tbl .task-c{font-weight:700;color:var(--ink);white-space:nowrap}
+  .tbl.compact td{padding:10px 10px;text-align:center;font-size:14.5px}
+  .tbl.compact th{padding:10px 10px;text-align:center;font-size:13.5px}
+  .tbl.compact td:first-child,.tbl.compact th:first-child{text-align:left}
+  .pill{display:inline-block;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;margin:2px 3px 2px 0}
+  .pill.b{background:var(--blue-bg);color:var(--blue)}
+  .pill.r{background:#FEF0F0;color:var(--primary)}
+  .pill.g{background:var(--green-bg);color:var(--green)}
+
+  .ba-head,.ba{display:grid;grid-template-columns:1fr 1.2fr 36px 1.2fr .8fr;gap:13px;align-items:center}
+  .ba-head{font-size:14px;font-weight:700;color:var(--muted);padding:0 4px 9px}
+  .ba-head .h-after{color:var(--primary)}
+  .ba{padding:11px 4px;border-top:1px solid var(--line)}
+  .ba .task-name{font-weight:700;color:var(--ink);font-size:16.5px}
+  .ba .before{background:var(--soft2);border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-size:15px;color:var(--muted)}
+  .ba .arrow{text-align:center;color:var(--primary);font-weight:800;font-size:21px}
+  .ba .after{background:#fff5f6;border:1px solid #f4ccd0;border-radius:10px;padding:11px 14px;font-size:15px;color:var(--ink);font-weight:500}
+  .ba .gain{text-align:center;font-size:16px;font-weight:800;color:var(--primary-dk);line-height:1.25}
+
+  .prop{width:100%;border-collapse:collapse;font-size:14.5px}
+  .prop th{text-align:left;padding:11px 13px;font-size:13.5px;font-weight:700;letter-spacing:.03em;color:var(--muted);background:var(--soft);border-bottom:2px solid var(--border);white-space:nowrap}
+  .prop th.c{text-align:center}
+  .prop td{padding:12px 13px;line-height:1.5;border-bottom:1px solid var(--line);vertical-align:middle;font-size:14.5px}
+  .prop td.trk{font-weight:800;color:var(--primary);background:var(--soft);white-space:nowrap;text-align:center;line-height:1.5;font-size:16px}
+  .prop td.course{font-weight:700;color:var(--ink);font-size:15px}
+  .prop td.core{color:var(--body);font-size:14px;line-height:1.55}
+  .prop td.core b{color:var(--primary-dk);font-weight:700}
+  .prop td.hrs{color:var(--primary);font-weight:800;text-align:center;white-space:nowrap;font-size:16px}
+  .prop tr.sumrow td{background:#FFF6F2;font-weight:700;color:var(--ink);font-size:15.5px}
+  .badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12.5px;font-weight:700;white-space:nowrap;margin-top:5px}
+  .badge-red{background:rgba(238,62,76,.12);color:var(--primary-dk)}
+  .badge-blue{background:rgba(37,99,235,.12);color:var(--blue)}
+  .badge-green{background:rgba(14,159,110,.12);color:var(--green)}
+  .badge-purple{background:rgba(124,58,237,.12);color:var(--purple)}
+
+  .why{background:var(--ink);color:#fff;border-radius:14px;padding:24px}
+  .why h3{color:#fff;margin-bottom:12px}
+  .why ul{margin:0;padding-left:19px;font-size:16px;color:rgba(255,255,255,.88);line-height:1.55}
+  .why li{margin:11px 0}
+  .why b{color:#ffd0d4}
+
+  .note{font-size:14px;color:var(--faint);margin-top:16px;padding-top:13px;border-top:1px dashed var(--border);line-height:1.5}
+
+  .nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:center;gap:3px;
+    padding:12px 6vw;opacity:.18;transition:opacity .25s}
+  .nav:hover{opacity:.95}
+  .nav-dot{width:22px;height:3px;padding:0;background:rgba(255,255,255,.4);border:0;border-radius:2px;cursor:pointer;transition:all .2s}
+  .nav-dot.active{width:34px;background:var(--primary)}
+  .nav-dot:hover{background:var(--primary)}
+  .slide-num{position:fixed;right:26px;bottom:20px;z-index:1000;color:rgba(255,255,255,.55);
+    font-size:12px;font-weight:700;letter-spacing:.08em;font-variant-numeric:tabular-nums}
+  .hint{position:fixed;left:26px;bottom:20px;z-index:1000;color:rgba(255,255,255,.32);font-size:11px}
+
+  @media print{
+    @page{ size:A4 landscape; margin:0; }
+    html,body{overflow:visible;background:#fff;height:auto}
+    .stage{position:static;display:block}
+    .deck{transform:none!important;box-shadow:none;border-radius:0;width:auto;height:auto}
+    .nav,.slide-num,.hint{display:none}
+    .slide{position:relative;inset:auto;width:100vw;height:100vh;opacity:1;transform:none;
+      page-break-after:always;break-inside:avoid;transition:none}
+    .slide:last-child{page-break-after:auto}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<div class="nav" id="nav" aria-label="슬라이드 목차"></div>
+<div class="slide-num" id="slideNum" aria-live="polite"></div>
+<div class="hint">← → 이동 · F 전체화면 · Ctrl/⌘+P PDF</div>
+
+<div class="stage">
+  <div class="deck" id="deck">
+
+    <!-- ===== 01 표지 ===== -->
+    <section class="slide cover">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <span class="cover-badge">🔴 모두의연구소 &nbsp;×&nbsp; 기업교육</span>
+          <h1>임베디드 개발 실무자를 위한<br><span>Claude 활용 제어시스템 개발</span></h1>
+          <p class="sub">센서와 RS-485 통신, GUI를 AI와 함께 개발합니다.<br>현장에 바로 쓸 수 있는 통합 모니터링 시스템을 만들고 끝나는 8차수 실전 과정입니다.</p>
+          <div class="cover-meta">
+            <span><b>작성</b> · 모두의연구소 비즈팀</span>
+            <span><b>일자</b> · 2026.07.31</span>
+            <span><b>범위</b> · 8차수 × 1일 4시간</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 02 배경 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">01 / 배경</span>
+          <p class="kicker">왜 지금인가</p>
+          <h2>AI 코딩 도구를 써도 임베디드에서는 잘 안 되는 이유</h2>
+          <p class="lead">모델 성능이 아니라 <b>모델을 둘러싼 시스템</b>이 막힌 지점이라는 것, 이것이 2026년 엔지니어링 현장의 공통된 진단입니다.</p>
+          <div class="quote">
+            <div class="q">가장 어려운 과제는 이제 환경과 피드백 루프, 제어 시스템을 어떻게 설계하느냐에 몰려 있다.</div>
+            <div class="by">— OpenAI 엔지니어링 팀. martinfowler.com「Harness engineering for coding agent users」에서 인용</div>
+          </div>
+          <div class="grid g4" style="margin-top:18px">
+            <div class="task"><div class="ti">📄</div><div class="tt">매번 처음부터 설명</div><div class="td">핀맵, 레지스터, 보드 제약을 대화할 때마다 다시 알려줘야 합니다</div></div>
+            <div class="task"><div class="ti">🔍</div><div class="tt">돌려봐야 안다</div><div class="td">컴파일은 통과해도 실제 보드에서 타이밍과 통신이 깨집니다</div></div>
+            <div class="task"><div class="ti">🔁</div><div class="tt">손으로 반복</div><div class="td">빌드하고 플래시하고 로그 보는 일을 사람이 매번 직접 합니다</div></div>
+            <div class="task"><div class="ti">👤</div><div class="tt">개인기로 끝난다</div><div class="td">잘 쓰는 사람의 요령이 팀 자산으로 남지 않습니다</div></div>
+          </div>
+          <p class="note">출처 · martinfowler.com「Harness engineering for coding agent users」(Birgitta Böckeler, 2026.04)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 03 세 개념 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">02 / 관점</span>
+          <p class="kicker">과정의 뼈대</p>
+          <h2>하네스 → 루프 → 그래프, AI 협업 개발의 3단계</h2>
+          <p class="lead">프롬프트와 컨텍스트 다음 단계로 자리 잡은 세 가지 실천을, 임베디드 개발 과제에 그대로 대응시켰습니다.</p>
+          <div class="flow">
+            <div class="step">
+              <div class="st">STEP 1 · HARNESS</div>
+              <div class="sd">하네스 엔지니어링</div>
+              <div class="ss">에이전트에서 모델을 뺀 나머지 전부를 뜻합니다. 미리 방향을 잡아주는 <b>가이드</b>와, 결과를 관측해 스스로 고치게 만드는 <b>센서</b>로 나뉩니다.</div>
+            </div>
+            <div class="step">
+              <div class="st">STEP 2 · LOOP</div>
+              <div class="sd">루프 엔지니어링</div>
+              <div class="ss">몇 번 반복할지, 언제 멈출지, 막히면 어떻게 할지를 정합니다. 대부분의 실패는 <b>"무엇을 끝난 것으로 볼지"</b>가 흐릿한 데서 생깁니다.</div>
+            </div>
+            <div class="step">
+              <div class="st">STEP 3 · GRAPH</div>
+              <div class="sd">그래프 엔지니어링</div>
+              <div class="ss">한 줄기 루프로 감당이 안 되는 일을 <b>지휘자와 작업자</b>로 나눠 맡깁니다. 실행 이력을 남겨 언제든 같은 결과를 재현합니다.</div>
+            </div>
+          </div>
+          <div class="quote" style="margin-top:20px">
+            <div class="q" style="font-size:19px">임베디드는 셋 중에서도 "제대로 동작하는지 확인하는 일"이 가장 어렵습니다.</div>
+            <div class="by" style="font-size:16px">코드가 컴파일되고 테스트를 통과해도 실제 보드에서는 타이밍이 어긋나고 통신이 끊깁니다. 그래서 이 과정은 <b>실물 보드를 물려 자동으로 검증하는 루프(HIL)</b>를 커리큘럼의 중심에 놓았습니다.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 04 설계 축 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">03 / 설계</span>
+          <p class="kicker">두 축을 겹친 설계</p>
+          <h2>임베디드 데이터 흐름 × AI 협업 개발 성숙도</h2>
+          <p class="lead">한 축은 센서에서 RS-485를 거쳐 GUI로 흐르는 데이터, 다른 축은 하네스에서 루프를 거쳐 그래프로 올라가는 개발 성숙도입니다. 두 축이 매 차수 겹쳐서 진행됩니다.</p>
+          <table class="tbl compact">
+            <thead>
+              <tr><th style="width:110px">축</th><th>1차</th><th>2차</th><th>3차</th><th>4차</th><th>5차</th><th>6차</th><th>7차</th><th>8차</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="task-c">임베디드</td>
+                <td>환경 구축</td><td>센서</td><td>실시간</td><td>RS-485</td><td>Modbus</td><td>GUI</td><td>통합</td><td>캡스톤</td>
+              </tr>
+              <tr>
+                <td class="task-c">AI 협업</td>
+                <td><span class="pill r">가이드</span></td>
+                <td><span class="pill r">센서</span></td>
+                <td><span class="pill b">루프</span></td>
+                <td><span class="pill r">통신 센서</span></td>
+                <td><span class="pill b">회귀 루프</span></td>
+                <td><span class="pill g">그래프</span></td>
+                <td><span class="pill g">오케스트레이션</span></td>
+                <td><span class="pill g">자산화</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="grid g3" style="margin-top:20px">
+            <div class="task"><div class="tt">이론만 따로 다루지 않습니다</div><div class="td">개념을 별도 차수로 몰아 두면 "좋은 얘기지만 우리 일과는 다르다"로 끝납니다. 각 개념이 실제로 필요해지는 순간에 배치했습니다.</div></div>
+            <div class="task"><div class="tt">캡스톤에서 거꾸로 짰습니다</div><div class="td">앞 차수 결과물이 다음 차수의 재료가 됩니다. 8차수에 가면 따로 조립할 필요 없이 시스템이 완성돼 있습니다.</div></div>
+            <div class="task"><div class="tt">검증에 시간을 씁니다</div><div class="td">AI가 짠 코드가 하드웨어에서 진짜 도는지 확인하는 시간을 차수마다 넣었습니다. 실패는 대개 이 구간에서 납니다.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 05 교육 개요 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">04 / 개요</span>
+          <p class="kicker">교육 개요</p>
+          <h2>8차수 · 하루 4시간 · 실제 설비를 물려서 진행</h2>
+          <p class="lead">사내 ESP32 개발 경험자를 포함한 임베디드 실무자를 대상으로, 고객사 설비를 직접 연동해 진행합니다.</p>
+          <div class="grid g4">
+            <div class="kpi"><div class="n">8<small>차수</small></div><div class="l">하루 4시간씩 나눠 운영</div></div>
+            <div class="kpi"><div class="n">32<small>시간</small></div><div class="l">이론보다 실습에 무게</div></div>
+            <div class="kpi"><div class="n">1<small>식</small></div><div class="l">통합 모니터링 시스템 캡스톤</div></div>
+            <div class="kpi"><div class="n">템플릿</div><div class="l">다음 프로젝트에 쓸 개발 자산</div></div>
+          </div>
+          <table class="tbl" style="margin-top:20px">
+            <tbody>
+              <tr><td class="task-c" style="width:150px">교육 대상</td><td>임베디드 개발 실무자 (사내 ESP32 개발 경험자 포함) · AI 코딩 도구를 업무에 조금씩 써 본 수준</td></tr>
+              <tr><td class="task-c">실습 환경</td><td>고객사 실제 설비 연동 (사전 환경 조사 필요) · ESP-IDF 또는 PlatformIO 기반</td></tr>
+              <tr><td class="task-c">교육 목표</td><td>Claude로 임베디드 제어시스템을 개발하는 역량을 갖춥니다 · 센서와 RS-485 통신, GUI를 Claude Code로 함께 만듭니다 · 현장에서 바로 돌려볼 수 있는 결과물을 손에 쥡니다</td></tr>
+              <tr><td class="task-c">최종 산출물</td><td>센서 → RS-485 → GUI 통합 모니터링 시스템 1식, 그리고 팀이 계속 쓸 하네스 템플릿 (가이드 문서 · 검증 스크립트 · 자동 반복 루프)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 06 커리큘럼 1/4 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">05 / 커리큘럼</span>
+          <p class="kicker">제안 커리큘럼 (1/4)</p>
+          <h2>1~2차수 · 판을 깔고, 검증 장치를 붙인다</h2>
+          <table class="prop">
+            <thead>
+              <tr><th style="width:130px">차수</th><th style="width:250px">모듈</th><th>학습 내용</th><th class="c" style="width:70px">시간</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="trk" rowspan="4">1차<br><span class="badge badge-red">가이드</span></td><td class="course">과정 목표 설정과 현장 과제 정의</td><td class="core">과정 전체 흐름과 캡스톤 목표 맞추기 · 대상 설비와 센서, 통신 사양 확인 후 팀 편성</td><td class="hrs">0.5H</td></tr>
+              <tr><td class="course">하네스 엔지니어링 개념과 임베디드 적용</td><td class="core">에이전트에서 모델을 뺀 나머지, 즉 하네스가 무엇인지 · 가이드와 센서를 각각 계산형·추론형으로 나눠 보기 · 임베디드에서 동작 검증이 유독 어려운 이유와 대응법</td><td class="hrs">1H</td></tr>
+              <tr><td class="course">가이드 만들기 실습</td><td class="core">하드웨어 사양과 핀맵, 레지스터 규격을 문서로 정리하기 · 같은 지시를 두 번 하지 않도록 프로젝트 규칙과 코딩 컨벤션 정하기<br><b>실습 예시</b> · 대상 설비 핀맵과 통신 규격을 CLAUDE.md로 작성</td><td class="hrs">1H</td></tr>
+              <tr><td class="course">ESP32 프로젝트 세팅과 빌드·플래시 자동화</td><td class="core">ESP-IDF 또는 PlatformIO 프로젝트 구조 잡기 · 빌드, 플래시, 시리얼 모니터를 한 번에 돌리는 스크립트 만들기<br><b>실습 예시</b> · 설비 제어 펌웨어 베이스 프로젝트 생성 후 첫 플래시</td><td class="hrs">1.5H</td></tr>
+
+              <tr><td class="trk" rowspan="3">2차<br><span class="badge badge-red">센서</span></td><td class="course">센서 인터페이스 설계와 데이터시트 읽기</td><td class="core">I2C, SPI, ADC 중 무엇을 쓸지 판단하는 기준 · 레지스터 맵과 타이밍 다이어그램 해석 · 데이터시트를 Claude에게 물려주는 방법</td><td class="hrs">1H</td></tr>
+              <tr><td class="course">Claude와 함께 센서 드라이버 만들기</td><td class="core">초기화, 읽기, 에러 처리 루틴을 만들고 다듬기 · AI가 짠 코드가 하드웨어와 맞는지 확인하는 포인트<br><b>실습 예시</b> · 온습도, 압력, 진동 센서 드라이버 작성</td><td class="hrs">1.5H</td></tr>
+              <tr><td class="course">검증 장치(센서) 붙이기 실습</td><td class="core">컴파일 경고와 정적분석 결과를 Claude가 스스로 고칠 신호로 바꾸기 · Unity 유닛테스트 · Claude가 읽기 좋은 시리얼 로그 포맷 설계<br><b>실습 예시</b> · 드라이버 유닛테스트와 로그 파서 구성, 오류 메시지에 수정 지침 넣기</td><td class="hrs">1.5H</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 07 커리큘럼 2/4 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">05 / 커리큘럼</span>
+          <p class="kicker">제안 커리큘럼 (2/4)</p>
+          <h2>3~4차수 · 검증을 자동으로 돌리고, 통신을 붙인다</h2>
+          <table class="prop">
+            <thead>
+              <tr><th style="width:130px">차수</th><th style="width:250px">모듈</th><th>학습 내용</th><th class="c" style="width:70px">시간</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="trk" rowspan="3">3차<br><span class="badge badge-blue">루프</span></td><td class="course">루프 엔지니어링과 완료 조건 설계</td><td class="core">한 번에 무엇을 할지, 언제 다시 돌릴지, 언제 끝난 것으로 볼지, 막히면 어떻게 할지 · 무한 반복하거나 너무 일찍 멈추거나 다 됐다고 착각하는 전형적 실패 · 측정 가능한 완료 조건 쓰는 법</td><td class="hrs">1H</td></tr>
+              <tr><td class="course">빌드–플래시–검증 자동 반복 루프 만들기</td><td class="core">실물 보드를 물려 자동으로 돌리는 검증 루프 · 최대 반복 횟수와 타임아웃 정하기 · 실패 로그를 다음 회차에 그대로 넣어 주는 구조<br><b>실습 예시</b> · 센서 값이 정상 범위에 들어올 때까지 자동으로 반복하는 검증 루프 구축</td><td class="hrs">1.5H</td></tr>
+              <tr><td class="course">FreeRTOS 수집 구조와 이상치 처리</td><td class="core">태스크와 큐, 세마포어로 주기 수집 짜기 · 필터링과 보정, 튀는 값 걸러내기, 센서가 죽었을 때 대체 동작<br><b>실습 예시</b> · 여러 센서를 주기적으로 읽는 태스크와 임계값 경보 로직 구현</td><td class="hrs">1.5H</td></tr>
+
+              <tr><td class="trk" rowspan="3">4차<br><span class="badge badge-red">통신 센서</span></td><td class="course">RS-485 회로와 배선 설계 원칙</td><td class="core">반이중 트랜시버 동작과 DE/RE 제어 · 종단저항, 바이어싱, 접지 설계 · 현장 노이즈 대책과 케이블 고르는 기준</td><td class="hrs">1H</td></tr>
+              <tr><td class="course">UART 반이중 송수신 구현</td><td class="core">인터럽트와 DMA 기반 UART 처리 구조 · 송수신 전환 타이밍과 타임아웃 설계<br><b>실습 예시</b> · 반이중 RS-485 드라이버 작성 후 루프백으로 확인</td><td class="hrs">1.5H</td></tr>
+              <tr><td class="course">통신 검증 장치와 회귀 테스트 실습</td><td class="core">프레임 캡처와 덤프를 합격·불합격 판정이 가능한 형태로 정리 · 한 번 겪은 통신 오류를 회귀 테스트로 남기기<br><b>실습 예시</b> · 통신 실패 구간을 자동으로 잡아내는 판정 스크립트와 재시도 로직 보완</td><td class="hrs">1.5H</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 08 커리큘럼 3/4 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">05 / 커리큘럼</span>
+          <p class="kicker">제안 커리큘럼 (3/4)</p>
+          <h2>5~6차수 · 설비에 붙이고, 작업을 나눠 맡긴다</h2>
+          <table class="prop">
+            <thead>
+              <tr><th style="width:130px">차수</th><th style="width:250px">모듈</th><th>학습 내용</th><th class="c" style="width:70px">시간</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="trk" rowspan="3">5차<br><span class="badge badge-blue">회귀 루프</span></td><td class="course">Modbus RTU 프레임 구조와 레지스터 맵</td><td class="core">기능 코드와 CRC, 프레임 타이밍 규격 · 설비 레지스터 맵 문서 읽는 순서 · 마스터와 슬레이브 역할 나누는 기준</td><td class="hrs">1H</td></tr>
+              <tr><td class="course">Modbus 마스터·슬레이브 구현</td><td class="core">요청과 응답 처리 루틴, CRC 검증 구현 · 예외 응답과 재시도 정책 설계<br><b>실습 예시</b> · ESP32를 Modbus 마스터로 만들어 설비 레지스터 폴링</td><td class="hrs">1.5H</td></tr>
+              <tr><td class="course">현장 설비 실연동과 회귀 루프 운영</td><td class="core">실제 설비에 맞춰 통신 파라미터 조정 · 코드를 고칠 때마다 회귀 루프를 돌려 문제를 일찍 잡기<br><b>실습 예시</b> · 고객사 설비를 직접 물려 연동하고 장애 시나리오 회귀 세트 구성</td><td class="hrs">1.5H</td></tr>
+
+              <tr><td class="trk" rowspan="3">6차<br><span class="badge badge-green">그래프</span></td><td class="course">그래프 엔지니어링과 역할 분할 설계</td><td class="core">한 줄기 루프로는 안 되는 지점과 지휘자–작업자 구조 · 작업 그래프 설계, 상태 공유와 실패 전파 대응 · 실행 이력을 남겨 같은 결과를 재현하기</td><td class="hrs">1H</td></tr>
+              <tr><td class="course">역할을 나눠 GUI 만들기 실습</td><td class="core">PySide6와 웹 대시보드 중 무엇을 쓸지 판단하는 기준 · 화면, 데이터, 검증을 나눠 동시에 진행하기<br><b>실습 예시</b> · 실시간 계측값과 경보를 보여 주는 대시보드를 역할 분담으로 구축</td><td class="hrs">1.5H</td></tr>
+              <tr><td class="course">시리얼 브리지와 실시간 데이터 연결</td><td class="core">장비와 PC 사이 데이터 연결 구조 설계 · 실시간 갱신, 차트, 이력 저장 구현<br><b>실습 예시</b> · 설비 계측값 실시간 그래프와 CSV 이력 저장</td><td class="hrs">1.5H</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 09 커리큘럼 4/4 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">05 / 커리큘럼</span>
+          <p class="kicker">제안 커리큘럼 (4/4)</p>
+          <h2>7~8차수 · 하나로 합치고, 팀 자산으로 남긴다</h2>
+          <table class="prop">
+            <thead>
+              <tr><th style="width:130px">차수</th><th style="width:250px">모듈</th><th>학습 내용</th><th class="c" style="width:70px">시간</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="trk" rowspan="3">7차<br><span class="badge badge-green">오케스트레이션</span></td><td class="course">펌웨어–통신–GUI 통합 설계</td><td class="core">구간별 인터페이스 약속과 데이터가 새거나 늦어지는 지점 찾기 · 통합 단계에서 흔히 나오는 결함과 책임 경계 정리 · 구간 단위 실패 격리와 되돌리기 전략</td><td class="hrs">1H</td></tr>
+              <tr><td class="course">리뷰 에이전트 운영 실습</td><td class="core">테스트로는 안 잡히는 문제(과설계, 원인 오진)에 리뷰 에이전트 붙이기 · 비용을 고려해 언제 돌릴지 정하기 (커밋 전 / 통합 후)<br><b>실습 예시</b> · 아키텍처 리뷰와 로그 품질 점검 에이전트 구성</td><td class="hrs">1.5H</td></tr>
+              <tr><td class="course">장시간 운전 테스트와 예외 복구</td><td class="core">워치독, 재접속, 상태 복구 로직 설계 · 메모리 누수와 리소스 점유 점검<br><b>실습 예시</b> · 연속 운전 시나리오 테스트와 가끔씩만 나는 통신 오류 원인 찾기</td><td class="hrs">1.5H</td></tr>
+
+              <tr><td class="trk" rowspan="3">8차<br><span class="badge badge-green">자산화</span></td><td class="course">캡스톤 마무리와 코드 리뷰</td><td class="core">남은 기능 완성과 통합 검증 · AI가 짠 코드를 품질과 유지보수 관점에서 보는 기준<br><b>실습 예시</b> · 통합 모니터링 시스템 최종 동작 확인</td><td class="hrs">1.5H</td></tr>
+              <tr><td class="course">하네스 템플릿화와 문서 자동화</td><td class="core">과정 중 쌓은 가이드, 검증 장치, 반복 루프를 다시 쓸 수 있게 정리 · 코드에서 설계문서와 운영 매뉴얼 자동 생성<br><b>실습 예시</b> · 다음 프로젝트에 바로 붙일 수 있는 하네스 템플릿 1식 산출</td><td class="hrs">1H</td></tr>
+              <tr><td class="course">성과 발표와 사내 확산 로드맵</td><td class="core">팀별 결과물 시연과 상호 피드백 · 현업에 넓혀 적용할 과제 뽑고 우선순위 정하기 · 사내 AI 협업 개발 표준을 자리 잡게 하는 방향</td><td class="hrs">1.5H</td></tr>
+
+              <tr class="sumrow"><td class="trk" style="background:#FFF6F2">합계</td><td class="course" colspan="2">8차수 × 하루 4시간</td><td class="hrs">32H</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 10 산출물 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">06 / 산출물</span>
+          <p class="kicker">과정이 끝나면 남는 것</p>
+          <h2>코드만 남기지 않습니다. 다음 프로젝트에 쓸 개발 방식이 남습니다.</h2>
+          <p class="lead">캡스톤 시스템 한 벌과, 그것을 만드는 과정에서 쌓인 재사용 가능한 개발 자산을 함께 넘겨 드립니다.</p>
+          <div class="grid g2">
+            <div class="mvp">
+              <div class="mh"><div class="idx">01</div><div class="mt">센서 → RS-485 → GUI 통합 모니터링 시스템</div></div>
+              <div class="row"><span class="tag">구성</span><span class="val">ESP32 펌웨어 + Modbus RTU 통신 + PC 모니터링 GUI</span></div>
+              <div class="row"><span class="tag">기술</span><span class="val tech">ESP-IDF · FreeRTOS · RS-485 반이중 · Modbus RTU · PySide6/웹</span></div>
+              <div class="row"><span class="tag">효과</span><span class="val eff">고객사 설비와 연동 확인까지 끝낸 상태로 인계</span></div>
+            </div>
+            <div class="mvp">
+              <div class="mh"><div class="idx">02</div><div class="mt">팀 하네스 템플릿</div></div>
+              <div class="row"><span class="tag">구성</span><span class="val">가이드 문서(CLAUDE.md · 핀맵 · 컨벤션) + 검증 스크립트 + 반복 루프</span></div>
+              <div class="row"><span class="tag">기술</span><span class="val tech">정적분석 · Unity 유닛테스트 · 로그 파서 · HIL 회귀 세트</span></div>
+              <div class="row"><span class="tag">효과</span><span class="val eff">다음 임베디드 프로젝트에 그대로 옮겨 쓸 수 있음</span></div>
+            </div>
+            <div class="mvp">
+              <div class="mh"><div class="idx">03</div><div class="mt">회귀 테스트 세트</div></div>
+              <div class="row"><span class="tag">구성</span><span class="val">통신 장애 시나리오 · 센서 이상치 · 연속 운전 케이스</span></div>
+              <div class="row"><span class="tag">기술</span><span class="val tech">자동 캡처·판정 스크립트 · 완료 조건 정의서</span></div>
+              <div class="row"><span class="tag">효과</span><span class="val eff">코드를 고칠 때마다 문제를 일찍 발견</span></div>
+            </div>
+            <div class="mvp">
+              <div class="mh"><div class="idx">04</div><div class="mt">인수인계 문서 일체</div></div>
+              <div class="row"><span class="tag">구성</span><span class="val">설계문서 · 운영 매뉴얼 · 트러블슈팅 가이드</span></div>
+              <div class="row"><span class="tag">기술</span><span class="val tech">코드에서 자동 생성한 뒤 검수</span></div>
+              <div class="row"><span class="tag">효과</span><span class="val eff">담당자가 바뀌어도 유지보수가 끊기지 않음</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 11 기대 효과 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">07 / 기대 효과</span>
+          <p class="kicker">Before / After</p>
+          <h2>수료 후 일하는 방식이 이렇게 바뀝니다</h2>
+          <div class="ba-head">
+            <div>업무</div><div>지금</div><div></div><div class="h-after">수료 후</div><div>달라지는 것</div>
+          </div>
+          <div class="ba">
+            <div class="task-name">센서 드라이버 개발</div>
+            <div class="before">데이터시트를 직접 읽고 손으로 작성</div>
+            <div class="arrow">→</div>
+            <div class="after">데이터시트를 물려주고 만든 뒤 검증</div>
+            <div class="gain">착수<br>속도</div>
+          </div>
+          <div class="ba">
+            <div class="task-name">통신 디버깅</div>
+            <div class="before">로그를 눈으로 훑고 경험으로 추측</div>
+            <div class="arrow">→</div>
+            <div class="after">로그 포맷을 정해 두고 자동으로 판정</div>
+            <div class="gain">원인<br>파악</div>
+          </div>
+          <div class="ba">
+            <div class="task-name">회귀 검증</div>
+            <div class="before">고칠 때마다 사람이 다시 재현</div>
+            <div class="arrow">→</div>
+            <div class="after">빌드–플래시–검증이 자동으로 반복</div>
+            <div class="gain">반복<br>부담</div>
+          </div>
+          <div class="ba">
+            <div class="task-name">병렬 개발</div>
+            <div class="before">펌웨어가 끝나야 GUI를 시작</div>
+            <div class="arrow">→</div>
+            <div class="after">역할을 나눠 동시에 진행</div>
+            <div class="gain">리드<br>타임</div>
+          </div>
+          <div class="ba">
+            <div class="task-name">팀 확산</div>
+            <div class="before">잘하는 사람의 요령으로만 남음</div>
+            <div class="arrow">→</div>
+            <div class="after">가이드·검증·루프를 템플릿으로 공유</div>
+            <div class="gain">재사<br>용성</div>
+          </div>
+          <p class="note">달라지는 항목은 정성 기준으로 정리했습니다. 정량 목표가 필요하시면 착수 전에 기준선을 함께 측정해 잡아 드립니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 12 운영 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">08 / 운영</span>
+          <p class="kicker">제안 근거와 준비 사항</p>
+          <h2>왜 이렇게 짰는지, 그리고 시작 전에 정할 것</h2>
+          <div class="split">
+            <table class="tbl">
+              <thead><tr><th style="width:180px">협의 항목</th><th>정해야 하는 이유</th></tr></thead>
+              <tbody>
+                <tr><td class="task-c">대상 설비·레지스터 맵</td><td>5차수 실연동 범위와 회귀 시나리오를 정하는 기준</td></tr>
+                <tr><td class="task-c">실습 보드·센서 수량</td><td>팀 편성 인원과 실습 단위(1인/1팀) 결정</td></tr>
+                <tr><td class="task-c">설비 접근 가능 시간</td><td>5·7차수 실연동과 연속 운전 테스트 일정 배치</td></tr>
+                <tr><td class="task-c">GUI 스택 선택</td><td>PySide6 데스크톱이냐 웹 대시보드냐에 따라 6차수 실습이 달라짐</td></tr>
+                <tr><td class="task-c">Claude Code 사용 정책</td><td>사내망에서 쓸 수 있는지, 코드 반출 범위는 어디까지인지</td></tr>
+                <tr><td class="task-c">CI 파이프라인 사용 여부</td><td>3·5차수 회귀 루프를 어디까지 자동화할지 결정</td></tr>
+              </tbody>
+            </table>
+            <div class="why">
+              <h3>왜 이 구성인가</h3>
+              <ul>
+                <li><b>도구 사용법이 아니라 개발 방식</b>을 다룹니다. 수강생이 이미 AI 도구를 써 봤으니 기초 사용법에 시간을 쓰지 않습니다.</li>
+                <li><b>검증에 시간을 넉넉히</b> 뒀습니다. 임베디드에서 AI 코딩이 어긋나는 지점은 대개 하드웨어 검증 구간입니다.</li>
+                <li><b>끝나고 남을 것</b>을 미리 설계했습니다. 8차수에 하네스를 템플릿으로 정리해 다음 프로젝트로 이어집니다.</li>
+              </ul>
+            </div>
+          </div>
+          <p class="note">차수별 세부 커리큘럼은 위 항목을 확정한 뒤 함께 조정합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 13 맺음말 ===== -->
+    <section class="slide closing">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <p class="kicker">맺음말</p>
+          <h2>교육이 끝난 다음 날부터<br>현장에서 계속 돌아가는 것을 만듭니다.</h2>
+          <p class="msg">이 과정의 목표는 Claude를 잘 쓰는 개발자 몇 명을 배출하는 것이 아니라, 임베디드 개발 방식 자체를 팀 단위로 바꾸는 것입니다. 8차수가 끝나면 실제로 돌아가는 통합 시스템 한 벌과, 다음 프로젝트에 그대로 쓸 수 있는 개발 하네스가 함께 남습니다. 세부 구성은 협의 항목을 확정한 뒤 함께 다듬겠습니다.</p>
+          <div class="sign">
+            <span><b>모두의연구소</b> · 비즈팀 · 사업PM</span>
+            <span><b>modubiz@ormbiz.co.kr</b></span>
+            <span>2026.07.31</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  const deck   = document.getElementById('deck');
+  const nav    = document.getElementById('nav');
+  const numEl  = document.getElementById('slideNum');
+  const slides = Array.from(deck.querySelectorAll('.slide'));
+  const total  = slides.length;
+  let current  = 0;
+
+  function fitStage(){
+    const k = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+    deck.style.transform = 'scale(' + k + ')';
+  }
+
+  function fitContent(slide){
+    const frame = slide.querySelector('.fit-frame');
+    const content = slide.querySelector('.fit-content');
+    if(!frame || !content) return;
+    content.style.transform = 'none';
+    const avail = frame.clientHeight;
+    const need  = content.scrollHeight;
+    if(need > avail){
+      content.style.transform = 'scale(' + (avail / need).toFixed(4) + ')';
+    }
+  }
+
+  slides.forEach((slide, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot';
+    dot.type = 'button';
+    dot.title = '슬라이드 ' + (i + 1);
+    dot.addEventListener('click', () => go(i));
+    nav.appendChild(dot);
+  });
+  const dots = Array.from(nav.querySelectorAll('.nav-dot'));
+
+  function go(i){
+    if(i < 0 || i >= total) return;
+    slides[current].classList.remove('is-active');
+    dots[current].classList.remove('active');
+    current = i;
+    slides[current].classList.add('is-active');
+    dots[current].classList.add('active');
+    numEl.textContent = (current + 1) + ' / ' + total;
+    fitContent(slides[current]);
+  }
+
+  window.addEventListener('resize', () => { fitStage(); fitContent(slides[current]); });
+  window.addEventListener('load', () => { slides.forEach(fitContent); });
+  window.addEventListener('beforeprint', () => slides.forEach(fitContent));
+
+  document.addEventListener('keydown', e => {
+    if(e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' '){ e.preventDefault(); go(current + 1); }
+    if(e.key === 'ArrowLeft'  || e.key === 'ArrowUp'){ e.preventDefault(); go(current - 1); }
+    if(e.key === 'Home'){ e.preventDefault(); go(0); }
+    if(e.key === 'End'){ e.preventDefault(); go(total - 1); }
+    if(e.key.toLowerCase() === 'f'){
+      if(!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+
+  fitStage();
+  go(0);
+})();
+</script>
+</body>
+</html>

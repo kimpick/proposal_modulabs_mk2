@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude 활용 임베디드 제어시스템 개발 — 기업교육 제안서 (4일 16H)</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+  :root{
+    --primary:#EE3E4C; --primary-dk:#C92434; --secondary:#EBBAC0;
+    --ink:#111111; --body:#333333; --muted:#5B6270; --faint:#8A919C;
+    --border:#EBEBEB; --line:#F0F0F2; --bg:#ffffff; --soft:#FAFAFB; --soft2:#F5F6F8;
+    --blue:#2563EB; --blue-bg:#EEF4FF; --green:#0E9F6E; --green-bg:#E7F6EF;
+    --amber:#B45309; --amber-bg:#FEF3E2; --purple:#7C3AED;
+    --shadow:0 1px 2px rgba(17,17,17,.04),0 10px 30px rgba(17,17,17,.08);
+    --radius:16px;
+    --slide-w:1280px; --slide-h:720px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;overflow:hidden;background:#0a0c11;
+    font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+
+  .stage{position:fixed;inset:0;display:grid;place-items:center}
+  .deck{position:relative;width:var(--slide-w);height:var(--slide-h);transform-origin:center center;
+    box-shadow:0 20px 60px rgba(0,0,0,.45);border-radius:6px;overflow:hidden;background:var(--bg)}
+
+  .slide{position:absolute;inset:0;width:var(--slide-w);height:var(--slide-h);background:var(--bg);
+    overflow:hidden;opacity:0;pointer-events:none;transform:translateX(24px);
+    transition:opacity .4s ease,transform .4s ease}
+  .slide.is-active{opacity:1;pointer-events:auto;transform:translateX(0)}
+  .fit-frame{position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start}
+  .fit-frame.center{justify-content:center}
+  .fit-content{padding:40px 58px;transform-origin:top center}
+  .fit-frame.center .fit-content{transform-origin:center center}
+
+  .sec-num{font-size:14px;font-weight:700;color:var(--faint);letter-spacing:.08em}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:14.5px;font-weight:700;
+    letter-spacing:.04em;color:var(--primary);text-transform:uppercase;margin:8px 0 12px}
+  .kicker::before{content:"";width:24px;height:2.5px;background:var(--primary);border-radius:2px}
+  h2{font-size:33px;line-height:1.25;color:var(--ink);margin:0 0 10px;font-weight:800;letter-spacing:-.02em}
+  h3{font-size:21px;color:var(--ink);margin:0;font-weight:700}
+  .lead{font-size:17.5px;color:var(--muted);margin:0 0 20px;max-width:1000px;line-height:1.5}
+
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .split{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:center}
+
+  .cover{background:radial-gradient(1200px 520px at 82% -12%,#ff5d69 0%,transparent 55%),
+    linear-gradient(135deg,#1a1114 0%,#2a1418 40%,#7a1420 100%);color:#fff}
+  .cover .cover-badge{display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:600;
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);padding:9px 17px;border-radius:999px}
+  .cover h1{font-size:52px;line-height:1.18;font-weight:800;margin:24px 0 16px;letter-spacing:-.03em;color:#fff}
+  .cover h1 span{color:#ffd0d4}
+  .cover .sub{font-size:21px;color:rgba(255,255,255,.9);max-width:800px;margin:0 0 34px;line-height:1.5}
+  .cover-meta{display:flex;flex-wrap:wrap;gap:10px 30px;font-size:15.5px;color:rgba(255,255,255,.75);
+    border-top:1px solid rgba(255,255,255,.18);padding-top:22px}
+  .cover-meta b{color:#fff;font-weight:600}
+  .closing{background:linear-gradient(135deg,#1a1114,#5e1018);color:#fff}
+  .closing h2{color:#fff;font-size:36px}
+  .closing .msg{font-size:20px;color:rgba(255,255,255,.9);max-width:900px;margin:18px 0 30px;line-height:1.6}
+  .closing .sign{display:flex;flex-wrap:wrap;gap:8px 30px;font-size:16px;color:rgba(255,255,255,.78);
+    border-top:1px solid rgba(255,255,255,.2);padding-top:22px}
+  .closing .sign b{color:#fff}
+  .cover .kicker,.closing .kicker{color:#ffd0d4}
+  .cover .kicker::before,.closing .kicker::before{background:#ffd0d4}
+
+  .kpi{background:var(--soft);border:1px solid var(--border);border-radius:14px;padding:22px 18px;text-align:center}
+  .kpi .n{font-size:40px;font-weight:800;color:var(--primary);letter-spacing:-.03em;line-height:1}
+  .kpi .n small{font-size:21px;font-weight:700}
+  .kpi .l{font-size:15px;color:var(--muted);margin-top:10px;font-weight:500;line-height:1.35}
+
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+  .chip{font-size:16px;font-weight:700;color:var(--ink);background:#fff;border:1px solid var(--border);
+    padding:10px 17px;border-radius:10px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  .chip.big{font-size:17px;border-color:#f2c9cd}
+
+  .refcol{background:var(--soft);border:1px solid var(--border);border-radius:14px;padding:16px 18px}
+  .refcol .refhd{font-size:15px;font-weight:800;color:var(--primary);padding-bottom:9px;margin-bottom:5px;border-bottom:2px solid #f4ccd0}
+  .refcol ul{margin:0;padding:0;list-style:none}
+  .refcol li{font-size:15px;font-weight:600;color:var(--ink);padding:6px 0;border-bottom:1px solid var(--line)}
+  .refcol li:last-child{border-bottom:none}
+  .refcol li span{font-size:13px;color:var(--muted);font-weight:500}
+
+  .mvp{border:1px solid var(--border);border-radius:14px;padding:18px 20px;background:linear-gradient(180deg,#fff,#fdfafa)}
+  .mvp .mh{display:flex;gap:11px;align-items:flex-start;margin-bottom:11px}
+  .mvp .idx{flex:none;width:32px;height:32px;border-radius:9px;background:var(--ink);color:#fff;
+    font-size:14px;font-weight:800;display:grid;place-items:center}
+  .mvp .mt{font-size:17.5px;font-weight:700;color:var(--ink);line-height:1.35}
+  .mvp .row{font-size:14.5px;margin:7px 0;display:flex;gap:9px;line-height:1.45}
+  .mvp .row .tag{flex:none;font-size:13px;font-weight:700;color:var(--muted);width:40px;padding-top:1px}
+  .mvp .row .val{color:var(--body)}
+  .mvp .row .val.tech{color:var(--blue);font-weight:600}
+  .mvp .row .val.eff{color:var(--green);font-weight:600}
+
+  .quote{background:linear-gradient(135deg,#fff5f6,#fdeef0);border:1px solid #f4ccd0;border-radius:14px;padding:24px 26px;position:relative}
+  .quote .q{font-size:23px;font-weight:800;color:var(--primary-dk);line-height:1.42;letter-spacing:-.02em}
+  .quote .by{font-size:15px;color:var(--muted);margin-top:11px;line-height:1.5}
+
+  .flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+  .step{flex:1;min-width:150px;background:var(--soft);border:1px solid var(--border);border-radius:12px;padding:17px 19px;position:relative}
+  .step + .step{margin-left:28px}
+  .step + .step::before{content:"→";position:absolute;left:-23px;top:50%;transform:translateY(-50%);color:var(--primary);font-weight:800;font-size:21px}
+  .step .st{font-size:13px;font-weight:700;color:var(--primary);margin-bottom:5px;letter-spacing:.04em}
+  .step .sd{font-size:18px;color:var(--ink);font-weight:800}
+  .step .ss{font-size:15px;color:var(--muted);margin-top:6px;line-height:1.5}
+
+  .task{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px}
+  .task .ti{font-size:26px}
+  .task .tt{font-size:17px;font-weight:700;color:var(--ink);margin:9px 0 5px}
+  .task .td{font-size:14.5px;color:var(--muted);line-height:1.5}
+
+  .tbl{width:100%;border-collapse:collapse;font-size:15.5px}
+  .tbl th{background:var(--ink);color:#fff;text-align:left;padding:12px 14px;font-weight:600;font-size:14.5px}
+  .tbl th:first-child{border-radius:8px 0 0 0}.tbl th:last-child{border-radius:0 8px 0 0}
+  .tbl td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.5}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl tbody tr:nth-child(even){background:var(--soft)}
+  .tbl .task-c{font-weight:700;color:var(--ink);white-space:nowrap}
+  .tbl.compact td{padding:10px 10px;text-align:center;font-size:14.5px}
+  .tbl.compact th{padding:10px 10px;text-align:center;font-size:13.5px}
+  .tbl.compact td:first-child,.tbl.compact th:first-child{text-align:left}
+  .pill{display:inline-block;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;margin:2px 3px 2px 0}
+  .pill.b{background:var(--blue-bg);color:var(--blue)}
+  .pill.r{background:#FEF0F0;color:var(--primary)}
+  .pill.g{background:var(--green-bg);color:var(--green)}
+
+  .ba-head,.ba{display:grid;grid-template-columns:1fr 1.2fr 36px 1.2fr .8fr;gap:13px;align-items:center}
+  .ba-head{font-size:14px;font-weight:700;color:var(--muted);padding:0 4px 9px}
+  .ba-head .h-after{color:var(--primary)}
+  .ba{padding:11px 4px;border-top:1px solid var(--line)}
+  .ba .task-name{font-weight:700;color:var(--ink);font-size:16.5px}
+  .ba .before{background:var(--soft2);border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-size:15px;color:var(--muted)}
+  .ba .arrow{text-align:center;color:var(--primary);font-weight:800;font-size:21px}
+  .ba .after{background:#fff5f6;border:1px solid #f4ccd0;border-radius:10px;padding:11px 14px;font-size:15px;color:var(--ink);font-weight:500}
+  .ba .gain{text-align:center;font-size:16px;font-weight:800;color:var(--primary-dk);line-height:1.25}
+
+  .prop{width:100%;border-collapse:collapse;font-size:14.5px}
+  .prop th{text-align:left;padding:11px 13px;font-size:13.5px;font-weight:700;letter-spacing:.03em;color:var(--muted);background:var(--soft);border-bottom:2px solid var(--border);white-space:nowrap}
+  .prop th.c{text-align:center}
+  .prop td{padding:12px 13px;line-height:1.5;border-bottom:1px solid var(--line);vertical-align:middle;font-size:14.5px}
+  .prop td.trk{font-weight:800;color:var(--primary);background:var(--soft);white-space:nowrap;text-align:center;line-height:1.5;font-size:16px}
+  .prop td.course{font-weight:700;color:var(--ink);font-size:15px}
+  .prop td.core{color:var(--body);font-size:14px;line-height:1.55}
+  .prop td.core b{color:var(--primary-dk);font-weight:700}
+  .prop td.hrs{color:var(--primary);font-weight:800;text-align:center;white-space:nowrap;font-size:16px}
+  .prop tr.sumrow td{background:#FFF6F2;font-weight:700;color:var(--ink);font-size:15.5px}
+  .badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12.5px;font-weight:700;white-space:nowrap;margin-top:5px}
+  .badge-red{background:rgba(238,62,76,.12);color:var(--primary-dk)}
+  .badge-blue{background:rgba(37,99,235,.12);color:var(--blue)}
+  .badge-green{background:rgba(14,159,110,.12);color:var(--green)}
+  .badge-purple{background:rgba(124,58,237,.12);color:var(--purple)}
+
+  .why{background:var(--ink);color:#fff;border-radius:14px;padding:24px}
+  .why h3{color:#fff;margin-bottom:12px}
+  .why ul{margin:0;padding-left:19px;font-size:16px;color:rgba(255,255,255,.88);line-height:1.55}
+  .why li{margin:11px 0}
+  .why b{color:#ffd0d4}
+
+  .note{font-size:14px;color:var(--faint);margin-top:16px;padding-top:13px;border-top:1px dashed var(--border);line-height:1.5}
+
+  .nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:center;gap:3px;
+    padding:12px 6vw;opacity:.18;transition:opacity .25s}
+  .nav:hover{opacity:.95}
+  .nav-dot{width:22px;height:3px;padding:0;background:rgba(255,255,255,.4);border:0;border-radius:2px;cursor:pointer;transition:all .2s}
+  .nav-dot.active{width:34px;background:var(--primary)}
+  .nav-dot:hover{background:var(--primary)}
+  .slide-num{position:fixed;right:26px;bottom:20px;z-index:1000;color:rgba(255,255,255,.55);
+    font-size:12px;font-weight:700;letter-spacing:.08em;font-variant-numeric:tabular-nums}
+  .hint{position:fixed;left:26px;bottom:20px;z-index:1000;color:rgba(255,255,255,.32);font-size:11px}
+
+  @media print{
+    @page{ size:A4 landscape; margin:0; }
+    html,body{overflow:visible;background:#fff;height:auto}
+    .stage{position:static;display:block}
+    .deck{transform:none!important;box-shadow:none;border-radius:0;width:auto;height:auto}
+    .nav,.slide-num,.hint{display:none}
+    .slide{position:relative;inset:auto;width:100vw;height:100vh;opacity:1;transform:none;
+      page-break-after:always;break-inside:avoid;transition:none}
+    .slide:last-child{page-break-after:auto}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<div class="nav" id="nav" aria-label="슬라이드 목차"></div>
+<div class="slide-num" id="slideNum" aria-live="polite"></div>
+<div class="hint">← → 이동 · F 전체화면 · Ctrl/⌘+P PDF</div>
+
+<div class="stage">
+  <div class="deck" id="deck">
+
+    <!-- ===== 01 표지 ===== -->
+    <section class="slide cover">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <span class="cover-badge">모두의연구소 &nbsp;×&nbsp; 기업교육</span>
+          <h1>임베디드 개발 실무자를 위한<br><span>Claude 활용 제어시스템 개발</span></h1>
+          <p class="sub">센서와 RS-485 통신을 AI와 함께 개발하고, 제공 GUI로 연결해 End-to-End로 완성합니다.<br>현장 적용 가능한 제어시스템을 완성하는 4일 압축 실전 과정입니다.</p>
+          <div class="cover-meta">
+            <span><b>작성</b> · 모두의연구소 비즈팀</span>
+            <span><b>일자</b> · 2026.08.25</span>
+            <span><b>범위</b> · 4일차 × 1일 4시간 · 총 16H</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 02 배경 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">01 / 배경</span>
+          <p class="kicker">배경과 문제 인식</p>
+          <h2>임베디드 개발에서 AI 코딩 도구의 한계 요인</h2>
+          <p class="lead">병목은 모델 성능보다 <b>모델을 둘러싼 시스템</b>에 있습니다. 2026년 엔지니어링 현장의 공통된 진단입니다.</p>
+          <div class="quote">
+            <div class="q">가장 어려운 과제는 이제 환경과 피드백 루프, 제어 시스템을 어떻게 설계하느냐에 몰려 있다.</div>
+            <div class="by">— OpenAI 엔지니어링 팀. martinfowler.com「Harness engineering for coding agent users」에서 인용</div>
+          </div>
+          <div class="grid g4" style="margin-top:18px">
+            <div class="task"><div class="tt">매번 처음부터 설명</div><div class="td">핀맵, 레지스터, 보드 제약을 대화할 때마다 다시 알려줘야 합니다</div></div>
+            <div class="task"><div class="tt">실행 후에만 확인 가능</div><div class="td">컴파일은 통과해도 실제 보드에서 타이밍과 통신이 깨집니다</div></div>
+            <div class="task"><div class="tt">수동 반복 작업</div><div class="td">빌드·업로드·로그 확인을 담당자가 매번 직접 수행합니다</div></div>
+            <div class="task"><div class="tt">개인 역량 의존</div><div class="td">숙련자의 활용 방식이 팀 자산으로 축적되지 않습니다</div></div>
+          </div>
+          <p class="note">출처 · martinfowler.com「Harness engineering for coding agent users」(Birgitta Böckeler, 2026.04)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 03 개념 (하네스·루프) ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">02 / 관점</span>
+          <p class="kicker">과정의 뼈대</p>
+          <h2>하네스 · 루프 — 16H 과정의 두 축</h2>
+          <p class="lead">프롬프트와 컨텍스트 다음 단계로 자리 잡은 실천을 임베디드 개발 과제에 대응시켰습니다. 4일 과정에서는 앞의 두 단계를 현업 적용 가능한 수준까지 다룹니다.</p>
+          <div class="flow">
+            <div class="step">
+              <div class="st">STEP 1 · HARNESS</div>
+              <div class="sd">하네스 엔지니어링</div>
+              <div class="ss">에이전트에서 모델을 뺀 나머지 전부를 뜻합니다. 미리 방향을 잡아주는 <b>가이드</b>와, 결과를 관측해 스스로 고치게 만드는 <b>센서</b>로 나뉩니다.</div>
+            </div>
+            <div class="step">
+              <div class="st">STEP 2 · LOOP</div>
+              <div class="sd">루프 엔지니어링</div>
+              <div class="ss">반복 횟수와 중단 시점, 실패 시 복구 방식을 정합니다. 대부분의 실패는 <b>완료 조건</b>이 불명확한 데서 발생합니다.</div>
+            </div>
+            <div class="step">
+              <div class="st">STEP 3 · GRAPH <span class="pill g" style="font-size:11px;padding:2px 8px">후속 과정</span></div>
+              <div class="sd">그래프 엔지니어링</div>
+              <div class="ss">여러 에이전트를 <b>지휘자와 작업자</b>로 나눠 맡기는 층입니다. 32H 확장 과정의 범위이며, 이번 4일 과정에서는 다루지 않습니다.</div>
+            </div>
+          </div>
+          <div class="quote" style="margin-top:20px">
+            <div class="q" style="font-size:19px">임베디드에서 가장 어려운 것은 "제대로 동작하는지 확인하는 일"입니다.</div>
+            <div class="by" style="font-size:16px">코드가 컴파일되고 테스트를 통과해도 실제 보드에서는 타이밍이 어긋나고 통신이 끊깁니다. 이 과정은 <b>실장비를 연동한 자동 검증 루프(HIL)</b>를 커리큘럼의 중심에 두었습니다.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 04 설계 축 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">03 / 설계</span>
+          <p class="kicker">두 축을 겹친 설계</p>
+          <h2>임베디드 데이터 흐름 × AI 협업 개발 성숙도</h2>
+          <p class="lead">한 축은 센서에서 RS-485를 거쳐 GUI로 흐르는 데이터, 다른 축은 하네스에서 검증 루프로 올라가는 개발 성숙도입니다. 두 축이 매 일차 겹쳐서 진행됩니다.</p>
+          <table class="tbl compact">
+            <thead>
+              <tr><th style="width:110px">축</th><th>1일차</th><th>2일차</th><th>3일차</th><th>4일차</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="task-c">임베디드</td>
+                <td>개발환경 구축</td><td>센서 드라이버</td><td>RS-485 · Modbus RTU</td><td>통합 · GUI 연동</td>
+              </tr>
+              <tr>
+                <td class="task-c">AI 협업</td>
+                <td><span class="pill r">가이드(하네스)</span></td>
+                <td><span class="pill b">검증 루프</span></td>
+                <td><span class="pill b">통신 검증</span></td>
+                <td><span class="pill g">자산화</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="grid g3" style="margin-top:20px">
+            <div class="task"><div class="tt">개념의 실무 시점 배치</div><div class="td">개념을 별도 일차로 묶으면 현업과 분리된 내용으로 남습니다. 각 개념이 실제로 필요해지는 시점에 배치했습니다.</div></div>
+            <div class="task"><div class="tt">통합 목표 기준 역순 설계</div><div class="td">앞 일차 결과물이 다음 일차의 입력이 됩니다. 4일차에는 별도 조립 없이 시스템이 완성됩니다.</div></div>
+            <div class="task"><div class="tt">검증 시간 확보</div><div class="td">생성된 코드의 하드웨어 실동작을 확인하는 시간을 일차마다 배정했습니다. 실패는 대개 이 구간에서 발생합니다.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 05 교육 개요 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">04 / 개요</span>
+          <p class="kicker">교육 개요</p>
+          <h2>4일차 · 1일 4시간 · 실장비 연동 운영</h2>
+          <p class="lead">사내 ESP32 개발 경험자를 포함한 임베디드 실무자를 대상으로, 고객사 설비를 연동해 진행합니다.</p>
+          <div class="grid g4">
+            <div class="kpi"><div class="n">4<small>일차</small></div><div class="l">하루 4시간씩 나눠 운영</div></div>
+            <div class="kpi"><div class="n">16<small>시간</small></div><div class="l">이론보다 실습에 무게</div></div>
+            <div class="kpi"><div class="n">1<small>식</small></div><div class="l">End-to-End 제어시스템 통합</div></div>
+            <div class="kpi"><div class="n">템플릿</div><div class="l">다음 프로젝트에 쓸 개발 자산</div></div>
+          </div>
+          <table class="tbl" style="margin-top:20px">
+            <tbody>
+              <tr><td class="task-c" style="width:150px">교육 대상</td><td>임베디드 개발 실무자 (사내 ESP32 개발 경험자 포함) · AI 코딩 도구를 업무에 조금씩 써 본 수준</td></tr>
+              <tr><td class="task-c">실습 환경</td><td>고객사 실제 설비 연동 (사전 환경 조사 필요) · ESP-IDF 또는 PlatformIO 기반</td></tr>
+              <tr><td class="task-c">교육 목표</td><td>Claude로 임베디드 제어시스템을 개발하는 역량을 갖춥니다 · 센서 데이터를 ESP32에서 수집해 RS-485/Modbus RTU로 전송하고 PC GUI에서 확인하는 전 구간을 직접 구현합니다 · 현장에서 바로 검증 가능한 결과물을 확보합니다</td></tr>
+              <tr><td class="task-c">최종 산출물</td><td>센서 → ESP32 → RS-485/Modbus RTU → PC GUI End-to-End 제어시스템 1식, 그리고 팀이 계속 쓸 하네스 템플릿 (CLAUDE.md · 검증 스크립트 · 자동 반복 루프)</td></tr>
+              <tr><td class="task-c">GUI 제공</td><td>실습용 Python GUI 뷰어를 과정에서 제공합니다 · 수강생은 GUI 개발 대신 연동과 통합 검증에 시간을 씁니다</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 06 커리큘럼 1/2 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">05 / 커리큘럼</span>
+          <p class="kicker">제안 커리큘럼 (1/2)</p>
+          <h2>1~2일차 · 개발환경 구축과 검증 루프 구성</h2>
+          <table class="prop">
+            <thead>
+              <tr><th style="width:130px">일차</th><th style="width:250px">모듈</th><th>학습 내용</th><th class="c" style="width:70px">시간</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="trk" rowspan="4">1일차<br><span class="badge badge-red">가이드</span></td><td class="course">과정 목표 설정과 하드웨어 조건 확인</td><td class="core">과정 전체 흐름과 최종 통합 목표 맞추기 · 대상 설비와 센서, 통신 사양 확인 후 팀 편성</td><td class="hrs">0.5H</td></tr>
+              <tr><td class="course">ESP32 개발환경 구축과 빌드 흐름</td><td class="core">VS Code 기반 ESP32 프로젝트 구성 · ESP-IDF 또는 PlatformIO 개발 흐름 선택 기준 · 빌드, 업로드, 시리얼 모니터를 한 번에 돌리는 스크립트 만들기<br><b>실습 예시</b> · 설비 제어 펌웨어 베이스 프로젝트 생성 후 첫 업로드</td><td class="hrs">1.5H</td></tr>
+              <tr><td class="course">하네스 개념과 임베디드 적용</td><td class="core">에이전트에서 모델을 뺀 나머지, 즉 하네스가 무엇인지 · 가이드와 센서를 각각 계산형·추론형으로 나눠 보기 · 컴파일이 통과해도 보드에서 어긋나는 지점과 대응법</td><td class="hrs">0.5H</td></tr>
+              <tr><td class="course">가이드 작성 실습 (CLAUDE.md)</td><td class="core">보드와 프레임워크, 핀맵과 센서 연결 정보를 문서로 고정하기 · 데이터시트와 통신 규격 입력 방법 · 수정 가능한 파일과 수정 금지 영역, 코딩 규칙, 완료 조건 정의<br><b>실습 예시</b> · 대상 설비 핀맵과 통신 규격을 CLAUDE.md로 작성</td><td class="hrs">1.5H</td></tr>
+
+              <tr><td class="trk" rowspan="3">2일차<br><span class="badge badge-blue">검증 루프</span></td><td class="course">센서 인터페이스 선택과 데이터시트 해석</td><td class="core">I2C, SPI, ADC 선택 기준 · 레지스터 맵과 타이밍 다이어그램 해석 · 데이터시트를 Claude에 입력하는 방법</td><td class="hrs">1H</td></tr>
+              <tr><td class="course">Claude Code와 센서 드라이버 구현</td><td class="core">초기화·읽기·에러 처리 루틴 구현과 개선 · 주기 측정과 Timeout 설계, 이상치 필터링<br><b>실습 예시</b> · 온습도·압력·진동 등 대상 센서 드라이버 작성</td><td class="hrs">1.5H</td></tr>
+              <tr><td class="course">검증 루프 구성과 실장비 재검증</td><td class="core">컴파일 경고와 정적분석 결과를 Claude가 스스로 고칠 신호로 바꾸기 · Claude가 읽기 좋은 시리얼 로그 포맷 설계 · 구현 → 빌드·업로드 → 로그 확인 → 원인 분석 → 재검증 1사이클 직접 실행<br><b>실습 예시</b> · 센서 값이 정상 범위에 들어올 때까지 자동으로 반복하는 검증 루프 구축</td><td class="hrs">1.5H</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 07 커리큘럼 2/2 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">05 / 커리큘럼</span>
+          <p class="kicker">제안 커리큘럼 (2/2)</p>
+          <h2>3~4일차 · 통신 구현과 시스템 통합</h2>
+          <table class="prop">
+            <thead>
+              <tr><th style="width:130px">일차</th><th style="width:250px">모듈</th><th>학습 내용</th><th class="c" style="width:70px">시간</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="trk" rowspan="3">3일차<br><span class="badge badge-purple">통신 검증</span></td><td class="course">RS-485 물리계층과 UART 반이중</td><td class="core">UART와 RS-485의 차이, 반이중 트랜시버와 DE/RE 제어 · 종단저항, 바이어싱, 접지 설계 · 현장 노이즈 대책과 케이블 선정 기준</td><td class="hrs">1H</td></tr>
+              <tr><td class="course">반이중 송수신 구현과 루프백 검증</td><td class="core">인터럽트 기반 UART 처리 구조 · 송수신 전환 타이밍과 Timeout 설계<br><b>실습 예시</b> · 반이중 RS-485 드라이버 작성 후 루프백으로 확인</td><td class="hrs">1.5H</td></tr>
+              <tr><td class="course">Modbus RTU 프레임과 마스터·슬레이브 실습</td><td class="core">기능 코드와 레지스터 맵, CRC와 프레임 타이밍 규격 · Timeout과 Retry, 예외 응답 처리 정책 · 통신 결과를 합격·불합격 판정이 가능한 형태로 정리하고 회귀 세트로 남기기<br><b>실습 예시</b> · ESP32를 Modbus 마스터로 만들어 설비 레지스터 폴링</td><td class="hrs">1.5H</td></tr>
+
+              <tr><td class="trk" rowspan="3">4일차<br><span class="badge badge-green">자산화</span></td><td class="course">제공 GUI 뷰어 연결과 시리얼 브리지</td><td class="core">제공된 Python GUI 뷰어 구조와 데이터 포맷 약속 확인 · 장비와 PC 사이 데이터 연결 구조 설계<br><b>실습 예시</b> · 설비 계측값 실시간 표시와 CSV 이력 저장</td><td class="hrs">1.5H</td></tr>
+              <tr><td class="course">End-to-End 통합 테스트</td><td class="core">센서 → ESP32 → RS-485/Modbus → GUI 전 구간 연결 · 구간별 인터페이스 규격 확인과 데이터 누락·지연 구간 점검<br><b>실습 예시</b> · 통합 동작 확인 후 2·3일차 회귀 세트 재실행</td><td class="hrs">1.5H</td></tr>
+              <tr><td class="course">하네스 템플릿화와 사내 확산</td><td class="core">과정 중 축적한 CLAUDE.md, 검증 스크립트, 반복 루프의 재사용 형태 정리 · 팀별 결과물 시연과 상호 검토 · 현업 확대 적용 과제 선정과 우선순위 결정</td><td class="hrs">1H</td></tr>
+
+              <tr class="sumrow"><td class="trk" style="background:#FFF6F2">합계</td><td class="course" colspan="2">4일차 × 하루 4시간</td><td class="hrs">16H</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 08 산출물 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">06 / 산출물</span>
+          <p class="kicker">최종 인계 항목</p>
+          <h2>과정 종료 후 인계 산출물</h2>
+          <p class="lead">통합 제어시스템 1식과 구축 과정에서 축적된 재사용 가능한 개발 자산을 함께 인계합니다.</p>
+          <div class="grid g2">
+            <div class="mvp">
+              <div class="mh"><div class="idx">01</div><div class="mt">센서 → RS-485 → GUI End-to-End 제어시스템</div></div>
+              <div class="row"><span class="tag">구성</span><span class="val">ESP32 펌웨어 + Modbus RTU 통신 + PC 모니터링 GUI</span></div>
+              <div class="row"><span class="tag">기술</span><span class="val tech">ESP-IDF 또는 PlatformIO · RS-485 반이중 · Modbus RTU · 제공 Python GUI</span></div>
+              <div class="row"><span class="tag">효과</span><span class="val eff">전 구간 통합 동작 확인까지 끝낸 상태로 인계</span></div>
+            </div>
+            <div class="mvp">
+              <div class="mh"><div class="idx">02</div><div class="mt">팀 하네스 템플릿</div></div>
+              <div class="row"><span class="tag">구성</span><span class="val">가이드 문서(CLAUDE.md · 핀맵 · 컨벤션) + 검증 스크립트 + 반복 루프</span></div>
+              <div class="row"><span class="tag">기술</span><span class="val tech">정적분석 · 시리얼 로그 파서 · 빌드–업로드–검증 반복 루프</span></div>
+              <div class="row"><span class="tag">효과</span><span class="val eff">다음 임베디드 프로젝트에 그대로 옮겨 쓸 수 있음</span></div>
+            </div>
+            <div class="mvp">
+              <div class="mh"><div class="idx">03</div><div class="mt">회귀 테스트 세트</div></div>
+              <div class="row"><span class="tag">구성</span><span class="val">통신 장애 시나리오 · 센서 이상치 · Timeout·Retry 케이스</span></div>
+              <div class="row"><span class="tag">기술</span><span class="val tech">자동 캡처·판정 스크립트 · 완료 조건 정의서</span></div>
+              <div class="row"><span class="tag">효과</span><span class="val eff">코드를 고칠 때마다 문제를 일찍 발견</span></div>
+            </div>
+            <div class="mvp">
+              <div class="mh"><div class="idx">04</div><div class="mt">실습 결과 정리본</div></div>
+              <div class="row"><span class="tag">구성</span><span class="val">CLAUDE.md 템플릿 · 실습 코드 · 일차별 검증 기록</span></div>
+              <div class="row"><span class="tag">기술</span><span class="val tech">4일차에 팀별로 정리하고 상호 검토</span></div>
+              <div class="row"><span class="tag">효과</span><span class="val eff">담당자가 바뀌어도 진행 맥락이 남음</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 09 기대 효과 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">07 / 기대 효과</span>
+          <p class="kicker">수료 전후 비교</p>
+          <h2>수료 전후 업무 방식 비교</h2>
+          <div class="ba-head">
+            <div>업무</div><div>지금</div><div></div><div class="h-after">수료 후</div><div>달라지는 것</div>
+          </div>
+          <div class="ba">
+            <div class="task-name">센서 드라이버 개발</div>
+            <div class="before">데이터시트 확인 후 수작업 구현</div>
+            <div class="arrow">→</div>
+            <div class="after">데이터시트 입력 후 생성·검증</div>
+            <div class="gain">착수<br>속도</div>
+          </div>
+          <div class="ba">
+            <div class="task-name">통신 디버깅</div>
+            <div class="before">로그 육안 확인과 경험 기반 추정</div>
+            <div class="arrow">→</div>
+            <div class="after">로그 포맷 규격화 후 자동 판정</div>
+            <div class="gain">원인<br>파악</div>
+          </div>
+          <div class="ba">
+            <div class="task-name">회귀 검증</div>
+            <div class="before">수정마다 담당자가 직접 재현</div>
+            <div class="arrow">→</div>
+            <div class="after">빌드–업로드–검증이 자동으로 반복</div>
+            <div class="gain">반복<br>부담</div>
+          </div>
+          <div class="ba">
+            <div class="task-name">팀 확산</div>
+            <div class="before">일부 담당자 경험에만 축적</div>
+            <div class="arrow">→</div>
+            <div class="after">가이드·검증·루프를 템플릿으로 공유</div>
+            <div class="gain">재사<br>용성</div>
+          </div>
+          <p class="note">달라지는 항목은 정성 기준입니다. 정량 목표가 필요하면 착수 전에 기준선을 함께 측정해 설정합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 10 운영 ===== -->
+    <section class="slide">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">08 / 운영</span>
+          <p class="kicker">설계 근거와 준비 항목</p>
+          <h2>설계 근거와 착수 전 협의 항목</h2>
+          <div class="split">
+            <table class="tbl">
+              <thead><tr><th style="width:180px">협의 항목</th><th>정해야 하는 이유</th></tr></thead>
+              <tbody>
+                <tr><td class="task-c">대상 설비·레지스터 맵</td><td>3일차 Modbus 실습 범위와 회귀 시나리오를 정하는 기준</td></tr>
+                <tr><td class="task-c">실습 보드·센서 수량</td><td>팀 편성 인원과 실습 단위(1인/1팀) 결정</td></tr>
+                <tr><td class="task-c">설비 접근 가능 시간</td><td>3·4일차에 실설비 연동 구간을 넣을 수 있는지 판단</td></tr>
+                <tr><td class="task-c">제공 GUI 뷰어 사양</td><td>데이터 포맷과 표시 항목을 사전에 맞춰야 4일차 연동이 바로 진행됨</td></tr>
+                <tr><td class="task-c">Claude Code 사용 정책</td><td>사내망에서 쓸 수 있는지, 코드 반출 범위는 어디까지인지</td></tr>
+                <tr><td class="task-c">사전 준비 범위</td><td>개발환경 설치를 사전 과제로 돌리면 1일차 실습 시간을 확보할 수 있음</td></tr>
+              </tbody>
+            </table>
+            <div class="why">
+              <h3>구성 근거</h3>
+              <ul>
+                <li><b>개발 방식 중심 구성</b>입니다. 수강생이 AI 도구 사용 경험을 갖추고 있어 기초 사용법에 시간을 배분하지 않습니다.</li>
+                <li><b>검증 시간을 충분히</b> 배분했습니다. 임베디드에서 AI 코딩이 어긋나는 지점은 대개 하드웨어 검증 구간입니다.</li>
+                <li><b>잔존 자산</b>을 사전 설계했습니다. 4일차에 하네스를 템플릿으로 정리해 다음 프로젝트로 연결합니다.</li>
+              </ul>
+            </div>
+          </div>
+          <p class="note">일차별 세부 커리큘럼은 위 항목을 확정한 뒤 함께 조정합니다. 32H 확장 구성(그래프 엔지니어링·장시간 운전 테스트 포함)도 별도 안으로 준비되어 있습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 11 맺음말 ===== -->
+    <section class="slide closing">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <p class="kicker">맺음말</p>
+          <h2>교육 종료 직후부터<br>현장에서 운영 가능한 결과물</h2>
+          <p class="msg">이 과정은 임베디드 개발 방식을 팀 단위로 전환하는 것을 목표로 합니다. 4일 과정 종료 시 실제 동작하는 통합 제어시스템 1식과 다음 프로젝트에 그대로 적용 가능한 개발 하네스가 함께 남습니다. 세부 구성은 협의 항목 확정 후 조정합니다.</p>
+          <div class="sign">
+            <span><b>모두의연구소</b> · 비즈팀 · 사업PM</span>
+            <span><b>modubiz@ormbiz.co.kr</b></span>
+            <span>2026.08.25</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  const deck   = document.getElementById('deck');
+  const nav    = document.getElementById('nav');
+  const numEl  = document.getElementById('slideNum');
+  const slides = Array.from(deck.querySelectorAll('.slide'));
+  const total  = slides.length;
+  let current  = 0;
+
+  function fitStage(){
+    const k = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+    deck.style.transform = 'scale(' + k + ')';
+  }
+
+  function fitContent(slide){
+    const frame = slide.querySelector('.fit-frame');
+    const content = slide.querySelector('.fit-content');
+    if(!frame || !content) return;
+    content.style.transform = 'none';
+    const avail = frame.clientHeight;
+    const need  = content.scrollHeight;
+    if(need > avail){
+      content.style.transform = 'scale(' + (avail / need).toFixed(4) + ')';
+    }
+  }
+
+  slides.forEach((slide, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot';
+    dot.type = 'button';
+    dot.title = '슬라이드 ' + (i + 1);
+    dot.addEventListener('click', () => go(i));
+    nav.appendChild(dot);
+  });
+  const dots = Array.from(nav.querySelectorAll('.nav-dot'));
+
+  function go(i){
+    if(i < 0 || i >= total) return;
+    slides[current].classList.remove('is-active');
+    dots[current].classList.remove('active');
+    current = i;
+    slides[current].classList.add('is-active');
+    dots[current].classList.add('active');
+    numEl.textContent = (current + 1) + ' / ' + total;
+    fitContent(slides[current]);
+  }
+
+  window.addEventListener('resize', () => { fitStage(); fitContent(slides[current]); });
+  window.addEventListener('load', () => { slides.forEach(fitContent); });
+  window.addEventListener('beforeprint', () => slides.forEach(fitContent));
+
+  document.addEventListener('keydown', e => {
+    if(e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' '){ e.preventDefault(); go(current + 1); }
+    if(e.key === 'ArrowLeft'  || e.key === 'ArrowUp'){ e.preventDefault(); go(current - 1); }
+    if(e.key === 'Home'){ e.preventDefault(); go(0); }
+    if(e.key === 'End'){ e.preventDefault(); go(total - 1); }
+    if(e.key.toLowerCase() === 'f'){
+      if(!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+
+  fitStage();
+  go(0);
+})();
+</script>
+</body>
+</html>

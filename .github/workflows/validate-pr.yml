@@ -1,0 +1,169 @@
+name: PR 검증
+
+# PR 워크플로우 검증: 변경된 기업의 content.json 스키마 검증 + HTML 렌더 smoke test
+# 자동 머지는 하지 않음 (리뷰어 승인 필요). CI=true로 Drive 업로드/스냅샷 억제.
+
+on:
+  pull_request:
+    paths:
+      - 'projects/**/content.json'
+      - 'projects/**/요구조건.md'
+      - 'templates/**'
+      - 'schemas/**'
+      - 'scripts/**'
+      - 'build.py'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  detect-and-validate:
+    name: 변경된 기업 감지 및 검증
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: 체크아웃
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 변경된 파일 비교를 위해 전체 히스토리
+
+      - name: Python 설정
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: 의존성 설치
+        run: |
+          python -m pip install --upgrade pip
+          pip install jinja2
+
+      - name: 변경된 기업 감지
+        id: detect
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          # BASE..HEAD 사이에 변경된 파일 중 projects/{기업}/ 패턴 추출
+          CHANGED_FILES=$(git diff --name-only "${BASE_SHA}" "${HEAD_SHA}" || echo "")
+          COMPANIES=$(echo "${CHANGED_FILES}" | \
+            grep -E '^projects/[^/]+/' || true)
+          UNIQUE_COMPANIES=$(echo "${COMPANIES}" | \
+            awk -F/ '{print $2}' | sort -u | grep -v '^$' || true)
+          {
+            echo "companies<<EOF"
+            echo "${UNIQUE_COMPANIES}"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+          echo "감지된 기업:"
+          echo "${UNIQUE_COMPANIES}"
+
+      - name: validate_content.py 실행
+        if: steps.detect.outputs.companies != ''
+        env:
+          CI: 'true'
+          PYTHONIOENCODING: utf-8
+        run: |
+          set +e
+          PASS=0
+          FAIL=0
+          FAILED_COMPANIES=""
+          while IFS= read -r company; do
+            [ -z "$company" ] && continue
+            company_path="projects/${company}"
+            [ ! -d "$company_path" ] && continue
+            echo "━━━ 검증: ${company} ━━━"
+            # content.json이 있는 하위 폴더만 검증
+            find "$company_path" -name 'content.json' -type f | while IFS= read -r content_json; do
+              echo "  ▶ ${content_json}"
+              if python3 scripts/validate_content.py "$content_json"; then
+                echo "  ✅ PASS"
+              else
+                echo "  ❌ FAIL"
+                exit 1
+              fi
+            done || { FAIL=$((FAIL+1)); FAILED_COMPANIES="${FAILED_COMPANIES} ${company}"; continue; }
+            PASS=$((PASS+1))
+          done <<EOF
+          ${{ steps.detect.outputs.companies }}
+          EOF
+          echo ""
+          echo "검증 요약: PASS=${PASS} FAIL=${FAIL}"
+          if [ "$FAIL" -gt 0 ]; then
+            echo "실패한 기업:${FAILED_COMPANIES}"
+            exit 1
+          fi
+
+      - name: HTML 렌더 smoke test (PDF 제외)
+        if: steps.detect.outputs.companies != ''
+        env:
+          CI: 'true'
+          PYTHONIOENCODING: utf-8
+        run: |
+          set +e
+          RENDER_FAIL=0
+          while IFS= read -r company; do
+            [ -z "$company" ] && continue
+            company_path="projects/${company}"
+            [ ! -d "$company_path" ] && continue
+            echo "━━━ 렌더: ${company} ━━━"
+            # content.json이 하나라도 있으면 빌드 시도 (PDF는 Chrome 없어서 실패할 수 있음)
+            if ! python3 -c "
+              import sys
+              sys.path.insert(0, '.')
+              from build import render_html
+              import os
+              for root, dirs, files in os.walk('$company_path'):
+                  if 'content.json' in files:
+                      try:
+                          html = render_html(os.path.join(root, 'content.json'))
+                          print(f'  ✅ {html}')
+                      except Exception as e:
+                          print(f'  ❌ {root}: {e}')
+                          sys.exit(1)
+            "; then
+              RENDER_FAIL=$((RENDER_FAIL+1))
+            fi
+          done <<EOF
+          ${{ steps.detect.outputs.companies }}
+          EOF
+          if [ "$RENDER_FAIL" -gt 0 ]; then
+            echo "렌더 실패: ${RENDER_FAIL}개"
+            exit 1
+          fi
+
+      - name: PR 코멘트로 결과 요약
+        if: always() && steps.detect.outputs.companies != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const companies = `${{ steps.detect.outputs.companies }}`.trim();
+            if (!companies) return;
+            const status = '${{ job.status }}';
+            const emoji = status === 'success' ? '✅' : '❌';
+            const body = [
+              `## ${emoji} PR 검증 결과`,
+              '',
+              `**검증 대상 기업:**`,
+              '```',
+              companies,
+              '```',
+              '',
+              `**상태:** ${status}`,
+              '',
+              '---',
+              '*이 코멘트는 GitHub Actions (`validate-pr.yml`)에 의해 자동 생성되었습니다.*',
+            ].join('\n');
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });

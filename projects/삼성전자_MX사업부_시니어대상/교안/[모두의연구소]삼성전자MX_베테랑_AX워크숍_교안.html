@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>베테랑 직원을 위한 AI 업무 전환 워크숍 | 모두의연구소</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#030712;-webkit-font-smoothing:antialiased}
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:center;gap:3px;padding:10px 40px;opacity:0.15;transition:opacity .4s}
+.nav:hover{opacity:0.85}
+.nav-dot{width:28px;height:3px;background:rgba(255,255,255,.25);border-radius:2px;border:none;cursor:pointer;transition:all .25s;flex-shrink:0}
+.nav-dot.active{background:#F7585C;width:36px}
+.nav-dot:hover{background:rgba(247,88,92,.6)}
+body.light-slide .nav-dot{background:rgba(0,0,0,.12)}
+body.light-slide .nav-dot.active{background:#F7585C}
+body.light-slide .nav-dot:hover{background:rgba(247,88,92,.5)}
+.slide-num{position:fixed;bottom:24px;right:36px;font-size:.75rem;color:rgba(255,255,255,.15);z-index:100;font-variant-numeric:tabular-nums;letter-spacing:1px;transition:color .5s}
+body.light-slide .slide-num{color:rgba(0,0,0,.12)}
+.deck{width:100%;height:100%;position:relative}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;padding:64px 88px 48px;opacity:0;transition:opacity .45s ease;pointer-events:none;overflow:hidden}
+.slide.active{opacity:1;pointer-events:auto}
+.s-white{background:#fff;color:#030712}
+.s-light{background:#F4F6F8;color:#030712}
+.s-dark{background:#030712;color:#fff}
+.s-accent{background:#F7585C;color:#fff}
+.s-coral{background:#FFF2F2;color:#030712}
+.s-gradient{background:linear-gradient(135deg,#030712 0%,#1a1f2e 100%);color:#fff}
+.s-label{font-size:.78rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#F7585C;margin-bottom:12px}
+.s-dark .s-label,.s-gradient .s-label,.s-accent .s-label{color:rgba(255,255,255,.45)}
+.s-title{font-size:2.4rem;font-weight:700;line-height:1.35;margin-bottom:28px;max-width:82%;word-break:keep-all}
+.s-body{flex:1;display:flex;flex-direction:column;justify-content:flex-start}
+.t-main{font-size:1.35rem;line-height:1.75;color:#2E3339;max-width:78%;word-break:keep-all}
+.s-dark .t-main,.s-gradient .t-main{color:rgba(255,255,255,.82)}
+.s-accent .t-main{color:rgba(255,255,255,.92)}
+.t-sub{font-size:1rem;line-height:1.65;color:#5F656C;margin-top:12px;max-width:72%;word-break:keep-all}
+.s-dark .t-sub,.s-gradient .t-sub{color:rgba(255,255,255,.4)}
+.s-accent .t-sub{color:rgba(255,255,255,.6)}
+.t-quote{font-size:1.45rem;line-height:1.8;border-left:4px solid #F7585C;padding-left:24px;margin:16px 0;max-width:72%;word-break:keep-all}
+.t-huge{font-size:8rem;font-weight:800;line-height:1;color:#F7585C;letter-spacing:-4px}
+.t-big{font-size:2.8rem;font-weight:700;line-height:1.4;word-break:keep-all}
+.t-emphasis{font-size:1.9rem;font-weight:700;line-height:1.55;word-break:keep-all}
+.hl{color:#F7585C}
+.s-accent .hl{color:#fff;text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:4px}
+.dim{opacity:.45}
+.slide.cover{justify-content:center;padding-top:0}
+.cover .s-title{font-size:3rem;max-width:72%;margin-bottom:18px}
+.cover-sub{font-size:1.1rem;color:#5F656C;margin-bottom:5px}
+.s-dark .cover-sub{color:rgba(255,255,255,.4)}
+.cover-brand{font-size:.85rem;color:#F7585C;font-weight:700;letter-spacing:1.5px;margin-top:10px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:92%}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;max-width:96%}
+.card{padding:24px 26px;border-radius:14px;background:#F4F6F8}
+.s-dark .card,.s-gradient .card{background:rgba(255,255,255,.07)}
+.s-light .card{background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.card-icon{font-size:1.7rem;margin-bottom:12px}
+.card-title{font-size:1.1rem;font-weight:700;margin-bottom:7px;line-height:1.4}
+.card-desc{font-size:.92rem;line-height:1.6;color:#5F656C}
+.s-dark .card-desc,.s-gradient .card-desc{color:rgba(255,255,255,.5)}
+.num-list{list-style:none;padding:0;counter-reset:item}
+.num-list li{font-size:1.2rem;line-height:1.5;padding:10px 0 10px 46px;position:relative;counter-increment:item;word-break:keep-all}
+.num-list li::before{content:counter(item);position:absolute;left:0;top:10px;width:32px;height:32px;border-radius:50%;background:#F7585C;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700}
+.s-accent .num-list li::before{background:rgba(255,255,255,.25)}
+.chk-list{list-style:none;padding:0}
+.chk-list li{font-size:1.25rem;line-height:1.5;padding:9px 0 9px 38px;position:relative;word-break:keep-all}
+.chk-list li::before{content:'';position:absolute;left:0;top:14px;width:16px;height:16px;border-radius:50%;background:#F7585C}
+.cmp-table{width:88%;border-collapse:collapse;margin-top:6px}
+.cmp-table th{text-align:left;padding:12px 16px;font-size:.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#5F656C;border-bottom:2px solid #E5E7EB}
+.cmp-table td{padding:14px 16px;font-size:.98rem;line-height:1.5;border-bottom:1px solid #F0F0F0}
+.cmp-table td:first-child{font-weight:600;color:#030712;width:28%}
+.cmp-table .old{color:#9198A1}
+.cmp-table .new{color:#F7585C;font-weight:700}
+.demo-tag{display:inline-block;padding:5px 14px;background:#F7585C;color:#fff;border-radius:6px;font-size:.78rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.slide.active .s-label{animation:fadeUp .45s ease .08s both}
+.slide.active .s-title{animation:fadeUp .45s ease .16s both}
+.slide.active .s-body>*{animation:fadeUp .45s ease .28s both}
+.slide.active .s-body>*:nth-child(2){animation-delay:.36s}
+.slide.active .s-body>*:nth-child(3){animation-delay:.42s}
+.slide.centered{align-items:center;text-align:center}
+.centered .s-title{max-width:90%;text-align:center}
+.centered .t-main{max-width:80%;text-align:center;margin:0 auto}
+.centered .t-sub{max-width:70%;text-align:center;margin:14px auto 0}
+/* Timeline */
+.timeline{display:flex;align-items:flex-start;gap:0;width:100%;margin-top:4px}
+.tl-item{flex:1;display:flex;flex-direction:column;align-items:center;position:relative}
+.tl-item:not(:last-child)::after{content:'';position:absolute;top:18px;left:50%;width:100%;height:2px;background:#E5E7EB;z-index:0}
+.s-dark .tl-item:not(:last-child)::after,.s-gradient .tl-item:not(:last-child)::after{background:rgba(255,255,255,.1)}
+.tl-dot{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:#fff;z-index:1;flex-shrink:0}
+.tl-active .tl-dot{background:#F7585C;box-shadow:0 0 0 5px rgba(247,88,92,.15)}
+.tl-inactive .tl-dot{background:#D1D5DB}
+.s-dark .tl-inactive .tl-dot{background:rgba(255,255,255,.15)}
+.tl-label{font-size:.75rem;font-weight:700;margin-top:8px;text-align:center;color:#030712;line-height:1.3;max-width:80px}
+.s-dark .tl-label,.s-gradient .tl-label{color:rgba(255,255,255,.7)}
+.tl-time{font-size:.68rem;color:#9198A1;margin-top:3px;text-align:center}
+/* Worksheet */
+.ws-tag{display:inline-block;padding:4px 12px;background:#FFF2F2;border:1.5px solid #F7585C;color:#F7585C;border-radius:6px;font-size:.75rem;font-weight:700;letter-spacing:1.5px;margin-bottom:14px}
+.ws-container{background:#FAFAFA;border:1.5px solid #E5E7EB;border-radius:12px;padding:18px 22px;width:92%}
+.ws-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.ws-row-label{font-size:.82rem;font-weight:700;color:#030712;min-width:76px;flex-shrink:0}
+.ws-line{flex:1;border-bottom:1.5px solid #D1D5DB;height:30px}
+.ws-box{border:1.5px dashed #D1D5DB;border-radius:8px;min-height:50px;padding:8px 12px;margin-bottom:8px;background:#fff}
+.ws-box-label{font-size:.75rem;color:#9198A1;font-weight:600;margin-bottom:4px;letter-spacing:.5px}
+.ws-section-label{font-size:.82rem;font-weight:700;color:#F7585C;margin-bottom:8px;margin-top:12px;text-transform:uppercase;letter-spacing:1px}
+/* 2×2 Matrix */
+.matrix-wrap{position:relative;padding:0 0 28px 32px;width:88%}
+.matrix-axis-y{position:absolute;left:0;top:50%;transform:translateY(-50%) rotate(-90deg);font-size:.7rem;font-weight:700;color:#9198A1;letter-spacing:1px;white-space:nowrap;text-transform:uppercase}
+.matrix-axis-x{text-align:center;font-size:.7rem;font-weight:700;color:#9198A1;letter-spacing:1px;text-transform:uppercase;margin-top:8px}
+.matrix-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:2px;border:2px solid #D1D5DB;border-radius:10px;overflow:hidden;height:240px}
+.mc{padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.mc.q1{background:#FFF2F2;border-bottom:1px solid #E5E7EB;border-right:1px solid #E5E7EB}
+.mc.q2{background:#F0FFF4;border-bottom:1px solid #E5E7EB}
+.mc.q3{background:#F9FAFB;border-right:1px solid #E5E7EB}
+.mc.q4{background:#EFF6FF}
+.mc-title{font-size:.85rem;font-weight:700;line-height:1.3}
+.mc-badge{display:inline-block;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:4px;margin-bottom:4px}
+.badge-red{background:#FEE2E2;color:#EF4444}
+.badge-green{background:#D1FAE5;color:#059669}
+.badge-gray{background:#F3F4F6;color:#6B7280}
+.badge-blue{background:#DBEAFE;color:#2563EB}
+.mc-desc{font-size:.78rem;color:#5F656C;line-height:1.4}
+/* Step mockup */
+.step-card{background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:12px;padding:0;overflow:hidden;width:88%;margin-top:8px}
+.step-browser-bar{display:flex;align-items:center;gap:6px;padding:10px 14px;background:#EEF0F2;border-bottom:1px solid #E2E8F0}
+.step-browser-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.step-url-bar{flex:1;background:#fff;border-radius:5px;padding:4px 10px;font-size:.72rem;color:#5F656C}
+.step-body{padding:14px 18px;font-size:.88rem;line-height:1.65;color:#2E3339}
+.step-body b{color:#F7585C}
+.step-prompt-box{background:#fff;border:1px solid #E2E8F0;border-radius:8px;padding:10px 14px;font-size:.82rem;color:#2E3339;margin:8px 0;line-height:1.6;font-style:italic}
+.step-output-box{background:#F0FFF4;border:1px solid #A7F3D0;border-radius:8px;padding:10px 14px;font-size:.82rem;color:#065F46;margin:8px 0;line-height:1.6}
+.step-num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#F7585C;color:#fff;font-size:.75rem;font-weight:700;flex-shrink:0;margin-right:8px;vertical-align:middle}
+/* Instructor card */
+.inst-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;width:90%}
+.inst-card{background:#F4F6F8;border-radius:14px;padding:22px 24px}
+.inst-role{font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#F7585C;margin-bottom:6px}
+.inst-name{font-size:1.5rem;font-weight:700;margin-bottom:12px}
+.inst-item{font-size:.9rem;color:#5F656C;line-height:1.6;padding-left:14px;position:relative}
+.inst-item::before{content:'·';position:absolute;left:0;color:#F7585C;font-weight:700}
+@media(max-width:1100px){
+  .slide{padding:48px 52px 36px}
+  .s-title{font-size:2rem}
+  .cover .s-title{font-size:2.5rem}
+  .t-main{font-size:1.15rem}
+  .grid-2,.grid-3{max-width:100%}
+}
+
+/* ── PDF 변환용 프린트 CSS ──
+   @page: A4 가로 (297mm × 210mm), 마진 없음
+   각 슬라이드가 독립 페이지로 출력
+   다크 배경색 보존: print-color-adjust: exact
+*/
+@media print {
+  @page { size: A4 landscape; margin: 0; }
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  html, body {
+    overflow: visible !important;
+    width: 297mm !important;
+    height: auto !important;
+  }
+  .nav, .slide-num { display: none !important; }
+  .deck {
+    position: static !important;
+    width: 297mm !important;
+    height: auto !important;
+  }
+  .slide {
+    position: relative !important;
+    inset: auto !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    display: flex !important;
+    width: 297mm !important;
+    height: 210mm !important;
+    overflow: hidden !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    padding: 48px 66px 36px !important;
+  }
+  .slide:last-child {
+    page-break-after: auto !important;
+    break-after: auto !important;
+  }
+}
+</style>
+</head>
+<body class="light-slide">
+<div class="nav" id="nav"></div>
+<div class="slide-num" id="slideNum"></div>
+<div class="deck" id="deck">
+
+<!-- 1. 커버 -->
+<div class="slide s-dark cover" data-theme="dark">
+  <div class="cover-brand">모두의연구소 · 삼성전자 MX사업부</div>
+  <h1 class="s-title" style="margin-top:20px">베테랑 직원을 위한<br><span class="hl">AI 업무 전환</span> 워크숍</h1>
+  <p class="cover-sub">내 업무를 AI로 바꾸는 실전 8시간</p>
+  <p class="cover-sub dim">모두의연구소 AI 기업교육 | 2026</p>
+</div>
+
+<!-- 2. 오늘의 전체 흐름 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">Today's Journey</p>
+  <h2 class="s-title">오늘 8시간, 이렇게 흘러갑니다</h2>
+  <div class="s-body">
+    <div class="timeline">
+      <div class="tl-item tl-active">
+        <div class="tl-dot">1</div>
+        <div class="tl-label">AI 기술<br>브리핑</div>
+        <div class="tl-time">0.5H</div>
+      </div>
+      <div class="tl-item tl-active">
+        <div class="tl-dot">2</div>
+        <div class="tl-label">내 업무<br>정의하기</div>
+        <div class="tl-time">1H</div>
+      </div>
+      <div class="tl-item tl-active">
+        <div class="tl-dot">3</div>
+        <div class="tl-label">업무 진단<br>페인포인트</div>
+        <div class="tl-time">2H</div>
+      </div>
+      <div class="tl-item tl-active">
+        <div class="tl-dot">4</div>
+        <div class="tl-label">AI 적용<br>시나리오</div>
+        <div class="tl-time">1H</div>
+      </div>
+      <div class="tl-item tl-active">
+        <div class="tl-dot">5</div>
+        <div class="tl-label">AI 도구<br>실습</div>
+        <div class="tl-time">3H</div>
+      </div>
+      <div class="tl-item tl-active">
+        <div class="tl-dot">6</div>
+        <div class="tl-label">결과 공유<br>& 다음 액션</div>
+        <div class="tl-time">0.5H</div>
+      </div>
+    </div>
+    <div style="margin-top:28px">
+      <p class="t-main">오늘 워크숍이 끝나면 <span class="hl">업무 전환 시나리오 설계서</span>와<br><span class="hl">agent.ai 에이전트 → 스프레드시트 → Google AI Studio 대시보드</span> 연결 워크플로우를 완성해서 가져갑니다.</p>
+      <p class="t-sub" style="margin-top:10px">모든 실습 구간에서 강사 2인이 개인별 순회 멘토링을 제공합니다.<br>사용 도구: ChatGPT / GPT · agent.ai (ChatGPT 앱 연동) · Google Spreadsheet · Google AI Studio</p>
+    </div>
+  </div>
+</div>
+
+<!-- 3. 강사 소개 (빈 페이지 — 확정 후 채워넣기) -->
+<div class="slide s-light" data-theme="light">
+  <p class="s-label">Instructors</p>
+  <h2 class="s-title">오늘 함께하는 강사</h2>
+  <div class="s-body">
+    <div style="display:flex;align-items:center;justify-content:center;flex:1;flex-direction:column;gap:16px;opacity:.25">
+      <div style="width:64px;height:64px;border-radius:50%;border:3px dashed #9198A1;display:flex;align-items:center;justify-content:center;font-size:1.5rem">👤</div>
+      <p style="font-size:1rem;color:#9198A1;font-weight:600;letter-spacing:1px">강사 정보 확정 후 삽입 예정</p>
+    </div>
+  </div>
+</div>
+
+<!-- 3-1. 교육 목표 오버뷰 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">Learning Objectives</p>
+  <h2 class="s-title">오늘 이 워크숍에서<br>여러분이 <span class="hl">얻어가는 것</span></h2>
+  <div class="s-body">
+    <div class="grid-2" style="margin-top:0">
+      <div class="card" style="border-left:4px solid #F7585C">
+        <div style="font-size:.72rem;font-weight:700;color:#F7585C;letter-spacing:1.5px;margin-bottom:8px">목표 1</div>
+        <div class="card-title">🔧 AI 설계 사고법 체득</div>
+        <div class="card-desc">하네스 엔지니어링 — AI에게 역할·맥락·제약을 설계해서 전달하는 사고법을 익힙니다. 단순 프롬프트 작성이 아니라, AI가 일하는 환경을 설계하는 역량입니다.</div>
+      </div>
+      <div class="card" style="border-left:4px solid #F7585C">
+        <div style="font-size:.72rem;font-weight:700;color:#F7585C;letter-spacing:1.5px;margin-bottom:8px">목표 2</div>
+        <div class="card-title">📋 내 업무 AI 전환 시나리오 완성</div>
+        <div class="card-desc">업무 정의 → 진단 → 페인포인트 발굴 → AI 적용 우선순위 설정 → 작업 설계서 작성까지 스스로 완성합니다. 내 업무의 AI 전환 로드맵이 생깁니다.</div>
+      </div>
+      <div class="card" style="border-left:4px solid #F7585C">
+        <div style="font-size:.72rem;font-weight:700;color:#F7585C;letter-spacing:1.5px;margin-bottom:8px">목표 3</div>
+        <div class="card-title">📦 두 도구 연결 워크플로우 완성</div>
+        <div class="card-desc">agent.ai 에이전트 제작 → 구글 스프레드시트 데이터 축적 → Google AI Studio 대시보드까지 연결된 워크플로우를 직접 만들어서 가져갑니다.</div>
+      </div>
+      <div class="card" style="border-left:4px solid #F7585C">
+        <div style="font-size:.72rem;font-weight:700;color:#F7585C;letter-spacing:1.5px;margin-bottom:8px">목표 4</div>
+        <div class="card-title">🗺️ 다음 주 실행 계획</div>
+        <div class="card-desc">워크숍 종료 시 현업 적용 액션아이템 1건을 확정합니다. 강사 멘토링을 통해 실행 가능성을 검증하고 구체적인 첫 단계를 정합니다.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4. 워크숍 운영 방식 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">How We Work</p>
+  <h2 class="s-title">이 워크숍은 이렇게 다릅니다</h2>
+  <div class="s-body">
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-icon">🚫</div>
+        <div class="card-title">도구 설명 강의 없음</div>
+        <div class="card-desc">ChatGPT가 뭔지, Google AI Studio가 뭔지 긴 설명 없습니다. <b>내 업무에 어디에 쓸지</b>를 먼저 설계하고, 도구는 그 다음에 씁니다.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">✍️</div>
+        <div class="card-title">직접 쓰고 만드는 시간</div>
+        <div class="card-desc">강사가 보여주는 시간보다 <b>참가자가 직접 하는 시간</b>이 더 많습니다. 워크시트, 실습, 발표가 번갈아 진행됩니다.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">💡</div>
+        <div class="card-title">베테랑 경험이 핵심 재료</div>
+        <div class="card-desc">수십 년 현업에서 쌓은 경험이 오늘 가장 중요한 재료입니다. 업무 맥락을 AI에 정확히 전달할수록 결과가 달라집니다.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">📦</div>
+        <div class="card-title">끝나면 산출물 1건 완성</div>
+        <div class="card-desc">오늘 워크숍 종료 시 <b>대시보드 또는 에이전트</b> 1건을 실제로 완성합니다. "해봤다"가 아니라 "만들었다"로 마무리합니다.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. Part 1 표지 -->
+<div class="slide s-gradient centered" data-theme="dark">
+  <p class="s-label" style="color:rgba(255,255,255,.4)">Part 1 · 0.5H</p>
+  <h2 class="s-title">AI 기술 브리핑</h2>
+  <div class="s-body">
+    <p class="t-main">지금 AI에서 가장 중요한 변화 2가지</p>
+    <p class="t-sub">하네스 엔지니어링 · 에이전틱 AI</p>
+  </div>
+</div>
+
+<!-- 6. 지금 AI에서 중요한 변화 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">AI Trend 2026</p>
+  <h2 class="s-title">AI는 이제 "시키는 것"에서<br>"<span class="hl">설계하는 것</span>"으로 바뀌었습니다</h2>
+  <div class="s-body">
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-icon">🔧</div>
+        <div class="card-title">하네스 엔지니어링</div>
+        <div class="card-desc">AI에게 <b>맥락·제약·역할</b>을 명확히 설계해서 원하는 결과를 안정적으로 얻는 방법론. 단순히 프롬프트를 쓰는 것과 다릅니다.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🤖</div>
+        <div class="card-title">에이전틱 AI</div>
+        <div class="card-desc">AI가 <b>여러 단계를 스스로 연결해서</b> 처리하는 방식. "한 번 물어보는" 챗봇을 넘어, 업무 흐름 전체를 AI가 실행합니다.</div>
+      </div>
+    </div>
+    <div style="margin-top:20px;padding:16px 20px;background:#FFF2F2;border-radius:10px;max-width:88%">
+      <p style="font-size:1rem;color:#030712;line-height:1.7"><span class="hl">핵심 변화:</span> AI를 잘 쓰는 사람과 못 쓰는 사람의 차이는 이제 <b>"설계 능력"</b>에서 납니다.<br>베테랑의 업무 도메인 지식은 이 설계 능력의 핵심 원재료입니다.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 7. 하네스 엔지니어링 개념 -->
+<div class="slide s-light" data-theme="light">
+  <p class="s-label">Concept</p>
+  <h2 class="s-title">하네스 엔지니어링이란?</h2>
+  <div class="s-body">
+    <p class="t-quote">AI를 단순히 "사용"하는 것이 아니라,<br>AI가 잘 일하도록 <span class="hl">환경을 설계</span>하는 것</p>
+    <div class="grid-3" style="margin-top:16px">
+      <div class="card">
+        <div style="font-size:.75rem;font-weight:700;color:#F7585C;letter-spacing:1px;margin-bottom:8px">ROLE (역할)</div>
+        <div class="card-title" style="font-size:1rem">AI에게 역할 부여</div>
+        <div class="card-desc">"너는 MX사업부 품질팀 분석가야"처럼 명확한 역할과 전문성 맥락을 먼저 설정합니다.</div>
+      </div>
+      <div class="card">
+        <div style="font-size:.75rem;font-weight:700;color:#F7585C;letter-spacing:1px;margin-bottom:8px">CONTEXT (맥락)</div>
+        <div class="card-title" style="font-size:1rem">배경 정보 설계</div>
+        <div class="card-desc">업무 배경, 관련 데이터, 제약 조건을 AI에게 구체적으로 알려주어 엉뚱한 답변을 방지합니다.</div>
+      </div>
+      <div class="card">
+        <div style="font-size:.75rem;font-weight:700;color:#F7585C;letter-spacing:1px;margin-bottom:8px">CONSTRAINT (제약)</div>
+        <div class="card-title" style="font-size:1rem">규칙과 제한 설정</div>
+        <div class="card-desc">출력 형식, 길이, 금지 사항 등을 명시해서 AI 결과물의 품질을 제어합니다.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 8. 하네스 엔지니어링 사례 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">Real Case</p>
+  <h2 class="s-title">하네스 엔지니어링 — 실무 사례</h2>
+  <div class="s-body">
+    <table class="cmp-table">
+      <thead><tr><th>방식</th><th>프롬프트</th><th>결과</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>기존 방식</td>
+          <td class="old">"이 불량 데이터 분석해줘"</td>
+          <td class="old">일반적인 통계 분석. 실무에 쓰기 어려운 결과.</td>
+        </tr>
+        <tr>
+          <td>하네스 방식</td>
+          <td class="new">"너는 MX 스마트폰 생산라인 품질 분석 전문가야. 지난 분기 불량률 데이터를 보면 트랙2 라인에서 이상이 반복됐어. 원인 가설 3개를 도출하고, 각 가설 검증에 필요한 데이터 항목을 표로 정리해줘."</td>
+          <td class="new">실제 업무에 바로 쓸 수 있는 가설 분석 + 검증 계획</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:16px;padding:12px 18px;background:#F4F6F8;border-radius:8px;max-width:88%">
+      <p style="font-size:.92rem;color:#5F656C;line-height:1.6">👉 차이는 <b>도메인 지식</b>입니다. "트랙2 라인", "분기 불량률"이라는 맥락은 베테랑만 알고 있습니다.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 9. 에이전틱 AI 개념 -->
+<div class="slide s-dark" data-theme="dark">
+  <p class="s-label">Concept</p>
+  <h2 class="s-title">에이전틱 AI란?</h2>
+  <div class="s-body">
+    <p class="t-quote" style="border-left-color:rgba(255,255,255,.2)">챗봇은 질문에 답합니다.<br>에이전트는 <span class="hl">일을 합니다.</span></p>
+    <div style="margin-top:20px;display:flex;gap:16px;align-items:center;max-width:90%">
+      <div style="flex:1;background:rgba(255,255,255,.05);border-radius:12px;padding:18px 20px">
+        <div style="font-size:.78rem;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:1.5px;margin-bottom:10px">챗봇 (기존)</div>
+        <div style="font-size:.95rem;color:rgba(255,255,255,.7);line-height:1.6">사람이 → 질문 → AI 답변 → 사람이 다시 → 다음 질문 → ...</div>
+      </div>
+      <div style="font-size:1.5rem;color:rgba(255,255,255,.2)">→</div>
+      <div style="flex:1;background:rgba(247,88,92,.12);border-radius:12px;padding:18px 20px;border:1px solid rgba(247,88,92,.2)">
+        <div style="font-size:.78rem;font-weight:700;color:#F7585C;letter-spacing:1.5px;margin-bottom:10px">에이전트 (현재)</div>
+        <div style="font-size:.95rem;color:rgba(255,255,255,.8);line-height:1.6">사람이 → 목표 설정 → AI가 계획 → 단계 실행 → 결과 전달</div>
+      </div>
+    </div>
+    <p class="t-sub" style="margin-top:20px">오늘 실습에서 <b>agent.ai</b>로 실제 업무 에이전트를 만들어봅니다.</p>
+  </div>
+</div>
+
+<!-- 10. 에이전틱 AI 사례 -->
+<div class="slide s-light" data-theme="light">
+  <p class="s-label">Real Case</p>
+  <h2 class="s-title">에이전틱 AI — 제조업 현장 도입 사례</h2>
+  <div class="s-body">
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <div class="card-title">품질 리포트 에이전트</div>
+        <div class="card-desc">매일 생산 데이터를 수집 → 이상 패턴 탐지 → 담당자에게 자동 요약 리포트 발송. 수동으로 2시간 걸리던 작업이 10분으로.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔍</div>
+        <div class="card-title">경쟁사 동향 모니터링 에이전트</div>
+        <div class="card-desc">매주 지정된 소스에서 경쟁사 뉴스 수집 → 요약 → 팀 채널에 공유. 담당자는 검토만 하면 됩니다.</div>
+      </div>
+    </div>
+    <div style="margin-top:18px;padding:14px 18px;background:#fff;border-radius:10px;border:1.5px solid #E5E7EB;max-width:88%">
+      <p style="font-size:.95rem;color:#2E3339;line-height:1.7"><span class="hl" style="font-weight:700">오늘 목표:</span> 내 반복 업무 중 하나를 에이전트로 만들어서, 에이전트가 대신 처리하는 경험을 합니다.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 11. Part 2 표지 -->
+<div class="slide s-accent centered" data-theme="dark">
+  <p class="s-label" style="color:rgba(255,255,255,.5)">Part 2 · 1H</p>
+  <h2 class="s-title">내 업무 정의하기</h2>
+  <div class="s-body">
+    <p class="t-main">AI가 제대로 작동하려면<br>내 업무 구조를 먼저 알아야 합니다.</p>
+  </div>
+</div>
+
+<!-- 12. 왜 업무 정의가 먼저인가 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">Why First</p>
+  <h2 class="s-title">왜 도구보다 "업무 정의"가 먼저인가</h2>
+  <div class="s-body">
+    <p class="t-main">AI 도구는 <span class="hl">내 업무를 모릅니다.</span><br>도구를 먼저 배우면, 이미 알고 있는 기능에만 업무를 끼워 맞추게 됩니다.</p>
+    <div style="margin-top:20px;display:flex;gap:12px;max-width:90%">
+      <div style="flex:1;padding:16px 18px;background:#FFF2F2;border-radius:10px;border-left:4px solid #F7585C">
+        <div style="font-size:.82rem;font-weight:700;color:#EF4444;margin-bottom:6px">❌ 도구 먼저</div>
+        <div style="font-size:.92rem;color:#2E3339;line-height:1.6">"ChatGPT로 뭘 할 수 있을까?" → 내 업무 중 ChatGPT에 맞는 걸 찾는다 → 피상적인 활용에 그침</div>
+      </div>
+      <div style="flex:1;padding:16px 18px;background:#F0FFF4;border-radius:10px;border-left:4px solid #10B981">
+        <div style="font-size:.82rem;font-weight:700;color:#059669;margin-bottom:6px">✅ 업무 먼저</div>
+        <div style="font-size:.92rem;color:#2E3339;line-height:1.6">"내가 매주 2시간 쓰는 이 작업을 어떻게 줄일까?" → 적합한 AI 도구를 선택 → 실질적인 업무 전환</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 13. 업무 정의 프레임 RIOP -->
+<div class="slide s-light" data-theme="light">
+  <p class="s-label">Framework</p>
+  <h2 class="s-title">업무 정의 프레임워크: <span class="hl">역할 · 입력 · 처리 · 출력</span></h2>
+  <div class="s-body">
+    <div class="grid-2">
+      <div class="card">
+        <div style="font-size:.75rem;font-weight:700;color:#F7585C;letter-spacing:1px;margin-bottom:6px">역할 (Role)</div>
+        <div class="card-title">이 업무에서 나의 역할은?</div>
+        <div class="card-desc">예: "생산팀 품질 이슈를 분석하고 개선 방향을 제시하는 역할"</div>
+      </div>
+      <div class="card">
+        <div style="font-size:.75rem;font-weight:700;color:#F7585C;letter-spacing:1px;margin-bottom:6px">입력 (Input)</div>
+        <div class="card-title">무엇을 받아서 처리하는가?</div>
+        <div class="card-desc">예: "주간 불량률 데이터, 라인별 생산 실적 엑셀 파일"</div>
+      </div>
+      <div class="card">
+        <div style="font-size:.75rem;font-weight:700;color:#F7585C;letter-spacing:1px;margin-bottom:6px">처리 (Process)</div>
+        <div class="card-title">어떤 단계를 거치는가?</div>
+        <div class="card-desc">예: "데이터 취합 → 이상값 탐지 → 원인 분석 → 보고서 초안 작성"</div>
+      </div>
+      <div class="card">
+        <div style="font-size:.75rem;font-weight:700;color:#F7585C;letter-spacing:1px;margin-bottom:6px">출력 (Output)</div>
+        <div class="card-title">어떤 결과물을 만드는가?</div>
+        <div class="card-desc">예: "주간 품질 현황 보고서 (PPT 5장 + 핵심 지표 요약)"</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 14. 업무 정의 예시 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">Example</p>
+  <h2 class="s-title">업무 정의 예시</h2>
+  <div class="s-body">
+    <div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:12px;padding:20px 24px;max-width:92%;margin-bottom:16px">
+      <div style="font-size:.8rem;font-weight:700;color:#F7585C;margin-bottom:12px;letter-spacing:1px">예시: 구매팀 시니어 담당자</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;gap:12px"><span style="min-width:50px;font-weight:700;font-size:.88rem;color:#030712">역할</span><span style="font-size:.9rem;color:#2E3339;line-height:1.55">주요 부품 공급사의 납기 리스크를 조기에 탐지하고 구매 전략을 수정하는 역할</span></div>
+        <div style="display:flex;gap:12px"><span style="min-width:50px;font-weight:700;font-size:.88rem;color:#030712">입력</span><span style="font-size:.9rem;color:#2E3339;line-height:1.55">공급사 주간 리포트, 생산 일정 엑셀, 글로벌 부품 수급 뉴스</span></div>
+        <div style="display:flex;gap:12px"><span style="min-width:50px;font-weight:700;font-size:.88rem;color:#030712">처리</span><span style="font-size:.9rem;color:#2E3339;line-height:1.55">리포트 검토 → 납기 지연 가능성 예측 → 대안 공급사 검토 → 팀장 보고 자료 작성</span></div>
+        <div style="display:flex;gap:12px"><span style="min-width:50px;font-weight:700;font-size:.88rem;color:#030712">출력</span><span style="font-size:.9rem;color:#2E3339;line-height:1.55">주간 공급 리스크 요약 + 대응 방안 2~3가지 (매주 월요일 오전)</span></div>
+      </div>
+    </div>
+    <p class="t-sub">이 정도로 구체화되면, AI에게 "이 역할을 대신 해줘"라고 설계할 수 있습니다.</p>
+  </div>
+</div>
+
+<!-- 15. 워크시트: 내 업무 정의 -->
+<div class="slide s-light" data-theme="light">
+  <div class="ws-tag">📝 워크시트 1</div>
+  <h2 class="s-title">내 업무 정의하기</h2>
+  <div class="s-body">
+    <div class="ws-container">
+      <div class="ws-row" style="margin-bottom:6px">
+        <span class="ws-row-label">분석 업무</span>
+        <div class="ws-line"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px">
+        <div>
+          <div class="ws-box-label">역할 — 이 업무에서 내 역할은?</div>
+          <div class="ws-box" style="min-height:62px"></div>
+        </div>
+        <div>
+          <div class="ws-box-label">입력 — 무엇을 받아서 처리하나?</div>
+          <div class="ws-box" style="min-height:62px"></div>
+        </div>
+        <div>
+          <div class="ws-box-label">처리 — 어떤 단계를 거치나? (순서대로)</div>
+          <div class="ws-box" style="min-height:62px"></div>
+        </div>
+        <div>
+          <div class="ws-box-label">출력 — 어떤 결과물을 만드나?</div>
+          <div class="ws-box" style="min-height:62px"></div>
+        </div>
+      </div>
+    </div>
+    <p class="t-sub" style="margin-top:12px">⏱ 5분 작성 → 옆 사람과 1분 공유</p>
+  </div>
+</div>
+
+<!-- 16. GPT로 업무 정의 다듬기 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">Step-by-Step</p>
+  <h2 class="s-title">GPT로 업무 정의 다듬기</h2>
+  <div class="s-body">
+    <div class="step-card">
+      <div class="step-browser-bar">
+        <div class="step-browser-dot" style="background:#FF5F57"></div>
+        <div class="step-browser-dot" style="background:#FEBC2E"></div>
+        <div class="step-browser-dot" style="background:#28C840"></div>
+        <div class="step-url-bar">chatgpt.com</div>
+      </div>
+      <div class="step-body">
+        <p><span class="step-num">1</span><b>아래 프롬프트 템플릿을 ChatGPT에 붙여넣기</b></p>
+        <div class="step-prompt-box">
+          나는 [역할]야. 주요 업무는 [입력]을 받아서 [처리 단계]를 거쳐 [출력]을 만드는 것이야.<br>이 업무를 AI에게 설명하는 "업무 설계서" 형태로 다시 정리해줘. 역할, 맥락, 입력, 처리 단계, 출력, 품질 기준을 포함해서 300자 이내로 작성해줘.
+        </div>
+        <p style="margin-top:8px"><span class="step-num">2</span><b>워크시트에 쓴 내용을 [  ] 안에 채워서 전송</b></p>
+        <p style="margin-top:8px"><span class="step-num">3</span><b>GPT가 정리한 업무 설계서를 워크시트 뒷면에 메모</b></p>
+        <div class="step-output-box" style="margin-top:8px">✅ 이 업무 설계서가 오늘 실습에서 AI 도구를 설정할 때 핵심 재료가 됩니다.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 17. Part 3 표지 -->
+<div class="slide s-gradient centered" data-theme="dark">
+  <p class="s-label" style="color:rgba(255,255,255,.4)">Part 3 · 2H</p>
+  <h2 class="s-title">업무 진단 & 페인포인트 발굴</h2>
+  <div class="s-body">
+    <p class="t-main">AI 적용 포인트를 찾는 게 먼저입니다.<br>내 업무의 비효율 구간부터 짚어봅니다.</p>
+  </div>
+</div>
+
+<!-- 18. 업무 진단 프레임워크 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">Framework</p>
+  <h2 class="s-title">업무 진단: 3가지 질문</h2>
+  <div class="s-body">
+    <ol class="num-list" style="max-width:85%">
+      <li>
+        <span style="font-weight:700">반복 — 이 업무에서 매번 똑같이 하는 부분이 있나?</span><br>
+        <span style="font-size:.95rem;color:#5F656C">같은 형식의 보고서, 같은 조건의 데이터 정리, 매주 반복되는 취합 작업</span>
+      </li>
+      <li>
+        <span style="font-weight:700">병목 — 이 업무에서 시간이 가장 오래 걸리는 단계는?</span><br>
+        <span style="font-size:.95rem;color:#5F656C">데이터 수집에 3시간, 보고서 초안 쓰는 데 2시간, 검토 대기에 1일</span>
+      </li>
+      <li>
+        <span style="font-weight:700">비효율 — 이 업무에서 "이걸 왜 내가 해야 하지?"라고 느끼는 부분은?</span><br>
+        <span style="font-size:.95rem;color:#5F656C">단순 취합, 형식 변환, 이미 있는 정보를 다시 요약하는 작업</span>
+      </li>
+    </ol>
+    <p class="t-sub" style="margin-top:16px">이 3가지 질문에 답이 나오면, <span class="hl">AI 적용 후보</span>가 자동으로 나옵니다.</p>
+  </div>
+</div>
+
+<!-- 19. 워크시트: 업무 진단 -->
+<div class="slide s-light" data-theme="light">
+  <div class="ws-tag">📝 워크시트 2</div>
+  <h2 class="s-title">내 업무 진단하기</h2>
+  <div class="s-body">
+    <div class="ws-container">
+      <div class="ws-section-label">분석 업무: ________________________________</div>
+      <div class="ws-box-label">1. 반복되는 부분 (매번 똑같이 하는 것)</div>
+      <div class="ws-box"></div>
+      <div class="ws-box-label">2. 병목 구간 (시간이 가장 오래 걸리는 단계)</div>
+      <div class="ws-box"></div>
+      <div class="ws-box-label">3. 비효율 구간 ("왜 내가 해야 하지?" 싶은 부분)</div>
+      <div class="ws-box"></div>
+    </div>
+    <p class="t-sub" style="margin-top:12px">⏱ 7분 작성</p>
+  </div>
+</div>
+
+<!-- 20. 페인포인트 발굴 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">Pain Point</p>
+  <h2 class="s-title">페인포인트를 AI 기회로 전환하기</h2>
+  <div class="s-body">
+    <table class="cmp-table">
+      <thead><tr><th>업무 진단 결과</th><th>페인포인트</th><th>AI 전환 가능성</th></tr></thead>
+      <tbody>
+        <tr><td>반복 업무</td><td class="old">매주 같은 형식으로 데이터 취합</td><td class="new">에이전트 자동화 → agent.ai</td></tr>
+        <tr><td>병목 구간</td><td class="old">보고서 초안 작성에 2시간 소요</td><td class="new">GPT 초안 생성 → 검토만</td></tr>
+        <tr><td>비효율</td><td class="old">다른 팀 자료 요약 재작성</td><td class="new">NotebookLM / GPT 즉시 요약</td></tr>
+        <tr><td>반복 + 분석</td><td class="old">데이터 시각화 수작업</td><td class="new">Google AI Studio 대시보드</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 21. 워크시트: 페인포인트 -->
+<div class="slide s-light" data-theme="light">
+  <div class="ws-tag">📝 워크시트 3</div>
+  <h2 class="s-title">내 업무 페인포인트 발굴</h2>
+  <div class="s-body">
+    <div class="ws-container">
+      <div style="display:grid;grid-template-columns:2fr 2fr 1fr;gap:8px;font-size:.78rem;font-weight:700;color:#5F656C;padding-bottom:8px;border-bottom:1.5px solid #E5E7EB;margin-bottom:10px">
+        <span>페인포인트 (구체적으로)</span><span>현재 해결 방법</span><span>소요시간/회</span>
+      </div>
+      <div style="display:grid;grid-template-columns:2fr 2fr 1fr;gap:8px;margin-bottom:8px">
+        <div class="ws-box" style="min-height:44px"></div><div class="ws-box" style="min-height:44px"></div><div class="ws-box" style="min-height:44px"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:2fr 2fr 1fr;gap:8px;margin-bottom:8px">
+        <div class="ws-box" style="min-height:44px"></div><div class="ws-box" style="min-height:44px"></div><div class="ws-box" style="min-height:44px"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:2fr 2fr 1fr;gap:8px">
+        <div class="ws-box" style="min-height:44px"></div><div class="ws-box" style="min-height:44px"></div><div class="ws-box" style="min-height:44px"></div>
+      </div>
+    </div>
+    <p class="t-sub" style="margin-top:10px">⏱ 8분 작성 → 강사 피드백 5분</p>
+  </div>
+</div>
+
+<!-- 22. 2×2 매트릭스 소개 -->
+<div class="slide s-dark" data-theme="dark">
+  <p class="s-label">Prioritization</p>
+  <h2 class="s-title">어디서 먼저 시작할까?<br><span class="hl">AI 적용 우선순위 매트릭스</span></h2>
+  <div class="s-body">
+    <p class="t-main">모든 페인포인트를 한 번에 해결할 수는 없습니다.<br>두 가지 기준으로 우선순위를 정합니다.</p>
+    <div style="display:flex;gap:24px;margin-top:20px">
+      <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:16px 20px;flex:1">
+        <div style="font-size:.78rem;font-weight:700;color:#F7585C;letter-spacing:1px;margin-bottom:8px">X축</div>
+        <div style="font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:4px">AI 적용 난이도</div>
+        <div style="font-size:.9rem;color:rgba(255,255,255,.5)">이 업무를 AI로 바꾸는 게 얼마나 어렵나? (데이터 형태, 보안, 복잡도)</div>
+      </div>
+      <div style="background:rgba(247,88,92,.1);border-radius:12px;padding:16px 20px;flex:1;border:1px solid rgba(247,88,92,.2)">
+        <div style="font-size:.78rem;font-weight:700;color:#F7585C;letter-spacing:1px;margin-bottom:8px">Y축</div>
+        <div style="font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:4px">업무 임팩트</div>
+        <div style="font-size:.9rem;color:rgba(255,255,255,.5)">이 업무를 AI로 바꾸면 얼마나 큰 효과가 생기나? (시간 절약, 오류 감소)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 23. 2×2 매트릭스 설명 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">Matrix</p>
+  <h2 class="s-title">AI 적용 우선순위 매트릭스</h2>
+  <div class="s-body">
+    <div class="matrix-wrap">
+      <div class="matrix-axis-y">업무 임팩트 ↑ 높음</div>
+      <div class="matrix-grid">
+        <div class="mc q1">
+          <div class="mc-badge badge-red">🚀 바로 시작</div>
+          <div class="mc-title">임팩트 높음 + 쉬움</div>
+          <div class="mc-desc">오늘 실습 대상. 바로 만들어서 현업 적용 가능.</div>
+        </div>
+        <div class="mc q2">
+          <div class="mc-badge badge-green">📅 다음 단계</div>
+          <div class="mc-title">임팩트 높음 + 어려움</div>
+          <div class="mc-desc">팀 차원 프로젝트로 기획. 전략 과제화 필요.</div>
+        </div>
+        <div class="mc q3">
+          <div class="mc-badge badge-gray">💤 보류</div>
+          <div class="mc-title">임팩트 낮음 + 쉬움</div>
+          <div class="mc-desc">할 수는 있지만 지금 우선이 아님.</div>
+        </div>
+        <div class="mc q4">
+          <div class="mc-badge badge-blue">🤔 재검토</div>
+          <div class="mc-title">임팩트 낮음 + 어려움</div>
+          <div class="mc-desc">투자 대비 효과 없음. 업무 재설계 먼저.</div>
+        </div>
+      </div>
+      <div class="matrix-axis-x">AI 적용 난이도 → 어려움</div>
+    </div>
+  </div>
+</div>
+
+<!-- 24. 워크시트: 2×2 매트릭스 작성 -->
+<div class="slide s-light" data-theme="light">
+  <div class="ws-tag">📝 워크시트 4</div>
+  <h2 class="s-title">내 업무 AI 적용 우선순위 매트릭스</h2>
+  <div class="s-body">
+    <div class="matrix-wrap">
+      <div class="matrix-axis-y">업무 임팩트 ↑ 높음</div>
+      <div class="matrix-grid" style="height:260px">
+        <div class="mc q1" style="border:1.5px dashed #F7585C">
+          <div style="font-size:.72rem;font-weight:700;color:#F7585C;margin-bottom:4px">🚀 바로 시작 (오늘 실습 대상)</div>
+          <div style="height:70px;border:1px dashed #FECACA;border-radius:6px;background:#fff;padding:6px"></div>
+        </div>
+        <div class="mc q2">
+          <div style="font-size:.72rem;font-weight:700;color:#059669;margin-bottom:4px">📅 다음 단계</div>
+          <div style="height:70px;border:1px dashed #A7F3D0;border-radius:6px;background:#fff;padding:6px"></div>
+        </div>
+        <div class="mc q3">
+          <div style="font-size:.72rem;font-weight:700;color:#6B7280;margin-bottom:4px">💤 보류</div>
+          <div style="height:70px;border:1px dashed #E5E7EB;border-radius:6px;background:#fff;padding:6px"></div>
+        </div>
+        <div class="mc q4">
+          <div style="font-size:.72rem;font-weight:700;color:#2563EB;margin-bottom:4px">🤔 재검토</div>
+          <div style="height:70px;border:1px dashed #BFDBFE;border-radius:6px;background:#fff;padding:6px"></div>
+        </div>
+      </div>
+      <div class="matrix-axis-x">AI 적용 난이도 → 어려움</div>
+    </div>
+    <p class="t-sub" style="margin-top:14px">⏱ 워크시트 3의 페인포인트를 각 사분면에 배치해보세요 (5분)</p>
+  </div>
+</div>
+
+<!-- 25. Part 4 표지 -->
+<div class="slide s-gradient centered" data-theme="dark">
+  <p class="s-label" style="color:rgba(255,255,255,.4)">Part 4 · 1H</p>
+  <h2 class="s-title">AI 전환 시나리오 설계</h2>
+  <div class="s-body">
+    <p class="t-main">매트릭스에서 선택한 업무를<br>AI로 실행하기 위한 설계서를 씁니다.</p>
+  </div>
+</div>
+
+<!-- 26. 작업 설계서란 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">Design Document</p>
+  <h2 class="s-title">작업 설계서: AI에게 전달하는 업무 명세서</h2>
+  <div class="s-body">
+    <p class="t-main">하네스 엔지니어링을 적용해서 AI에게 업무를 <span class="hl">정확히 전달하는 문서</span>입니다.</p>
+    <div class="grid-2" style="margin-top:18px">
+      <div class="card">
+        <div class="card-title">📋 작업 설계서 구성 요소</div>
+        <ul style="font-size:.9rem;color:#5F656C;line-height:1.8;list-style:none;margin-top:6px">
+          <li>① 목적: 이 AI가 무엇을 하는가</li>
+          <li>② 역할: AI에게 부여할 전문가 역할</li>
+          <li>③ 입력: 어떤 데이터/자료를 줄 것인가</li>
+          <li>④ 처리 단계: AI가 거쳐야 할 순서</li>
+          <li>⑤ 출력: 원하는 결과물 형식</li>
+          <li>⑥ 제약: 하지 말아야 할 것</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">✅ 잘 쓴 설계서의 특징</div>
+        <ul style="font-size:.9rem;color:#5F656C;line-height:1.8;list-style:none;margin-top:6px">
+          <li>→ AI가 읽어도 업무를 이해할 수 있다</li>
+          <li>→ 출력물 품질을 예측할 수 있다</li>
+          <li>→ 다른 사람도 같은 결과를 재현할 수 있다</li>
+          <li>→ 도메인 지식이 명확하게 반영돼 있다</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 27. 작업 설계서 예시 -->
+<div class="slide s-light" data-theme="light">
+  <p class="s-label">Example</p>
+  <h2 class="s-title">작업 설계서 예시</h2>
+  <div class="s-body">
+    <div class="step-card" style="width:92%">
+      <div class="step-browser-bar">
+        <div class="step-browser-dot" style="background:#FF5F57"></div>
+        <div class="step-browser-dot" style="background:#FEBC2E"></div>
+        <div class="step-browser-dot" style="background:#28C840"></div>
+        <div class="step-url-bar">작업 설계서 — 주간 공급 리스크 요약 에이전트</div>
+      </div>
+      <div class="step-body">
+        <p style="margin-bottom:6px"><b>목적:</b> 매주 월요일 오전 8시, 주요 공급사 납기 리스크를 자동 요약하고 팀에 공유</p>
+        <p style="margin-bottom:6px"><b>역할:</b> 너는 MX사업부 구매팀의 공급망 리스크 전문 분석가야.</p>
+        <p style="margin-bottom:6px"><b>입력:</b> 공급사 주간 리포트 PDF + 생산 일정 엑셀 (월요일 7시 자동 수신)</p>
+        <p style="margin-bottom:6px"><b>처리:</b> 1) 납기 지연 가능성 탐지 → 2) 영향받는 생산 라인 확인 → 3) 대안 공급사 가용 여부 체크 → 4) 요약 작성</p>
+        <p style="margin-bottom:6px"><b>출력:</b> 리스크 요약 3줄 + 주의 공급사 목록 표 + 권장 액션 2가지 (500자 이내)</p>
+        <p><b>제약:</b> 확인되지 않은 수치는 [미확인]으로 표기. 내부 원가 정보는 포함하지 않음.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 28. 워크시트: 내 작업 설계서 -->
+<div class="slide s-light" data-theme="light">
+  <div class="ws-tag">📝 워크시트 5</div>
+  <h2 class="s-title">내 작업 설계서 작성</h2>
+  <div class="s-body">
+    <div class="ws-container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div>
+          <div class="ws-box-label">목적 — 이 AI는 무엇을 하는가?</div>
+          <div class="ws-box"></div>
+        </div>
+        <div>
+          <div class="ws-box-label">역할 — AI에게 부여할 전문가 역할</div>
+          <div class="ws-box"></div>
+        </div>
+        <div>
+          <div class="ws-box-label">입력 — 어떤 데이터/자료를 줄 것인가?</div>
+          <div class="ws-box"></div>
+        </div>
+        <div>
+          <div class="ws-box-label">출력 — 원하는 결과물 형식</div>
+          <div class="ws-box"></div>
+        </div>
+      </div>
+      <div class="ws-box-label" style="margin-top:8px">처리 단계 — AI가 거쳐야 할 순서 (번호로)</div>
+      <div class="ws-box" style="min-height:44px"></div>
+      <div class="ws-box-label">제약 — AI가 하지 말아야 할 것</div>
+      <div class="ws-box"></div>
+    </div>
+    <p class="t-sub" style="margin-top:10px">⏱ 8분 작성 → 이 설계서가 실습 도구 설정에 바로 사용됩니다</p>
+  </div>
+</div>
+
+<!-- 29. 두 도구 연결 워크플로우 개요 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">Part 5 · Workflow Overview</p>
+  <h2 class="s-title">오늘 실습: 두 도구를 <span class="hl">연결</span>합니다</h2>
+  <div class="s-body">
+    <div style="display:flex;align-items:center;gap:0;margin-top:6px;width:95%">
+      <div style="flex:1;background:#FFF2F2;border:2px solid #F7585C;border-radius:14px;padding:20px 22px">
+        <div style="font-size:.72rem;font-weight:700;color:#F7585C;letter-spacing:1.5px;margin-bottom:8px">Step 1 · 1H</div>
+        <div style="font-size:1.15rem;font-weight:700;margin-bottom:8px">🤖 agent.ai</div>
+        <div style="font-size:.88rem;color:#5F656C;line-height:1.6">내 업무 시나리오를 바탕으로<br>전용 에이전트 생성<br><br>→ ChatGPT 앱으로 연동<br>→ 처리 결과를 스프레드시트에 자동 저장</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;padding:0 16px;color:#F7585C;font-size:1.5rem;font-weight:700">→</div>
+      <div style="flex:1;background:#F0F9FF;border:2px solid #3B82F6;border-radius:14px;padding:20px 22px">
+        <div style="font-size:.72rem;font-weight:700;color:#3B82F6;letter-spacing:1.5px;margin-bottom:8px">연결 브릿지</div>
+        <div style="font-size:1.15rem;font-weight:700;margin-bottom:8px">📊 Google Spreadsheet</div>
+        <div style="font-size:.88rem;color:#5F656C;line-height:1.6">agent.ai 처리 결과가<br>자동으로 쌓이는 데이터 저장소<br><br>→ 시간이 지날수록<br>데이터가 자동 축적됨</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;padding:0 16px;color:#F7585C;font-size:1.5rem;font-weight:700">→</div>
+      <div style="flex:1;background:#F0FFF4;border:2px solid #10B981;border-radius:14px;padding:20px 22px">
+        <div style="font-size:.72rem;font-weight:700;color:#10B981;letter-spacing:1.5px;margin-bottom:8px">Step 2 · 1.5H</div>
+        <div style="font-size:1.15rem;font-weight:700;margin-bottom:8px">🖥️ Google AI Studio</div>
+        <div style="font-size:.88rem;color:#5F656C;line-height:1.6">스프레드시트 데이터를 연결해<br>Vibe Coding으로 분석<br>대시보드 자동 생성<br><br>→ 코딩 없이 완성</div>
+      </div>
+    </div>
+    <p class="t-sub" style="margin-top:14px">에이전트가 쌓은 데이터로 대시보드를 만드는 것 — 두 도구가 하나의 업무 파이프라인이 됩니다.</p>
+  </div>
+</div>
+
+<!-- 30. Part 5 표지 -->
+<div class="slide s-gradient centered" data-theme="dark">
+  <p class="s-label" style="color:rgba(255,255,255,.4)">Part 5 · 3H</p>
+  <h2 class="s-title">AI 도구 활용 실습</h2>
+  <div class="s-body">
+    <p class="t-main">설계서를 들고 실제로 만듭니다.<br>에이전트 → 스프레드시트 → 대시보드까지.</p>
+    <p class="t-sub" style="margin-top:16px">Step 1: agent.ai 에이전트 제작 + ChatGPT 앱 연동 + 스프레드시트 연결 (1H)<br>Step 2: Google AI Studio 스프레드시트 기반 대시보드 제작 (1.5H)<br>Step 3: 통합 검증 — 전체 흐름 한 번에 실행 (0.5H)</p>
+  </div>
+</div>
+
+<!-- 31. agent.ai 소개 & 왜 ChatGPT와 연동되나 -->
+<div class="slide s-dark" data-theme="dark">
+  <p class="s-label">Step 1 · agent.ai</p>
+  <h2 class="s-title">agent.ai — <span class="hl">ChatGPT 앱</span>으로 연동되는 에이전트</h2>
+  <div class="s-body">
+    <p class="t-main" style="margin-bottom:20px">ChatGPT를 이미 쓰고 있다면, 내가 만든 에이전트를<br>ChatGPT 안에서 바로 호출할 수 있습니다.</p>
+    <div class="grid-3" style="margin-top:4px">
+      <div class="card">
+        <div style="font-size:1.2rem;margin-bottom:8px">🤖</div>
+        <div class="card-title" style="color:#fff">에이전트 제작</div>
+        <div class="card-desc">agent.ai에서 내 업무에 맞는 전용 AI 에이전트를 만들고 배포</div>
+      </div>
+      <div class="card">
+        <div style="font-size:1.2rem;margin-bottom:8px">🔗</div>
+        <div class="card-title" style="color:#fff">ChatGPT 앱 연동</div>
+        <div class="card-desc">ChatGPT GPT Store에서 내 에이전트를 설치 → ChatGPT 안에서 바로 사용</div>
+      </div>
+      <div class="card">
+        <div style="font-size:1.2rem;margin-bottom:8px">📊</div>
+        <div class="card-title" style="color:#fff">스프레드시트 저장</div>
+        <div class="card-desc">에이전트 처리 결과를 구글 스프레드시트에 자동 저장 → 데이터 축적</div>
+      </div>
+    </div>
+    <div style="margin-top:16px;padding:12px 16px;background:rgba(247,88,92,.12);border-radius:8px;font-size:.88rem;color:rgba(255,255,255,.75);line-height:1.6">
+      💡 팀원들이 평소 ChatGPT를 쓰던 방식 그대로 — 별도 앱 설치 없이 내 에이전트를 공유할 수 있습니다.
+    </div>
+  </div>
+</div>
+
+<!-- 32. agent.ai 에이전트 생성 Step 1-3 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">Step 1 · agent.ai — 에이전트 생성</p>
+  <h2 class="s-title">에이전트 만들기 (1/2)</h2>
+  <div class="s-body">
+    <div class="step-card">
+      <div class="step-browser-bar">
+        <div class="step-browser-dot" style="background:#FF5F57"></div>
+        <div class="step-browser-dot" style="background:#FEBC2E"></div>
+        <div class="step-browser-dot" style="background:#28C840"></div>
+        <div class="step-url-bar">agent.ai — Create Agent</div>
+      </div>
+      <div class="step-body">
+        <p><span class="step-num">1</span><b>agent.ai 접속</b> → 계정 로그인 → 상단 <b>"Create Agent"</b> 클릭</p>
+        <p style="margin-top:8px"><span class="step-num">2</span><b>에이전트 이름</b> 입력: 예) "MX 품질 리포트 정리 에이전트"</p>
+        <p style="margin-top:8px"><span class="step-num">3</span><b>System Prompt</b> 란에 작업 설계서 내용 붙여넣기</p>
+        <div class="step-prompt-box">
+          너는 [작업 설계서의 역할]야.<br>
+          담당 업무: [목적]<br>
+          사용자가 입력을 주면 [처리 단계] 순서로 처리해줘.<br>
+          결과는 반드시 [출력 형식]으로 정리해서 출력해줘.<br>
+          제약: [작업 설계서의 제약 사항]
+        </div>
+        <p style="margin-top:8px"><span class="step-num">4</span>관련 문서가 있으면 <b>Knowledge Base</b>에 업로드 (PDF, TXT 가능)</p>
+        <div class="step-output-box" style="margin-top:8px">📋 오른쪽 Preview 채팅창에서 실제 질문으로 먼저 테스트 — 결과 형식 맞는지 확인</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 33. agent.ai ChatGPT 앱 연동 + 스프레드시트 연결 -->
+<div class="slide s-light" data-theme="light">
+  <p class="s-label">Step 1 · agent.ai — 연동 설정</p>
+  <h2 class="s-title">에이전트 만들기 (2/2): ChatGPT & 스프레드시트 연결</h2>
+  <div class="s-body">
+    <div class="step-card">
+      <div class="step-browser-bar">
+        <div class="step-browser-dot" style="background:#FF5F57"></div>
+        <div class="step-browser-dot" style="background:#FEBC2E"></div>
+        <div class="step-browser-dot" style="background:#28C840"></div>
+        <div class="step-url-bar">agent.ai — Integrations</div>
+      </div>
+      <div class="step-body">
+        <p style="font-weight:700;margin-bottom:6px;color:#F7585C">ChatGPT 앱 연동</p>
+        <p><span class="step-num">1</span>agent.ai에서 에이전트 완성 후 → <b>"Publish"</b> → <b>"Add to ChatGPT"</b> 클릭</p>
+        <p style="margin-top:6px"><span class="step-num">2</span>ChatGPT GPT Store에 자동 등록 → ChatGPT 사이드바 "GPTs"에서 내 에이전트 검색 · 설치</p>
+        <p style="margin-top:6px"><span class="step-num">3</span>설치 후 ChatGPT 채팅창에서 에이전트 이름 @ 태그로 호출 가능</p>
+        <div style="margin:8px 0;border-top:1px solid #E5E7EB;padding-top:8px">
+          <p style="font-weight:700;margin-bottom:6px;color:#F7585C">구글 스프레드시트 연동</p>
+        </div>
+        <p><span class="step-num">4</span>agent.ai 에이전트 설정 → <b>"Actions"</b> → <b>"Google Sheets"</b> 추가</p>
+        <p style="margin-top:6px"><span class="step-num">5</span>연결할 스프레드시트 URL 붙여넣기 → 저장할 시트(Sheet1 등) 선택</p>
+        <div class="step-output-box" style="margin-top:8px">✅ 이제 에이전트가 처리한 결과가 스프레드시트에 자동으로 한 행씩 쌓입니다.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 34. Google AI Studio 파트 표지 -->
+<div class="slide s-gradient centered" data-theme="dark">
+  <p class="s-label" style="color:rgba(255,255,255,.4)">Step 2 · Google AI Studio</p>
+  <h2 class="s-title">스프레드시트 데이터로<br><span class="hl">대시보드</span>를 만듭니다</h2>
+  <div class="s-body">
+    <p class="t-main">agent.ai가 자동으로 쌓아놓은 데이터를<br>Google AI Studio에 연결하면 분석 대시보드가 생깁니다.</p>
+    <p class="t-sub" style="margin-top:16px">코드를 전혀 모르는 분도 됩니다 — Vibe Coding: 말로 설명하면 코드가 나옵니다.</p>
+  </div>
+</div>
+
+<!-- 35. Google AI Studio 스프레드시트 연결 + 대시보드 생성 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">Step 2 · Google AI Studio — 대시보드 제작 (1/2)</p>
+  <h2 class="s-title">스프레드시트 연결 & 대시보드 생성</h2>
+  <div class="s-body">
+    <div class="step-card">
+      <div class="step-browser-bar">
+        <div class="step-browser-dot" style="background:#FF5F57"></div>
+        <div class="step-browser-dot" style="background:#FEBC2E"></div>
+        <div class="step-browser-dot" style="background:#28C840"></div>
+        <div class="step-url-bar">aistudio.google.com</div>
+      </div>
+      <div class="step-body">
+        <p><span class="step-num">1</span><b>aistudio.google.com 접속</b> → Google 계정 로그인 → <b>"New prompt"</b></p>
+        <p style="margin-top:8px"><span class="step-num">2</span>모델: <b style="color:#F7585C">Gemini 2.0 Flash</b> 선택 (기본값 유지)</p>
+        <p style="margin-top:8px"><span class="step-num">3</span>우측 상단 <b>"Add file"</b> → agent.ai가 쌓은 스프레드시트 파일(CSV 다운로드)을 업로드<br><span style="font-size:.8rem;color:#9198A1;margin-left:34px">스프레드시트 → 파일 → CSV 다운로드 → 업로드</span></p>
+        <p style="margin-top:8px"><span class="step-num">4</span>아래 프롬프트 입력</p>
+        <div class="step-prompt-box">
+          위 데이터는 [업무 에이전트]가 처리한 결과물입니다.<br>
+          이 데이터를 분석해서 HTML 대시보드를 만들어줘.<br>
+          보여줄 항목: [핵심 지표 2~3가지 — 예: 처리 건수, 리스크 레벨, 처리 시간]<br>
+          형식: 차트 + 요약 수치 + 핵심 인사이트 1줄<br>
+          색상: 파란색 계열, 깔끔한 비즈니스 스타일<br>
+          완전한 HTML 코드로 출력해줘.
+        </div>
+        <div class="step-output-box" style="margin-top:8px">💡 샘플 데이터가 없으면: 강사가 공유하는 실습용 CSV 파일 사용</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 36. Google AI Studio 대시보드 완성 & 수정 -->
+<div class="slide s-light" data-theme="light">
+  <p class="s-label">Step 2 · Google AI Studio — 대시보드 제작 (2/2)</p>
+  <h2 class="s-title">대시보드 저장 & 수정하기</h2>
+  <div class="s-body">
+    <div class="step-card">
+      <div class="step-browser-bar">
+        <div class="step-browser-dot" style="background:#FF5F57"></div>
+        <div class="step-browser-dot" style="background:#FEBC2E"></div>
+        <div class="step-browser-dot" style="background:#28C840"></div>
+        <div class="step-url-bar">aistudio.google.com — 대시보드 생성 완료</div>
+      </div>
+      <div class="step-body">
+        <p><span class="step-num">1</span>생성된 HTML 코드 전체를 복사</p>
+        <p style="margin-top:8px"><span class="step-num">2</span>메모장(메모장.exe) 열기 → 붙여넣기 → <b>파일명.html</b>로 저장</p>
+        <p style="margin-top:8px"><span class="step-num">3</span>저장한 .html 파일을 Chrome으로 열어서 결과 확인</p>
+        <p style="margin-top:8px"><span class="step-num">4</span>수정이 필요하면 Google AI Studio 채팅창에 바로 추가 요청</p>
+        <div class="step-prompt-box">
+          수정 예시:<br>
+          "차트를 막대 그래프로 바꿔줘"<br>
+          "핵심 수치를 더 크게, 강조색으로 만들어줘"<br>
+          "인사이트 요약을 맨 위에 배치해줘"<br>
+          "전체 배경을 흰색, 텍스트는 진하게 바꿔줘"
+        </div>
+        <div class="step-output-box" style="margin-top:8px">✅ 완성 기준: 스프레드시트 데이터가 차트와 수치로 보이고, 인사이트 1줄이 나오면 완성!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 37. 실습 미션 카드 -->
+<div class="slide s-accent centered" data-theme="dark">
+  <div class="demo-tag">MISSION</div>
+  <h2 class="s-title">지금부터 <span class="hl">180분</span><br>연결 워크플로우 완성합니다</h2>
+  <div class="s-body">
+    <p class="t-main">목표: 에이전트 → 스프레드시트 → 대시보드 전체 연결</p>
+    <div style="margin-top:20px;display:flex;gap:12px;justify-content:center;align-items:center">
+      <div style="background:rgba(255,255,255,.15);border-radius:10px;padding:14px 18px;font-size:.9rem;font-weight:700;text-align:center">🤖 Step 1<br><span style="font-weight:400;font-size:.82rem">agent.ai 에이전트<br>+ ChatGPT 연동<br>+ 스프레드시트 저장</span></div>
+      <div style="font-size:1.4rem;color:rgba(255,255,255,.5)">→</div>
+      <div style="background:rgba(255,255,255,.15);border-radius:10px;padding:14px 18px;font-size:.9rem;font-weight:700;text-align:center">📊 Step 2<br><span style="font-weight:400;font-size:.82rem">Google AI Studio<br>스프레드시트 기반<br>대시보드 제작</span></div>
+      <div style="font-size:1.4rem;color:rgba(255,255,255,.5)">→</div>
+      <div style="background:rgba(255,255,255,.15);border-radius:10px;padding:14px 18px;font-size:.9rem;font-weight:700;text-align:center">✅ Step 3<br><span style="font-weight:400;font-size:.82rem">전체 흐름<br>한 번에 실행<br>통합 검증</span></div>
+    </div>
+    <p class="t-sub" style="margin-top:20px;text-align:center">막히면 손들어 주세요 — 강사 2인이 바로 갑니다</p>
+  </div>
+</div>
+
+<!-- 38. 막히면 이렇게 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">Troubleshooting</p>
+  <h2 class="s-title">막혔을 때 체크리스트</h2>
+  <div class="s-body">
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-icon">🤖</div>
+        <div class="card-title">에이전트 답변이 엉뚱할 때</div>
+        <div class="card-desc">System Prompt의 <b>역할</b>이 명확한가요? "너는 [직무] 전문가야"로 역할을 더 구체적으로 지정하고, 출력 형식을 예시로 보여주세요.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔗</div>
+        <div class="card-title">스프레드시트 연동이 안 될 때</div>
+        <div class="card-desc">스프레드시트의 공유 설정을 "링크 있는 사람 편집 가능"으로 변경 후 다시 시도해보세요. Google 계정 권한 문제일 수 있습니다.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <div class="card-title">대시보드 레이아웃이 이상할 때</div>
+        <div class="card-desc">"차트를 상단에, 수치를 크게 배치해줘" 처럼 레이아웃을 말로 지정하세요. 완성된 코드에서 바로 수정 요청이 가장 빠릅니다.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔄</div>
+        <div class="card-title">전체 흐름이 연결 안 될 때</div>
+        <div class="card-desc">각 Step을 순서대로 분리해서 확인하세요: 에이전트 단독 동작 → 스프레드시트 저장 확인 → 그 파일로 대시보드 생성 순으로 진행합니다.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 39. Part 6 표지 -->
+<div class="slide s-gradient centered" data-theme="dark">
+  <p class="s-label" style="color:rgba(255,255,255,.4)">Part 6 · 0.5H</p>
+  <h2 class="s-title">결과 공유 & 다음 액션</h2>
+  <div class="s-body">
+    <p class="t-main">만든 것을 보여주고,<br>다음 주 월요일에 뭘 할지 정합니다.</p>
+  </div>
+</div>
+
+<!-- 40. 미니 데모 가이드 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">Mini Demo</p>
+  <h2 class="s-title">1분 데모 발표 구조</h2>
+  <div class="s-body">
+    <ol class="num-list" style="max-width:82%">
+      <li>
+        <span style="font-weight:700">개선한 업무 비효율 구간 (10초)</span><br>
+        <span style="font-size:.95rem;color:#5F656C">"저는 매주 [이 작업]에 [N시간]을 쓰고 있었습니다."</span>
+      </li>
+      <li>
+        <span style="font-weight:700">만든 것 데모 (30초)</span><br>
+        <span style="font-size:.95rem;color:#5F656C">대시보드 화면 공유 또는 에이전트에게 질문 → 응답 보여주기</span>
+      </li>
+      <li>
+        <span style="font-weight:700">실제로 쓰면 어떻게 달라지는지 (20초)</span><br>
+        <span style="font-size:.95rem;color:#5F656C">"이걸 쓰면 [이 작업]이 [시간]으로 줄어들 것 같습니다."</span>
+      </li>
+    </ol>
+    <div style="margin-top:18px;padding:12px 18px;background:#FFF2F2;border-radius:8px;max-width:84%">
+      <p style="font-size:.92rem;color:#2E3339;line-height:1.6">💡 완성도보다 <b>방향성</b>이 중요합니다. "이런 방향으로 만들었는데, 더 발전시키면 이렇게 될 것 같다"도 훌륭한 데모입니다.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 41. 워크시트: 현업 적용 계획 -->
+<div class="slide s-light" data-theme="light">
+  <div class="ws-tag">📝 워크시트 6</div>
+  <h2 class="s-title">내 현업 적용 계획</h2>
+  <div class="s-body">
+    <div class="ws-container">
+      <div class="ws-box-label">오늘 만든 것</div>
+      <div class="ws-box"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px">
+        <div>
+          <div class="ws-box-label">다음 주 월요일에 실제로 써볼 업무</div>
+          <div class="ws-box"></div>
+        </div>
+        <div>
+          <div class="ws-box-label">더 발전시키면 줄일 수 있는 비효율 구간</div>
+          <div class="ws-box"></div>
+        </div>
+      </div>
+      <div class="ws-box-label" style="margin-top:4px">팀원에게 공유하고 싶은 것 (있다면)</div>
+      <div class="ws-box"></div>
+    </div>
+    <p class="t-sub" style="margin-top:10px">⏱ 3분 작성 — 이 카드를 가져가서 다음 주에 실행해보세요</p>
+  </div>
+</div>
+
+<!-- 42. 오늘 배운 것 -->
+<div class="slide s-white" data-theme="light">
+  <p class="s-label">Recap</p>
+  <h2 class="s-title">오늘 8시간에 한 것들</h2>
+  <div class="s-body">
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-icon">🔧</div>
+        <div class="card-title">하네스 엔지니어링 이해</div>
+        <div class="card-desc">AI에게 역할·맥락·제약을 설계해서 전달하는 방법을 익혔습니다.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <div class="card-title">내 업무 정의 & 진단</div>
+        <div class="card-desc">역할·입력·처리·출력으로 업무를 구조화하고 비효율 구간과 개선 우선순위를 정리했습니다.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🗺️</div>
+        <div class="card-title">AI 적용 우선순위 설정</div>
+        <div class="card-desc">2×2 매트릭스로 어디서 먼저 시작할지 우선순위를 정했습니다.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">📦</div>
+        <div class="card-title">두 도구 연결 워크플로우 완성</div>
+        <div class="card-desc">agent.ai 에이전트 제작 → 스프레드시트 축적 → Google AI Studio 대시보드까지 연결된 파이프라인을 완성했습니다.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 43. 클로징 -->
+<div class="slide s-dark centered cover" data-theme="dark">
+  <p class="s-label" style="color:rgba(255,255,255,.3)">모두의연구소</p>
+  <h1 class="s-title" style="margin-top:16px;text-align:center">오늘 만든 것,<br><span class="hl">다음 주 업무에 바로 씁니다.</span></h1>
+  <p class="cover-sub" style="margin-top:16px;text-align:center">에이전트와 대시보드, 워크숍 끝나도 계속 돌아갑니다.</p>
+  <p class="cover-sub dim" style="margin-top:8px;text-align:center">이준오 · 이힘찬 | 모두의연구소 AI 기업교육</p>
+</div>
+
+</div><!-- /deck -->
+
+<script>
+(function(){
+  const slides = document.querySelectorAll('.slide');
+  const nav = document.getElementById('nav');
+  const numEl = document.getElementById('slideNum');
+  const total = slides.length;
+  let current = 0;
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot';
+    dot.title = 'Slide ' + (i + 1);
+    dot.addEventListener('click', () => go(i));
+    nav.appendChild(dot);
+  });
+  const dots = nav.querySelectorAll('.nav-dot');
+  function go(index) {
+    if (index < 0 || index >= total) return;
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = index;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+    const theme = slides[current].dataset.theme;
+    document.body.classList.toggle('light-slide', theme === 'light');
+    numEl.textContent = current + 1 + ' / ' + total;
+  }
+  go(0);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); go(current + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); go(current - 1); }
+    if (e.key === 'Home') { e.preventDefault(); go(0); }
+    if (e.key === 'End') { e.preventDefault(); go(total - 1); }
+    if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+})();
+</script>
+</body>
+</html>

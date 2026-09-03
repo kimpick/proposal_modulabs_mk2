@@ -1,0 +1,218 @@
+{
+  "title": "직무별 AI 활용 교육 — MD·영업마케팅·경영지원 상세 커리큘럼",
+  "subtitle": "직군별 반복 업무를 Gemini Gems 에이전트로 자동화하는 12시간 실무 과정",
+  "info": {
+    "keyword": "직무별 AI 활용 · 3개 직군 과정",
+    "ax_stage": "Level 1~2 — 직무 업무 자동화 에이전트 구축",
+    "target": "MD·영업·마케팅·HR·재무·경영지원 실무자 (AI 활용 경험 낮음)",
+    "duration": "직군별 12H (4H×3일) · 차수당 20명"
+  },
+  "intro": "롯데이커머스 직무별 AI 활용 교육은 MD, 영업·마케팅, HR·재무·경영지원 3개 직군을 대상으로 각 직군의 반복 업무를 <b>Gemini Gems 에이전트로 1인 1개씩</b> 자동화하는 12시간 실습 과정입니다. 직군마다 별도 차수로 운영하며, 프롬프트 작성이 낯선 실무자도 첫날부터 실습을 따라오도록 진입장벽을 낮춰 설계했습니다. MD 직군은 상세페이지 카피, 매출/재고 리포트, 리뷰/랭킹 관리를 중심으로 가장 상세한 커리큘럼을 적용하며, 영업·마케팅과 HR·재무·경영지원 직군은 각 부서의 핵심 반복 업무에 맞춘 에이전트 구축 실습을 진행합니다. 교육에서 만든 에이전트는 일회성이 아니라 <b>현업에서 지속 사용·고도화</b>하는 것을 목표로 하며, SK지주사 임원 대상 Gemini Enterprise 교육에서 검증된 에이전트 제작 방식을 직무 단위로 구체화한 과정입니다.",
+  "objective": "<ul style='margin:0; padding-left:20px; line-height:1.7;'><li><b>직군별 반복 업무 자동화:</b> MD·영업·마케팅·경영지원 각 부서 페인포인트를 Gems 에이전트로 해결</li><li><b>낮은 진입장벽 설계:</b> 프롬프트 작성이 낯선 실무자도 3일 안에 자기 업무 버전의 에이전트를 직접 완성</li><li><b>As-is/To-be 성과 측정:</b> 업무 처리 시간 변화를 정량적으로 확인</li><li><b>부서별 MVP 확보:</b> 직군마다 현업에 바로 적용하고 지속 고도화할 수 있는 대표 에이전트 완성</li></ul>",
+  "tech_stack": [
+    "Gemini Enterprise",
+    "Gemini Gems",
+    "Google Workspace",
+    "Imagen",
+    "Google Vids·Veo",
+    "NotebookLM"
+  ],
+  "infrastructure": [
+    "오프라인 교육장 1개 (차수당 20명)",
+    "Gemini Enterprise 전사 계정 (8월 이후 정식 도입)",
+    "빔프로젝터 + 수강생 개인 노트북 (사전 설치 안내)",
+    "실습용 부서 업무 데이터 (상세페이지 초안, 매출/재고 시트 등 — 수강생 사전 준비)"
+  ],
+  "tracks": [
+    {
+      "track_id": "01",
+      "track_name": "MD 직군",
+      "course_title": "MD 업무 자동화 — 상세페이지·매출재고·리뷰랭킹 에이전트 구축",
+      "target": "MD(상품기획) 실무자, AI 활용 경험 낮음",
+      "duration": "12H",
+      "tools": [
+        "Gemini Enterprise",
+        "Gemini Gems",
+        "Google Workspace",
+        "Imagen",
+        "Google Vids·Veo"
+      ],
+      "modules": [
+        {
+          "module_name": "Day 1 — MD 업무 분해와 AI 적용 지점 발견",
+          "duration": "4H",
+          "items": [
+            "AI가 처음인 MD도 따라오도록 Gemini Enterprise 기본 조작·프롬프트 워밍업",
+            "상품 상세페이지 카피·이미지 제작 프로세스 분해 및 AI 적용 지점 도출",
+            "매출/재고 데이터 리포트 자동화 구조 설계 (Gemini + Sheets 연동)",
+            "리뷰 요약, 랭킹 모니터링 업무의 반복 패턴 파악과 에이전트 기획"
+          ]
+        },
+        {
+          "module_name": "Day 2 — MD 전용 Gems 에이전트 구축 실습",
+          "duration": "4H",
+          "items": [
+            "상세페이지 카피 자동 생성 Gem 구축: 기획안 입력 시 혜택 카피·검색 키워드 자동 생성 (30분→3분)",
+            "재고 소진 알림 에이전트 구축: 매출 데이터 기반 위험 SKU 감지 및 알림 자동화",
+            "경쟁사 상품 비교 리포트 에이전트 구축: 가격·리뷰 주간 비교 자동화",
+            "Imagen 기반 배너 이미지 + Google 영상 생성 도구(Vids·Veo)로 상품 기술서 기반 5초 숏폼 영상 제작 실습"
+          ]
+        },
+        {
+          "module_name": "Day 3 — 고도화와 부서 KPI 연결",
+          "duration": "4H",
+          "items": [
+            "에이전트 품질 개선: 지시문 정교화, 예외 케이스 처리",
+            "MD 데일리 업무 흐름에 에이전트 통합, 하루 루틴 재설계",
+            "완성한 Gem을 팀에 공유하고 동료가 바로 쓰도록 사용법 정리",
+            "부서 성과 측정: 상세페이지 제작 시간, 카피 작성 시간 As-is/To-be 비교"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "02",
+      "track_name": "영업·마케팅 직군",
+      "course_title": "캠페인·고객소통 자동화 — 문구 생성과 A/B 테스트 에이전트 구축",
+      "target": "영업·마케팅 실무자, AI 저항감 높고 프롬프트 작성 경험 낮음",
+      "duration": "12H",
+      "tools": [
+        "Gemini Enterprise",
+        "Gemini Gems",
+        "Google Workspace"
+      ],
+      "modules": [
+        {
+          "module_name": "Day 1 — 페인포인트 진단과 Gemini 기초",
+          "duration": "4H",
+          "items": [
+            "영업·마케팅 반복 업무 진단: 푸시앱 문자, 캠페인 카피, 고객 리뷰 응대",
+            "Gemini Enterprise 기초 실습: 마케팅 문구를 예시로 프롬프트 기본기·계정 세팅 익히기",
+            "AI 저항감 낮추기: 잘못된 답변을 다시 물어 고쳐가는 대화 연습",
+            "개인별 에이전트 주제 도출 및 우선순위 설정"
+          ]
+        },
+        {
+          "module_name": "Day 2 — 문구·캠페인 Gems 에이전트 구축",
+          "duration": "4H",
+          "items": [
+            "푸시앱 문자 문구 생성 Gem 구축: 타겟별 5종 변형 1분 내 생성",
+            "바이럴 캠페인 에이전트 구축: 커뮤니티별 톤앤매너 맞춤 문구 생성",
+            "고객 리뷰 요약·분류 에이전트 기획 및 각자 Gems 프로토타입 제작",
+            "생성 문구를 브랜드 가이드에 맞게 다듬는 검수 프롬프트 작성"
+          ]
+        },
+        {
+          "module_name": "Day 3 — A/B 테스트 자동화와 성과 측정",
+          "duration": "4H",
+          "items": [
+            "A/B 테스트 자동화 설계: 문구 변형별 성과 비교 파이프라인 구성",
+            "클릭률·전환율 데이터 연동 및 As-is/To-be 비교 (사내 데이터 연동 범위는 협의)",
+            "우수 문구 패턴을 팀 공유용 프롬프트 템플릿으로 정리",
+            "부서 적용 계획 수립 및 발표"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "03",
+      "track_name": "HR·재무·경영지원 직군",
+      "course_title": "문서·데이터 업무 자동화 — 회의록 정리와 사내규정 Q&amp;A 에이전트 구축",
+      "target": "HR·재무·경영지원 실무자, AI 활용 경험 낮음~중간",
+      "duration": "12H",
+      "tools": [
+        "Gemini Enterprise",
+        "Gemini Gems",
+        "Google Workspace",
+        "NotebookLM"
+      ],
+      "modules": [
+        {
+          "module_name": "Day 1 — 문서·데이터 페인포인트 진단과 Gemini 기초",
+          "duration": "4H",
+          "items": [
+            "HR·재무·경영지원 반복 업무 진단: 회의록 정리, 문서 요약, 데이터 취합",
+            "Gemini Enterprise 기초 실습: 사내 문서를 예시로 프롬프트 기본기·계정 세팅 익히기",
+            "민감 정보를 다루는 부서 특성상 안전한 입력 범위·주의사항 점검",
+            "개인별 에이전트 주제 도출 및 우선순위 설정"
+          ]
+        },
+        {
+          "module_name": "Day 2 — 문서·데이터 자동화 에이전트 구축",
+          "duration": "4H",
+          "items": [
+            "회의록 자동 정리 Gem 구축: 녹취·메모 입력 후 요약본·액션 플랜 자동 생성",
+            "데이터 대시보드 자동 생성: Sheets 연동으로 부서 지표 시각화",
+            "NotebookLM 기반 부서 Knowledge Base 구축 실습: 규정·정책 문서 업로드 → 질의응답 (RAG 활용 가이드라인 제공)",
+            "생성 요약본의 사실 여부를 원문과 대조해 검증하는 습관 만들기"
+          ]
+        },
+        {
+          "module_name": "Day 3 — 사내규정 Q&amp;A 에이전트와 성과 측정",
+          "duration": "4H",
+          "items": [
+            "사내규정 Q&amp;A 에이전트 구축: 규정이 명확한 HR·Compliance 문서 기반 답변 자동화",
+            "예문·보고서 초안 생성 Gem 실습",
+            "완성한 에이전트를 부서 동료와 공유하고 사용법 안내",
+            "부서별 문서 처리 시간 As-is/To-be 비교 및 지속 활용 계획 수립"
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "<ul style='margin:0; padding-left:20px; line-height:1.8;'><li><b>MD 직군:</b> 상세페이지 카피 생성 Gem, 재고 소진 알림 에이전트, 경쟁사 비교 리포트, 배너 이미지·숏폼 영상 실습물</li><li><b>영업·마케팅 직군:</b> 푸시앱 문자 문구 생성 Gem, 바이럴 캠페인 에이전트, 리뷰 요약·분류 에이전트</li><li><b>HR·재무·경영지원 직군:</b> 회의록 자동 정리 Gem, 데이터 대시보드, NotebookLM 부서 Knowledge Base, 사내규정 Q&amp;A 에이전트</li><li><b>공통:</b> 1인 1 Gems 에이전트 + 직군별 As-is/To-be 성과 리포트</li></ul>",
+  "schedule_message": "<p style='margin:0'>직군별로 별도 차수를 운영하며, 차수당 20명 기준입니다. 사전 설문으로 수강생 AI 활용 수준(초·중·고)을 진단해 차수 편성에 반영하며, 8월 말~9월 초 시작 일정으로 협의를 통해 확정합니다.</p>",
+  "show_instructors": true,
+  "instructors": [
+    {
+      "category": "비개발자 과정",
+      "name": "송O호",
+      "headline": "비개발자 대상 생성형 AI·데이터 활용 교육 전문",
+      "bio": "인천대학교 정보기술대학원 강사로 직장인 대상 LLM 프롬프트 엔지니어링·생성형 AI 활용 강의 진행 중. (주)더아이엠씨 빅데이터·인공지능 전문강사로 KOTRA·서울대·고려대 등 대학·공공기관·기업 대상 빅데이터/AI 강의를 다수 수행. 신문방송학 박사로 비전공자 관점에서 복잡한 개념을 일상적 비유로 풀어내는 '눈높이 교육'에 특화되어 있으며, 모두의연구소와 다수 협업 이력을 보유.",
+      "expertise": [
+        "생성형 AI 활용",
+        "프롬프트 엔지니어링",
+        "텍스트마이닝·빅데이터",
+        "데이터 분석",
+        "미디어 리터러시"
+      ],
+      "experience": [
+        "인천대학교 정보기술대학원 강사 (직장인 대상 LLM·생성형 AI)",
+        "(주)더아이엠씨 빅데이터/인공지능 전문강사",
+        "KOTRA·서울대·고려대 등 대학·공공기관·기업 AI 강의 다수",
+        "생성형 AI 관련 도서 집필 · KCI 등재지 논문 다수",
+        "모두의연구소 기업교육 협업 다수"
+      ],
+      "metrics": [
+        { "value": "4.98", "label": "강사 만족도" },
+        { "value": "4.97", "label": "과정 만족도" },
+        { "value": "200H+", "label": "AI·데이터 강의" }
+      ]
+    },
+    {
+      "category": "비개발자 과정 · Gemini Enterprise",
+      "name": "곽O철",
+      "headline": "SKT Gemini Enterprise 도입 교육 · 생성형 AI 업무 자동화 실무",
+      "bio": "SKT Gemini Enterprise 도입 교육을 진행한 GE 실전 경험 보유 강사. MCP Korea를 직접 운영하며 AI 통역 서비스 Osay Co-Founder, 지피터스 파트너로 활동 중. SK mySuni·SK Innovation·SK broadband·한화시스템·LG인화원·멀티캠퍼스 등 대기업 대상 생성형 AI·업무 자동화 교육을 다수 진행했으며, 입문자 대상 전달력이 검증된 비개발자 교육 전문가.",
+      "expertise": [
+        "Gemini Enterprise",
+        "생성형 AI 활용",
+        "업무 자동화 (n8n·Make)",
+        "프롬프트 엔지니어링",
+        "MCP"
+      ],
+      "experience": [
+        "SKT Gemini Enterprise 도입 교육 진행",
+        "SK mySuni·SK Innovation·한화시스템·LG인화원 등 대기업 교육 다수",
+        "MCP Korea 운영 · AI 통역 서비스 Osay Co-Founder",
+        "2024 항해99 해커톤 최우수상 · 서울경제진흥원 G밸리 프롬프트 최우수상",
+        "지피터스 기초 강의 누적 300명+ 수강"
+      ],
+      "metrics": [
+        { "value": "4.6", "label": "강의 만족도 (5.0)" },
+        { "value": "300+", "label": "누적 수강생" },
+        { "value": "2회", "label": "경진대회 최우수상" }
+      ]
+    }
+  ]
+}

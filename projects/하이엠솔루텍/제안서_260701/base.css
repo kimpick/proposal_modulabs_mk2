@@ -1,0 +1,19 @@
+/* ── 하이엠솔루텍 제안서 260701 · 강사 사진 지원 ── */
+
+.instructor-card.with-photo {
+    position: relative;
+    padding-right: 148px;
+}
+
+.instructor-photo {
+    position: absolute;
+    top: 28px;
+    right: 28px;
+    width: 108px;
+    height: 108px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 3px solid #EE3E4C;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}

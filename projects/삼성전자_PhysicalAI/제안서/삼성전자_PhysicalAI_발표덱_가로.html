@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>삼성전자 Physical AI 실무 교육 제안 — 모두의연구소</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+  :root{
+    /* ==== 브랜드 토큰 (고객사에 맞게 --primary 계열만 교체) ==== */
+    --primary:#EE3E4C; --primary-dk:#C92434; --secondary:#EBBAC0;
+    --ink:#111111; --body:#333333; --muted:#6B7280; --faint:#9AA1AC;
+    --border:#EBEBEB; --line:#F0F0F2; --bg:#ffffff; --soft:#FAFAFB; --soft2:#F5F6F8;
+    --blue:#2563EB; --blue-bg:#EEF4FF; --green:#0E9F6E; --green-bg:#E7F6EF;
+    --amber:#B45309; --amber-bg:#FEF3E2; --purple:#7C3AED;
+    --shadow:0 1px 2px rgba(17,17,17,.04),0 10px 30px rgba(17,17,17,.08);
+    --radius:16px;
+    /* ==== 가로 슬라이드 프레임 (16:9) ==== */
+    --slide-w:1280px; --slide-h:720px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;overflow:hidden;background:#0a0c11;
+    font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+
+  /* ==== 무대: 뷰포트에 맞춰 덱을 중앙 정렬·스케일 ==== */
+  .stage{position:fixed;inset:0;display:grid;place-items:center}
+  .deck{position:relative;width:var(--slide-w);height:var(--slide-h);transform-origin:center center;
+    box-shadow:0 20px 60px rgba(0,0,0,.45);border-radius:6px;overflow:hidden;background:var(--bg)}
+
+  /* ==== 슬라이드 (가로 고정 프레임) ==== */
+  .slide{position:absolute;inset:0;width:var(--slide-w);height:var(--slide-h);background:var(--bg);
+    overflow:hidden;opacity:0;pointer-events:none;transform:translateX(24px);
+    transition:opacity .4s ease,transform .4s ease}
+  .slide.is-active{opacity:1;pointer-events:auto;transform:translateX(0)}
+  .fit-frame{position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start}
+  .fit-frame.center{justify-content:center}
+  .fit-content{padding:54px 72px;transform-origin:top center}
+  .fit-frame.center .fit-content{transform-origin:center center}
+
+  /* ==== kicker / 제목 ==== */
+  .sec-num{font-size:16.2px;font-weight:700;color:var(--faint);letter-spacing:.08em}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:16.9px;font-weight:700;
+    letter-spacing:.04em;color:var(--primary);text-transform:uppercase;margin:8px 0 12px}
+  .kicker::before{content:"";width:22px;height:2px;background:var(--primary);border-radius:2px}
+  h2{font-size:36.5px;line-height:1.25;color:var(--ink);margin:0 0 8px;font-weight:800;letter-spacing:-.02em}
+  h3{font-size:23px;color:var(--ink);margin:0;font-weight:700}
+  .lead{font-size:19.6px;color:var(--muted);margin:0 0 18px;max-width:920px}
+
+  /* ==== 공통 그리드 ==== */
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .split{display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:center}
+
+  /* ==== 표지 / 맺음말 ==== */
+  .cover{background:radial-gradient(1200px 520px at 82% -12%,#ff5d69 0%,transparent 55%),
+    linear-gradient(135deg,#1a1114 0%,#2a1418 40%,#7a1420 100%);color:#fff}
+  .cover .cover-badge{display:inline-flex;align-items:center;gap:10px;font-size:17.6px;font-weight:600;
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);padding:8px 15px;border-radius:999px}
+  .cover h1{font-size:62.1px;line-height:1.18;font-weight:800;margin:22px 0 14px;letter-spacing:-.03em;color:#fff}
+  .cover h1 span{color:#ffd0d4}
+  .cover .sub{font-size:24.3px;color:rgba(255,255,255,.88);max-width:720px;margin:0 0 30px}
+  .cover-meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-size:18.2px;color:rgba(255,255,255,.72);
+    border-top:1px solid rgba(255,255,255,.18);padding-top:20px}
+  .cover-meta b{color:#fff;font-weight:600}
+  .closing{background:linear-gradient(135deg,#1a1114,#5e1018);color:#fff}
+  .closing h2{color:#fff;font-size:40.5px}
+  .closing .msg{font-size:23px;color:rgba(255,255,255,.9);max-width:840px;margin:14px 0 26px;line-height:1.55}
+  .closing .sign{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:18.9px;color:rgba(255,255,255,.75);
+    border-top:1px solid rgba(255,255,255,.2);padding-top:20px}
+  .closing .sign b{color:#fff}
+  .cover .kicker,.closing .kicker{color:#ffd0d4}
+  .cover .kicker::before,.closing .kicker::before{background:#ffd0d4}
+
+  /* ==== KPI ==== */
+  .kpi{background:var(--soft);border:1px solid var(--border);border-radius:14px;padding:20px 18px;text-align:center}
+  .kpi .n{font-size:44.6px;font-weight:800;color:var(--primary);letter-spacing:-.03em;line-height:1}
+  .kpi .n small{font-size:23px;font-weight:700}
+  .kpi .l{font-size:16.9px;color:var(--muted);margin-top:8px;font-weight:500;line-height:1.35}
+
+  /* ==== 로고 칩 ==== */
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+  .chip{font-size:18.9px;font-weight:700;color:var(--ink);background:#fff;border:1px solid var(--border);
+    padding:9px 16px;border-radius:10px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  .chip.big{font-size:20.2px;border-color:#f2c9cd}
+
+  /* ==== 사례 카드 ==== */
+  .case{border:1px solid var(--border);border-radius:14px;padding:20px 22px;background:#fff;position:relative}
+  .case::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:4px;border-radius:4px;background:var(--primary)}
+  .case .ctop{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding-left:14px}
+  .case .co{font-size:24.3px;font-weight:800;color:var(--ink)}
+  .case .cat{font-size:15.5px;font-weight:700;color:var(--muted);background:var(--soft2);padding:4px 10px;border-radius:999px;white-space:nowrap}
+  .case .desc{font-size:17.6px;color:var(--body);padding-left:14px;margin:6px 0 12px}
+  .metrics{display:flex;flex-wrap:wrap;gap:9px;padding-left:14px}
+  .metric{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:9px 12px;min-width:92px}
+  .metric .mv{font-size:24.3px;font-weight:800;color:var(--primary-dk);line-height:1}
+  .metric .ml{font-size:14.9px;color:var(--muted);margin-top:5px;line-height:1.3}
+  .taglist{padding-left:14px;margin-top:12px;font-size:16.2px;color:var(--faint)}
+  .taglist b{color:var(--body);font-weight:600}
+
+  /* ==== 레퍼런스 컬럼 ==== */
+  .refcol{background:var(--soft);border:1px solid var(--border);border-radius:14px;padding:16px 18px}
+  .refcol .refhd{font-size:17.6px;font-weight:800;color:var(--primary);padding-bottom:9px;margin-bottom:5px;border-bottom:2px solid #f4ccd0}
+  .refcol ul{margin:0;padding:0;list-style:none}
+  .refcol li{font-size:18.2px;font-weight:600;color:var(--ink);padding:6px 0;border-bottom:1px solid var(--line)}
+  .refcol li:last-child{border-bottom:none}
+  .refcol li span{font-size:15.5px;color:var(--muted);font-weight:500}
+
+  /* ==== MVP 카드 ==== */
+  .mvp{border:1px solid var(--border);border-radius:14px;padding:16px 18px;background:linear-gradient(180deg,#fff,#fdfafa)}
+  .mvp .mh{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+  .mvp .idx{flex:none;width:28px;height:28px;border-radius:8px;background:var(--ink);color:#fff;
+    font-size:16.9px;font-weight:800;display:grid;place-items:center}
+  .mvp .mt{font-size:19.6px;font-weight:700;color:var(--ink);line-height:1.35}
+  .mvp .row{font-size:16.9px;margin:6px 0;display:flex;gap:8px}
+  .mvp .row .tag{flex:none;font-size:14.9px;font-weight:700;color:var(--muted);width:38px;padding-top:1px}
+  .mvp .row .val{color:var(--body)}
+  .mvp .row .val.tech{color:var(--blue);font-weight:600}
+  .mvp .row .val.eff{color:var(--green);font-weight:600}
+
+  /* ==== 인용 / 콜아웃 ==== */
+  .quote{background:linear-gradient(135deg,#fff5f6,#fdeef0);border:1px solid #f4ccd0;border-radius:14px;padding:22px 24px;position:relative}
+  .quote .q{font-size:25.7px;font-weight:800;color:var(--primary-dk);line-height:1.4;letter-spacing:-.02em}
+  .quote .by{font-size:16.9px;color:var(--muted);margin-top:10px}
+  .quote .mark{position:absolute;top:6px;right:20px;font-size:81px;color:#f4ccd0;font-family:Georgia,serif;line-height:1}
+
+  /* ==== 타임라인 (플로우) ==== */
+  .flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+  .step{flex:1;min-width:150px;background:var(--soft);border:1px solid var(--border);border-radius:12px;padding:14px 16px;position:relative}
+  .step + .step{margin-left:26px}
+  .step + .step::before{content:"→";position:absolute;left:-22px;top:50%;transform:translateY(-50%);color:var(--primary);font-weight:800;font-size:24.3px}
+  .step .st{font-size:15.5px;font-weight:700;color:var(--primary);margin-bottom:4px}
+  .step .sd{font-size:18.2px;color:var(--ink);font-weight:700}
+  .step .ss{font-size:16.2px;color:var(--muted);margin-top:3px}
+
+  /* ==== 과제 카드 ==== */
+  .task{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px}
+  .task .ti{font-size:29.7px}
+  .task .tt{font-size:18.9px;font-weight:700;color:var(--ink);margin:8px 0 4px}
+  .task .td{font-size:16.2px;color:var(--muted)}
+
+  /* ==== 일반 테이블 ==== */
+  .tbl{width:100%;border-collapse:collapse;font-size:17.6px}
+  .tbl th{background:var(--ink);color:#fff;text-align:left;padding:11px 13px;font-weight:600;font-size:16.2px}
+  .tbl th:first-child{border-radius:8px 0 0 0}.tbl th:last-child{border-radius:0 8px 0 0}
+  .tbl td{padding:11px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl tbody tr:nth-child(even){background:var(--soft)}
+  .tbl .task-c{font-weight:700;color:var(--ink);white-space:nowrap}
+  .pill{display:inline-block;font-size:14.9px;font-weight:700;padding:3px 9px;border-radius:999px;margin:2px 3px 2px 0}
+  .pill.b{background:var(--blue-bg);color:var(--blue)}
+  .pill.r{background:#FEF0F0;color:var(--primary)}
+  .pill.g{background:var(--green-bg);color:var(--green)}
+
+  /* ==== Before / After ==== */
+  .ba-head,.ba{display:grid;grid-template-columns:1.05fr 1.15fr 34px 1.15fr .9fr;gap:12px;align-items:center}
+  .ba-head{font-size:15.5px;font-weight:700;color:var(--muted);padding:0 4px 8px}
+  .ba-head .h-after{color:var(--primary)}
+  .ba{padding:9px 4px;border-top:1px solid var(--line)}
+  .ba .task-name{font-weight:700;color:var(--ink);font-size:17.6px}
+  .ba .before{background:var(--soft2);border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-size:16.2px;color:var(--muted)}
+  .ba .arrow{text-align:center;color:var(--primary);font-weight:800;font-size:24.3px}
+  .ba .after{background:#fff5f6;border:1px solid #f4ccd0;border-radius:10px;padding:9px 12px;font-size:16.2px;color:var(--ink);font-weight:500}
+  .ba .gain{text-align:center;font-size:18.9px;font-weight:800;color:var(--primary-dk);line-height:1.25}
+
+  /* ==== 견적 테이블 ==== */
+  .est-total{display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;background:linear-gradient(135deg,#EE3E4C,#C92434);color:#fff;border-radius:14px;padding:16px 22px;margin-bottom:12px}
+  .est-total .big{font-size:35.1px;font-weight:800;letter-spacing:-.02em}
+  .est-total .ko{font-size:17.6px;opacity:.9;margin-top:3px}
+  .est-total .per{margin-left:auto;font-size:16.9px;font-weight:600;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:8px 14px;border-radius:999px}
+  .est{width:100%;border-collapse:collapse;font-size:15.5px}
+  .est th{background:var(--ink);color:#fff;padding:8px 9px;text-align:center;font-weight:600;font-size:14.9px;white-space:nowrap}
+  .est th:first-child{border-radius:8px 0 0 0}.est th:last-child{border-radius:0 8px 0 0}
+  .est td{padding:6px 9px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+  .est td.cat{font-weight:800;color:var(--primary);background:var(--soft);font-size:16.2px}
+  .est td.item{text-align:left;font-weight:600;color:var(--ink)}
+  .est td.r{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink)}
+  .est td.memo{text-align:left;font-size:13.5px;color:var(--muted)}
+  .est tr.sub td{background:var(--soft);font-weight:700;color:var(--ink)}
+  .est tr.total td{background:var(--ink);color:#fff;font-weight:800;font-size:17.6px}
+  .est tr.total td.r{color:#fff}
+
+  /* ==== 커리큘럼 표 ==== */
+  .prop{width:100%;border-collapse:collapse;font-size:16.2px}
+  .prop th{text-align:left;padding:9px 11px;font-size:14.9px;font-weight:700;letter-spacing:.03em;color:var(--muted);background:var(--soft);border-bottom:2px solid var(--border);white-space:nowrap}
+  .prop th.c{text-align:center}
+  .prop td{padding:9px 11px;line-height:1.45;border-bottom:1px solid var(--line);vertical-align:middle;font-size:15.5px}
+  .prop td.trk{font-weight:800;color:var(--primary);background:var(--soft);white-space:nowrap;text-align:center;line-height:1.3}
+  .prop td.course{font-weight:700;color:var(--ink)}
+  .prop td.core{color:var(--body);font-size:14.9px}
+  .prop td.tgt{color:var(--muted);font-size:14.9px;white-space:nowrap;line-height:1.3}
+  .prop td.hrs{color:var(--primary);font-weight:800;text-align:center;white-space:nowrap;line-height:1.3}
+  .prop tr.sumrow td{background:#FFF6F2;font-weight:700;color:var(--ink)}
+  .badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:14.2px;font-weight:700;white-space:nowrap}
+  .badge-red{background:rgba(238,62,76,.12);color:var(--primary-dk)}
+  .badge-blue{background:rgba(37,99,235,.12);color:var(--blue)}
+  .badge-green{background:rgba(14,159,110,.12);color:var(--green)}
+  .badge-purple{background:rgba(124,58,237,.12);color:var(--purple)}
+
+  /* ==== 트랙 카드 ==== */
+  .track{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#fff}
+  .track .th{padding:14px 16px 12px;color:#fff}
+  .track.t1 .th{background:linear-gradient(135deg,#EE3E4C,#C92434)}
+  .track.t2 .th{background:linear-gradient(135deg,#F0736E,#d9524d)}
+  .track.t3 .th{background:linear-gradient(135deg,#8B5CF6,#6D3EE0)}
+  .track.t4 .th{background:linear-gradient(135deg,#2563EB,#1D4FD8)}
+  .track .tk{font-size:15.5px;font-weight:700;opacity:.9}
+  .track .tn{font-size:21.6px;font-weight:800;margin-top:3px}
+  .track .tp{font-size:16.2px;opacity:.92;margin-top:2px}
+  .track .tb{padding:13px 16px}
+
+  /* ==== "왜 우리인가" 다크 박스 ==== */
+  .why{background:var(--ink);color:#fff;border-radius:14px;padding:22px}
+  .why h3{color:#fff;margin-bottom:10px}
+  .why ul{margin:0;padding-left:18px;font-size:18.2px;color:rgba(255,255,255,.85)}
+  .why li{margin:8px 0}
+  .why b{color:#ffd0d4}
+
+  /* ==== 노트 ==== */
+  .note{font-size:15.5px;color:var(--faint);margin-top:14px;padding-top:12px;border-top:1px dashed var(--border)}
+
+  /* ==== 내비게이션 UI ==== */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:center;gap:3px;
+    padding:12px 6vw;opacity:.18;transition:opacity .25s}
+  .nav:hover{opacity:.95}
+  .nav-dot{width:22px;height:3px;padding:0;background:rgba(255,255,255,.4);border:0;border-radius:2px;cursor:pointer;transition:all .2s}
+  .nav-dot.active{width:34px;background:var(--primary)}
+  .nav-dot:hover{background:var(--primary)}
+  .slide-num{position:fixed;right:26px;bottom:20px;z-index:1000;color:rgba(255,255,255,.55);
+    font-size:16.2px;font-weight:700;letter-spacing:.08em;font-variant-numeric:tabular-nums}
+  .hint{position:fixed;left:26px;bottom:20px;z-index:1000;color:rgba(255,255,255,.32);font-size:14.9px}
+
+  /* ==== 인쇄: A4 가로, 슬라이드 1장=1페이지 ==== */
+  @media print{
+    @page{ size:A4 landscape; margin:0; }
+    html,body{overflow:visible;background:#fff;height:auto}
+    .stage{position:static;display:block}
+    .deck{transform:none!important;box-shadow:none;border-radius:0;width:auto;height:auto}
+    .nav,.slide-num,.hint{display:none}
+    .slide{position:relative;inset:auto;width:100vw;height:100vh;opacity:1;transform:none;
+      page-break-after:always;break-inside:avoid;transition:none}
+    .slide:last-child{page-break-after:auto}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<div class="nav" id="nav" aria-label="슬라이드 목차"></div>
+<div class="slide-num" id="slideNum" aria-live="polite"></div>
+<div class="hint">← → 이동 · F 전체화면 · Ctrl/⌘+P PDF</div>
+
+<div class="stage">
+  <div class="deck" id="deck">
+
+
+    <section class="slide cover">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <span class="cover-badge">🔴 모두의연구소 &nbsp;×&nbsp; 삼성전자</span>
+          <h1>Physical AI<br><span>실무 교육 제안</span></h1>
+          <p class="sub">시뮬레이션 중심 설계로 장비 없이 VLA까지 — 1일 8시간 / 5일 40시간</p>
+          <div class="cover-meta">
+            <span><b>작성</b> · 모두의연구소 비즈팀</span>
+            <span><b>일자</b> · 2026. 08.</span>
+            <span><b>범위</b> · 2개 과정 (체험형 · 엔지니어 심화형)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">01 / 문제</span>
+          <p class="kicker">왜 이 제안인가</p>
+          <h2>Physical AI 교육의 가장 큰 걸림돌은 장비입니다</h2>
+          <p class="lead">실제로 28시간 과정을 운영하며 확인한 문제입니다. 장비를 나눠 쓰면 실습이 얕아지고, 인원수만큼 갖추면 예산이 감당되지 않습니다.</p>
+          <div class="grid g3">
+            <div class="task"><div class="ti">⏳</div><div class="tt">대기 시간이 실습을 잠식</div><div class="td">로봇팔 1대를 3~4명이 공유하면 만지는 시간보다 기다리는 시간이 길어집니다</div></div>
+            <div class="task"><div class="ti">🔧</div><div class="tt">설치·세팅에 소모되는 시간</div><div class="td">로컬 설치와 캘리브레이션이 실습 시간의 상당 부분을 가져갑니다</div></div>
+            <div class="task"><div class="ti">💰</div><div class="tt">1인 1대의 예산 부담</div><div class="td">인원수만큼 장비를 갖추면 이번엔 비용이 문제가 됩니다</div></div>
+          </div>
+          <div class="quote" style="margin-top:20px">
+            <div class="q">2026년 현재, 이 문제는 기술적으로 해소 가능합니다.</div>
+            <div class="by">경량 VLA 모델과 표준 시뮬레이션 벤치마크의 등장으로 전제가 바뀌었습니다.</div>
+            <div class="mark">"</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">02 / 기술 지형</span>
+          <p class="kicker">2026년의 변화 (1/2)</p>
+          <h2>무엇이 달라졌는가 — 세 가지</h2>
+          <p class="lead">최신 기술 동향을 커리큘럼에 그대로 반영했습니다.</p>
+          <div class="grid g3">
+            <div class="case">
+              <div class="ctop"><div class="co">VLA 모델 경쟁</div><div class="cat">01</div></div>
+              <div class="desc">GR00T N1.7(3B) · π0.5(3.3B) · Gemini Robotics가 잇따라 공개되며 범용 로봇 모델 경쟁이 시작됐습니다.</div>
+              <div class="taglist"><b>반영</b> · 모델 지형도를 읽는 눈 자체를 교육 내용으로 편성</div>
+            </div>
+            <div class="case">
+              <div class="ctop"><div class="co">Flow matching</div><div class="cat">02</div></div>
+              <div class="desc">π0 계열이 RT-2·OpenVLA의 discrete token 예측을 대체했습니다. 접촉이 많은 조작에서 더 매끄러운 궤적을 만듭니다.</div>
+              <div class="taglist"><b>반영</b> · ACT → Diffusion Policy → Flow matching 계보로 재구성</div>
+            </div>
+            <div class="case">
+              <div class="ctop"><div class="co">World Model</div><div class="cat">03</div></div>
+              <div class="desc">NVIDIA Cosmos Predict/Transfer가 물리 시뮬레이션만으로는 메우지 못하던 시각적 사실성 갭을 메우기 시작했습니다.</div>
+              <div class="taglist"><b>반영</b> · 5일 과정에 신규 모듈로 추가</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">02 / 기술 지형</span>
+          <p class="kicker">2026년의 변화 (2/2)</p>
+          <h2>장비 최소화를 가능하게 한 두 가지</h2>
+          <p class="lead">이 두 변화가 이번 제안의 핵심 근거입니다.</p>
+          <div class="grid g2">
+            <div class="case">
+              <div class="ctop"><div class="co">경량 VLA — 단일 GPU 학습</div><div class="cat">04</div></div>
+              <div class="desc">SmolVLA 450M은 24GB VRAM 1장에서 파인튜닝을 완주합니다. 고가 GPU 클러스터가 없어도 됩니다.</div>
+              <div class="taglist"><b>의미</b> · 수강생 1인 1환경을 Colab만으로 확보 가능</div>
+            </div>
+            <div class="case">
+              <div class="ctop"><div class="co">LIBERO — 표준 평가 벤치마크</div><div class="cat">05</div></div>
+              <div class="desc">Robosuite 기반 130개 언어조건 태스크(Spatial·Object·Goal·Long)로 실물 텔레오퍼레이션 없이 데이터 수집~평가를 완주할 수 있습니다.</div>
+              <div class="taglist"><b>의미</b> · 로봇 장비 없이도 논문과 같은 기준의 성능 숫자를 얻음</div>
+            </div>
+          </div>
+          <div class="why" style="margin-top:18px">
+            <h3>결론</h3>
+            <ul>
+              <li><b>장비를 줄이면 실습이 얕아진다</b>는 전제가 2026년에는 더 이상 성립하지 않습니다. 시뮬레이션 중심으로 설계하면 오히려 <b>1인 1환경 · 설치 시간 0 · 표준 벤치마크 평가</b> 세 가지를 동시에 얻습니다.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">03 / 제안</span>
+          <p class="kicker">과정 구성</p>
+          <h2>대상과 목표에 따라 두 가지로 나눴습니다</h2>
+          <div class="grid g2">
+            <div class="track t1">
+              <div class="th"><div class="tk">TRACK 01 · 체험형</div><div class="tn">Physical AI 이해와 체험</div><div class="tp">1일 8시간 · 비개발 실무자</div></div>
+              <div class="tb">
+                <p style="margin:0 0 10px">사전 지식과 코드 작성 없이, 제공된 노트북을 실행하며 Physical AI가 어떻게 작동하는지 체감합니다.</p>
+                <div class="chips">
+                  <span class="chip">개념 이해</span><span class="chip">브라우저 실습</span><span class="chip">적용 시나리오 도출</span>
+                </div>
+                <p style="margin:12px 0 0;font-weight:700;color:#C92434">최종 산출물 · 내 문장으로 움직인 로봇 시연 영상</p>
+              </div>
+            </div>
+            <div class="track t4">
+              <div class="th"><div class="tk">TRACK 02 · 엔지니어 심화</div><div class="tn">Physical AI 구현</div><div class="tp">5일 40시간 · 연구원 · 엔지니어</div></div>
+              <div class="tb">
+                <p style="margin:0 0 10px">시뮬레이션 환경에서 VLA 모델을 직접 파인튜닝하고, 표준 벤치마크로 성능을 평가합니다.</p>
+                <div class="chips">
+                  <span class="chip">강화학습</span><span class="chip">모방학습</span><span class="chip">VLA 파인튜닝</span><span class="chip">Sim2Real</span>
+                </div>
+                <p style="margin:12px 0 0;font-weight:700;color:#1D4FD8">최종 산출물 · 파인튜닝한 정책 + 벤치마크 성능 리포트</p>
+              </div>
+            </div>
+          </div>
+          <p class="note">전제 · 40시간 과정은 Python 및 딥러닝 기초 이해를 요구합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">04 / 커리큘럼</span>
+          <p class="kicker">1일 8시간 — 비개발 실무자</p>
+          <h2>코드 작성 없이, 개념 이해에서 자사 적용 판단까지</h2>
+          <table class="prop">
+            <thead><tr><th class="c">구분</th><th>모듈</th><th>주요 내용</th><th class="c">시간</th></tr></thead>
+            <tbody>
+              <tr><td class="trk">이해</td><td class="course">Physical AI란 무엇이고, 왜 지금인가</td><td class="core">3축 구조 · 2026 VLA 모델 지형(GR00T·π0.5·Gemini Robotics) · 산업 적용 사례</td><td class="hrs">1H</td></tr>
+              <tr><td class="trk">이해</td><td class="course">로봇이 배우는 세 가지 방식</td><td class="core">강화학습 · 모방학습(ACT·Diffusion Policy) · VLA의 차이와 선택 기준</td><td class="hrs">1H</td></tr>
+              <tr><td class="trk">실습</td><td class="course">브라우저에서 로봇 세우기</td><td class="core">설치 없이 Colab MuJoCo 실행 · 관절 구조와 물리 엔진 직접 확인</td><td class="hrs">1.5H</td></tr>
+              <tr><td class="trk">실습</td><td class="course">사전학습 VLA 모델로 로봇 움직이기</td><td class="core">LIBERO 태스크 · SmolVLA 추론 실행 · 성공/실패 케이스 비교</td><td class="hrs">1.5H</td></tr>
+              <tr><td class="trk">실습</td><td class="course">내 문장으로 로봇 제어하기</td><td class="core">자연어 명령 변경에 따른 행동 변화 · 실패 원인 분석 · 시연 영상 산출</td><td class="hrs">2H</td></tr>
+              <tr><td class="trk">적용</td><td class="course">우리 업무에 어디 쓸 수 있을까</td><td class="core">도입이 유효한 업무의 조건 · 가능/불가능 구분 · 조별 시나리오 도출</td><td class="hrs">1H</td></tr>
+              <tr class="sumrow"><td class="trk">합계</td><td colspan="2">Physical AI 이해와 체험 과정</td><td class="hrs">8H</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">04 / 커리큘럼</span>
+          <p class="kicker">5일 40시간 — 엔지니어 심화</p>
+          <h2>4일차 VLA 파인튜닝이 과정의 무게중심입니다</h2>
+          <table class="prop">
+            <thead><tr><th class="c">일차</th><th>주제</th><th>주요 내용</th><th class="c">시간</th></tr></thead>
+            <tbody>
+              <tr><td class="trk">1일차</td><td class="course">Physical AI 지형과 시뮬레이션 기초</td><td class="core">2026 VLA 모델 비교 · 로보틱스 기초(기구학·제어) · MuJoCo/MJX 구축 · Isaac Lab 개관 · LeRobot v2 포맷 분석</td><td class="hrs">8H</td></tr>
+              <tr><td class="trk">2일차</td><td class="course">강화학습 기반 로봇 제어</td><td class="core">MDP·벨만 · DQN → Policy Gradient · PPO/SAC 원리 · 보상 함수 설계 · MuJoCo 로봇 팔 정책 학습</td><td class="hrs">8H</td></tr>
+              <tr><td class="trk">3일차</td><td class="course">모방학습과 데이터 파이프라인</td><td class="core">BC·DAgger·IRL·GAIL 계보 · ACT chunking · Diffusion Policy · Flow matching · LIBERO→LeRobot v2 변환</td><td class="hrs">8H</td></tr>
+              <tr><td class="trk">4일차</td><td class="course"><b>VLA 파인튜닝 — 핵심</b></td><td class="core">VLM→VLA 계보 · SmolVLA 450M 아키텍처 · <b>LIBERO-Spatial 파인튜닝(단일 GPU)</b> · 벤치마크 성공률 측정 · 실패 케이스 분석</td><td class="hrs">8H</td></tr>
+              <tr><td class="trk">5일차</td><td class="course">월드모델 · Sim2Real · 캡스톤</td><td class="core">NVIDIA Cosmos 역할 · 합성 데이터 증강 · 도메인 랜덤화 · 실물 이관 경로 설계 · 팀별 캡스톤 발표</td><td class="hrs">8H</td></tr>
+              <tr class="sumrow"><td class="trk">합계</td><td colspan="2">Physical AI 구현 — VLA 파인튜닝 실무 과정</td><td class="hrs">40H</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">05 / 산출물</span>
+          <p class="kicker">수강생이 가져가는 것</p>
+          <h2>'들었다'가 아니라 '만들었다'로 끝나는 과정</h2>
+          <div class="grid g2">
+            <div class="mvp">
+              <div class="mh"><div class="idx">8H</div><div class="mt">비개발 실무자 체험형</div></div>
+              <div class="row"><span class="tag">산출</span><span class="val">본인의 자연어 명령으로 동작시킨 로봇 시연 영상</span></div>
+              <div class="row"><span class="tag">이해</span><span class="val tech">Physical AI 기술 지형 및 적용 가능/불가능 판단 기준</span></div>
+              <div class="row"><span class="tag">적용</span><span class="val eff">조별 사내 적용 시나리오 후보 리스트</span></div>
+            </div>
+            <div class="mvp">
+              <div class="mh"><div class="idx">40H</div><div class="mt">엔지니어 심화형</div></div>
+              <div class="row"><span class="tag">모델</span><span class="val">직접 파인튜닝한 SmolVLA 정책 체크포인트</span></div>
+              <div class="row"><span class="tag">평가</span><span class="val tech">LIBERO 벤치마크 성능 리포트 (성공률·베이스라인 대비·실패 분석)</span></div>
+              <div class="row"><span class="tag">역량</span><span class="val">LeRobot v2 포맷 데이터 파이프라인 구축 경험</span></div>
+              <div class="row"><span class="tag">프로젝트</span><span class="val eff">팀별 캡스톤 결과물 및 발표 자료</span></div>
+              <div class="row"><span class="tag">확장</span><span class="val eff">실물 로봇 도입 시 활용 가능한 Sim2Real 이관 설계안</span></div>
+            </div>
+          </div>
+          <p class="note">LIBERO는 실제 VLA 모델 논문들이 성능을 보고하는 표준 벤치마크입니다. 여기서 측정한 성공률은 학계·산업계와 같은 기준으로 비교 가능한 숫자입니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">06 / 인프라</span>
+          <p class="kicker">필요한 것과 필요 없는 것</p>
+          <h2>브라우저만 열면 실습이 시작됩니다</h2>
+          <div class="ba-head"><div>항목</div><div>기존 실물 실습형</div><div></div><div class="h-after">본 제안 (시뮬레이션 중심)</div><div>효과</div></div>
+          <div class="ba"><div class="task-name">로봇 장비</div><div class="before">LeRobot 1대를 3~4명 공유</div><div class="arrow">→</div><div class="after">불필요 (옵션: 데모 스테이션 2~4대)</div><div class="gain">장비비<br>대폭 절감</div></div>
+          <div class="ba"><div class="task-name">실습 환경</div><div class="before">Unity 등 로컬 설치 필요</div><div class="arrow">→</div><div class="after">Google Colab — 설치 일절 없음</div><div class="gain">세팅 시간<br>0</div></div>
+          <div class="ba"><div class="task-name">1인당 환경</div><div class="before">공유로 인한 대기 발생</div><div class="arrow">→</div><div class="after">1인 1환경 보장</div><div class="gain">실습 밀도<br>극대화</div></div>
+          <div class="ba"><div class="task-name">GPU</div><div class="before">고사양 워크스테이션</div><div class="arrow">→</div><div class="after">24GB VRAM급 1장 (Colab Pro 가능)</div><div class="gain">진입 장벽<br>완화</div></div>
+          <div class="ba"><div class="task-name">성능 평가</div><div class="before">정성적 시연 확인</div><div class="arrow">→</div><div class="after">LIBERO 표준 벤치마크 성공률</div><div class="gain">객관적<br>수치 확보</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">07 / 운영</span>
+          <p class="kicker">운영 방안과 사전 확인 사항</p>
+          <h2>실제 28시간 운영에서 확인한 문제를 설계로 해소했습니다</h2>
+          <div class="split">
+            <div class="why">
+              <h3>설계에 반영한 것</h3>
+              <ul>
+                <li><b>장비 공유 문제</b> — 전 과정 시뮬레이션으로 1인 1환경 확보</li>
+                <li><b>설치 시간</b> — 로컬 설치 도구 제거, Colab으로 통일</li>
+                <li><b>가짜 실습 우려</b> — LIBERO 표준 벤치마크로 객관적 성능 측정</li>
+                <li><b>실물 경험</b> — 데모 스테이션 2~4대 옵션으로 절충 가능</li>
+              </ul>
+            </div>
+            <div class="refcol">
+              <div class="refhd">사전 확인이 필요한 사항</div>
+              <ul>
+                <li>GPU 환경 <span>Colab Pro 사용 여부 또는 사내 GPU 서버 활용 가능 여부</span></li>
+                <li>외부 네트워크 정책 <span>Hugging Face 모델·데이터셋 다운로드 허용 여부</span></li>
+                <li>수강 인원 및 사전 역량 <span>40H 과정은 Python·딥러닝 기초 전제</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide closing">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <p class="kicker">맺음말</p>
+          <h2>장비 없이도,<br>실습은 얕아지지 않습니다.</h2>
+          <p class="msg">경량 VLA 모델과 표준 시뮬레이션 벤치마크가 자리 잡으면서 "장비를 줄이면 실습이 얕아진다"는 전제는 더 이상 성립하지 않습니다. 본 제안은 실제 28시간 과정을 운영하며 확인한 문제들을 그대로 설계에 반영한 결과입니다. 교육 일정과 인원이 확정되면 세부 운영 계획과 견적을 드리겠습니다.</p>
+          <div class="sign">
+            <span><b>모두의연구소 기업교육</b></span>
+            <span>교육 문의 · modu.biz@modulabs.co.kr</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+  </div>
+</div>
+
+<script>
+(function(){
+  const deck   = document.getElementById('deck');
+  const nav    = document.getElementById('nav');
+  const numEl  = document.getElementById('slideNum');
+  const slides = Array.from(deck.querySelectorAll('.slide'));
+  const total  = slides.length;
+  let current  = 0;
+
+  // --- 뷰포트에 맞춰 덱 스케일 (진짜 가로 비율 유지) ---
+  function fitStage(){
+    const k = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+    deck.style.transform = 'scale(' + k + ')';
+  }
+
+  // --- 슬라이드 내용이 프레임(720px)을 넘으면 축소해 잘림 방지 ---
+  function fitContent(slide){
+    const frame = slide.querySelector('.fit-frame');
+    const content = slide.querySelector('.fit-content');
+    if(!frame || !content) return;
+    content.style.transform = 'none';
+    const avail = frame.clientHeight;
+    const need  = content.scrollHeight;
+    if(need > avail){
+      content.style.transform = 'scale(' + (avail / need).toFixed(4) + ')';
+    }
+  }
+
+  // --- 내비 점 생성 ---
+  slides.forEach((slide, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot';
+    dot.type = 'button';
+    dot.title = '슬라이드 ' + (i + 1);
+    dot.addEventListener('click', () => go(i));
+    nav.appendChild(dot);
+  });
+  const dots = Array.from(nav.querySelectorAll('.nav-dot'));
+
+  function go(i){
+    if(i < 0 || i >= total) return;
+    slides[current].classList.remove('is-active');
+    dots[current].classList.remove('active');
+    current = i;
+    slides[current].classList.add('is-active');
+    dots[current].classList.add('active');
+    numEl.textContent = (current + 1) + ' / ' + total;
+    fitContent(slides[current]);
+  }
+
+  window.addEventListener('resize', () => { fitStage(); fitContent(slides[current]); });
+  window.addEventListener('load', () => { slides.forEach(fitContent); });
+  window.addEventListener('beforeprint', () => slides.forEach(fitContent));
+
+  document.addEventListener('keydown', e => {
+    if(e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' '){ e.preventDefault(); go(current + 1); }
+    if(e.key === 'ArrowLeft'  || e.key === 'ArrowUp'){ e.preventDefault(); go(current - 1); }
+    if(e.key === 'Home'){ e.preventDefault(); go(0); }
+    if(e.key === 'End'){ e.preventDefault(); go(total - 1); }
+    if(e.key.toLowerCase() === 'f'){
+      if(!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+
+  fitStage();
+  go(0);
+})();
+</script>
+</body>
+</html>

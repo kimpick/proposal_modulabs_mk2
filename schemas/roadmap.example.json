@@ -1,0 +1,37 @@
+{
+  "title": "회사명 종합 맞춤형 AX 로드맵 (N단계)",
+  "subtitle": "한 줄 요약 설명",
+  "info": {
+    "keyword": "전사 AX 패키지",
+    "ax_stage": "1~5단계 (전사적용)",
+    "target": "전 임직원",
+    "duration": "기초 1일 ~ 장기 6개월"
+  },
+  "intro": "과정 소개 상세 서술",
+  "objective": "교육 목표 한 줄 요약",
+  "tech_stack": ["기술1", "기술2", "기술3"],
+  "infrastructure": [
+    "인프라 항목 1",
+    "인프라 항목 2"
+  ],
+  "steps": [
+    {
+      "step_name": "단계명 (부제)",
+      "duration": "2H",
+      "items": [
+        "과정 소개: ...",
+        "교육 목표: ...",
+        "핵심 기술: ..."
+      ]
+    }
+  ],
+  "output": "<ul><li>산출물 항목</li></ul>",
+  "annual_plan": [
+    {
+      "month": "4월",
+      "title": "단계명",
+      "non_it": "비IT 내용",
+      "it": "IT 내용"
+    }
+  ]
+}

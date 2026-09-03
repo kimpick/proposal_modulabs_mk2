@@ -1,0 +1,358 @@
+{
+  "title": "현대자동차 차량사이버보안개발팀 Security Agent & RAG 실무 과정",
+  "subtitle": "최신 RAG 패턴과 Autonomous Security Agent를 결합한 70시간 실무 집중 프로그램",
+  "info": {
+    "keyword": "Agentic RAG · Autonomous Security Agent · Context/Memory Management",
+    "ax_stage": "4단계 (실무 구현 · PoC)",
+    "target": "현대자동차 차량사이버보안개발팀 개발자 및 보안 실무진",
+    "duration": "총 70시간 (1차 교육 35H + 현업 미션 + 2차 교육 35H)"
+  },
+  "intro": "본 과정은 현대자동차 차량사이버보안개발팀의 실제 업무 환경(MS Office, Confluence 중심 지식 자산)을 기준으로, Agentic RAG와 Autonomous Security Agent를 단계적으로 구축하는 실무형 교육입니다. 1차 교육에서는 RAG 파이프라인 설계와 고도화, 메모리 아키텍처의 핵심을 다루고, 중간 현업 미션을 거쳐 2차 교육에서 보안 자동화 에이전트의 실행·통제·검증까지 연결합니다.",
+  "objective": "<ul><li>MS Office·Confluence 기반 사내 지식 자산으로 Agentic RAG 파이프라인을 설계·구현한다.</li><li>Hybrid/Router/Multi Query/Re-Ranking/Self-RAG 등 최신 RAG 패턴을 환경 적합성 관점에서 적용한다.</li><li>Memory Architecture & Governance와 Retriever Routing for Memory를 기반으로 HITL 통제 구조를 설계한다.</li><li>CVE/KEV/EPSS 기반 Threat Intelligence와 Adaptive Red Teaming을 결합한 Autonomous Security Agent PoC를 완성한다.</li></ul>",
+  "tech_stack": [
+    "Python",
+    "LangChain",
+    "LangGraph",
+    "Vector DB",
+    "RAGAS",
+    "Claude Code",
+    "OpenClaw",
+    "CVE/KEV/EPSS",
+    "HITL Policy Engine"
+  ],
+  "infrastructure": [
+    "실습용 노트북 1인 1대 (Python 개발환경, VS Code 권장)",
+    "외부 LLM API 접근 가능한 네트워크 환경",
+    "MS Office 및 Confluence 샘플 데이터(또는 가명화 데이터) 제공",
+    "OpenClaw 실습용 샌드박스 환경",
+    "보안 테스트베드(모사 웹서비스) 및 실습 계정"
+  ],
+  "use_simple_track_label": false,
+  "curriculum_title": "주차별 상세 커리큘럼",
+  "curriculum_format": "track",
+  "curriculum_table": [
+    {
+      "course": "AI App & Agentic RAG - Day1",
+      "module_name": "1. LLM 생태계 및 실습 환경세팅",
+      "module_content": "생성형 AI 트렌드, LLM 작동 원리 및 주요 API 연동 등 실습 환경 세팅",
+      "duration": "2시간"
+    },
+    {
+      "course": "AI App & Agentic RAG - Day1",
+      "module_name": "2. LangChain 컴포넌트",
+      "module_content": "PromptTemplate, LLM, Output Parser의 이해 및 기본 결합 실습",
+      "duration": "2시간"
+    },
+    {
+      "course": "AI App & Agentic RAG - Day1",
+      "module_name": "3. LCEL 파이프라인 설계",
+      "module_content": "LCEL(LangChain Expression Language) 문법 체화 및 다중 체인 구축",
+      "duration": "3시간"
+    },
+    {
+      "course": "AI App & Agentic RAG - Day2",
+      "module_name": "4. RAG 파이프라인 구조",
+      "module_content": "- Document Loader, Text Splitter, Embedding의 역할 이해 및 기초 실습 ※ MS Office 파일 및 Confluence 데이터 파싱 최적화 노하우",
+      "duration": "2시간"
+    },
+    {
+      "course": "AI App & Agentic RAG - Day2",
+      "module_name": "5. Vector DB 적재",
+      "module_content": "- 사내 보안 규정 샘플 텍스트 전처리 및 Vector DB 구축",
+      "duration": "2시간"
+    },
+    {
+      "course": "AI App & Agentic RAG - Day2",
+      "module_name": "6. 기초 검색 및 유사도 질의응답",
+      "module_content": "- 유사도 검색(Similarity Search) 구현 및 LLM과 연동한 답변 생성 실습",
+      "duration": "3시간"
+    },
+    {
+      "course": "RAG 고도화 및 최적화 - Day3",
+      "module_name": "7. 청킹 및 하이브리드 검색",
+      "module_content": "- 데이터 특성별 Chunking 전략 ※Hybrid Retrieval (Sparse BM25 + Dense) 구축",
+      "duration": "2시간"
+    },
+    {
+      "course": "RAG 고도화 및 최적화 - Day3",
+      "module_name": "8. 고급 쿼리 및 Re-Ranking",
+      "module_content": "- Multi Query 적용  ※LLM Re-Ranking 중심의 RAG 파이프라인 실습",
+      "duration": "2시간"
+    },
+    {
+      "course": "RAG 고도화 및 최적화 - Day3",
+      "module_name": "9. 성능 평가 (Ragas)",
+      "module_content": "- Ragas 프레임워크 기반 검색 및 생성 품질 평가",
+      "duration": "3시간"
+    },
+    {
+      "course": "Agentic RAG 및 메모리 아키텍처 - Day4",
+      "module_name": "10. LangGraph & 메모리 설계",
+      "module_content": "- StateGraph, Node, Edge, State 관리 등 순환형 워크플로우 핵심 개념 이해 ※ Memory Architecture 기초 (세션/단기 메모리 저장소, Graph RAG 개념 소개)",
+      "duration": "2시간"
+    },
+    {
+      "course": "Agentic RAG 및 메모리 아키텍처 - Day4",
+      "module_name": "11.Router-First & 멀티 리트리버",
+      "module_content": "※ Dynamic Retrieval Routing (사용자 의도에 따른 정책/위협정보 멀티 리트리버 분기 실습)",
+      "duration": "2시간"
+    },
+    {
+      "course": "Agentic RAG 및 메모리 아키텍처 - Day4",
+      "module_name": "12. Iterative / Self-RAG",
+      "module_content": "※ 답변 품질 저하 시 스스로 쿼리를 수정해 재검색하는 자기 피드백(Self-RAG) 루프 구현",
+      "duration": "3시간"
+    },
+    {
+      "course": "Agentic RAG 프로젝트- Day5",
+      "module_name": "13. 프로젝트 킥오프",
+      "module_content": "- 사내 과제 요구사항 분석 및 아키텍처 설계",
+      "duration": "1시간"
+    },
+    {
+      "course": "Agentic RAG 프로젝트- Day5",
+      "module_name": "14. 파이프라인 개발",
+      "module_content": "- Claude Code 등 코딩 에이전트를 활용한 Agentic RAG 코드 작성",
+      "duration": "3시간"
+    },
+    {
+      "course": "Agentic RAG 프로젝트- Day5",
+      "module_name": "15. 디버깅 및 리뷰",
+      "module_content": "- 파이프라인 디버깅, Hallucination 통제 점검  - 조별 QnA 및 피드백",
+      "duration": "3시간"
+    },
+    {
+      "course": "Autonomous Security Agent - Day1",
+      "module_name": "1. 2주차 미션 리뷰",
+      "module_content": "- 2주차 미션(사내 가이드라인 RAG) 산출물 공유 및 트러블슈팅",
+      "duration": "2시간"
+    },
+    {
+      "course": "Autonomous Security Agent - Day1",
+      "module_name": "2. Security by Design",
+      "module_content": "- Claude Code CLI 설정 및 코드베이스 논리적 취약점 실시간 분석 실습",
+      "duration": "1시간"
+    },
+    {
+      "course": "Autonomous Security Agent - Day1",
+      "module_name": "3. 보안 정책 주입(Policy)",
+      "module_content": "- CLAUDE.md를 활용한 사내 보안 가이드라인(ASIL 등) 에이전트 강제 주입",
+      "duration": "1시간"
+    },
+    {
+      "course": "Autonomous Security Agent - Day1",
+      "module_name": "4. 보안 코딩 점검",
+      "module_content": "- PR(Pull Request) 단계를 가정한 정적 분석(SAST) 에이전트 파이프라인 구현",
+      "duration": "3시간"
+    },
+    {
+      "course": "Autonomous Security Agent - Day2",
+      "module_name": "5. OpenClaw 환경 제어",
+      "module_content": "- OpenClaw를 활용한 샌드박스(Sandbox) 내 브라우저 및 터미널 자동 제어 기초",
+      "duration": "2시간"
+    },
+    {
+      "course": "Autonomous Security Agent - Day2",
+      "module_name": "6. 커스텀 Skill(플러그인) 제작",
+      "module_content": "- 기존 보안 스캐너(Nmap 등)를 에이전트가 직접 호출할 수 있도록 Python 스크립트화 ※ 환경/도구 맥락(파라미터 등) 유지 로직 구현",
+      "duration": "2시간"
+    },
+    {
+      "course": "Autonomous Security Agent - Day2",
+      "module_name": "7. 툴 실행 및 로그 해석",
+      "module_content": "- 에이전트의 보안 툴 자율 실행 및 결과 로그(DAST/Fuzzing) 파싱 로직 구현",
+      "duration": "3시간"
+    },
+    {
+      "course": "Autonomous Security Agent - Day3",
+      "module_name": "8. 중앙 통제소(Router) 설계",
+      "module_content": "- LangGraph를 통해 분석 에이전트(Claude)와 실행 에이전트(OpenClaw) 통합 연결 ※Secure Tool-augmented RAG (도구 호출 전/후 보안 검증 프록시 실습)",
+      "duration": "2시간"
+    },
+    {
+      "course": "Autonomous Security Agent - Day3",
+      "module_name": "9. Risk-aware HITL 구현",
+      "module_content": "- Risk-aware Memory Filter 적용: 위험 명령 제안 시 메모리 조회 결과에 위험 태그 부여 및 관리자 승인(HITL) 강제",
+      "duration": "2시간"
+    },
+    {
+      "course": "Autonomous Security Agent - Day3",
+      "module_name": "10. 데이터 파이프라인 통합",
+      "module_content": "- 분석 결과가 실행 에이전트의 입력값으로 넘어가는 Multi-agent State 연동 실습",
+      "duration": "1시간"
+    },
+    {
+      "course": "Autonomous Security Agent - Day3",
+      "module_name": "11. 장기 메모리(Audit) 적재",
+      "module_content": "세션 종료 시 Provenance/Audit Log (승인 이력, 결정 사유 요약) 장기 메모리(Vector+KV) 적재 실습",
+      "duration": "2시간"
+    },
+    {
+      "course": "Autonomous Security Agent - Day4",
+      "module_name": "12. 정보 수집(Recon)",
+      "module_content": "- 타깃 시스템 대상 포트 자동화 스캐닝, 엔드포인트 도출 및 공격 표면 식별 로직 구현",
+      "duration": "2시간"
+    },
+    {
+      "course": "Autonomous Security Agent - Day4",
+      "module_name": "13. 취약점 시나리오 추론",
+      "module_content": "- 수집된 데이터와 최신 CVE/KEV/EPSS 데이터를 동적으로 조회·상관 분석하여 취약점 시나리오 도출",
+      "duration": "2시간"
+    },
+    {
+      "course": "Autonomous Security Agent - Day4",
+      "module_name": "14. 모의 해킹(Exploit)",
+      "module_content": "- OpenClaw를 활용한 취약점 시뮬레이션 공격 페이로드 전송 및 검증 동적 점검 테스트 ※ Self-Reflective Pentest 구현",
+      "duration": "3시간"
+    },
+    {
+      "course": "Autonomous Security Agent - Day5",
+      "module_name": "15. PoC 시나리오 킥오프",
+      "module_content": "- 모사 웹서비스 타깃 환경 구성 점검 및 점검 시나리오 배포 ※해킹 연습 사이트의 연습문로 대체 가능",
+      "duration": "1시간"
+    },
+    {
+      "course": "Autonomous Security Agent - Day5",
+      "module_name": "16. 통합 에이전트 런칭 및 모니터링",
+      "module_content": "- 보안 정책, TI, 메모리가 모두 결합된 전체 파이프라인 실행 및 디버깅",
+      "duration": "3시간"
+    },
+    {
+      "course": "Autonomous Security Agent - Day5",
+      "module_name": "17. 리포팅 및 회고(Wrap-up)",
+      "module_content": "- 에이전트가 작성한 자동화 보고서 리뷰, 보안 한계점 도출 및 도입 전략 토의",
+      "duration": "3시간"
+    }
+  ],
+  "tracks": [
+    {
+      "track_id": "01",
+      "track_name": "1주차 교육",
+      "course_title": "AI App & Agentic RAG 집중 과정",
+      "target": "RAG 설계·구현 및 메모리 아키텍처 역량이 필요한 개발자",
+      "duration": "총 35시간 (5일 × 7시간)",
+      "tools": [
+        "Python",
+        "LangChain",
+        "LangGraph",
+        "Vector DB",
+        "RAGAS",
+        "Claude Code"
+      ],
+      "modules": [
+        {
+          "module_name": "Day 1. AI App & Agentic RAG 기초",
+          "duration": "7H",
+          "items": [
+            "[2H] 생성형 AI/LLM 작동 원리와 실습 환경 세팅 (Python, Claude Code)",
+            "[2H] LangChain 컴포넌트(PromptTemplate, LLM, Output Parser) 실습",
+            "[3H] LCEL 기반 다중 체인 설계 및 Agentic RAG 기초 파이프라인 구현"
+          ]
+        },
+        {
+          "module_name": "Day 2. 데이터 연동형 RAG 파이프라인",
+          "duration": "7H",
+          "items": [
+            "[2H] RAG 파이프라인 구조: Loader/Text Splitter/Embedding (MS Office·Confluence 환경 기준)",
+            "[2H] Vector DB 적재·인덱싱 및 데이터 전처리 실습",
+            "[3H] Similarity Search + LLM 답변 생성 파이프라인 구현"
+          ]
+        },
+        {
+          "module_name": "Day 3. RAG 고도화 및 성능 개선",
+          "duration": "7H",
+          "items": [
+            "[2H] Hybrid Retrieval(Sparse BM25 + Dense)와 청킹 전략 고도화",
+            "[2H] Router-First RAG / Multi Query / LLM Re-Ranking 설계 포인트 적용",
+            "[3H] Iterative Self-RAG 루프 및 RAGAS 기반 정량 평가 실습"
+          ]
+        },
+        {
+          "module_name": "Day 4. Agentic RAG 메모리 아키텍처",
+          "duration": "7H",
+          "items": [
+            "[2H] LangGraph(StateGraph/Node/Edge) 기반 순환형 워크플로우 설계",
+            "[2H] Memory Architecture & Governance: 세션/장기/에피소드/툴 메모리, TTL, 보존 정책, Vector+Graph+KV 설계(Graph RAG는 개념·설계 중심)",
+            "[3H] Retriever Routing for Memory(정책/위협정보/결정로그) 및 HITL 연계 설계"
+          ]
+        },
+        {
+          "module_name": "Day 5. 내부 프로젝트 적용 및 Q&A",
+          "duration": "7H",
+          "items": [
+            "[1H] HKMC 내부 아젠다 기반 프로젝트 킥오프 및 요구사항 정렬",
+            "[3H] Claude Code 기반 팀별 Agentic RAG 파이프라인 구현",
+            "[3H] 내부 프로젝트 리뷰 & Q&A(당일 학습 프로젝트 중심) 및 디버깅 클리닉"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "02",
+      "track_name": "2주차 교육",
+      "course_title": "Autonomous Security Agent 집중 과정",
+      "target": "보안 자동화 에이전트 설계·통제·검증 역량이 필요한 개발자",
+      "duration": "총 35시간 (5일 × 7시간)",
+      "tools": [
+        "OpenClaw",
+        "LangGraph",
+        "Claude Code",
+        "CVE/KEV/EPSS",
+        "HITL Policy Engine",
+        "Vector DB"
+      ],
+      "modules": [
+        {
+          "module_name": "Day 1. 미션 리뷰 및 Security by Design",
+          "duration": "7H",
+          "items": [
+            "[1H] 2주차 개별 현업 미션 리뷰(독립 세션): 결과 공유, 실패 패턴, 개선 우선순위 정렬",
+            "[1H] Security by Design: Claude Code CLI 기반 보안 점검 루틴",
+            "[1H] Policy Injection: CLAUDE.md/사내 보안 가이드라인 강제 주입",
+            "[2H] PR 단계 가정 정적 분석(SAST) 파이프라인 구현",
+            "[2H] 리뷰 피드백 반영 재설계 및 Q&A (미션 리뷰와 Day 5 Q&A는 별도 운영)"
+          ]
+        },
+        {
+          "module_name": "Day 2. OpenClaw 기반 실행 자동화",
+          "duration": "7H",
+          "items": [
+            "[2H] OpenClaw 샌드박스 제어: 브라우저/터미널/파일 자동화 기초",
+            "[2H] 커스텀 Skill 플러그인 제작 및 보안 스캐너 연동",
+            "[3H] DAST/Fuzzing 실행 로그 파싱과 자동 리포팅 파이프라인 구현"
+          ]
+        },
+        {
+          "module_name": "Day 3. 중앙 통제소 및 메모리 통제",
+          "duration": "7H",
+          "items": [
+            "[2H] 중앙 통제소(Router) 설계: 분석 에이전트(Claude)와 실행 에이전트(OpenClaw) 오케스트레이션",
+            "[2H] Risk-aware Memory Filter + HITL Policy Engine 기반 승인 체계",
+            "[3H] Self-Reflective Memory Loop 및 Audit Log 장기 메모리(Vector DB + KV) 적재"
+          ]
+        },
+        {
+          "module_name": "Day 4. Threat Intelligence 결합 보안 에이전트",
+          "duration": "7H",
+          "items": [
+            "[2H] 정보 수집(Recon) 자동화 및 공격 표면 식별",
+            "[2H] CVE/KEV/EPSS 조회·상관분석 기반 취약점 시나리오 추론",
+            "[3H] Adaptive Red Teaming(Self-Reflective Pentest): 실패 원인 요약→전략 재구성→재시도 자동화"
+          ]
+        },
+        {
+          "module_name": "Day 5. 통합 PoC 실행 및 최종 리뷰",
+          "duration": "7H",
+          "items": [
+            "[1H] PoC 시나리오 킥오프 및 타깃 환경 점검",
+            "[3H] Secure Tool-augmented RAG with Memory 통합 실행·모니터링",
+            "[3H] 자동화 보안 점검 리포트 리뷰, 도입 전략 정리, 종합 Q&A"
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "<ul><li>사내 데이터(MS Office/Confluence) 연동 Agentic RAG 파이프라인 구현 결과 1건</li><li>Threat Intelligence(CVE/KEV/EPSS) 결합형 취약점 시나리오 분석 파이프라인 1건</li><li>OpenClaw 기반 Autonomous Security Agent PoC 및 자동화 보안 점검 리포트 1건</li><li>Memory Governance, HITL 승인 체계, Audit Log를 포함한 운영 설계 문서 1건</li></ul>",
+  "section_07_title": "운영 및 일정 안내",
+  "schedule_message": "<p><b>운영 주차(실제 일정)</b>: 1주차 교육(35H) → 2주차 개별 현업 미션 → 3주차 교육(35H)</p><p><b>본 문서 표기 기준</b>: 교육 블록 기준으로 Track 01(1주차 교육), Track 02(2주차 교육)으로 구분했습니다.</p><p><b>용어 구분</b>: 2주차 Day 1의 미션 리뷰 1H는 독립 세션이며, Day 5 내부 프로젝트 Q&A와 별도로 운영합니다.</p><p><b>사전 준비 요청</b>: 내부 아젠다(예상 4개 내외)와 실습 가능 데이터 범위를 교육 시작 전 공유해 주시면 실습 과제를 정밀하게 맞출 수 있습니다.</p>"
+}

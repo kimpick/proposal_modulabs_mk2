@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<style>{{ css }}</style>
+</head>
+<body>
+{#- 섹션 번호 오프셋: design_framework(02 삽입) / rubric(커리큘럼 뒤 삽입) 유무에 따라 이동 -#}
+{% set df = 1 if data.design_framework else 0 %}
+{% set rb = 1 if data.rubric else 0 %}
+
+<div class="header">
+    <div class="header-text">모두의연구소 AI교육 커리큘럼 2026</div>
+    <h1 class="title">{{ data.title }}</h1>
+    <p class="subtitle">{{ data.subtitle }}</p>
+</div>
+
+<div class="info-grid">
+    <div class="info-box"><div class="info-label">키워드 구분</div><div class="info-value">{{ data.info.keyword }}</div></div>
+    <div class="info-box"><div class="info-label">AX 적용 단계</div><div class="info-value">{{ data.info.ax_stage }}</div></div>
+    <div class="info-box"><div class="info-label">권장 수강 대상</div><div class="info-value">{{ data.info.target }}</div></div>
+    <div class="info-box"><div class="info-label">총 시간</div><div class="info-value">{{ data.info.duration }}</div></div>
+</div>
+
+<div class="section-block">
+    <div class="section-title"><span class="section-num">01</span>과정 소개</div>
+    <div class="content-box">{{ data.intro }}</div>
+</div>
+
+{% if data.design_framework %}
+<div class="section-block">
+    <div class="section-title"><span class="section-num">02</span>{{ data.design_framework_title | default(data.section_02_title | default('수준별 AI 리터러시 교육 설계 프레임워크')) }}</div>
+    <div class="content-box">{{ data.design_framework }}</div>
+</div>
+{% endif %}
+
+<div class="section-block">
+    <div class="section-title"><span class="section-num">{{ '03' if data.design_framework else '02' }}</span>교육 목표</div>
+    <div class="content-box">{{ data.objective }}</div>
+</div>
+
+<div style="display: flex; gap: 40px; page-break-inside: avoid; break-inside: avoid;">
+    <div style="flex: 1;">
+        <div class="section-title"><span class="section-num">{{ '04' if data.design_framework else '03' }}</span>핵심 도구</div>
+        <div class="tech-container">
+            {% for t in data.tech_stack %}<div class="tech-badge">{{ t }}</div>{% endfor %}
+        </div>
+    </div>
+    <div style="flex: 1.4;">
+        <div class="section-title"><span class="section-num">{{ '05' if data.design_framework else '04' }}</span>필요 인프라</div>
+        <div class="infra-box">
+            <ul>{% for i in data.infrastructure %}<li><span>{{ i }}</span></li>{% endfor %}</ul>
+        </div>
+    </div>
+</div>
+
+<div class="section-title"><span class="section-num">{{ '06' if data.design_framework else '05' }}</span>{{ data.curriculum_title | default('직군별 상세 커리큘럼') }}</div>
+{% if data.curriculum_groups %}
+{% for group in data.curriculum_groups %}
+<div class="track-heading" style="page-break-after: avoid;">
+    <div class="track-label">{{ group.title }}</div>
+</div>
+<div class="curriculum-table-wrap">
+    <table class="curriculum-table">
+        <thead>
+            <tr>
+                <th>모듈 명</th>
+                <th>모듈 내용</th>
+                <th>소요 시간</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in group['rows'] %}
+            <tr>
+                <td class="curriculum-module">{{ row.module_name }}</td>
+                <td>{{ row.module_content }}</td>
+                <td class="curriculum-time">{{ row.duration }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endfor %}
+{% elif data.curriculum_format == 'spreadsheet' and data.curriculum_table %}
+<div class="curriculum-table-wrap">
+    <table class="curriculum-table">
+        <thead>
+            <tr>
+                <th>교육 명</th>
+                <th>모듈 명</th>
+                <th>모듈 내용</th>
+                <th>소요 시간</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data.curriculum_table %}
+            <tr>
+                <td class="curriculum-course">{{ row.course }}</td>
+                <td class="curriculum-module">{{ row.module_name }}</td>
+                <td>{{ row.module_content }}</td>
+                <td class="curriculum-time">{{ row.duration }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+{% for track in data.tracks %}
+{% if not loop.first %}<hr class="track-divider">{% endif %}
+<div class="track-heading" style="page-break-inside: avoid; break-inside: avoid;">
+    <div class="track-label">{% if data.use_simple_track_label %}{{ track.track_id }}{% else %}TRACK {{ track.track_id }}{% endif %}</div>
+    <div class="track-name">{{ track.track_name }}</div>
+    <div class="track-meta">{{ track.course_title }}{% if track.target %} &nbsp;|&nbsp; 대상: {{ track.target }}{% endif %} &nbsp;|&nbsp; 기간: {{ track.duration }}</div>
+    <div class="track-tools">{% for tool in track.tools %}<span class="tool-chip">{{ tool }}</span>{% endfor %}</div>
+</div>
+{% for mod in track.modules %}
+<div class="module-box">
+    <div class="module-left">
+        <div class="module-label">MODULE {{ '%02d' | format(loop.index) }}</div>
+        <div class="module-name">{{ mod.module_name }}</div>
+    </div>
+    <div class="module-right">
+        {% if mod.title %}<div class="module-title-head">{{ mod.title }}</div>{% endif %}
+        <ul>{% for item in mod['items'] %}<li><span>{{ item }}</span></li>{% endfor %}</ul>
+    </div>
+    <div class="module-hours">{{ mod.duration }}</div>
+</div>
+{% endfor %}
+{% endfor %}
+{% endif %}
+
+{% if data.rubric %}
+<div class="section-block">
+    <div class="section-title"><span class="section-num">{{ '%02d' | format(6 + df) }}</span>{{ data.rubric_title | default('평가 루브릭') }}</div>
+    <div class="content-box">{{ data.rubric }}</div>
+</div>
+{% endif %}
+
+<div style="page-break-inside: avoid; break-inside: avoid;">
+    <div class="section-title"><span class="section-num">{{ '%02d' | format(6 + df + rb) }}</span>예상 산출물</div>
+    <div class="content-box">{{ data.output }}</div>
+</div>
+
+{% if data.schedule_message %}
+<div style="page-break-inside: avoid; break-inside: avoid;">
+    <div class="section-title"><span class="section-num">{{ '%02d' | format(7 + df + rb) }}</span>{{ data.section_07_title | default('일정 협의 안내') }}</div>
+    <div class="schedule-placeholder">{{ data.schedule_message }}</div>
+</div>
+{% endif %}
+
+{% if data.instructors and data.show_instructors %}
+{% set ins_num = 7 + df + rb + (1 if data.schedule_message else 0) %}
+{% for ins in data.instructors %}
+<div class="page-break">
+    <div class="section-title instructor-section-title">
+        <span class="section-num">{{ '%02d' | format(ins_num) }}</span>{{ data.instructor_section_title | default('추천 강사 후보군') }}
+        {% if data.show_instructor_index | default(true) %}<span class="instructor-candidate-index">후보 {{ '%02d' | format(loop.index) }}</span>{% endif %}
+    </div>
+    <div class="instructor-card">
+        {% if ins.category %}<div class="instructor-category">{{ ins.category }}</div>{% endif %}
+        <div class="instructor-heading">
+            <span class="instructor-name">{{ ins.name }}</span>
+            {% if ins.headline %}<span class="instructor-divider">|</span><span>{{ ins.headline }}</span>{% endif %}
+        </div>
+        {% if ins.bio %}<div class="instructor-bio">{{ ins.bio }}</div>{% endif %}
+
+        {% if ins.expertise %}
+        <div class="instructor-subtitle">전문 분야</div>
+        <div class="instructor-expertise">
+            {% for tag in ins.expertise %}<span>{{ tag }}</span>{% endfor %}
+        </div>
+        {% endif %}
+
+        {% if ins.experience %}
+        <div class="instructor-subtitle">주요 이력 / 강의 경험</div>
+        <ul class="instructor-experience">
+            {% for item in ins.experience %}<li><span>{{ item }}</span></li>{% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if ins.metrics %}
+        <div class="instructor-metrics">
+            {% for m in ins.metrics %}
+            <div class="instructor-metric">
+                <div class="instructor-metric-value">{{ m.value }}</div>
+                <div class="instructor-metric-label">{{ m.label }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+
+<div class="footer">
+    &copy; 2026 MODULABS - 모두의연구소 AI 기업교육 커리큘럼
+</div>
+
+</body>
+</html>

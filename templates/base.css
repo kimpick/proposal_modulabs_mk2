@@ -1,0 +1,596 @@
+/* ═══════════════════════════════════════════════════════════
+   모두의연구소 AI교육 제안서 — 공용 디자인 시스템 (base.css)
+   Primary  : #EE3E4C   Secondary : #EBBAC0
+   Border   : #EBEBEB   Text-Dark : #111111   Text-Body : #333333
+   ═══════════════════════════════════════════════════════════ */
+
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+body {
+    font-family: 'Pretendard', sans-serif;
+    color: #333333;
+    margin: 0;
+    padding: 60px;
+    background-color: #ffffff;
+}
+
+/* ─ 헤더 ─ */
+.header {
+    border-bottom: 1px solid #EBEBEB;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+.header-text {
+    color: #EE3E4C;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: right;
+    margin-bottom: 20px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.title {
+    font-size: 30px;
+    font-weight: 800;
+    color: #111111;
+    margin: 0 0 10px 0;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.subtitle {
+    font-size: 14px;
+    color: #555555;
+    margin: 0;
+    line-height: 1.6;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+/* ─ 4-Block Info Grid ─ */
+.info-grid {
+    display: flex;
+    gap: 12px;
+    margin: 30px 0 40px 0;
+}
+.info-box {
+    flex: 1;
+    border: 1px solid #EBEBEB;
+    border-radius: 10px;
+    padding: 18px 20px;
+    background: #ffffff;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.info-label {
+    color: #EE3E4C;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.info-value {
+    font-size: 12px;
+    font-weight: 700;
+    color: #111111;
+    line-height: 1.65;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    hyphens: none;
+}
+
+/* ─ 섹션 타이틀 ─ */
+.section-block {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+.section-title {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 800;
+    color: #111111;
+    margin: 36px 0 16px 0;
+    page-break-after: avoid;
+    break-after: avoid;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.section-num {
+    color: #EBBAC0;
+    font-size: 30px;
+    font-weight: 900;
+    margin-right: 10px;
+    line-height: 1;
+}
+
+/* ─ 텍스트 콘텐츠 박스 (왼쪽 Red 라인) ─ */
+.content-box {
+    border: 1px solid #EBEBEB;
+    border-left: 5px solid #EE3E4C;
+    border-radius: 10px;
+    padding: 24px 28px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #333333;
+    margin-bottom: 24px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    white-space: pre-line;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.content-box ul {
+    margin: 4px 0;
+    padding-left: 18px;
+}
+.content-box li {
+    margin-bottom: 2px;
+}
+
+/* ─ 핵심 기술 (Pill Badge) ─ */
+.tech-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+.tech-badge {
+    border: 1px solid #EBEBEB;
+    border-radius: 50px;
+    padding: 7px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #111111;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+/* ─ 커리큘럼 태그 뱃지 (인라인) ─ */
+.curriculum-tag {
+    display: inline;
+    font-size: inherit;
+    font-weight: 600;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-right: 4px;
+    vertical-align: baseline;
+    letter-spacing: 0.01em;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.tag-common { background: #F3F4F6; color: #6B7280; }
+.tag-round1 { background: #EEF4FF; color: #2563EB; }
+.tag-round2 { background: #FEF0F0; color: #EE3E4C; }
+
+/* ─ 인프라 박스 (왼쪽 Red 라인) ─ */
+.infra-box {
+    border: 1px solid #EBEBEB;
+    border-left: 5px solid #EE3E4C;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+.infra-box ul {
+    margin: 0;
+    padding-left: 18px;
+}
+.infra-box li {
+    margin-bottom: 8px;
+    color: #EE3E4C;
+    font-size: 13px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.infra-box li span {
+    color: #333333;
+}
+
+/* ─ 모듈 박스 (Flex 레이아웃) ─ */
+.module-box {
+    border: 1px solid #EBEBEB;
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+.module-left {
+    width: 130px;
+    flex-shrink: 0;
+    padding-right: 16px;
+    border-right: 1px solid #EBEBEB;
+    margin-right: 20px;
+}
+.module-label {
+    color: #EE3E4C;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.module-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: #111111;
+    line-height: 1.55;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    hyphens: none;
+}
+.module-right {
+    flex-grow: 1;
+    min-width: 0;
+}
+.module-title-head {
+    font-size: 14.5px;
+    font-weight: 800;
+    color: #111111;
+    line-height: 1.4;
+    margin-bottom: 12px;
+    padding-bottom: 9px;
+    padding-right: 36px;
+    border-bottom: 1px solid #EBEBEB;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.module-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+.module-title-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: #111111;
+    line-height: 1.5;
+    word-break: keep-all;
+}
+.module-right ul {
+    margin: 0;
+    padding-left: 14px;
+    padding-right: 36px;
+}
+.module-right li {
+    margin-bottom: 14px;
+    color: #EE3E4C;
+    font-size: 13px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.module-right li span {
+    color: #333333;
+    line-height: 1.7;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.module-hours {
+    font-size: 11px;
+    font-weight: 800;
+    color: #aaaaaa;
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding-top: 1px;
+}
+
+/* ─ 5대 패턴 인라인 번호 리스트 ─ */
+.pattern-list {
+    list-style: decimal;
+    margin: 6px 0 2px 0;
+    padding-left: 20px;
+}
+.pattern-list li {
+    color: #444444;
+    margin-bottom: 4px;
+    font-size: 12.5px;
+    line-height: 1.65;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+/* ─ 트랙 소제목 (track 타입용) ─ */
+.track-heading {
+    margin: 30px 0 16px 0;
+    page-break-after: avoid;
+    break-after: avoid;
+}
+.track-label {
+    font-size: 10px;
+    font-weight: 800;
+    color: #EE3E4C;
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.track-name {
+    font-size: 15px;
+    font-weight: 800;
+    color: #111111;
+    margin: 0 0 6px 0;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.track-meta {
+    font-size: 12px;
+    color: #777;
+    margin-bottom: 10px;
+    line-height: 1.6;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.track-tools {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.tool-chip {
+    border: 1px solid #EBEBEB;
+    border-radius: 50px;
+    padding: 3px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #333333;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.track-divider {
+    border: none;
+    border-top: 1px solid #EBEBEB;
+    margin: 24px 0;
+}
+
+/* ─ 스프레드시트형 커리큘럼 테이블 (track 타입 옵션) ─ */
+.curriculum-table-wrap {
+    border: 1px solid #EBEBEB;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+.curriculum-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    line-height: 1.6;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.curriculum-table th,
+.curriculum-table td {
+    border: 1px solid #EBEBEB;
+    padding: 10px 12px;
+    vertical-align: top;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.curriculum-table th {
+    background-color: #fafafa;
+    font-weight: 800;
+    color: #555555;
+    text-align: left;
+}
+.curriculum-course {
+    width: 188px;
+    font-weight: 700;
+    color: #111111;
+}
+.curriculum-module {
+    width: 220px;
+    font-weight: 700;
+    color: #111111;
+}
+.curriculum-time {
+    width: 82px;
+    text-align: center;
+    font-weight: 700;
+    color: #555555;
+    white-space: nowrap;
+}
+
+/* ─ 일정 Placeholder ─ */
+.schedule-placeholder {
+    border: 1px dashed #EBBAC0;
+    background-color: #fdf8f8;
+    border-radius: 10px;
+    padding: 28px;
+    text-align: left;
+    font-size: 13px;
+    color: #888888;
+    line-height: 1.9;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin-bottom: 24px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+/* ─ 연간 계획 테이블 (roadmap 타입용) ─ */
+.plan-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 13px;
+    line-height: 1.5;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.plan-table th, .plan-table td {
+    border: 1px solid #EBEBEB;
+    padding: 15px;
+    vertical-align: middle;
+}
+.plan-table th {
+    background-color: #fafafa;
+    font-weight: 800;
+    color: #555;
+    text-align: center;
+}
+.plan-month {
+    color: #EE3E4C;
+    font-weight: 800;
+    text-align: center !important;
+    white-space: nowrap;
+}
+.plan-title {
+    font-weight: 700;
+    color: #111;
+}
+
+/* ─ 페이지 분리 ─ */
+.page-break {
+    page-break-before: always;
+}
+
+/* ─ 푸터 ─ */
+.footer {
+    margin-top: 20px;
+    padding-top: 12px;
+    border-top: 1px solid #EBEBEB;
+    text-align: center;
+    font-size: 11px;
+    color: #aaaaaa;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+/* ─ 추천 강사 후보군 ─ */
+.instructor-section-title {
+    margin-top: 0;
+    padding-top: 6px;
+}
+.instructor-candidate-index {
+    margin-left: auto;
+    color: #aaaaaa;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.instructor-card {
+    border: 1px solid #EBEBEB;
+    border-radius: 14px;
+    padding: 28px 30px 30px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+.instructor-category {
+    display: inline-block;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: #EE3E4C;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    margin-bottom: 18px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.instructor-heading {
+    color: #111111;
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.45;
+    margin-bottom: 14px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.instructor-name {
+    font-weight: 900;
+}
+.instructor-divider {
+    margin: 0 8px;
+    color: #bbbbbb;
+}
+.instructor-bio {
+    border-left: 4px solid #EBBAC0;
+    padding: 2px 0 2px 18px;
+    color: #555555;
+    font-size: 12.5px;
+    line-height: 1.9;
+    margin-bottom: 20px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.instructor-subtitle {
+    color: #EE3E4C;
+    font-size: 11px;
+    font-weight: 900;
+    margin: 16px 0 10px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.instructor-expertise {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+.instructor-expertise span {
+    border: 1px solid #EBEBEB;
+    border-radius: 999px;
+    padding: 7px 13px;
+    color: #555555;
+    font-size: 10.5px;
+    font-weight: 700;
+    white-space: nowrap;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.instructor-experience {
+    margin: 0 0 20px;
+    padding-left: 18px;
+}
+.instructor-experience li {
+    color: #EE3E4C;
+    font-size: 12px;
+    margin-bottom: 7px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.instructor-experience li span {
+    color: #444444;
+    line-height: 1.5;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.instructor-metrics {
+    display: flex;
+    border-radius: 12px;
+    background: #191919;
+    padding: 20px 12px;
+    margin-top: 18px;
+}
+.instructor-metric {
+    flex: 1;
+    text-align: center;
+    border-right: 1px solid #333333;
+}
+.instructor-metric:last-child {
+    border-right: 0;
+}
+.instructor-metric-value {
+    color: #E8B83E;
+    font-size: 22px;
+    font-weight: 900;
+    margin-bottom: 6px;
+}
+.instructor-metric-label {
+    color: #aaaaaa;
+    font-size: 10.5px;
+    font-weight: 700;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}

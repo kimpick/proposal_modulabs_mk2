@@ -1,0 +1,72 @@
+{
+  "title": "기웅정보통신 개발자 AI 심화 교육안",
+  "subtitle": "고급 RAG 패턴 · Multi-LLM 라우팅 · LangGraph 실전 — 엔터프라이즈 RAG 및 에이전트 AI 심화 과정",
+  "info": {
+    "keyword": "고급 RAG · Multi-LLM · LangGraph 실전 · LLMOps",
+    "ax_stage": "4단계 (개발자 AI 내재화 — 심화)",
+    "target": "기초 RAG 파일럿 경험이 있는 기웅정보통신 핵심 개발 인력",
+    "duration": "총 9일 (모듈별 3일, 일 7시간)"
+  },
+  "intro": "기초 과정(바이브코딩·기초 RAG·LangGraph 입문)을 이수한 핵심 인력을 대상으로, 기웅정보통신의 공동주택 관리 업무용 사내 RAG 시스템을 엔터프라이즈급으로 고도화하는 심화 엔지니어링 과정입니다.\nMulti-LLM 아키텍처와 비용 최적화 전략, Self-RAG·CRAG 등 신뢰성 향상 패턴, 그리고 LangGraph 기반 Multi-Agent 협업 시스템까지 실전 프로젝트 형태로 진행합니다.\nLangSmith를 활용한 LLMOps 파이프라인 모니터링·평가 체계도 함께 구축합니다.",
+  "objective": "엔터프라이즈 수준의 고급 RAG 파이프라인(표·이미지 파싱, 하이브리드 검색, Self-RAG/CRAG)을 직접 설계·구현하고, Multi-LLM Semantic Routing 및 LangSmith 기반 비용 모니터링 체계를 수립합니다. 최종적으로 LangGraph Multi-Agent 협업 구조와 Human-in-the-loop 승인 프로세스를 포함한 실전 AI 서비스 프로토타입을 완성합니다.",
+  "tech_stack": [
+    "Claude (Opus / Sonnet — 복잡·단순 질의 라우팅)",
+    "GPT-4o (비교 벤치마크 활용)",
+    "Local LLM (목적별 라우팅 실험)",
+    "LangGraph (심화 — Multi-Agent)",
+    "LangSmith (모니터링 · 평가 · 비용 추적)",
+    "Semantic Router",
+    "Vector DB (ChromaDB / Pinecone)"
+  ],
+  "infrastructure": [
+    "GitHub 계정 및 팀 Repository (협업 필수)",
+    "Python 3.11 이상 개발 환경 (로컬 설치)",
+    "Claude API Key (Anthropic — Pay-as-you-go)",
+    "OpenAI API Key (GPT-4o 비교 실습용)",
+    "LangSmith 계정",
+    "외부망 접속 가능 노트북 (수강생 1인 1대)"
+  ],
+  "modules": [
+    {
+      "module_id": "01",
+      "module_name": "고급 RAG 패턴 — 엔터프라이즈 데이터 최적화",
+      "subtitle": "고급 RAG 패턴",
+      "duration": "3일 (7시간 × 3일)",
+      "items": [
+        "표·이미지·복합 문서(PDF) 파싱 고도화 (Unstructured, PyMuPDF, Camelot 등)",
+        "하이브리드 검색 구현 (Keyword BM25 + Semantic Dense Retrieval 결합)",
+        "Self-RAG — 검색 결과 자가 평가 및 재검색 루프 구현",
+        "Corrective RAG (CRAG) — 검색 품질 평가 후 웹 검색 폴백(Fallback) 구조 구현",
+        "실습: 사내 공동주택 관리 규정 복합 문서 파싱 → 하이브리드 검색 + Self-RAG 파이프라인 완성"
+      ]
+    },
+    {
+      "module_id": "02",
+      "module_name": "Multi-LLM 아키텍처 및 비용 최적화",
+      "subtitle": "Multi-LLM & 비용 최적화",
+      "duration": "3일 (7시간 × 3일)",
+      "items": [
+        "질문 복잡도·의도 분류(Semantic Routing) 기반 최적 모델 동적 할당 체계 설계",
+        "Claude Opus(복잡) — Claude Sonnet(중간) — Local LLM(단순) 3계층 라우팅 구현",
+        "Prompt Caching 전략 및 Token 사용량 모니터링 (LangSmith 연동)",
+        "LangSmith 대시보드 — Trace · Evaluation · Cost 분석 실습",
+        "실습: Semantic Router 기반 멀티 LLM 파이프라인 구성 + LangSmith 비용 리포트 생성"
+      ]
+    },
+    {
+      "module_id": "03",
+      "module_name": "LangGraph 실전 — Multi-Agent 협업 및 Human-in-the-loop",
+      "subtitle": "에이전트 AI 심화",
+      "duration": "3일 (7시간 × 3일)",
+      "items": [
+        "Multi-Agent 협업 구조 설계 — 리서처 에이전트·요약 에이전트·검증 에이전트 분리 아키텍처",
+        "외부 API 연동 (Function Calling / Tools) — 실시간 데이터 수집 에이전트 구현",
+        "Human-in-the-loop — 관리자 승인 프로세스(Interrupt + Resume) 구현",
+        "LangGraph Persistence — Checkpoint 기반 에이전트 상태 저장·복원",
+        "실습: 공동주택 민원 처리 Multi-Agent 시스템 프로토타입 완성 (검색 → 요약 → 관리자 승인 → 답변)"
+      ]
+    }
+  ],
+  "output": "<ul style=\"margin:0; padding-left:20px; line-height: 1.9;\"><li>하이브리드 검색 + Self-RAG / CRAG 기반 고도화 RAG 파이프라인 코드 1건</li><li>Semantic Router 기반 Multi-LLM 라우팅 시스템 코드 1건</li><li>LangSmith 연동 비용·품질 모니터링 대시보드 설정 완료</li><li>Multi-Agent Human-in-the-loop 협업 시스템 프로토타입 코드 1건 (공동주택 민원 처리 시나리오)</li></ul>",
+  "schedule_message": "※ 본 과정은 MODULE 01~03 각 3일(7시간), 총 9일로 편성됩니다.<br>출강 일정(연속 집중 또는 주 1~2회 분산 개설)은 기웅정보통신 교육 담당자와 사전 협의하여 확정합니다.<br>심화 과정은 기초 과정 수료 후 연속 진행을 권장합니다. 구체적인 강의 일정표는 교육 협약 체결과 함께 운영팀을 통해 상세히 안내드릴 예정입니다."
+}

@@ -1,0 +1,795 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Physical AI 교육 레퍼런스 — 모두의연구소</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+  :root{
+    /* ==== 브랜드 토큰 (고객사에 맞게 --primary 계열만 교체) ==== */
+    --primary:#EE3E4C; --primary-dk:#C92434; --secondary:#EBBAC0;
+    --ink:#111111; --body:#333333; --muted:#6B7280; --faint:#9AA1AC;
+    --border:#EBEBEB; --line:#F0F0F2; --bg:#ffffff; --soft:#FAFAFB; --soft2:#F5F6F8;
+    --blue:#2563EB; --blue-bg:#EEF4FF; --green:#0E9F6E; --green-bg:#E7F6EF;
+    --amber:#B45309; --amber-bg:#FEF3E2; --purple:#7C3AED;
+    --shadow:0 1px 2px rgba(17,17,17,.04),0 10px 30px rgba(17,17,17,.08);
+    --radius:16px;
+    /* ==== 가로 슬라이드 프레임 (16:9) ==== */
+    --slide-w:1280px; --slide-h:720px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;overflow:hidden;background:#0a0c11;
+    font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+
+  /* ==== 무대: 뷰포트에 맞춰 덱을 중앙 정렬·스케일 ==== */
+  .stage{position:fixed;inset:0;display:grid;place-items:center}
+  .deck{position:relative;width:var(--slide-w);height:var(--slide-h);transform-origin:center center;
+    box-shadow:0 20px 60px rgba(0,0,0,.45);border-radius:6px;overflow:hidden;background:var(--bg)}
+
+  /* ==== 슬라이드 (가로 고정 프레임) ==== */
+  .slide{position:absolute;inset:0;width:var(--slide-w);height:var(--slide-h);background:var(--bg);
+    overflow:hidden;opacity:0;pointer-events:none;transform:translateX(24px);
+    transition:opacity .4s ease,transform .4s ease}
+  .slide.is-active{opacity:1;pointer-events:auto;transform:translateX(0)}
+  .fit-frame{position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start}
+  .fit-frame.center{justify-content:center}
+  .fit-content{padding:54px 72px;transform-origin:top center}
+  .fit-frame.center .fit-content{transform-origin:center center}
+
+  /* ==== kicker / 제목 ==== */
+  .sec-num{font-size:16.2px;font-weight:700;color:var(--faint);letter-spacing:.08em}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:16.9px;font-weight:700;
+    letter-spacing:.04em;color:var(--primary);text-transform:uppercase;margin:8px 0 12px}
+  .kicker::before{content:"";width:22px;height:2px;background:var(--primary);border-radius:2px}
+  h2{font-size:36.5px;line-height:1.25;color:var(--ink);margin:0 0 8px;font-weight:800;letter-spacing:-.02em}
+  h3{font-size:23px;color:var(--ink);margin:0;font-weight:700}
+  .lead{font-size:19.6px;color:var(--muted);margin:0 0 18px;max-width:920px}
+
+  /* ==== 공통 그리드 ==== */
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .split{display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:center}
+
+  /* ==== 표지 / 맺음말 ==== */
+  .cover{background:radial-gradient(1200px 520px at 82% -12%,#ff5d69 0%,transparent 55%),
+    linear-gradient(135deg,#1a1114 0%,#2a1418 40%,#7a1420 100%);color:#fff}
+  .cover .cover-badge{display:inline-flex;align-items:center;gap:10px;font-size:17.6px;font-weight:600;
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);padding:8px 15px;border-radius:999px}
+  .cover h1{font-size:62.1px;line-height:1.18;font-weight:800;margin:22px 0 14px;letter-spacing:-.03em;color:#fff}
+  .cover h1 span{color:#ffd0d4}
+  .cover .sub{font-size:24.3px;color:rgba(255,255,255,.88);max-width:720px;margin:0 0 30px}
+  .cover-meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-size:18.2px;color:rgba(255,255,255,.72);
+    border-top:1px solid rgba(255,255,255,.18);padding-top:20px}
+  .cover-meta b{color:#fff;font-weight:600}
+  .closing{background:linear-gradient(135deg,#1a1114,#5e1018);color:#fff}
+  .closing h2{color:#fff;font-size:40.5px}
+  .closing .msg{font-size:23px;color:rgba(255,255,255,.9);max-width:840px;margin:14px 0 26px;line-height:1.55}
+  .closing .sign{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:18.9px;color:rgba(255,255,255,.75);
+    border-top:1px solid rgba(255,255,255,.2);padding-top:20px}
+  .closing .sign b{color:#fff}
+  .cover .kicker,.closing .kicker{color:#ffd0d4}
+  .cover .kicker::before,.closing .kicker::before{background:#ffd0d4}
+
+  /* ==== KPI ==== */
+  .kpi{background:var(--soft);border:1px solid var(--border);border-radius:14px;padding:20px 18px;text-align:center}
+  .kpi .n{font-size:44.6px;font-weight:800;color:var(--primary);letter-spacing:-.03em;line-height:1}
+  .kpi .n small{font-size:23px;font-weight:700}
+  .kpi .l{font-size:16.9px;color:var(--muted);margin-top:8px;font-weight:500;line-height:1.35}
+
+  /* ==== 로고 칩 ==== */
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+  .chip{font-size:18.9px;font-weight:700;color:var(--ink);background:#fff;border:1px solid var(--border);
+    padding:9px 16px;border-radius:10px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  .chip.big{font-size:20.2px;border-color:#f2c9cd}
+
+  /* ==== 사례 카드 ==== */
+  .case{border:1px solid var(--border);border-radius:14px;padding:20px 22px;background:#fff;position:relative}
+  .case::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:4px;border-radius:4px;background:var(--primary)}
+  .case .ctop{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding-left:14px}
+  .case .co{font-size:24.3px;font-weight:800;color:var(--ink)}
+  .case .cat{font-size:15.5px;font-weight:700;color:var(--muted);background:var(--soft2);padding:4px 10px;border-radius:999px;white-space:nowrap}
+  .case .desc{font-size:17.6px;color:var(--body);padding-left:14px;margin:6px 0 12px}
+  .metrics{display:flex;flex-wrap:wrap;gap:9px;padding-left:14px}
+  .metric{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:9px 12px;min-width:92px}
+  .metric .mv{font-size:24.3px;font-weight:800;color:var(--primary-dk);line-height:1}
+  .metric .ml{font-size:14.9px;color:var(--muted);margin-top:5px;line-height:1.3}
+  .taglist{padding-left:14px;margin-top:12px;font-size:16.2px;color:var(--faint)}
+  .taglist b{color:var(--body);font-weight:600}
+
+  /* ==== 레퍼런스 컬럼 ==== */
+  .refcol{background:var(--soft);border:1px solid var(--border);border-radius:14px;padding:16px 18px}
+  .refcol .refhd{font-size:17.6px;font-weight:800;color:var(--primary);padding-bottom:9px;margin-bottom:5px;border-bottom:2px solid #f4ccd0}
+  .refcol ul{margin:0;padding:0;list-style:none}
+  .refcol li{font-size:18.2px;font-weight:600;color:var(--ink);padding:6px 0;border-bottom:1px solid var(--line)}
+  .refcol li:last-child{border-bottom:none}
+  .refcol li span{font-size:15.5px;color:var(--muted);font-weight:500}
+
+  /* ==== MVP 카드 ==== */
+  .mvp{border:1px solid var(--border);border-radius:14px;padding:16px 18px;background:linear-gradient(180deg,#fff,#fdfafa)}
+  .mvp .mh{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+  .mvp .idx{flex:none;width:28px;height:28px;border-radius:8px;background:var(--ink);color:#fff;
+    font-size:16.9px;font-weight:800;display:grid;place-items:center}
+  .mvp .mt{font-size:19.6px;font-weight:700;color:var(--ink);line-height:1.35}
+  .mvp .row{font-size:16.9px;margin:6px 0;display:flex;gap:8px}
+  .mvp .row .tag{flex:none;font-size:14.9px;font-weight:700;color:var(--muted);width:38px;padding-top:1px}
+  .mvp .row .val{color:var(--body)}
+  .mvp .row .val.tech{color:var(--blue);font-weight:600}
+  .mvp .row .val.eff{color:var(--green);font-weight:600}
+
+  /* ==== 인용 / 콜아웃 ==== */
+  .quote{background:linear-gradient(135deg,#fff5f6,#fdeef0);border:1px solid #f4ccd0;border-radius:14px;padding:22px 24px;position:relative}
+  .quote .q{font-size:25.7px;font-weight:800;color:var(--primary-dk);line-height:1.4;letter-spacing:-.02em}
+  .quote .by{font-size:16.9px;color:var(--muted);margin-top:10px}
+  .quote .mark{position:absolute;top:6px;right:20px;font-size:81px;color:#f4ccd0;font-family:Georgia,serif;line-height:1}
+
+  /* ==== 타임라인 (플로우) ==== */
+  .flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+  .step{flex:1;min-width:150px;background:var(--soft);border:1px solid var(--border);border-radius:12px;padding:14px 16px;position:relative}
+  .step + .step{margin-left:26px}
+  .step + .step::before{content:"→";position:absolute;left:-22px;top:50%;transform:translateY(-50%);color:var(--primary);font-weight:800;font-size:24.3px}
+  .step .st{font-size:15.5px;font-weight:700;color:var(--primary);margin-bottom:4px}
+  .step .sd{font-size:18.2px;color:var(--ink);font-weight:700}
+  .step .ss{font-size:16.2px;color:var(--muted);margin-top:3px}
+
+  /* ==== 과제 카드 ==== */
+  .task{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px}
+  .task .ti{font-size:29.7px}
+  .task .tt{font-size:18.9px;font-weight:700;color:var(--ink);margin:8px 0 4px}
+  .task .td{font-size:16.2px;color:var(--muted)}
+
+  /* ==== 일반 테이블 ==== */
+  .tbl{width:100%;border-collapse:collapse;font-size:17.6px}
+  .tbl th{background:var(--ink);color:#fff;text-align:left;padding:11px 13px;font-weight:600;font-size:16.2px}
+  .tbl th:first-child{border-radius:8px 0 0 0}.tbl th:last-child{border-radius:0 8px 0 0}
+  .tbl td{padding:11px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl tbody tr:nth-child(even){background:var(--soft)}
+  .tbl .task-c{font-weight:700;color:var(--ink);white-space:nowrap}
+  .pill{display:inline-block;font-size:14.9px;font-weight:700;padding:3px 9px;border-radius:999px;margin:2px 3px 2px 0}
+  .pill.b{background:var(--blue-bg);color:var(--blue)}
+  .pill.r{background:#FEF0F0;color:var(--primary)}
+  .pill.g{background:var(--green-bg);color:var(--green)}
+
+  /* ==== Before / After ==== */
+  .ba-head,.ba{display:grid;grid-template-columns:1.05fr 1.15fr 34px 1.15fr .9fr;gap:12px;align-items:center}
+  .ba-head{font-size:15.5px;font-weight:700;color:var(--muted);padding:0 4px 8px}
+  .ba-head .h-after{color:var(--primary)}
+  .ba{padding:9px 4px;border-top:1px solid var(--line)}
+  .ba .task-name{font-weight:700;color:var(--ink);font-size:17.6px}
+  .ba .before{background:var(--soft2);border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-size:16.2px;color:var(--muted)}
+  .ba .arrow{text-align:center;color:var(--primary);font-weight:800;font-size:24.3px}
+  .ba .after{background:#fff5f6;border:1px solid #f4ccd0;border-radius:10px;padding:9px 12px;font-size:16.2px;color:var(--ink);font-weight:500}
+  .ba .gain{text-align:center;font-size:18.9px;font-weight:800;color:var(--primary-dk);line-height:1.25}
+
+  /* ==== 견적 테이블 ==== */
+  .est-total{display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;background:linear-gradient(135deg,#EE3E4C,#C92434);color:#fff;border-radius:14px;padding:16px 22px;margin-bottom:12px}
+  .est-total .big{font-size:35.1px;font-weight:800;letter-spacing:-.02em}
+  .est-total .ko{font-size:17.6px;opacity:.9;margin-top:3px}
+  .est-total .per{margin-left:auto;font-size:16.9px;font-weight:600;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:8px 14px;border-radius:999px}
+  .est{width:100%;border-collapse:collapse;font-size:15.5px}
+  .est th{background:var(--ink);color:#fff;padding:8px 9px;text-align:center;font-weight:600;font-size:14.9px;white-space:nowrap}
+  .est th:first-child{border-radius:8px 0 0 0}.est th:last-child{border-radius:0 8px 0 0}
+  .est td{padding:6px 9px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+  .est td.cat{font-weight:800;color:var(--primary);background:var(--soft);font-size:16.2px}
+  .est td.item{text-align:left;font-weight:600;color:var(--ink)}
+  .est td.r{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink)}
+  .est td.memo{text-align:left;font-size:13.5px;color:var(--muted)}
+  .est tr.sub td{background:var(--soft);font-weight:700;color:var(--ink)}
+  .est tr.total td{background:var(--ink);color:#fff;font-weight:800;font-size:17.6px}
+  .est tr.total td.r{color:#fff}
+
+  /* ==== 커리큘럼 표 ==== */
+  .prop{width:100%;border-collapse:collapse;font-size:16.2px}
+  .prop th{text-align:left;padding:9px 11px;font-size:14.9px;font-weight:700;letter-spacing:.03em;color:var(--muted);background:var(--soft);border-bottom:2px solid var(--border);white-space:nowrap}
+  .prop th.c{text-align:center}
+  .prop td{padding:9px 11px;line-height:1.45;border-bottom:1px solid var(--line);vertical-align:middle;font-size:15.5px}
+  .prop td.trk{font-weight:800;color:var(--primary);background:var(--soft);white-space:nowrap;text-align:center;line-height:1.3}
+  .prop td.course{font-weight:700;color:var(--ink)}
+  .prop td.core{color:var(--body);font-size:14.9px}
+  .prop td.tgt{color:var(--muted);font-size:14.9px;white-space:nowrap;line-height:1.3}
+  .prop td.hrs{color:var(--primary);font-weight:800;text-align:center;white-space:nowrap;line-height:1.3}
+  .prop tr.sumrow td{background:#FFF6F2;font-weight:700;color:var(--ink)}
+  .badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:14.2px;font-weight:700;white-space:nowrap}
+  .badge-red{background:rgba(238,62,76,.12);color:var(--primary-dk)}
+  .badge-blue{background:rgba(37,99,235,.12);color:var(--blue)}
+  .badge-green{background:rgba(14,159,110,.12);color:var(--green)}
+  .badge-purple{background:rgba(124,58,237,.12);color:var(--purple)}
+
+  /* ==== 트랙 카드 ==== */
+  .track{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#fff}
+  .track .th{padding:14px 16px 12px;color:#fff}
+  .track.t1 .th{background:linear-gradient(135deg,#EE3E4C,#C92434)}
+  .track.t2 .th{background:linear-gradient(135deg,#F0736E,#d9524d)}
+  .track.t3 .th{background:linear-gradient(135deg,#8B5CF6,#6D3EE0)}
+  .track.t4 .th{background:linear-gradient(135deg,#2563EB,#1D4FD8)}
+  .track .tk{font-size:15.5px;font-weight:700;opacity:.9}
+  .track .tn{font-size:21.6px;font-weight:800;margin-top:3px}
+  .track .tp{font-size:16.2px;opacity:.92;margin-top:2px}
+  .track .tb{padding:13px 16px}
+
+  /* ==== "왜 우리인가" 다크 박스 ==== */
+  .why{background:var(--ink);color:#fff;border-radius:14px;padding:22px}
+  .why h3{color:#fff;margin-bottom:10px}
+  .why ul{margin:0;padding-left:18px;font-size:18.2px;color:rgba(255,255,255,.85)}
+  .why li{margin:8px 0}
+  .why b{color:#ffd0d4}
+
+  /* ==== 노트 ==== */
+  .note{font-size:15.5px;color:var(--faint);margin-top:14px;padding-top:12px;border-top:1px dashed var(--border)}
+
+  /* ==== 내비게이션 UI ==== */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:center;gap:3px;
+    padding:12px 6vw;opacity:.18;transition:opacity .25s}
+  .nav:hover{opacity:.95}
+  .nav-dot{width:22px;height:3px;padding:0;background:rgba(255,255,255,.4);border:0;border-radius:2px;cursor:pointer;transition:all .2s}
+  .nav-dot.active{width:34px;background:var(--primary)}
+  .nav-dot:hover{background:var(--primary)}
+  .slide-num{position:fixed;right:26px;bottom:20px;z-index:1000;color:rgba(255,255,255,.55);
+    font-size:16.2px;font-weight:700;letter-spacing:.08em;font-variant-numeric:tabular-nums}
+  .hint{position:fixed;left:26px;bottom:20px;z-index:1000;color:rgba(255,255,255,.32);font-size:14.9px}
+
+  /* ==== 인쇄: A4 가로, 슬라이드 1장=1페이지 ==== */
+  @media print{
+    @page{ size:A4 landscape; margin:0; }
+    html,body{overflow:visible;background:#fff;height:auto}
+    .stage{position:static;display:block}
+    .deck{transform:none!important;box-shadow:none;border-radius:0;width:auto;height:auto}
+    .nav,.slide-num,.hint{display:none}
+    .slide{position:relative;inset:auto;width:100vw;height:100vh;opacity:1;transform:none;
+      page-break-after:always;break-inside:avoid;transition:none}
+    .slide:last-child{page-break-after:auto}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<div class="nav" id="nav" aria-label="슬라이드 목차"></div>
+<div class="slide-num" id="slideNum" aria-live="polite"></div>
+<div class="hint">← → 이동 · F 전체화면 · Ctrl/⌘+P PDF</div>
+
+<div class="stage">
+  <div class="deck" id="deck">
+
+
+    <section class="slide cover">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <span class="cover-badge">🔴 모두의연구소 &nbsp;·&nbsp; Physical AI 교육</span>
+          <h1>Physical AI 교육<br><span>레퍼런스</span></h1>
+          <p class="sub">18시간 특강부터 840시간 전문가 양성까지 — 규모별 수행·설계 실적</p>
+          <div class="cover-meta">
+            <span><b>작성</b> · 모두의연구소 비즈팀</span>
+            <span><b>일자</b> · 2026. 08.</span>
+            <span><b>범위</b> · 5개 규모 레퍼런스</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">01 / 배경</span>
+          <p class="kicker">왜 지금인가</p>
+          <h2>LLM이 두뇌, 로봇이 몸, 시뮬레이션이 세계</h2>
+          <p class="lead">Physical AI는 세 축이 맞물려 돌아가는 융합 기술입니다. 2026년 현재 VLA 파운데이션 모델 경쟁이 본격화되며 연구 단계를 넘어 제조·물류·모빌리티 현장에 진입하고 있습니다.</p>
+          <div class="grid g3">
+            <div class="task"><div class="ti">🧠</div><div class="tt">Brain — LLM</div><div class="td">상황을 이해하고 무엇을 할지 계획한다</div></div>
+            <div class="task"><div class="ti">🦾</div><div class="tt">Body — 로봇</div><div class="td">계획을 실제 움직임으로 실행한다</div></div>
+            <div class="task"><div class="ti">🌐</div><div class="tt">World — 시뮬레이션</div><div class="td">안전하게 학습하고 검증한다</div></div>
+          </div>
+          <div class="quote" style="margin-top:18px">
+            <div class="q">교육의 관건은 이 세 축을 어떤 순서로, 어느 깊이까지 다루느냐입니다.</div>
+            <div class="by">모두의연구소는 이 순서를 실제 운영으로 검증했습니다.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">02 / 계보</span>
+          <p class="kicker">커리큘럼 계보</p>
+          <h2>다섯 개를 따로 만든 게 아니라, 검증된 하나를 재단했습니다</h2>
+          <p class="lead">2025년 11~12월 재직자 28시간 과정을 직접 운영하며 커리큘럼·교재·실습 환경을 실전 검증했고, 이를 기반으로 규모별로 확장해 왔습니다.</p>
+          <div class="case">
+            <div class="ctop"><div class="co">출발점 · 재직자 28H 대면 과정</div><div class="cat">운영 완료 · 2025.11~12</div></div>
+            <div class="desc">커리큘럼 · 교재 · 실습 환경을 실전 검증한 유일한 기준점</div>
+          </div>
+          <div class="grid g4" style="margin-top:16px">
+            <div class="task"><div class="tt">온라인화</div><div class="td">대학원생 18H 비대면 특강</div></div>
+            <div class="task"><div class="tt">정규 교과화</div><div class="td">대학 피지컬AI실습 초급 45H + 중급 45H</div></div>
+            <div class="task"><div class="tt">장기 양성화</div><div class="td">국책 나노디그리 60H × 3과목</div></div>
+            <div class="task"><div class="tt">전문가 양성</div><div class="td">제조 혁신 전문가 840H / 6개월</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">03 / 실적</span>
+          <p class="kicker">한눈에 보는 성과</p>
+          <h2>28시간 재직자 과정 — 운영 완료 성과</h2>
+          <p class="lead">목표 대비 두 배의 수료 인원, 그리고 강사·과정 구성 전 항목에서 4.5점대를 기록했습니다.</p>
+          <div class="grid g4">
+            <div class="kpi"><div class="n">40<small>명</small></div><div class="l">수료 인원<br>(목표 20명)</div></div>
+            <div class="kpi"><div class="n">200<small>%</small></div><div class="l">목표 달성률</div></div>
+            <div class="kpi"><div class="n">4.46<small>/5</small></div><div class="l">전반 만족도<br>강사 4.55 · 구성 4.51</div></div>
+            <div class="kpi"><div class="n">+0.88</div><div class="l">자가평가 역량 상승<br>3.14 → 4.02</div></div>
+          </div>
+          <div class="chips" style="margin-top:20px">
+            <span class="chip big">대기업 · 연구기관 현업 엔지니어 다수 참여</span>
+            <span class="chip">전 4회차 운영 완료</span>
+            <span class="chip">추천 의향 4.49</span>
+          </div>
+          <p class="note">출처 · 2025.12 과정 결과보고서 (만족도 조사 및 출석부 기준)</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">04 / 레퍼런스</span>
+          <p class="kicker">규모별 총괄</p>
+          <h2>18시간부터 840시간까지, 다섯 개의 규모</h2>
+          <p class="lead">고객의 목표와 예산에 맞춰 아래 다섯 가지 중에서 출발점을 고를 수 있습니다.</p>
+          <table class="prop">
+            <thead><tr><th>규모</th><th>과정</th><th>대상</th><th class="c">시간</th><th class="c">상태</th></tr></thead>
+            <tbody>
+              <tr><td class="trk">특강형</td><td class="course">Physical AI 온라인 집중 특강</td><td class="tgt">대학원생 · 비대면</td><td class="hrs">18H<br>(3일)</td><td class="c"><span class="badge badge-green">운영</span></td></tr>
+              <tr><td class="trk">단기 집중</td><td class="course">디지털 트윈으로 만나는 Physical AI</td><td class="tgt">재직자 · 실무자</td><td class="hrs">28H<br>(7H×4회)</td><td class="c"><span class="badge badge-red">운영 완료 · 검증</span></td></tr>
+              <tr><td class="trk">정규 교과</td><td class="course">피지컬AI실습 초급 / 중급</td><td class="tgt">대학 정규 교과</td><td class="hrs">45H×2<br>(최대 225H)</td><td class="c"><span class="badge badge-blue">설계·제안</span></td></tr>
+              <tr><td class="trk">나노디그리</td><td class="course">Physical AI 나노디그리 3종</td><td class="tgt">부트캠프 수강생</td><td class="hrs">60H×3<br>(180H)</td><td class="c"><span class="badge badge-blue">설계·제안</span></td></tr>
+              <tr><td class="trk">전문가</td><td class="course">제조 혁신 Physical AI 전문가 과정</td><td class="tgt">제조·로봇 취업 목표</td><td class="hrs">840H<br>(6개월)</td><td class="c"><span class="badge badge-blue">설계·제안</span></td></tr>
+            </tbody>
+          </table>
+          <p class="note">상태 · [운영] 실제 진행한 과정 / [설계·제안] 커리큘럼 설계를 완료한 과정</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">05 / 커리큘럼</span>
+          <p class="kicker">특강형 · 18H</p>
+          <h2>Physical AI 온라인 집중 특강 — 3일 전체 시간표</h2>
+          <p class="lead">비대면 ZOOM으로 개념·강화학습·모방학습·VLA까지 완주하는 구성입니다.</p>
+          <div class="grid g3">
+            <div class="refcol">
+              <div class="refhd">1일차 · 8H — 개념과 강화학습</div>
+              <ul>
+                <li>오리엔테이션 및 개념 이해 <span>Physical AI 개요 / 발전 방향</span></li>
+                <li>AI 전체 택사노미 <span>지도·비지도 / 강화학습 vs 모방학습</span></li>
+                <li>강화학습 개념 <span>마르코프 프로퍼티 / MDP</span></li>
+                <li>강화학습 알고리즘 <span>DP · 몬테카를로 / TD · SARSA / Q-Learning</span></li>
+                <li>Deep RL 1 <span>DQN / REINFORCE</span></li>
+                <li>Deep RL 2 <span>A2C / PPO</span></li>
+                <li>LeRobot 소개 <span>구성 요소</span></li>
+              </ul>
+            </div>
+            <div class="refcol">
+              <div class="refhd">2일차 · 8H — 하드웨어와 모방학습</div>
+              <ul>
+                <li>로봇 하드웨어 <span>구성요소 / 발전사 / 최신 휴머노이드</span></li>
+                <li>로보틱스 <span>Rotation / FK·IK / Control</span></li>
+                <li>모방학습 기법 1 <span>Behavior Cloning / DAgger</span></li>
+                <li>모방학습 기법 2 <span>Inverse RL / GAIL</span></li>
+                <li>모방학습 기법 3 <span>Multi-modal IL / ACT</span></li>
+                <li>모방학습 최신 기법 <span>Diffusion Policy / Flow-matching</span></li>
+                <li>LeRobot 분석 <span>환경 구성 / 코드 분석</span></li>
+              </ul>
+            </div>
+            <div class="refcol">
+              <div class="refhd">3일차 · 4H — 실습과 VLA</div>
+              <ul>
+                <li>VLA 소개 및 개요 <span>LLM & VLM & VLA / Dataset / Model</span></li>
+                <li>VLA 상세 <span>RT-1,2 · OpenVLA / Pi0 · OFT / Pi0.5 · GR00T</span></li>
+                <li>LeRobot 학습 <span>데이터 수집 / 구조 / 학습</span></li>
+                <li>LeRobot 추론 <span>추론 / SmolVLA</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">05 / 커리큘럼</span>
+          <p class="kicker">단기 집중 · 28H (1/2)</p>
+          <h2>디지털 트윈으로 만나는 Physical AI — 1·2회차</h2>
+          <p class="lead">매주 토요일 10:00~17:00, 회차당 7시간. 실물 LeRobot과 시뮬레이션을 병행합니다.</p>
+          <div class="grid g2">
+            <div class="refcol">
+              <div class="refhd">1회차 · 7H — 로봇 제어 기초 (디지털 트윈 구축)</div>
+              <ul>
+                <li>10:00 오리엔테이션 및 개념 이해 <span>Physical AI의 정의와 사례</span></li>
+                <li>11:00 디지털 트윈 개념·구조 <span>센서·시뮬레이터·제어기 / 데이터 동기화</span></li>
+                <li>12:00 LeRobot 실습 <span>환경 구성 / 센서 제어 / 모터 제어</span></li>
+                <li>14:00 Unity 디지털 트윈 ① <span>설치·조작 / URDF·FBX 임포트 / 모델 로드</span></li>
+                <li>15:00 Unity 디지털 트윈 ② <span>센서 시각화 / ROS·Socket 연동 / PID 제어</span></li>
+                <li>16:00 LeRobot 통합 테스트 <span>Unity 시뮬 ↔ LeRobot 연동 시연</span></li>
+              </ul>
+            </div>
+            <div class="refcol">
+              <div class="refhd">2회차 · 7H — 시뮬레이션을 활용한 로봇 제어</div>
+              <ul>
+                <li>10:00 강화학습 이론 <span>MDP · 벨만 / 몬테카를로 · TD / Q러닝 · DQN</span></li>
+                <li>11:00 강화학습 시뮬레이션 실습 <span>PPO · SAC / 보상 함수 설계 / MuJoCo 정책 학습</span></li>
+                <li>12:00 MuJoCo 환경 구성 <span>URDF·MJCF 로딩 / 관절 상태 / 카메라·GUI</span></li>
+                <li>14:00 LeRobot+MuJoCo 실습 1 <span>시연 데이터 수집 → 재생 → ACT 훈련</span></li>
+                <li>15:00 LeRobot+MuJoCo 실습 2 <span>정책 배포 / 언어 조건 데이터 / SmolVLA 학습·배포</span></li>
+                <li>16:00 실물 LeRobot 데이터 수집 <span>teleoperation 기반 수집</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">05 / 커리큘럼</span>
+          <p class="kicker">단기 집중 · 28H (2/2)</p>
+          <h2>디지털 트윈으로 만나는 Physical AI — 3·4회차</h2>
+          <p class="lead">모방학습으로 피킹을 익히고, VLA 통합 에이전트로 마무리합니다.</p>
+          <div class="grid g2">
+            <div class="refcol">
+              <div class="refhd">3회차 · 7H — AI·로봇 피킹 (지능 고도화)</div>
+              <ul>
+                <li>10:00 강화학습과 모방학습 비교 <span>PPO · SAC 설명</span></li>
+                <li>11:00 모방학습: ACT <span>Action Chunking Transformer 구조</span></li>
+                <li>12:00 모방학습: Diffusion Policy <span>구조 이해</span></li>
+                <li>14:00 ACT 데이터 수집 <span>LeRobot을 이용한 수집</span></li>
+                <li>15:00 ACT 학습 <span>Colab 학습 환경 / 학습 파이프라인</span></li>
+                <li>16:00 ACT 추론 및 평가 <span>Trajectory 분석 및 행동 비교</span></li>
+              </ul>
+            </div>
+            <div class="refcol">
+              <div class="refhd">4회차 · 7H — VLA 기반 통합 에이전트</div>
+              <ul>
+                <li>10:00 VLA 개요 및 원리 <span>VLM 구조 / CLIP·BLIP 매핑 / 행동 제어 원리</span></li>
+                <li>11:00 MuJoCo+LeRobot 환경 및 VLA 연동 <span>시뮬레이터 설정 / SDK 설치</span></li>
+                <li>12:00 SmolVLA 모델 분석 <span>아키텍처 및 경량화 특징</span></li>
+                <li>14:00 데이터 수집 <span>언어 명령 → 행동 연동 / 시각+언어+행동 수집</span></li>
+                <li>15:00 SmolVLA 학습 파이프라인 <span>토큰화 / 사전학습 모델 Fine-tuning</span></li>
+                <li>16:00 자연어 명령 시연 및 평가 <span>멀티모달 행동 생성 / 정확도·일관성 분석</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">05 / 커리큘럼</span>
+          <p class="kicker">정규 교과 · 45H × 2</p>
+          <h2>피지컬AI실습 초급 / 중급 — 대학 정규 학점 교과</h2>
+          <p class="lead">전 모듈에 기업 실무 멘토링을 연계해 편성합니다.</p>
+          <div class="grid g2">
+            <div class="refcol">
+              <div class="refhd">초급 45H — 시뮬레이션 기반 로봇 제어 입문</div>
+              <ul>
+                <li>Embodied AI와 Digital Twin 입문 <span>3H · Unity 기초 환경 구축</span></li>
+                <li>Unity 기초와 가상 환경 제어 <span>6H · 물리 환경 내 객체 제어</span></li>
+                <li>LeRobot 오픈소스 활용 기초 <span>6H · 로봇 팔 제어 구조</span></li>
+                <li>[프로젝트] Phosphobot 제어 <span>6H · 소형 로봇 기초 모션 제어</span></li>
+                <li>강화학습(RL) 기초 구현 <span>6H · Grid World 에이전트</span></li>
+                <li>MuJoCo 물리 엔진 활용 <span>6H · 모델 로딩 / 물리 상호작용</span></li>
+                <li>LeRobot with MuJoCo <span>6H · 통합 시뮬레이션</span></li>
+                <li>[프로젝트] 기초 주행 로봇 시뮬레이션 <span>6H · 이동 제어 / 센서 처리</span></li>
+              </ul>
+            </div>
+            <div class="refcol">
+              <div class="refhd">중급 45H — VLA 파인튜닝과 Sim2Real</div>
+              <ul>
+                <li>심화 강화학습 로봇 제어 <span>9H · PPO·SAC를 로봇 팔·휴머노이드에 적용</span></li>
+                <li>확산 모델(Diffusion) 기반 제어 <span>6H · Diffusion Policy 행동 생성</span></li>
+                <li>[프로젝트] LeRobot Data Collection <span>6H · 데모 데이터 수집 파이프라인</span></li>
+                <li>VLA 기초 <span>3H · 시각·언어를 행동으로 연결</span></li>
+                <li>VLA 모델 파인튜닝 <span>9H · OpenVLA Fine-tuning</span></li>
+                <li>SmolVLA 경량화 모델 활용 <span>6H · 엣지 배포 및 추론 최적화</span></li>
+                <li>[프로젝트] Digital Twin 기반 Sim2Real <span>6H · 정책 검증</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">05 / 커리큘럼</span>
+          <p class="kicker">정규 교과 · 연계 교과 135H</p>
+          <h2>Physical AI 계열을 최대 225시간까지 확장</h2>
+          <p class="lead">위 초급·중급 90H에 아래 3개 교과를 더하면 정규 교과 체계가 완성됩니다.</p>
+          <table class="prop">
+            <thead><tr><th>교과</th><th>구성 모듈 (전체)</th><th class="c">시간</th></tr></thead>
+            <tbody>
+              <tr><td class="trk">고급<br>딥러닝</td><td class="core">딥러닝 레이어 심층 분석(3H) · Convolution 레이어 심층 분석(3H) · Embedding 레이어(3H) · Recurrent 레이어와 시계열(3H) · 시퀀스 투 시퀀스(3H) · [프로젝트] 작사가 AI(3H) · 강화학습 기초 이론(3H) · DQN(3H) · Policy Gradient(3H) · PPO와 SAC(3H) · <b>VLA 모델(3H)</b> · <b>Diffusion Models for Control(3H)</b> · <b>Imitation Learning 심화(3H)</b> · [프로젝트] 딥러닝 기반 로봇 제어(6H)</td><td class="hrs">45H</td></tr>
+              <tr><td class="trk">인공지능과<br>자율주행</td><td class="core">자율주행 기술 개요(3H) · ROS2와 시뮬레이션 환경(3H) · [실습] ROS2 프로그래밍 기초(3H) · 컴퓨터 비전 기반 차선 인식(3H) · [프로젝트] 라인 트래킹 로봇(9H) · LiDAR 센서와 장애물 감지(3H) · [프로젝트] 장애물 회피 주행(9H) · sLAM과 내비게이션(3H) · 강화학습 기반 자율주행(3H) · [프로젝트] 도심 주행 시뮬레이션(6H)</td><td class="hrs">45H</td></tr>
+              <tr><td class="trk">임베디드 OS<br>(Edge AI)</td><td class="core">Edge AI 개요·아키텍처(3H) · 엣지 디바이스 환경 구축(3H) · 경량 AI 프레임워크(3H) · 경량화① Quantization(3H) · 경량화② Pruning(3H) · TensorRT 추론 최적화(3H) · ROS2 기초와 로봇 제어(3H) · Gazebo 시뮬레이션(3H) · 센서 기반 주행 제어(3H) · [프로젝트] 강화학습 자율주행(3H) · 실시간 비전 AI on Edge(3H) · 온디바이스 음성·언어 AI(3H) · Edge AI 시스템 통합(3H) · [최종 프로젝트] Edge AI 솔루션 ①②(6H)</td><td class="hrs">45H</td></tr>
+              <tr class="sumrow"><td class="trk">합계</td><td>피지컬AI실습 초급·중급 90H + 연계 교과 135H</td><td class="hrs">225H</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">05 / 커리큘럼</span>
+          <p class="kicker">나노디그리 · 180H (1/3)</p>
+          <h2>ND1 피지컬 AI 핵심 기초 (60H)</h2>
+          <p class="lead">집중이수 주 5일 몰입형. 15시간 4개 모듈로 구성되며, 모듈마다 이론·실습·캡스톤 시간이 분리 편성됩니다.</p>
+          <table class="prop">
+            <thead><tr><th class="c">과목</th><th>모듈</th><th>세부 구성</th><th class="c">시간</th></tr></thead>
+            <tbody>
+              <tr><td class="trk" rowspan="4">ND1<br>핵심 기초</td><td class="course">M1. LLM 파운데이션 &amp; 임베딩</td><td class="core">[이론 5H] Transformer 구조 심화·초거대 AI 진화 사례 · [실습 6H] 경량 SLM(Llama-3 8B, Qwen 1.5B) 로컬 파인튜닝 · [캡스톤 4H] HuggingFace 커스텀 모델 구축</td><td class="hrs">15H</td></tr>
+              <tr><td class="course">M7. 로봇공학 이론 및 피지컬 인지</td><td class="core">[이론 4H] 로봇 기구학·휴머노이드 모션 제어 사례 · [실습 6H] Numpy 기반 6DoF 매니퓰레이터 순기구학·좌표 가시화 · [실습 5H] 카메라·LiDAR 처리 및 Pinhole 캘리브레이션</td><td class="hrs">15H</td></tr>
+              <tr><td class="course">M8. ROS2 생태계 및 로봇 통신 심화</td><td class="core">[이론 5H] ROS2 아키텍처·DDS, 다수종 AMR 통합 통신망 사례 · [실습 6H] Turtlesim·Turtlebot3 Topic/Action 통신망 구축 · [실습 4H] URDF 분석 및 TF2 좌표 변환 노드</td><td class="hrs">15H</td></tr>
+              <tr><td class="course">M13. 물리 시뮬레이션 및 에이전트 연동</td><td class="core">[이론 5H] 강체 동역학·MuJoCo 구조, 대규모 병렬 RL 시뮬레이터 사례 · [실습 5H] MuJoCo·Isaac Sim 로봇 스폰·토크 제어 · [캡스톤 5H] ROS2 연동 Pick &amp; Place 단대단</td><td class="hrs">15H</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">05 / 커리큘럼</span>
+          <p class="kicker">나노디그리 · 180H (2/3)</p>
+          <h2>ND2 합성 데이터 및 멀티모달 데이터셋 구축 (60H)</h2>
+          <p class="lead">시뮬레이션으로 데이터를 찍어내고, 그 데이터로 비전·VLM 모델을 학습시키는 파이프라인 전체를 다룹니다.</p>
+          <table class="prop">
+            <thead><tr><th class="c">과목</th><th>모듈</th><th>세부 구성</th><th class="c">시간</th></tr></thead>
+            <tbody>
+              <tr><td class="trk" rowspan="4">ND2<br>합성 데이터</td><td class="course">M14. Isaac Sim / Omniverse 입문</td><td class="core">[이론 5H] USD 구조 철학·NVIDIA GR00T·Cosmos 사례 · [실습 5H] Isaac Sim 환경 구축·이동체·매니퓰레이터 로드 · [실습 5H] Replicator 도메인 랜덤화(빛·재질·노이즈)</td><td class="hrs">15H</td></tr>
+              <tr><td class="course">M16. 합성데이터·라벨링 파이프라인</td><td class="core">[이론 4H] Sim2Real 도메인 갭·유효성 지표(PGR) · [실습 6H] 2D 박스·시맨틱 마스크 자동 대량 추출 · [실습 5H] YOLO 학습 포맷 데이터셋화 파이프라인·통계 분석</td><td class="hrs">15H</td></tr>
+              <tr><td class="course">M9. 로봇 비전 인지: 탐지·추적·포즈</td><td class="core">[이론 4H] 2D/3D 비전 수학 기초·제로샷 6D Pose(FoundationPose) · [실습 6H] YOLO11 합성 데이터 객체 탐지 파인튜닝 · [캡스톤 5H] 실장비 vs 합성 혼합 학습 검증·mAP 산출</td><td class="hrs">15H</td></tr>
+              <tr><td class="course">M4. 멀티모달 LLM (VLM) 심화</td><td class="core">[이론 4H] 상용 VLM 공정 시각 검수·불량 검출 사례 · [실습 6H] 오픈소스 VLM(Florence-2, Qwen-VL-3B) 설치·추론 · [캡스톤 5H] 합성 이미지 VQA 및 객체 Grounding</td><td class="hrs">15H</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">05 / 커리큘럼</span>
+          <p class="kicker">나노디그리 · 180H (3/3)</p>
+          <h2>ND5 로보틱스 LLM 에이전트 구축 · 전체 운영 체계</h2>
+          <p class="lead">고급 과정은 LLM 에이전트가 로봇을 지휘하는 단대단 아키텍처로 마무리됩니다.</p>
+          <table class="prop">
+            <thead><tr><th class="c">과목</th><th>모듈</th><th>세부 구성</th><th class="c">시간</th></tr></thead>
+            <tbody>
+              <tr><td class="trk" rowspan="4">ND5<br>LLM 에이전트</td><td class="course">M2. 프롬프트 엔지니어링 &amp; RAG 심화</td><td class="core">[이론 4H] 프롬프트 체인 고도화·엔터프라이즈 Search RAG 사례 · [실습 6H] 로봇 매뉴얼·ROS2 문서 색인(ChromaDB) 단대단 RAG · [실습 5H] 환각 억제 Guardrail·RAGAS 신뢰성 개선</td><td class="hrs">15H</td></tr>
+              <tr><td class="course">M4. VLA 및 공간 지능의 이해</td><td class="core">[이론 4H] RT-2·Figure 01 등 VLA 파운데이션 동향 · [실습 5H] OpenVLA 레이어 구조·3D 좌표계 반환 메커니즘 · [실습 6H] 사물 관계 추론·지시어 공간 지능 분해 및 프롬프트 파싱</td><td class="hrs">15H</td></tr>
+              <tr><td class="course">M6. 에이전트 플래닝 및 정렬</td><td class="core">[이론 4H] ReAct 한계·계층적 멀티 에이전트 트렌드 · [실습 6H] LangGraph 상태 기반 다단계 워크플로우 에이전트 · [실습 5H] 도구 풀 정의·MLflow 사고 추적 및 플래닝 검증</td><td class="hrs">15H</td></tr>
+              <tr><td class="course">M12. 로봇 시스템 E2E 통합 캡스톤</td><td class="core">[이론 4H] Task→Skill→Action 3원화 상용 아키텍처 · [실습 5H] LeRobot 연계 통신·ROS2 Action 브릿지 레이어 · [캡스톤 6H] 자연어 지시만으로 인지→플래닝→움직임→검증 데모</td><td class="hrs">15H</td></tr>
+            </tbody>
+          </table>
+          <p class="note"><b>전체 나노디그리 운영 체계</b><br>초급 AI 기초(3학점, P/F) &nbsp;|&nbsp; 중급 ND1 핵심 기초 · ND2 합성 데이터 · ND3 자율주행/로봇 인지 &nbsp;|&nbsp; 고급 ND4 Sim2Real · ND5 LLM 에이전트 · ND6 산업 디지털 트윈 (각 6학점)<br>평가 절대평가 75점 이상, 포트폴리오 + 캡스톤 &nbsp;·&nbsp; 운영 학기 중 야간·주말 집중이수, 하계·동계 주 5일 몰입형</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">05 / 커리큘럼</span>
+          <p class="kicker">전문가 양성 · 840H (1/2)</p>
+          <h2>제조 혁신 Physical AI 전문가 과정 — 정규 교과 365H</h2>
+          <p class="lead">6개월 전일제 비대면 실시간. 기초 3과목으로 다지고 Physical AI 핵심 5과목으로 심화합니다.</p>
+          <table class="prop">
+            <thead><tr><th class="c">구분</th><th>교과목</th><th>세부내용</th><th class="c">시간</th></tr></thead>
+            <tbody>
+              <tr><td class="trk" rowspan="3">기초<br>98H</td><td class="course">아이펠 적응하기</td><td class="core">협업 툴 및 교육 철학 이해, 리눅스·터미널 기초, GitHub 사용법 및 레포지토리 구성 실습</td><td class="hrs">14H</td></tr>
+              <tr><td class="course">딥러닝 기초 다지기</td><td class="core">데이터 전처리·시각화, 사이킷런 머신러닝, Regularization·비지도학습, 캐글 경진대회 실습</td><td class="hrs">49H</td></tr>
+              <tr><td class="course">딥러닝 심화</td><td class="core">파이토치 기초, CNN·RNN 구현, Transformer 이해, 모델 구현 실습</td><td class="hrs">35H</td></tr>
+              <tr><td class="trk" rowspan="5">Physical AI<br>핵심 267H</td><td class="course">컴퓨터 비전</td><td class="core">Object Detection, Segmentation, Depth Estimation, 산업용 비전 검사 시스템</td><td class="hrs">49H</td></tr>
+              <tr><td class="course">NVIDIA Isaac Sim</td><td class="core">Isaac Sim 환경 구축, URDF 로봇 시뮬레이션, ROS2 통합, Synthetic Data Generation</td><td class="hrs">56H</td></tr>
+              <tr><td class="course">Robot Learning</td><td class="core">강화학습 기반 로봇 제어, Isaac Lab 활용, Imitation Learning, Sim-to-Real Transfer</td><td class="hrs">56H</td></tr>
+              <tr><td class="course">LeRobot 실습</td><td class="core">LeRobot 프레임워크, Diffusion Policy 모델, 로봇 데이터셋 구축 및 학습</td><td class="hrs">49H</td></tr>
+              <tr><td class="course">Physical AI 배포</td><td class="core">Jetson 기반 엣지 배포, 실시간 추론 최적화, 로봇 시스템 통합</td><td class="hrs">57H</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">05 / 커리큘럼</span>
+          <p class="kicker">전문가 양성 · 840H (2/2)</p>
+          <h2>프로젝트 454H — 전체의 54%</h2>
+          <p class="lead">훈련 시간의 절반 이상을 실제 제조 현장 과제 해결에 씁니다.</p>
+          <table class="prop">
+            <thead><tr><th class="c">구분</th><th>과정</th><th>세부내용</th><th class="c">시간</th></tr></thead>
+            <tbody>
+              <tr><td class="trk" rowspan="3">프로젝트<br>454H</td><td class="course">로보틱스 해커톤</td><td class="core">시뮬레이션 기반 로봇 제어 미니 해커톤, 팀 협업 및 피어 리뷰</td><td class="hrs">28H</td></tr>
+              <tr><td class="course">미니아이펠톤</td><td class="core">중간 점검 프로젝트, 멘토 피드백 및 개선</td><td class="hrs">35H</td></tr>
+              <tr><td class="course">365 챌린지</td><td class="core">제조 현장 Physical AI 솔루션 개발, PoC 구현 및 최종 발표</td><td class="hrs">391H</td></tr>
+              <tr><td class="trk">기타<br>21H</td><td class="course">OT·수료식 / 재량교과</td><td class="core">OT 및 졸업식(14H) · 현직자 세미나(7H)</td><td class="hrs">21H</td></tr>
+              <tr class="sumrow"><td class="trk">합계</td><td colspan="2">정규 교과 365H + 프로젝트 454H + 기타 21H &nbsp;|&nbsp; 120일 / 6개월 / 비대면 실시간 100%</td><td class="hrs">840H</td></tr>
+            </tbody>
+          </table>
+          <div class="grid g4" style="margin-top:16px">
+            <div class="kpi"><div class="n">60<small>%</small></div><div class="l">목표 취업률</div></div>
+            <div class="kpi"><div class="n">90<small>%</small></div><div class="l">목표 수료율</div></div>
+            <div class="kpi"><div class="n">25<small>명</small></div><div class="l">기수당 정원<br>(연 2기 시 50명)</div></div>
+            <div class="kpi"><div class="n">4.7<small>/5</small></div><div class="l">목표 훈련생 만족도</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">06 / 역량</span>
+          <p class="kicker">기술 스택과 실습 환경</p>
+          <h2>Digital Twin에서 VLA까지, 전 구간을 다룹니다</h2>
+          <p class="lead">과정 규모에 따라 아래 스택 중 필요한 범위를 선택해 구성합니다.</p>
+          <div class="chips">
+            <span class="chip">Unity (Digital Twin)</span>
+            <span class="chip">MuJoCo / Isaac Sim</span>
+            <span class="chip">LeRobot (Hugging Face)</span>
+            <span class="chip">Phosphobot</span>
+            <span class="chip">PPO / SAC</span>
+            <span class="chip">ACT / Diffusion Policy</span>
+            <span class="chip">SmolVLA / OpenVLA</span>
+            <span class="chip">ROS2 (Humble)</span>
+            <span class="chip">Python · PyTorch</span>
+            <span class="chip">Google Colab</span>
+          </div>
+          <div class="grid g2" style="margin-top:22px">
+            <div class="refcol">
+              <div class="refhd">실물 실습형 인프라</div>
+              <ul>
+                <li>LeRobot 로봇팔 <span>2인 1대 권장</span></li>
+                <li>실습 공간 및 안정적 네트워크 <span>대면 과정</span></li>
+                <li>개인 노트북 <span>전 과정 공통</span></li>
+              </ul>
+            </div>
+            <div class="refcol">
+              <div class="refhd">시뮬레이션 중심 인프라</div>
+              <ul>
+                <li>Google Colab 또는 클라우드 GPU <span>1인 1환경</span></li>
+                <li>로봇 장비 <span>불필요</span></li>
+                <li>도달 범위 <span>장비 없이 VLA 파인튜닝까지 완주 가능</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide ">
+      <div class="fit-frame">
+        <div class="fit-content">
+          <span class="sec-num">07 / 노하우</span>
+          <p class="kicker">실제 운영에서 얻은 것</p>
+          <h2>28시간을 직접 운영하며 확인한 네 가지</h2>
+          <div class="why">
+            <h3>운영 노하우</h3>
+            <ul>
+              <li><b>장비 대수가 학습 몰입을 좌우합니다.</b> 로봇팔 1대를 3~4명이 공유하면 실습 밀도가 급격히 떨어집니다. 실물 실습은 2인 1대를 권장하며, 예산 제약이 있으면 시뮬레이션 중심으로 전환해 1인 1환경을 확보하는 편이 효과적입니다.</li>
+              <li><b>설치 시간은 실습 시간이 아닙니다.</b> 로컬 설치가 필요한 도구는 사전 안내 자료를 배포하거나, Colab 기반으로 설계해 설치 단계를 제거합니다.</li>
+              <li><b>인프라를 먼저 확정하고 커리큘럼을 설계합니다.</b> 가용 장비·공간·네트워크 기준을 먼저 정한 뒤 환경 세팅~평가까지의 시간을 역산합니다.</li>
+              <li><b>현업 엔지니어에게는 엔지니어링 깊이가 필요합니다.</b> 단순 체험을 넘어 Tele-operation 데이터 수집의 정교함, 캘리브레이션 등 실무 관점 가이드를 제공합니다.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide closing">
+      <div class="fit-frame center">
+        <div class="fit-content">
+          <p class="kicker">맺음말</p>
+          <h2>규모와 목표를 알려주시면,<br>거기에 맞춰 재단해 드리겠습니다.</h2>
+          <p class="msg">18시간 특강부터 840시간 전문가 양성까지, 같은 뿌리에서 나온 커리큘럼입니다. 실제로 운영해 본 과정이 기준점에 있기 때문에 어느 규모로 조정하더라도 무엇이 빠지고 무엇이 남아야 하는지 판단할 수 있습니다.</p>
+          <div class="sign">
+            <span><b>모두의연구소 기업교육</b></span>
+            <span>교육 문의 · modu.biz@modulabs.co.kr</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+  </div>
+</div>
+
+<script>
+(function(){
+  const deck   = document.getElementById('deck');
+  const nav    = document.getElementById('nav');
+  const numEl  = document.getElementById('slideNum');
+  const slides = Array.from(deck.querySelectorAll('.slide'));
+  const total  = slides.length;
+  let current  = 0;
+
+  // --- 뷰포트에 맞춰 덱 스케일 (진짜 가로 비율 유지) ---
+  function fitStage(){
+    const k = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+    deck.style.transform = 'scale(' + k + ')';
+  }
+
+  // --- 슬라이드 내용이 프레임(720px)을 넘으면 축소해 잘림 방지 ---
+  function fitContent(slide){
+    const frame = slide.querySelector('.fit-frame');
+    const content = slide.querySelector('.fit-content');
+    if(!frame || !content) return;
+    content.style.transform = 'none';
+    const avail = frame.clientHeight;
+    const need  = content.scrollHeight;
+    if(need > avail){
+      content.style.transform = 'scale(' + (avail / need).toFixed(4) + ')';
+    }
+  }
+
+  // --- 내비 점 생성 ---
+  slides.forEach((slide, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot';
+    dot.type = 'button';
+    dot.title = '슬라이드 ' + (i + 1);
+    dot.addEventListener('click', () => go(i));
+    nav.appendChild(dot);
+  });
+  const dots = Array.from(nav.querySelectorAll('.nav-dot'));
+
+  function go(i){
+    if(i < 0 || i >= total) return;
+    slides[current].classList.remove('is-active');
+    dots[current].classList.remove('active');
+    current = i;
+    slides[current].classList.add('is-active');
+    dots[current].classList.add('active');
+    numEl.textContent = (current + 1) + ' / ' + total;
+    fitContent(slides[current]);
+  }
+
+  window.addEventListener('resize', () => { fitStage(); fitContent(slides[current]); });
+  window.addEventListener('load', () => { slides.forEach(fitContent); });
+  window.addEventListener('beforeprint', () => slides.forEach(fitContent));
+
+  document.addEventListener('keydown', e => {
+    if(e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' '){ e.preventDefault(); go(current + 1); }
+    if(e.key === 'ArrowLeft'  || e.key === 'ArrowUp'){ e.preventDefault(); go(current - 1); }
+    if(e.key === 'Home'){ e.preventDefault(); go(0); }
+    if(e.key === 'End'){ e.preventDefault(); go(total - 1); }
+    if(e.key.toLowerCase() === 'f'){
+      if(!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+
+  fitStage();
+  go(0);
+})();
+</script>
+</body>
+</html>

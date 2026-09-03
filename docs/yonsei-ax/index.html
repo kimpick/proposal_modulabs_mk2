@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>연세대 AX 교육 — 트랙별 교안 슬라이드</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #FAF7F2;
+    color: #1A1A1A;
+    min-height: 100vh;
+    padding: 60px 24px;
+  }
+  .container { max-width: 900px; margin: 0 auto; }
+  h1 {
+    font-size: 2.4rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: 0;
+  }
+  .subtitle {
+    color: #6B7280;
+    font-size: 1.05rem;
+    margin-bottom: 48px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .card {
+    background: white;
+    border-radius: 16px;
+    padding: 32px 28px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid #EEE;
+    display: block;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08), 0 16px 40px rgba(0,0,0,0.08);
+  }
+  .track-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #F7585C;
+    background: #FEF2F2;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+  }
+  .card h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: 0;
+  }
+  .card p {
+    color: #6B7280;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  .meta {
+    font-size: 0.85rem;
+    color: #9CA3AF;
+    border-top: 1px solid #F3F4F6;
+    padding-top: 16px;
+  }
+  .meta strong { color: #4B5563; font-weight: 600; }
+  .footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid #EEE;
+    color: #9CA3AF;
+    font-size: 0.85rem;
+    text-align: center;
+  }
+  @media (max-width: 520px) {
+    body {
+      padding: 48px 18px;
+      overflow-x: hidden;
+    }
+    h1 {
+      font-size: 2rem;
+      line-height: 1.15;
+    }
+    .subtitle {
+      margin-bottom: 36px;
+      line-height: 1.5;
+    }
+    .grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .card {
+      padding: 28px 24px;
+      min-width: 0;
+    }
+    .card p,
+    .meta {
+      overflow-wrap: anywhere;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>연세대 AX 교육</h1>
+    <p class="subtitle">트랙별 교안 슬라이드 · 2026년 7월 · 모두의연구소</p>
+
+    <div class="grid">
+      <a class="card" href="claude-setup.html">
+        <span class="track-label">SETUP GUIDE</span>
+        <h2>Claude 환경세팅 가이드</h2>
+        <p>Claude 로그인부터 Claude Code 설치, 완료 응답과 문의까지 한 번에 따라 합니다.</p>
+        <div class="meta">
+          <strong>대상:</strong> 연세대 AX 캠프 참여자<br>
+          <strong>포함:</strong> 설치 명령 · 구글폼 · 문의 안내
+        </div>
+      </a>
+
+      <a class="card" href="track1.html">
+        <span class="track-label">TRACK 1</span>
+        <h2>AI 연구자동화 랩</h2>
+        <p>논문 한 편, AI와 함께 끝까지. 비개발자도 연구 파이프라인을 설계한다.</p>
+        <div class="meta">
+          <strong>도구:</strong> Claude · Claude Code · OMC · auto research<br>
+          <strong>강사:</strong> 김민현 (커먼컴퓨터)
+        </div>
+      </a>
+
+      <a class="card" href="track2.html">
+        <span class="track-label">TRACK 2</span>
+        <h2>AI 콘텐츠 크리에이션</h2>
+        <p>오디언스 설계부터 콘텐츠 생산까지. AI 시대 크리에이터의 커리어 설계.</p>
+        <div class="meta">
+          <strong>도구:</strong> Claude · Claude Code · OMC · Notion · Canva · KlingAI<br>
+          <strong>강사:</strong> 이효은 (네이버 커넥트 TF)
+        </div>
+      </a>
+
+      <a class="card" href="track3.html">
+        <span class="track-label">TRACK 3</span>
+        <h2>AI 비즈니스 랩</h2>
+        <p>아이디어가 아닌 사업 단위로 시작. 결제까지 한 줄로 완성한다.</p>
+        <div class="meta">
+          <strong>도구:</strong> Claude · Claude Code · OMC · gstack · Hermes<br>
+          <strong>강사:</strong> 유호현 (정치데이터 스타트업 CEO)
+        </div>
+      </a>
+    </div>
+
+    <div class="footer">
+      © 2026 모두의연구소 · 연세대 AX 교육 프로그램
+    </div>
+  </div>
+</body>
+</html>

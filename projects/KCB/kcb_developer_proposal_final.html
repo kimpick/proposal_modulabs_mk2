@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<style>/* ═══════════════════════════════════════════════════════════
+   모두의연구소 AI교육 제안서 — 공용 디자인 시스템 (base.css)
+   Primary  : #EE3E4C   Secondary : #EBBAC0
+   Border   : #EBEBEB   Text-Dark : #111111   Text-Body : #333333
+   ═══════════════════════════════════════════════════════════ */
+
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+body {
+    font-family: 'Pretendard', sans-serif;
+    color: #333333;
+    margin: 0;
+    padding: 60px;
+    background-color: #ffffff;
+}
+
+/* ─ 헤더 ─ */
+.header {
+    border-bottom: 1px solid #EBEBEB;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+.header-text {
+    color: #EE3E4C;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: right;
+    margin-bottom: 20px;
+}
+.title {
+    font-size: 30px;
+    font-weight: 800;
+    color: #111111;
+    margin: 0 0 10px 0;
+}
+.subtitle {
+    font-size: 14px;
+    color: #555555;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* ─ 4-Block Info Grid ─ */
+.info-grid {
+    display: flex;
+    gap: 12px;
+    margin: 30px 0 40px 0;
+}
+.info-box {
+    flex: 1;
+    border: 1px solid #EBEBEB;
+    border-radius: 10px;
+    padding: 18px 20px;
+    background: #ffffff;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.info-label {
+    color: #EE3E4C;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+.info-value {
+    font-size: 12px;
+    font-weight: 700;
+    color: #111111;
+    line-height: 1.65;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    hyphens: none;
+}
+
+/* ─ 섹션 타이틀 ─ */
+.section-block {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+.section-title {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 800;
+    color: #111111;
+    margin: 36px 0 16px 0;
+    page-break-after: avoid;
+    break-after: avoid;
+}
+.section-num {
+    color: #EBBAC0;
+    font-size: 30px;
+    font-weight: 900;
+    margin-right: 10px;
+    line-height: 1;
+}
+
+/* ─ 텍스트 콘텐츠 박스 (왼쪽 Red 라인) ─ */
+.content-box {
+    border: 1px solid #EBEBEB;
+    border-left: 5px solid #EE3E4C;
+    border-radius: 10px;
+    padding: 24px 28px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #333333;
+    margin-bottom: 24px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    white-space: pre-line;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.content-box ul {
+    margin: 4px 0;
+    padding-left: 18px;
+}
+.content-box li {
+    margin-bottom: 2px;
+}
+
+/* ─ 핵심 기술 (Pill Badge) ─ */
+.tech-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+.tech-badge {
+    border: 1px solid #EBEBEB;
+    border-radius: 50px;
+    padding: 7px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #111111;
+}
+
+/* ─ 인프라 박스 (왼쪽 Red 라인) ─ */
+.infra-box {
+    border: 1px solid #EBEBEB;
+    border-left: 5px solid #EE3E4C;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+.infra-box ul {
+    margin: 0;
+    padding-left: 18px;
+}
+.infra-box li {
+    margin-bottom: 8px;
+    color: #EE3E4C;
+    font-size: 13px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.infra-box li span {
+    color: #333333;
+}
+
+/* ─ 모듈 박스 (Flex 레이아웃) ─ */
+.module-box {
+    border: 1px solid #EBEBEB;
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+.module-left {
+    width: 130px;
+    flex-shrink: 0;
+    padding-right: 16px;
+    border-right: 1px solid #EBEBEB;
+    margin-right: 20px;
+}
+.module-label {
+    color: #EE3E4C;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+}
+.module-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: #111111;
+    line-height: 1.55;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    hyphens: none;
+}
+.module-right {
+    flex-grow: 1;
+    min-width: 0;
+}
+.module-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+.module-title-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: #111111;
+    line-height: 1.5;
+    word-break: keep-all;
+}
+.module-right ul {
+    margin: 0;
+    padding-left: 14px;
+    padding-right: 36px;
+}
+.module-right li {
+    margin-bottom: 6px;
+    color: #EE3E4C;
+    font-size: 13px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.module-right li span {
+    color: #333333;
+    line-height: 1.7;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+.module-hours {
+    font-size: 11px;
+    font-weight: 800;
+    color: #aaaaaa;
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding-top: 1px;
+}
+
+/* ─ 일정 Placeholder ─ */
+.schedule-placeholder {
+    border: 1px dashed #EBBAC0;
+    background-color: #fdf8f8;
+    border-radius: 10px;
+    padding: 28px;
+    text-align: center;
+    font-size: 13px;
+    color: #888888;
+    line-height: 1.9;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin-bottom: 24px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+/* ─ 강사 이력 카드 ─ */
+.instructor-card {
+    border: 1px solid #EBEBEB;
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+.instructor-label {
+    display: inline-block;
+    background-color: #EE3E4C;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    padding: 4px 12px;
+    border-radius: 50px;
+    margin-bottom: 12px;
+}
+.instructor-name {
+    font-size: 15px;
+    font-weight: 800;
+    color: #111111;
+    margin-bottom: 10px;
+}
+.instructor-desc {
+    font-size: 13px;
+    color: #444444;
+    line-height: 1.8;
+    margin-bottom: 14px;
+    border-left: 3px solid #EBBAC0;
+    padding-left: 14px;
+    word-break: keep-all;
+}
+.instructor-sub-label {
+    font-size: 10px;
+    font-weight: 800;
+    color: #EE3E4C;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    margin-top: 14px;
+}
+.instructor-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.instructor-tag {
+    border: 1px solid #EBEBEB;
+    border-radius: 50px;
+    padding: 5px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #555555;
+}
+.instructor-history ul {
+    margin: 0;
+    padding-left: 18px;
+}
+.instructor-history li {
+    color: #EE3E4C;
+    font-size: 13px;
+    margin-bottom: 4px;
+    word-break: keep-all;
+}
+.instructor-history li span {
+    color: #333333;
+}
+.instructor-stats {
+    display: flex;
+    gap: 0;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    padding: 20px 28px;
+    margin-top: 16px;
+}
+.instructor-stat-item {
+    flex: 1;
+    text-align: center;
+    border-right: 1px solid #333333;
+    padding: 0 16px;
+}
+.instructor-stat-item:first-child { padding-left: 0; }
+.instructor-stat-item:last-child { border-right: none; padding-right: 0; }
+.instructor-stat-value {
+    font-size: 22px;
+    font-weight: 900;
+    color: #D4A842;
+    margin-bottom: 6px;
+    line-height: 1;
+}
+.instructor-stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #aaaaaa;
+}
+
+/* ─ 페이지 분리 ─ */
+.page-break {
+    page-break-before: always;
+}
+
+/* ─ 푸터 ─ */
+.footer {
+    margin-top: 60px;
+    padding-top: 18px;
+    border-top: 1px solid #EBEBEB;
+    text-align: center;
+    font-size: 11px;
+    color: #aaaaaa;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <div class="header-text">모두의연구소 AI교육 커리큘럼 2026</div>
+    <h1 class="title">KCB 개발자 대상 AI Agent 실전 과정</h1>
+    <p class="subtitle">실무 중심 | LLM·프롬프트부터 MCP·Agent 구축까지 | 총 10시간</p>
+</div>
+
+<div class="info-grid">
+    <div class="info-box"><div class="info-label">키워드 구분</div><div class="info-value">AI Agent 실전 구축</div></div>
+    <div class="info-box"><div class="info-label">AX 적용 단계</div><div class="info-value">실무 과정</div></div>
+    <div class="info-box"><div class="info-label">권장 수강 대상</div><div class="info-value">사내 개발자 (Python 기본)</div></div>
+    <div class="info-box"><div class="info-label">총 기간</div><div class="info-value">3주 × 주 2회, 총 10H</div></div>
+</div>
+
+<div class="section-title"><span class="section-num">01</span>과정 소개</div>
+<div class="content-box">본 과정은 LLM 기본 원리와 프롬프트 엔지니어링부터 시작해 Function Call, MCP 서버·Plugin 연동, 멀티 도구 Agent 구축까지 실무 중심으로 다룹니다.
+
+1주차에서 LLM 기초와 프롬프트 엔지니어링으로 기반을 다지고, 2주차에서 MCP 서버 구축과 멀티 도구 Agent를 실습하며, 3주차에서 본인 업무 기반 미니 Agent를 직접 기획·구현·발표합니다.
+
+모든 실습은 사내 Qwen Code 환경과 폐쇄망에서 재현 가능하도록 설계되었으며, 외부 API나 클라우드 의존성 없이 동작합니다.</div>
+
+<div class="section-title"><span class="section-num">02</span>교육 목표</div>
+<div class="content-box"><ul>
+<li><b>LLM·Agent·Tool 구조 이해</b>: 토큰, Function Call, MCP Protocol, Agent Loop의 작동 원리를 코드 레벨에서 이해하고 설명할 수 있는 수준에 도달합니다.</li>
+<li><b>MCP·Plugin 연동 능력</b>: MCP 서버를 구성하고 Plugin 아키텍처로 사내 시스템·DB·API를 Qwen Code가 직접 호출하는 도구로 연동하는 방법을 익힙니다.</li>
+<li><b>멀티 도구 Agent 구현</b>: Function Call과 MCP·Plugin을 조합해 여러 도구를 호출하는 워크플로우를 구축하고, 분기·재시도·로깅까지 운영 가능한 형태로 완성합니다.</li>
+<li><b>개인 업무 Agent 산출</b>: 본인 업무 시나리오를 기반으로 미니 Agent를 직접 기획·구현·발표하여, 교육 종료 후 즉시 배포 가능한 결과물을 만듭니다.</li>
+</ul></div>
+
+<div style="display: flex; gap: 40px; page-break-inside: avoid; break-inside: avoid;">
+    <div style="flex: 1;">
+        <div class="section-title"><span class="section-num">03</span>핵심 기술 스택</div>
+        <div class="tech-container">
+            <div class="tech-badge">Qwen Code</div>
+            <div class="tech-badge">MCP</div>
+            <div class="tech-badge">Plugin</div>
+            <div class="tech-badge">Function Call</div>
+            <div class="tech-badge">Agent Framework</div>
+        </div>
+    </div>
+    <div style="flex: 1.4;">
+        <div class="section-title"><span class="section-num">04</span>필요 인프라</div>
+        <div class="infra-box">
+            <ul>
+                <li><span>1인 1대 <b>실습 PC</b> (Python 3.10+, Jupyter)</span></li>
+                <li><span>사내 <b>Qwen Code 호출 권한</b> 및 API endpoint</span></li>
+                <li><span><b>MCP 서버</b> 실행 환경 (Python/Node 런타임)</span></li>
+                <li><span>Agent Framework 등 <b>사내 패키지 미러</b></span></li>
+                <li><span>실습용 <b>샘플 데이터셋</b> 및 사내 문서</span></li>
+                <li><span><b>코드 공유용 사내망 도구</b> (Confluence·GitLab 등)</span></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="page-break"></div>
+
+<div class="section-title"><span class="section-num">05</span>상세 커리큘럼</div>
+
+<div class="module-box">
+    <div class="module-left">
+        <div class="module-label">MODULE 01</div>
+        <div class="module-name">1주차·화</div>
+    </div>
+    <div class="module-right">
+        <div class="module-header">
+            <div class="module-title-text">LLM 기초 · Qwen Code 환경 + 하네스 엔지니어링</div>
+            <div class="module-hours">2H</div>
+        </div>
+        <ul>
+            <li><span>생성형 AI 동작 원리 — Transformer, Attention, 토큰</span></li>
+            <li><span>Qwen Code API 호출 패턴 — Few/Zero Shot, Chain-of-Thought</span></li>
+            <li><span><b>실습</b> Qwen Code 첫 호출 + 코드 리뷰·리팩터링 프롬프트 설계</span></li>
+        </ul>
+    </div>
+</div>
+
+<div class="module-box">
+    <div class="module-left">
+        <div class="module-label">MODULE 02</div>
+        <div class="module-name">1주차·수</div>
+    </div>
+    <div class="module-right">
+        <div class="module-header">
+            <div class="module-title-text">Simple Agent 제작 + Function Call 기초</div>
+            <div class="module-hours">2H</div>
+        </div>
+        <ul>
+            <li><span>Agent 기본 구조 — ReAct 패턴과 Agent Loop 이해</span></li>
+            <li><span>Function Call 개념 — 호출 스키마 설계, 사내 API 연동 기초</span></li>
+            <li><span><b>실습</b> 코드 도우미 Agent 프로토타입 + Function Call로 데이터 조회</span></li>
+        </ul>
+    </div>
+</div>
+
+<div class="module-box">
+    <div class="module-left">
+        <div class="module-label">MODULE 03</div>
+        <div class="module-name">2주차·화</div>
+    </div>
+    <div class="module-right">
+        <div class="module-header">
+            <div class="module-title-text">MCP 서버 구축 + Plugin 아키텍처</div>
+            <div class="module-hours">2H</div>
+        </div>
+        <ul>
+            <li><span>MCP(Model Context Protocol) 개념 — 서버-클라이언트 구조</span></li>
+            <li><span>Plugin 설계 — 사내 DB·내부 API·GitLab 등 시스템 도구화</span></li>
+            <li><span><b>실습</b> 사내 시스템 연동 MCP 서버 구축 + Qwen Code에서 호출</span></li>
+        </ul>
+    </div>
+</div>
+
+<div class="module-box">
+    <div class="module-left">
+        <div class="module-label">MODULE 04</div>
+        <div class="module-name">2주차·수</div>
+    </div>
+    <div class="module-right">
+        <div class="module-header">
+            <div class="module-title-text">멀티 도구 Agent + 워크플로우 자동화</div>
+            <div class="module-hours">2H</div>
+        </div>
+        <ul>
+            <li><span>MCP·Plugin·Function Call을 조합한 멀티 도구 Agent 설계</span></li>
+            <li><span>도구 라우팅, 재시도·로깅·실패 처리 등 운영 관점의 패턴</span></li>
+            <li><span><b>실습</b> 코드 검색 + DB 조회 + 보고서 초안 통합 Agent 구축</span></li>
+        </ul>
+    </div>
+</div>
+
+<div class="module-box">
+    <div class="module-left">
+        <div class="module-label">MODULE 05</div>
+        <div class="module-name">3주차·화</div>
+    </div>
+    <div class="module-right">
+        <div class="module-header">
+            <div class="module-title-text">개인 업무 Agent 기획·개발·발표</div>
+            <div class="module-hours">2H</div>
+        </div>
+        <ul>
+            <li><span>본인 업무 시나리오 발굴 및 자동화 가능 영역 도출</span></li>
+            <li><span>기획 → 구현 → 테스트 단축 사이클 + 1:1 멘토링</span></li>
+            <li><span><b>실습</b> 개인 미니 Agent 빌드 + 데모 발표 및 상호 피드백</span></li>
+        </ul>
+    </div>
+</div>
+
+<div class="section-block">
+    <div class="section-title"><span class="section-num">06</span>예상 산출물</div>
+    <div class="content-box"><ul>
+        <li><b>사내 시스템 연동 MCP 서버 (Qwen Code)</b> — 소속 팀에 이식 가능한 구조로 제공</li>
+        <li><b>MCP·Plugin 기반 멀티 도구 Agent 코드베이스</b> — 도구 라우팅 스키마와 로깅 포함</li>
+        <li><b>개인 업무 자동화 Agent 1건</b> — 교육 종료 후 즉시 시범 적용 가능</li>
+    </ul></div>
+</div>
+
+<div class="section-block">
+    <div class="section-title"><span class="section-num">07</span>강사 이력</div>
+
+    <div class="instructor-card">
+        <div class="instructor-label">개발자 과정</div>
+        <div class="instructor-name">석*희 ｜ 백엔드·검색/RAG 인프라 실무 전문</div>
+        <div class="instructor-desc">무신사 검색플랫폼팀 백엔드 엔지니어(5년)로 대규모 트래픽 검색 시스템 설계·운영. Elasticsearch 기반 검색 엔진 고도화·성능 최적화(검색 속도 40%↑), 블랙프라이데이 트래픽 대응(처리량 30%↑·응답시간 20%↓), Kafka 실시간 데이터 파이프라인·Kubernetes(EKS) 오케스트레이션 등 백엔드 인프라 전 영역 경험 보유. KB국민은행 신입 자바 백엔드 교육(평가 5.0점) 등 비전공자 대상 실전형 교육 다수 진행 중.</div>
+        <div class="instructor-sub-label">전문 분야</div>
+        <div class="instructor-tags">
+            <span class="instructor-tag">Java · Spring Boot</span>
+            <span class="instructor-tag">Elasticsearch · 검색/RAG</span>
+            <span class="instructor-tag">Kafka · 데이터 파이프라인</span>
+            <span class="instructor-tag">MSA · Kubernetes</span>
+            <span class="instructor-tag">Redis</span>
+        </div>
+        <div class="instructor-sub-label">주요 이력 / 강의 경험</div>
+        <div class="instructor-history">
+            <ul>
+                <li><span>KB국민은행 신입사원 자바 백엔드 교육 (평가 5.0점)</span></li>
+                <li><span>무신사 검색플랫폼팀 백엔드 엔지니어 (대규모 트래픽 검색 시스템)</span></li>
+                <li><span>써머스플랫폼 검색 엔진 고도화 (에누리·다나와)</span></li>
+                <li><span>GPT 프롬프트·노코드 자동화(Make·n8n) 커뮤니티 세미나</span></li>
+                <li><span>TCP School 온라인 강의 & 경기도청 거꾸로교실 (웹·네트워크·AI 입문)</span></li>
+            </ul>
+        </div>
+        <div class="instructor-stats">
+            <div class="instructor-stat-item">
+                <div class="instructor-stat-value">4.64</div>
+                <div class="instructor-stat-label">전체 만족도</div>
+            </div>
+            <div class="instructor-stat-item">
+                <div class="instructor-stat-value">4.4</div>
+                <div class="instructor-stat-label">교육자료 유용성</div>
+            </div>
+            <div class="instructor-stat-item">
+                <div class="instructor-stat-value">64점</div>
+                <div class="instructor-stat-label">추천지수 NPS</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="section-block">
+    <div class="section-title"><span class="section-num">08</span>일정 협의 안내</div>
+    <div class="schedule-placeholder">
+        <p><b>📅 개강일은 KCB 일정에 맞춰 협의 확정합니다.</b></p>
+        <p>매주 화·수 15:00–17:00, 총 5회차 (10H)</p>
+        <p>회차당 40–50명 기준, 메인 강사 + 보조 강사 1명 운영 권장</p>
+        <br>
+        <p><i>* 상기 일정은 강사 섭외 상황에 따라 조정 가능하며, 교육 전 사전 공지드립니다.</i></p>
+    </div>
+</div>
+
+<div class="footer">
+    &copy; 2026 MODULABS - 모두의연구소 AI 기업교육 커리큘럼
+</div>
+
+</body>
+</html>

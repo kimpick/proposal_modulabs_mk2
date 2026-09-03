@@ -1,0 +1,201 @@
+{
+  "type": "bootcamp",
+  "title": "모두의연구소 × 전주대학교 AI 부트캠프 [ND2 단독]",
+  "subtitle": "ND2 합성 데이터 및 멀티모달 데이터셋 구축(60H) — 소프트웨어 지향 데이터 파이프라인",
+  "info": {
+    "keyword": "합성 데이터(SDG)\nYOLO11\nVLM 공간지능\nIsaac Sim",
+    "ax_stage": "중급",
+    "target": "데이터/컴퓨터비전 지향 학습자",
+    "duration": "총 60시간"
+  },
+  "intro": "본 제안서는 <b>[ND2] 합성 데이터 및 멀티모달 데이터셋 구축</b> 트랙 단독 커리큘럼입니다. 로봇 하드웨어 없이 PC 환경에서 고품질 데이터 파이프라인(SDG)과 시각 인식(VLM, 객체 탐지) 역량을 쌓으며 데이터 연금술 파이프라인을 완성합니다.",
+  "objective": "<ul><li>고비용 하드웨어 없이 PC 시뮬레이션으로 합성 데이터를 구축하고 파이프라인화</li><li>경량 VLM 실습과 하이엔드 AI 사례 분석을 통해 Sim2Real 설계 역량 확보</li></ul>",
+  "tech_stack": [
+    "Python · PyTorch",
+    "Hugging Face (Transformers)",
+    "LangChain / LlamaIndex / LangGraph",
+    "Ultralytics (YOLO11)",
+    "Open-source VLMs (Florence-2 / Qwen3-VL-3B)",
+    "ROS2 (Humble)",
+    "NVIDIA Isaac Sim 6.0 / MuJoCo",
+    "FoundationPose (6D Pose) / OpenVLA",
+    "MLflow / W&B",
+    "Git / GitHub"
+  ],
+  "infrastructure": [
+    "GPU 기반 AI 클라우드 — 모델 추론 및 서빙 실습 환경",
+    "LLM 서빙 플랫폼 — RAG 파이프라인 · 에이전트 런타임",
+    "MLOps-DevOps 환경 — 실험 이력 관리 · 재현성 보장",
+    "AI LMS / 문제은행 — 전 과정 학습 지원",
+    "물리 시뮬레이션 클러스터 — MuJoCo · Isaac Sim 실습"
+  ],
+  "tracks": [
+    {
+      "track_id": "ND2",
+      "track_name": "ND2. 합성 데이터 및 멀티모달 데이터셋 구축 — 중급 (60H)",
+      "course_title": "현실 공간의 한계를 넘는 데이터 연금술 : 시뮬레이션과 경량 VLM 오픈소스 실습",
+      "target": "AI 기초 전 과정 수료 및 파이썬 활용 능숙자 (ND1 이수 적극 권장)",
+      "duration": "60시간 (하계 2026년 집중이수, 주 5일 몰입형)",
+      "tools": [
+        "Isaac Sim 6.0",
+        "YOLO11",
+        "Florence-2 / Qwen3-VL",
+        "FoundationPose (사례)"
+      ],
+      "modules": [
+        {
+          "module_name": "M14. Isaac Sim / Omniverse 입문",
+          "duration": "15H",
+          "items": [
+            {
+              "detail": "디지털 트윈 기반 시뮬레이터 구조(USD) 철학 및 산업계 하이엔드 최상위 적용 사례 (NVIDIA 'GR00T', 'Cosmos') 모델 입체 분석",
+              "method": "이론/사례",
+              "hours": "5H"
+            },
+            {
+              "detail": "교육용 PC 사양에서도 유연하게 구동되는 Isaac Sim 환경 구축 완료 및 무인 이동체, 매니퓰레이터 로드 실습",
+              "method": "실습/심화",
+              "hours": "5H"
+            },
+            {
+              "detail": "Replicator 파이프라인 API 코딩을 통한 필수 도메인 랜덤화 (빛 변화, 재질 무작위성, 카메라 노이즈) 구성 실습",
+              "method": "실습/심화",
+              "hours": "5H"
+            }
+          ]
+        },
+        {
+          "module_name": "M16. 합성데이터·라벨링 파이프라인 구축",
+          "duration": "15H",
+          "items": [
+            {
+              "detail": "Sim2Real 시의 픽셀/피처 도메인 갭 발생 원인 심층 분석 및 합성 데이터 유효성 측정 지표 (PGR; Performance Gap Recovered)",
+              "method": "이론/사례",
+              "hours": "4H"
+            },
+            {
+              "detail": "Isaac Sim 프레임워크를 이용한 장면 내 객체 바운딩 박스(2D) 및 픽셀 단위 시맨틱 세그멘테이션 마스크 자동 대량 추출 실습",
+              "method": "실습/심화",
+              "hours": "6H"
+            },
+            {
+              "detail": "대량으로 렌더링된 메타데이터를 Ultralytics YOLO 학습 전용 포맷으로 데이터셋화하는 파이프라인 스크립트 작성 및 통계 분석",
+              "method": "실습/심화",
+              "hours": "5H"
+            }
+          ]
+        },
+        {
+          "module_name": "M9. 로봇 비전 인지: 탐지·추적·포즈",
+          "duration": "15H",
+          "items": [
+            {
+              "detail": "로봇 공학 내 2D/3D 컴퓨터 비전 인지 수학적 기초 및 최신 제로샷 6D Pose 하이엔드 모델(NVIDIA FoundationPose) 트렌드 브리핑",
+              "method": "이론/사례",
+              "hours": "4H"
+            },
+            {
+              "detail": "초경량·고성능 API로 실습 편의성이 극대화된 오픈소스 최상위 프레임워크(YOLO11)를 활용한 합성 데이터 전용 객체 탐지 파인튜닝",
+              "method": "실습/심화",
+              "hours": "6H"
+            },
+            {
+              "detail": "실 장비 테스트 데이터(소량) vs 시뮬레이션 라벨링 합성 데이터(대량) 혼합 학습 검증 및 탐지 성능 지표(mAP) 산출 미니 리뷰",
+              "method": "캡스톤",
+              "hours": "5H"
+            }
+          ]
+        },
+        {
+          "module_name": "M4. 멀티모달 LLM (VLM) 심화",
+          "duration": "15H",
+          "items": [
+            {
+              "detail": "초거대 상용 VLM (GPT-4o, LLaMA-3.2-Vision 등)의 공정 자동화 시각 검수 및 산업 불량 검출 등 하이엔드 현장 적용 사례 보고",
+              "method": "이론/사례",
+              "hours": "4H"
+            },
+            {
+              "detail": "학교 인프라 제약 없이 Google Colab 및 기본 PC에서도 가볍게 구동되는 오픈소스 교육용 VLM (Florence-2, Qwen-VL-3B 등) 설치 및 추론",
+              "method": "실습/심화",
+              "hours": "6H"
+            },
+            {
+              "detail": "시뮬레이션으로 방금 찍어낸 합성 이미지 내부의 다중 객체에 대하여, VLM 기반 질의응답(VQA) 및 모델 자체 자연어 기반 객체 Grounding 종합",
+              "method": "캡스톤",
+              "hours": "5H"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "output": "<ul><li><b>[ND1 M8/M13 산출물]</b> LLM-ROS2 연동을 통한 에이전트 기반 시뮬레이션 제어 데모 영상</li><li><b>[ND2 산출물]</b> Isaac Sim 도메인 랜덤화 기반 합성 데이터셋 생성 스크립트 및 YOLO11 학습 결과 로그 (PGR 지표 산출)</li><li><b>[ND2 VLM 캡스톤]</b> 교육용 경량 VLM(Florence-2/YOLO11)을 활용한 시뮬레이션 합성 화면 속 객체 Grounding 파이프라인 구축</li><li><b>[ND5 M12 캡스톤]</b> LLM 기반 로봇 제어 단대단(E2E) 시스템 — Git/README + 실행 스크립트 + 데모 영상 (역량 인증 Lv4)</li></ul>",
+  "schedule_message": "동계(겨울학기) 집중이수 기간을 활용하여, **1월에 ND1(기초)과 ND2(데이터/인지)를 순차적으로 연달아 진행**하여 데이터를 제어할 로봇/인지 체력을 집중적으로 다지고, 여기서 도출된 역량을 바탕으로 **2월에 ND5(에이전트 두뇌/행동 통합)**를 이어가는 몰입형 연속 스케줄을 제안합니다. 이를 통해 몰입형 캠프의 교육 연속성과 최종 캡스톤 시스템 완성도를 극대화할 수 있습니다.",
+  "nd2_flow": {
+    "title": "ND2 내부 학습 흐름 — 단계별 심화 구조",
+    "subtitle": "주 5일 몰입형 집중과정 · 15H 모듈 심화",
+    "total": "총 60H · 절대평가",
+    "steps": [
+      {
+        "step": "STEP 1",
+        "module": "M14.",
+        "name": "Isaac Sim / Omniverse 입문",
+        "hours": "15H",
+        "items": [
+          "디지털 트윈·USD 철학 및 GR00T/Cosmos 사례",
+          "교육용 PC에서 Isaac Sim 환경 구축",
+          "Replicator 도메인 랜덤화 API 실습",
+          "시뮬레이터 로봇/객체 배치 실전"
+        ],
+        "output": "결과물: Isaac Sim 도메인 랜덤화 환경"
+      },
+      {
+        "step": "STEP 2",
+        "module": "M16.",
+        "name": "합성 데이터·라벨링 파이프라인",
+        "hours": "15H",
+        "items": [
+          "Sim2Real 도메인 갭 분석 및 PGR 지표 이론",
+          "바운딩 박스·시맨틱 마스크 자동 대량 추출",
+          "YOLO 학습 포맷 변환 파이프라인 스크립트",
+          "합성 데이터 유효성 통계 분석"
+        ],
+        "output": "결과물: 합성 데이터 생성·라벨링 파이프라인"
+      },
+      {
+        "step": "STEP 3",
+        "module": "M9.",
+        "name": "로봇 비전 인지: 탐지·추적·포즈",
+        "hours": "15H",
+        "items": [
+          "2D/3D 컴퓨터 비전 기초 및 FoundationPose 사례",
+          "YOLO11 합성 데이터 전용 파인튜닝 실습",
+          "실 데이터 vs 합성 데이터 혼합 학습 검증",
+          "탐지 성능 정량 지표(mAP) 산출"
+        ],
+        "output": "결과물: 합성+실 데이터 혼합 mAP 리포트"
+      },
+      {
+        "step": "STEP 4",
+        "module": "M4.",
+        "name": "멀티모달 LLM (VLM) 심화",
+        "hours": "15H",
+        "items": [
+          "산업용 VLM(GPT-4o, LLaMA-Vision) 적용 사례",
+          "경량 VLM(Florence-2, Qwen-VL) 설치·추론",
+          "합성 이미지 VQA 질의응답 파이프라인",
+          "VLM 기반 객체 Grounding 종합 캡스톤"
+        ],
+        "output": "결과물: VLM 기반 합성 이미지 Grounding 데모",
+        "is_capstone": true
+      }
+    ],
+    "flow_labels": [
+      "M14. 시뮬레이터 구축",
+      "M16. 합성 데이터 생성",
+      "M9. 비전 모델 튜닝",
+      "M4. VLM 접목·캡스톤"
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+First Name [Required],Last Name [Required],Email Address [Required],Password [Required],Password Hash Function [UPLOAD ONLY],Org Unit Path [Required],New Primary Email [UPLOAD ONLY],Recovery Email,Home Secondary Email,Work Secondary Email,Recovery Phone [MUST BE IN THE E.164 FORMAT],Work Phone,Home Phone,Mobile Phone,Work Address,Home Address,Employee ID,Employee Type,Employee Title,Manager Email,Department,Cost Center,Building ID,Floor Name,Floor Section,Change Password at Next Sign-In,New Status [UPLOAD ONLY],Advanced Protection Program enrollment
+001,nia,nia_ai_001@ormbiz.co.kr,)%)&nia001,,/NIA,,,,,,,,,,,,,,,,,,,,FALSE,,FALSE
+002,nia,nia_ai_002@ormbiz.co.kr,)%)&nia002,,/NIA,,,,,,,,,,,,,,,,,,,,FALSE,,FALSE
+003,nia,nia_ai_003@ormbiz.co.kr,)%)&nia003,,/NIA,,,,,,,,,,,,,,,,,,,,FALSE,,FALSE
+004,nia,nia_ai_004@ormbiz.co.kr,)%)&nia004,,/NIA,,,,,,,,,,,,,,,,,,,,FALSE,,FALSE
+005,nia,nia_ai_005@ormbiz.co.kr,)%)&nia005,,/NIA,,,,,,,,,,,,,,,,,,,,FALSE,,FALSE
+006,nia,nia_ai_006@ormbiz.co.kr,)%)&nia006,,/NIA,,,,,,,,,,,,,,,,,,,,FALSE,,FALSE
+007,nia,nia_ai_007@ormbiz.co.kr,)%)&nia007,,/NIA,,,,,,,,,,,,,,,,,,,,FALSE,,FALSE
+008,nia,nia_ai_008@ormbiz.co.kr,)%)&nia008,,/NIA,,,,,,,,,,,,,,,,,,,,FALSE,,FALSE
+009,nia,nia_ai_009@ormbiz.co.kr,)%)&nia009,,/NIA,,,,,,,,,,,,,,,,,,,,FALSE,,FALSE
+010,nia,nia_ai_010@ormbiz.co.kr,)%)&nia010,,/NIA,,,,,,,,,,,,,,,,,,,,FALSE,,FALSE
+011,nia,nia_ai_011@ormbiz.co.kr,)%)&nia011,,/NIA,,,,,,,,,,,,,,,,,,,,FALSE,,FALSE
+012,nia,nia_ai_012@ormbiz.co.kr,)%)&nia012,,/NIA,,,,,,,,,,,,,,,,,,,,FALSE,,FALSE
+013,nia,nia_ai_013@ormbiz.co.kr,)%)&nia013,,/NIA,,,,,,,,,,,,,,,,,,,,FALSE,,FALSE
+014,nia,nia_ai_014@ormbiz.co.kr,)%)&nia014,,/NIA,,,,,,,,,,,,,,,,,,,,FALSE,,FALSE
+015,nia,nia_ai_015@ormbiz.co.kr,)%)&nia015,,/NIA,,,,,,,,,,,,,,,,,,,,,,

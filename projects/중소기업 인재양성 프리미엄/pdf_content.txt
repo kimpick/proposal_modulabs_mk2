@@ -1,0 +1,32 @@
+﻿python : Traceback (most re
+cent call last):
+위치 줄:1 문자:1
++ python -c "
++ ~~~~~~~~~~~
+    + CategoryInfo         
+     : NotSpecified: (Tra  
+  ceback (most recent ca   
+ ll last)::String) [],     
+RemoteException
+    + FullyQualifiedErrorI 
+   d : NativeCommandError
+ 
+  File "<string>", line 11,
+ in <module>
+    print(text)
+    ~~~~~^^^^^^
+UnicodeEncodeError: 'cp949'
+ codec can't encode charact
+er '\u2014' in position 0: 
+illegal multibyte sequence
+문 서  번 호 : 2026-04-23 
+수           신 : 한국산업인력공단 기업지원부 귀하  
+제           목 : 2026년 중소기업 인재 키움 프리미엄 훈련 2차 과정 운영 희망과정 신청의 건 
+1. 귀사의 무궁한 발전을 기원합니다. 
+2. 국내 AI 및 SW 연구 문화를 선도하는 '모두의연구소'는 2026년 중소기업 인재 키움 프리미엄 훈련 사업 
+공고에 따라, 중소기업 재직근로자의 AI 활용 직무역량 강화를 위한 훈련과정 운영을 희망하여 아래와 같이 2차 
+과정을 신청합니다. 
+3. 본 신청 과정은 모두 AI융합형 과정으로, 비개발자부터 실무 개발자까지 AI 기술을 현장에서 즉시 활용할 수 
+있는 실습 중심의 교육과정입니다. 모든 과정에는 AI 윤리 및 보안 준수에 관한 교육 안내를 포함하여 운영할 
+예정입니다. 
+4. 신청 과정의 상세 내용을 아래와 같이 송부드리오니 검토 부탁드립니다. 

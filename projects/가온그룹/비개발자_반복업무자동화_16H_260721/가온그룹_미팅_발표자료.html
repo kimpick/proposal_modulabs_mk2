@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>가온그룹 AI 교육 제안 — 핵심 요약</title>
+<style>
+  :root{
+    --primary:#EE3E4C; --primary-soft:#FEF0F0; --pink:#EBBAC0;
+    --ink:#111111; --body:#333333; --muted:#8A8A8E; --line:#EBEBEB;
+    --bg:#ffffff; --panel:#FafAFA;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    font-family:-apple-system,'Apple SD Gothic Neo','Pretendard','Malgun Gothic',sans-serif;
+    background:#1b1b1e;color:var(--body);overflow:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* ---- deck / slides ---- */
+  .deck{position:fixed;inset:0}
+  .slide{
+    position:absolute;inset:0;display:none;
+    background:var(--bg);
+    padding:6.2vmin 8vmin;
+    flex-direction:column;justify-content:center;
+    opacity:0;transition:opacity .35s ease;
+  }
+  .slide.active{display:flex;opacity:1;animation:fade .45s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:.6em;
+    font-size:1.9vmin;font-weight:700;letter-spacing:.04em;color:var(--primary);
+    text-transform:uppercase;margin-bottom:2.4vmin;
+  }
+  .eyebrow::before{content:"";width:2.6vmin;height:.42vmin;background:var(--primary);border-radius:2px}
+  h1{font-size:6.4vmin;line-height:1.15;color:var(--ink);font-weight:800;letter-spacing:-.02em}
+  h2{font-size:4.3vmin;line-height:1.2;color:var(--ink);font-weight:800;letter-spacing:-.02em;margin-bottom:.8vmin}
+  .lead{font-size:2.5vmin;color:var(--muted);line-height:1.55;margin-top:2.2vmin;font-weight:500}
+  .section-sub{font-size:2.15vmin;color:var(--muted);margin-bottom:4vmin;font-weight:500}
+  b,strong{color:var(--ink);font-weight:800}
+  .hl{color:var(--primary);font-weight:800}
+
+  /* ---- title slide ---- */
+  .title-meta{margin-top:5vmin;display:flex;gap:2.2vmin;flex-wrap:wrap}
+  .chip{
+    font-size:1.85vmin;font-weight:700;color:var(--body);
+    background:var(--panel);border:1px solid var(--line);
+    padding:1.1vmin 2.2vmin;border-radius:100px;
+  }
+  .chip.pri{background:var(--primary);color:#fff;border-color:var(--primary)}
+
+  /* ---- stat cards ---- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:2.4vmin;margin-top:1vmin}
+  .stat{
+    background:var(--panel);border:1px solid var(--line);border-radius:2.2vmin;
+    padding:3.4vmin 2.6vmin;border-top:.7vmin solid var(--primary);
+  }
+  .stat .num{font-size:6.2vmin;font-weight:800;color:var(--primary);line-height:1;letter-spacing:-.03em}
+  .stat .num small{font-size:2.6vmin;font-weight:800}
+  .stat .cap{font-size:1.95vmin;color:var(--body);margin-top:1.4vmin;line-height:1.4;font-weight:600}
+  .takeaway{
+    margin-top:4.4vmin;background:var(--primary-soft);border-left:.8vmin solid var(--primary);
+    border-radius:1.2vmin;padding:2.8vmin 3.2vmin;font-size:2.7vmin;color:var(--ink);font-weight:700;line-height:1.45;
+  }
+
+  /* ---- mapping rows ---- */
+  .map{display:flex;flex-direction:column;gap:1.7vmin;margin-top:1vmin}
+  .row{display:grid;grid-template-columns:1fr auto 1.15fr;align-items:center;gap:2vmin;
+    background:var(--panel);border:1px solid var(--line);border-radius:1.4vmin;padding:2.15vmin 2.6vmin}
+  .row .issue{font-size:2.05vmin;color:var(--body);font-weight:600;line-height:1.35}
+  .row .arrow{color:var(--primary);font-size:2.8vmin;font-weight:800}
+  .row .fix{font-size:2.05vmin;color:var(--ink);font-weight:700;line-height:1.35}
+  .row .fix em{color:var(--primary);font-style:normal;font-weight:800}
+
+  /* ---- curriculum flow ---- */
+  .phases{display:grid;grid-template-columns:repeat(4,1fr);gap:2.2vmin;margin-top:1vmin}
+  .phase{border:1px solid var(--line);border-radius:1.8vmin;padding:2.6vmin 2.2vmin;background:#fff;position:relative}
+  .phase .pn{font-size:1.6vmin;font-weight:800;color:var(--primary);letter-spacing:.05em;text-transform:uppercase}
+  .phase .pt{font-size:2.35vmin;font-weight:800;color:var(--ink);margin:.9vmin 0 1.8vmin}
+  .phase ul{list-style:none}
+  .phase li{font-size:1.8vmin;color:var(--body);line-height:1.4;padding-left:2.2vmin;position:relative;margin-bottom:1.1vmin;font-weight:500}
+  .phase li::before{content:"";position:absolute;left:0;top:.75vmin;width:.9vmin;height:.9vmin;border-radius:50%;background:var(--pink)}
+  .phase li b{color:var(--ink)}
+  .flowmeta{margin-top:3.4vmin;font-size:2vmin;color:var(--muted);text-align:center;font-weight:600}
+  .flowmeta b{color:var(--primary)}
+
+  /* ---- feature cards ---- */
+  .feats{display:grid;grid-template-columns:repeat(3,1fr);gap:2.6vmin;margin-top:1vmin}
+  .feat{background:var(--panel);border:1px solid var(--line);border-radius:2vmin;padding:3.4vmin 2.8vmin;border-top:.7vmin solid var(--primary)}
+  .feat .fi{font-size:4.2vmin;margin-bottom:1.6vmin;display:block}
+  .feat .ft{font-size:2.55vmin;font-weight:800;color:var(--ink);line-height:1.25;margin-bottom:1.4vmin}
+  .feat .fd{font-size:1.95vmin;color:var(--body);line-height:1.5;font-weight:500}
+
+  /* ---- two column ---- */
+  .cols{display:grid;grid-template-columns:1.05fr 1fr;gap:5vmin;align-items:center;margin-top:1vmin}
+  .metrics{display:flex;gap:2.4vmin}
+  .metric{flex:1;background:var(--primary);color:#fff;border-radius:1.8vmin;padding:3vmin 2vmin;text-align:center}
+  .metric .mv{font-size:5vmin;font-weight:800;line-height:1;letter-spacing:-.02em}
+  .metric .ml{font-size:1.7vmin;margin-top:1.2vmin;font-weight:600;opacity:.92}
+  .biglist{list-style:none}
+  .biglist li{font-size:2.35vmin;color:var(--ink);font-weight:600;line-height:1.4;padding-left:3.2vmin;position:relative;margin-bottom:2.4vmin}
+  .biglist li::before{content:"✓";position:absolute;left:0;top:0;color:var(--primary);font-weight:800;font-size:2.4vmin}
+  .biglist li span{display:block;font-size:1.85vmin;color:var(--muted);font-weight:500;margin-top:.4vmin}
+
+  /* ---- output pills ---- */
+  .outs{display:grid;grid-template-columns:repeat(2,1fr);gap:2.6vmin;margin-top:1vmin}
+  .out{display:flex;gap:2.2vmin;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:1.6vmin;padding:2.8vmin 3vmin}
+  .out .on{font-size:3.4vmin;font-weight:800;color:var(--pink);line-height:1;min-width:1.5em}
+  .out .otxt b{font-size:2.35vmin;color:var(--ink);display:block;margin-bottom:.6vmin}
+  .out .otxt span{font-size:1.85vmin;color:var(--body);font-weight:500;line-height:1.45}
+
+  /* ---- ops / next ---- */
+  .ops{display:grid;grid-template-columns:repeat(2,1fr);gap:2.4vmin 5vmin;margin-top:1vmin}
+  .op{display:flex;gap:2vmin;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:2.2vmin}
+  .op .ok{font-size:1.8vmin;font-weight:800;color:var(--primary);min-width:9vmin}
+  .op .ov{font-size:2.1vmin;color:var(--ink);font-weight:600;line-height:1.4}
+  .nextstep{margin-top:4vmin;background:var(--ink);color:#fff;border-radius:1.6vmin;padding:3vmin 3.4vmin;display:flex;align-items:center;gap:2.4vmin}
+  .nextstep .nlab{font-size:1.7vmin;font-weight:800;color:var(--pink);letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+  .nextstep .ntxt{font-size:2.25vmin;font-weight:700;line-height:1.4}
+
+  /* ---- chrome ---- */
+  .brand{position:fixed;top:3.4vmin;left:8vmin;font-size:1.7vmin;font-weight:800;color:var(--muted);z-index:10;letter-spacing:.02em}
+  .brand b{color:var(--primary)}
+  .pageno{position:fixed;bottom:3.4vmin;right:8vmin;font-size:1.7vmin;color:var(--muted);z-index:10;font-weight:700}
+  .progress{position:fixed;top:0;left:0;height:.55vmin;background:var(--primary);z-index:20;transition:width .35s ease}
+  .hint{position:fixed;bottom:3.4vmin;left:8vmin;font-size:1.5vmin;color:var(--muted);z-index:10}
+  .navzone{position:fixed;top:0;bottom:0;width:22%;z-index:5;cursor:pointer}
+  .navzone.prev{left:0}.navzone.next{right:0}
+
+  @page{ size:338.67mm 190.5mm; margin:0; }   /* 16:9 (13.333in × 7.5in) */
+  @media print{
+    body{overflow:visible;background:#fff}
+    .deck{position:static;inset:auto}
+    .slide{display:flex!important;opacity:1!important;position:relative;inset:auto;
+      page-break-after:always;break-after:page;height:100vh;min-height:100vh;animation:none!important}
+    .slide:last-child{page-break-after:auto;break-after:auto}
+    .navzone,.hint,.progress,.pageno{display:none!important}
+    .brand{position:absolute}
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="brand"><b>모두의연구소</b> &times; 가온그룹</div>
+<div class="pageno" id="pageno">01 / 09</div>
+<div class="hint">← → 이동 · F 전체화면</div>
+<div class="navzone prev" onclick="go(-1)"></div>
+<div class="navzone next" onclick="go(1)"></div>
+
+<div class="deck" id="deck">
+
+  <!-- 1. TITLE -->
+  <section class="slide active">
+    <div class="eyebrow">AI 활용 사전 진단 기반 맞춤 제안</div>
+    <h1>Claude Skills 기반<br>반복 업무 자동화 실전</h1>
+    <p class="lead">보안 제약 환경의 <b>반자동 워크플로우</b> 구축<br>— 가온그룹 비개발 직군을 위한 16시간 실전 과정</p>
+    <div class="title-meta">
+      <span class="chip pri">사전 진단 49명 기반 설계</span>
+      <span class="chip">총 16시간 (4H × 4회)</span>
+      <span class="chip">비개발 직군 · 중급 실무자</span>
+      <span class="chip">2026.07</span>
+    </div>
+  </section>
+
+  <!-- 2. DIAGNOSIS -->
+  <section class="slide">
+    <div class="eyebrow">왜 이렇게 설계했나 — 사전 진단 결과</div>
+    <h2>Track B는 ‘입문 그룹’이 아닙니다</h2>
+    <p class="section-sub">이미 매일 AI를 쓰는 중급 실무자 — 필요한 건 자동화·자산화로의 도약</p>
+    <div class="stats">
+      <div class="stat"><div class="num">79<small>%</small></div><div class="cap">거의 매일 생성형 AI 사용</div></div>
+      <div class="stat"><div class="num">98<small>%</small></div><div class="cap">Claude 사용 (주 활용 도구)</div></div>
+      <div class="stat"><div class="num">39<small>%</small></div><div class="cap">AI로 실무 산출물 직접 제작 가능</div></div>
+      <div class="stat"><div class="num">10<small>%</small></div><div class="cap">‘기초 개념’ 학습을 기대</div></div>
+    </div>
+    <div class="takeaway">그래서 <span class="hl">기초 개론을 걷어내고</span>, 반복 업무를 ‘자동화 자산’으로 바꾸는 <span class="hl">중급 실무 심화</span>로 재설계했습니다.</div>
+  </section>
+
+  <!-- 3. ISSUE -> CURRICULUM -->
+  <section class="slide">
+    <div class="eyebrow">진단·현장 이슈를 커리큘럼에 직접 반영</div>
+    <h2>고객사의 진짜 걸림돌부터 정면으로</h2>
+    <p class="section-sub">진단 데이터와 담당자 피드백 → 5가지 설계 원칙</p>
+    <div class="map">
+      <div class="row"><div class="issue">중급 그룹 · ‘기초 개념’ 기대 10%</div><div class="arrow">→</div><div class="fix">기초 개론 제거, <em>중급 실무 심화</em>로 재설계</div></div>
+      <div class="row"><div class="issue"><b>DRM 문서보안</b> = 1순위 걸림돌</div><div class="arrow">→</div><div class="fix">보안 활용 원칙을 <em>첫 모듈</em>에 배치 · 모사 샘플 실습</div></div>
+      <div class="row"><div class="issue">SAP·그룹웨어 API/MCP <b>연동 불가</b></div><div class="arrow">→</div><div class="fix">완전 자동화 대신 <em>파일 기반 반자동 워크플로우</em> 표준화</div></div>
+      <div class="row"><div class="issue">“자동화 아이디어가 없다”는 고민</div><div class="arrow">→</div><div class="fix">진단에서 수집한 <em>실제 반복 업무</em>를 실습 소재로</div></div>
+      <div class="row"><div class="issue">그룹 내 점수 편차 45~86점</div><div class="arrow">→</div><div class="fix">진단 기반 <em>조 편성 + 기본/확장 미션</em>으로 흡수</div></div>
+    </div>
+  </section>
+
+  <!-- 4. CURRICULUM FLOW -->
+  <section class="slide">
+    <div class="eyebrow">커리큘럼 한눈에 — 16시간 · 8모듈</div>
+    <h2>원칙 → 발굴 → 자산화 → 내 손으로 완성</h2>
+    <p class="section-sub">보안 원칙에서 출발해, 각자 ‘작동하는 자동화 MVP’로 끝냅니다</p>
+    <div class="phases">
+      <div class="phase"><div class="pn">STEP 1 · 기반</div><div class="pt">안전한 AI 활용</div><ul>
+        <li><b>M1</b> 자동화 재정의 &amp; 보안 활용 원칙</li>
+        <li><b>M2</b> Claude 심화 기능 · 산출물 제작</li></ul></div>
+      <div class="phase"><div class="pn">STEP 2 · 발굴</div><div class="pt">기회 찾고 설계</div><ul>
+        <li><b>M3</b> 업무 분해 · 자동화 기회 발굴</li>
+        <li><b>M4</b> 파일 기반 반자동 워크플로우</li></ul></div>
+      <div class="phase"><div class="pn">STEP 3 · 자산화</div><div class="pt">Skills로 재사용</div><ul>
+        <li><b>M5</b> Claude Skills 반복 업무 자산화</li>
+        <li><b>M6</b> Skills 심화 · 예외처리 · 체인</li></ul></div>
+      <div class="phase"><div class="pn">STEP 4 · 실전</div><div class="pt">내 업무 MVP</div><ul>
+        <li><b>M7</b> 미니 아이디어톤 (1H)</li>
+        <li><b>M8</b> 개인별 자동화 MVP 제작 (3H)</li></ul></div>
+    </div>
+    <div class="flowmeta">모듈당 2H · 마무리 아이디어톤 1H + <b>개인별 MVP 제작 3H</b></div>
+  </section>
+
+  <!-- 5. DIFFERENTIATORS -->
+  <section class="slide">
+    <div class="eyebrow">이 제안의 차별점</div>
+    <h2>‘일반 AI 교육’과 무엇이 다른가</h2>
+    <p class="section-sub">가온그룹 환경에서 <b>당장 작동하는</b> 것만 가르칩니다</p>
+    <div class="feats">
+      <div class="feat"><span class="fi">🔒</span><div class="ft">보안 제약을<br>정면 돌파</div><div class="fd">DRM·암호화 환경의 활용 원칙과 비식별·마스킹·<b>모사 샘플</b> 패턴을 첫 모듈에서 해결 — 진입장벽을 초반에 제거</div></div>
+      <div class="feat"><span class="fi">🔄</span><div class="ft">파일 기반<br>반자동 워크플로우</div><div class="fd">연동이 막힌 SAP·그룹웨어 환경에서 <b>내보내기 → Claude 처리 → 배포</b>의 3단 패턴을 표준으로 (MCP는 개념만)</div></div>
+      <div class="feat"><span class="fi">🎯</span><div class="ft">우리 실제 업무로<br>실습</div><div class="fd">메일 취합·보고서, 이슈 Action item 배포, 주간 가격 추이 등 <b>진단에서 수집한 반복 업무</b>를 그대로 실습 소재로</div></div>
+    </div>
+  </section>
+
+  <!-- 6. IDEATHON + MVP -->
+  <section class="slide">
+    <div class="eyebrow">마무리 4시간 — 검증된 포맷</div>
+    <h2>전원이 ‘작동하는 MVP’를 하나씩</h2>
+    <div class="cols">
+      <div>
+        <ul class="biglist">
+          <li>개인별 진행으로 확정<span>제조업 부서·업무 세분화 특성 반영 — 팀 공동과제 대신 각자 자기 업무 해결</span></li>
+          <li>60분 스프린트 아이디어톤 + MVP 제작 3H<span>KOICA 233명 운영 프로그램의 검증된 포맷 이식</span></li>
+          <li>조별 상호 피드백 + 강사 순회 멘토링<span>수료 시 현업 바로 적용 가능한 자동화 워크플로우 확보</span></li>
+        </ul>
+      </div>
+      <div>
+        <div class="metrics">
+          <div class="metric"><div class="mv">233<small>명</small></div><div class="ml">KOICA 운영 규모</div></div>
+          <div class="metric"><div class="mv">4.82</div><div class="ml">만족도 / 5</div></div>
+          <div class="metric"><div class="mv">9.48</div><div class="ml">추천도 / 10</div></div>
+        </div>
+        <div class="takeaway" style="margin-top:3vmin;font-size:2.35vmin">“전원이 <span class="hl">자기 업무의 작동하는 MVP</span>를 하나씩 들고 퇴근한다”</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. LEVEL SPREAD -->
+  <section class="slide">
+    <div class="eyebrow">수준 편차 대응 — 분반 없이</div>
+    <h2>점수 45~86점, 한 반에서 흡수합니다</h2>
+    <p class="section-sub">분반 추가 비용 없이 편차를 설계로 해결</p>
+    <div class="feats">
+      <div class="feat"><span class="fi">🧩</span><div class="ft">진단 기반<br>조 편성</div><div class="fd">사전 진단 점수를 활용해 조를 구성하고 <b>상위 점수자를 조장</b>으로 배치 — 조 안에서 자연스러운 상호 학습</div></div>
+      <div class="feat"><span class="fi">🎚️</span><div class="ft">기본 / 확장<br>미션 이원화</div><div class="fd">같은 과제라도 <b>기본 미션</b>과 <b>확장 미션</b>을 나눠, 수준에 맞게 각자 도전 범위를 선택</div></div>
+      <div class="feat"><span class="fi">📘</span><div class="ft">모듈별<br>단계 가이드북</div><div class="fd">설문 요청사항을 반영해 <b>사전 배포</b> — 따라오기 어려운 참가자도 단계별로 완주</div></div>
+    </div>
+  </section>
+
+  <!-- 8. OUTPUTS -->
+  <section class="slide">
+    <div class="eyebrow">수료 시 손에 남는 것</div>
+    <h2>기대 산출물</h2>
+    <p class="section-sub">‘배웠다’가 아니라 ‘만들었다’로 끝나는 교육</p>
+    <div class="outs">
+      <div class="out"><div class="on">01</div><div class="otxt"><b>개인별 자동화 MVP</b><span>현업에 바로 적용 가능한 반자동 워크플로우 (전 수강생 1건 이상)</span></div></div>
+      <div class="out"><div class="on">02</div><div class="otxt"><b>직무별 Claude Skill (SKILL.md)</b><span>팀 단위로 공유·재사용 가능한 업무 자동화 자산</span></div></div>
+      <div class="out"><div class="on">03</div><div class="otxt"><b>업무 자동화 설계도 · 실행 가설</b><span>업무 분해·자동화 기회 발굴 결과물</span></div></div>
+      <div class="out"><div class="on">04</div><div class="otxt"><b>보안등급별 활용 업무 분류표</b><span>내부/외부 툴 데이터 취급 기준 체크리스트</span></div></div>
+    </div>
+  </section>
+
+  <!-- 9. OPS / NEXT -->
+  <section class="slide">
+    <div class="eyebrow">운영 개요 &amp; 다음 단계</div>
+    <h2>어떻게 운영하나</h2>
+    <div class="ops">
+      <div class="op"><div class="ok">교육 시간</div><div class="ov">총 16H — 하루 4~5H 기준 4회 분할, 주 1~2회 (전일 교육 지양)</div></div>
+      <div class="op"><div class="ok">운영 방식</div><div class="ov">실습 중심 · 개인별 MVP · 조별 피드백 + 강사 순회 멘토링</div></div>
+      <div class="op"><div class="ok">강사 구성</div><div class="ov">주강사 1인 + 보조강사 1인 (실습·멘토링)</div></div>
+      <div class="op"><div class="ok">보안</div><div class="ov">전 실습 모사 샘플 데이터 — 사내 실데이터 미사용</div></div>
+    </div>
+    <div class="nextstep">
+      <div class="nlab">Next Step</div>
+      <div class="ntxt">확정 인원 · 일정 · 보안정책 협의 → 상세 견적 및 최종 커리큘럼 확정</div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=slides.findIndex(s=>s.classList.contains('active')); if(i<0)i=0;
+  const pageno=document.getElementById('pageno');
+  const progress=document.getElementById('progress');
+  const pad=n=>String(n).padStart(2,'0');
+  function render(){
+    slides.forEach((s,n)=>s.classList.toggle('active',n===i));
+    pageno.textContent=`${pad(i+1)} / ${pad(slides.length)}`;
+    progress.style.width=((i+1)/slides.length*100)+'%';
+    location.hash=i+1;
+  }
+  function go(d){i=Math.min(slides.length-1,Math.max(0,i+d));render();}
+  window.go=go;
+  addEventListener('keydown',e=>{
+    if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();go(1);}
+    else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(-1);}
+    else if(e.key==='Home'){i=0;render();}
+    else if(e.key==='End'){i=slides.length-1;render();}
+    else if(e.key.toLowerCase()==='f'){
+      if(!document.fullscreenElement)document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();
+      else document.exitFullscreen&&document.exitFullscreen();
+    }
+  });
+  const h=parseInt(location.hash.replace('#',''));if(h>=1&&h<=slides.length)i=h-1;
+  render();
+</script>
+</body>
+</html>

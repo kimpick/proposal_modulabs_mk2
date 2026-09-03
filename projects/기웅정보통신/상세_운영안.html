@@ -1,0 +1,407 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   모두의연구소 AI교육 제안서 — 공용 디자인 시스템 (base.css)
+   Primary  : #EE3E4C   Secondary : #EBBAC0
+   Border   : #EBEBEB   Text-Dark : #111111   Text-Body : #333333
+   ═══════════════════════════════════════════════════════════ */
+
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+body {
+    font-family: 'Pretendard', sans-serif;
+    color: #333333;
+    margin: 0;
+    padding: 60px;
+    background-color: #ffffff;
+}
+
+/* ─ 헤더 ─ */
+.header {
+    border-bottom: 1px solid #EBEBEB;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+.header-text {
+    color: #EE3E4C;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: right;
+    margin-bottom: 20px;
+}
+.title {
+    font-size: 30px;
+    font-weight: 800;
+    color: #111111;
+    margin: 0 0 10px 0;
+}
+.subtitle {
+    font-size: 14px;
+    color: #555555;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* ─ 4-Block Info Grid ─ */
+.info-grid {
+    display: flex;
+    gap: 12px;
+    margin: 30px 0 40px 0;
+}
+.info-box {
+    flex: 1;
+    border: 1px solid #EBEBEB;
+    border-radius: 10px;
+    padding: 18px 20px;
+    background: #ffffff;
+}
+.info-label {
+    color: #EE3E4C;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+.info-value {
+    font-size: 13px;
+    font-weight: 700;
+    color: #111111;
+    line-height: 1.4;
+}
+
+/* ─ 섹션 타이틀 ─ */
+.section-title {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 800;
+    color: #111111;
+    margin: 36px 0 16px 0;
+}
+.section-num {
+    color: #EBBAC0;
+    font-size: 30px;
+    font-weight: 900;
+    margin-right: 10px;
+    line-height: 1;
+}
+
+/* ─ 텍스트 콘텐츠 박스 (왼쪽 Red 라인) ─ */
+.content-box {
+    border: 1px solid #EBEBEB;
+    border-left: 5px solid #EE3E4C;
+    border-radius: 10px;
+    padding: 24px 28px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #333333;
+    margin-bottom: 24px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    white-space: pre-line;
+}
+
+/* ─ 핵심 기술 (Pill Badge) ─ */
+.tech-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+.tech-badge {
+    border: 1px solid #EBEBEB;
+    border-radius: 50px;
+    padding: 7px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #111111;
+}
+
+/* ─ 인프라 박스 (왼쪽 Red 라인) ─ */
+.infra-box {
+    border: 1px solid #EBEBEB;
+    border-left: 5px solid #EE3E4C;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+.infra-box ul {
+    margin: 0;
+    padding-left: 18px;
+}
+.infra-box li {
+    margin-bottom: 8px;
+    color: #EE3E4C;
+    font-size: 13px;
+}
+.infra-box li span {
+    color: #333333;
+}
+
+/* ─ 모듈 박스 (Flex 레이아웃) ─ */
+.module-box {
+    border: 1px solid #EBEBEB;
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+.module-left {
+    width: 190px;
+    flex-shrink: 0;
+    padding-right: 18px;
+    border-right: 1px solid #EBEBEB;
+    margin-right: 18px;
+}
+.module-label {
+    color: #EE3E4C;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+}
+.module-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #111111;
+    line-height: 1.4;
+}
+.module-right {
+    flex-grow: 1;
+}
+.module-right ul {
+    margin: 0;
+    padding-left: 14px;
+}
+.module-right li {
+    margin-bottom: 5px;
+    color: #EE3E4C;
+    font-size: 13px;
+}
+.module-right li span {
+    color: #333333;
+    line-height: 1.5;
+}
+.module-hours {
+    width: 52px;
+    text-align: right;
+    font-size: 12px;
+    font-weight: 800;
+    color: #aaaaaa;
+    flex-shrink: 0;
+    padding-left: 10px;
+    white-space: nowrap;
+}
+
+/* ─ 트랙 소제목 (track 타입용) ─ */
+.track-heading {
+    margin: 30px 0 10px 0;
+    page-break-after: avoid;
+    break-after: avoid;
+}
+.track-label {
+    font-size: 10px;
+    font-weight: 800;
+    color: #EE3E4C;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+}
+.track-name {
+    font-size: 15px;
+    font-weight: 800;
+    color: #111111;
+    margin: 0 0 2px 0;
+}
+.track-meta {
+    font-size: 12px;
+    color: #777;
+    margin-bottom: 4px;
+}
+.track-tools {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.tool-chip {
+    border: 1px solid #EBEBEB;
+    border-radius: 50px;
+    padding: 3px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #333333;
+}
+.track-divider {
+    border: none;
+    border-top: 1px solid #EBEBEB;
+    margin: 24px 0;
+}
+
+/* ─ 일정 Placeholder ─ */
+.schedule-placeholder {
+    border: 1px dashed #EBBAC0;
+    background-color: #fdf8f8;
+    border-radius: 10px;
+    padding: 28px;
+    text-align: center;
+    font-size: 13px;
+    color: #888888;
+    line-height: 1.8;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin-bottom: 24px;
+}
+
+/* ─ 연간 계획 테이블 (roadmap 타입용) ─ */
+.plan-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+.plan-table th, .plan-table td {
+    border: 1px solid #EBEBEB;
+    padding: 15px;
+    vertical-align: middle;
+}
+.plan-table th {
+    background-color: #fafafa;
+    font-weight: 800;
+    color: #555;
+    text-align: center;
+}
+.plan-month {
+    color: #EE3E4C;
+    font-weight: 800;
+    text-align: center !important;
+    white-space: nowrap;
+}
+.plan-title {
+    font-weight: 700;
+    color: #111;
+}
+
+/* ─ 페이지 분리 ─ */
+.page-break {
+    page-break-before: always;
+}
+
+/* ─ 푸터 ─ */
+.footer {
+    margin-top: 60px;
+    padding-top: 18px;
+    border-top: 1px solid #EBEBEB;
+    text-align: center;
+    font-size: 11px;
+    color: #aaaaaa;
+}
+
+body { padding: 60px 80px; font-family: 'Pretendard', sans-serif; }
+h1 { color: #1a1a1a; border-bottom: 2px solid #ea5a39; padding-bottom: 10px; margin-bottom: 30px; font-size:28px; }
+h2 { color: #ea5a39; margin-top: 40px; font-size:20px; }
+h3 { color: #333; margin-top: 25px; border-left: 4px solid #ea5a39; padding-left: 10px; font-size:16px;}
+table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size:13px; }
+th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+th { background-color: #f7f9fc; color: #333; font-weight:600; text-align:center; }
+td { color: #555; }
+ul { padding-left: 20px; }
+li { margin-bottom: 5px; color:#444; line-height:1.6;font-size:14px;}
+</style>
+</head>
+<body>
+<h1>기웅정보통신 AI 컨설팅 상세 운영안 및 예산안</h1>
+<p>본 문서는 기웅정보통신 아파트 관리 ERP AI 도입 및 기술 내재화 컨설팅 프로젝트의 <strong>상세 운영안 및 소요 예산안</strong>입니다.</p>
+<hr />
+<h2>1. 프로젝트 총괄 개요</h2>
+<ul>
+<li><strong>프로젝트명</strong>: 기웅정보통신 ERP 시스템 AI 에이전트 도입 및 기술 내재화 컨설팅</li>
+<li><strong>총 예상 기간</strong>: 약 8주 (2개월)</li>
+<li><strong>총 소요 예산</strong>: <strong>7,000만 원 ~ 9,000만 원</strong> (VAT 별도)</li>
+<li><strong>진행 방식</strong>: 하이브리드 지원 (주요 워크샵 및 현장 교육 오프라인, 상시 기술 코칭 및 지원 온라인)</li>
+</ul>
+<hr />
+<h2>2. 단계별 진행 규모 및 예산 내역</h2>
+<h3>Step 1: 진단 &amp; 설계 (Diagnosis)</h3>
+<p>기존 산출물을 분석하고 LangGraph 기반의 차세대 아키텍처를 설계하는 단계입니다.</p>
+<ul>
+<li><strong>소요 기간</strong>: 2주 (1주차 ~ 2주차)</li>
+<li><strong>투입 인력</strong>: AI 에이전트 전문 아키텍트 1명</li>
+<li><strong>주요 활동 및 지원 규모</strong>:</li>
+<li>기존 임시(Pilot) 산출물 및 코드 리뷰 분석: 현업 미팅 1회 (2시간) 및 문서 리뷰</li>
+<li>AI 에이전트 아키텍처 설계 결과 보고 및 자문 워크샵: 1회 (4시간)</li>
+<li>인프라(망분리) 및 비용 최적화 방안 리포트 제공</li>
+<li><strong>소요 예산</strong>: 1,500만 원 ~ 2,000만 원</li>
+</ul>
+<h3>Step 2: 구현 &amp; 내재화 (Enablement)</h3>
+<p>실무 중심의 코어 프레임워크를 제공하고 내부 개발팀의 역량을 직접적으로 강화하는 핵심 단계입니다.</p>
+<ul>
+<li><strong>소요 기간</strong>: 4주 (3주차 ~ 6주차)</li>
+<li><strong>투입 인력</strong>: AI 아키텍트 1명, 시니어 리드 개발자 1명, 통합 교육 리드</li>
+<li><strong>주요 활동 및 지원 규모</strong>:</li>
+<li><strong>[실무 교육]</strong> 개발팀 대상 심화 실무 교육: 2일 집중 과정 (1일 8시간, 총 16시간) 또는 주 1회 4주 과정 중 협의</li>
+<li><strong>[프레임워크 이식]</strong> 기웅 전용 코어 프레임워크 맞춤형 개발 및 코드 제공</li>
+<li><strong>[밀착 코칭]</strong> 주 1~2회 정기 코칭 및 코드(PR) 리뷰: 주당 4~6시간 지원 (총 4주)</li>
+<li><strong>소요 예산</strong>: 4,000만 원 ~ 5,000만 원 (프레임워크 라이선스 및 맞춤형 교육/코칭 비용 통합)</li>
+</ul>
+<h3>Step 3: 검증 &amp; 최적화 (Validation)</h3>
+<p>서비스 공식 런칭 전 안정성을 확보하고 잠재적인 예외 상황을 선제적으로 예방 및 해결하는 단계입니다.</p>
+<ul>
+<li><strong>소요 기간</strong>: 2주 (7주차 ~ 8주차)</li>
+<li><strong>투입 인력</strong>: AI 아키텍트 1명</li>
+<li><strong>주요 활동 및 지원 규모</strong>:</li>
+<li>엣지 케이스(Edge Case) 트러블슈팅 및 성능 최적화 미팅: 주 1~2회 (회당 2시간)</li>
+<li>시스템 종합 감사(Audit) 및 보안성 검토 회의: 1회 (4시간)</li>
+<li>서비스 런칭 전 최종 운영 가이드라인 패키지 전달</li>
+<li><strong>소요 예산</strong>: 1,500만 원 ~ 2,000만 원</li>
+</ul>
+<hr />
+<h2>3. 요약 (계약 및 투입 기준)</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">단계</th>
+<th style="text-align: left;">기간</th>
+<th style="text-align: left;">지원 내용 요약</th>
+<th style="text-align: left;">예산 범위</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Step 1. 진단/설계</strong></td>
+<td style="text-align: left;">2주</td>
+<td style="text-align: left;">환경/코드 분석, 아키텍처 설계 및 자문 워크샵</td>
+<td style="text-align: left;">1,500만 ~ 2,000만 원</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Step 2. 구현/내재화</strong></td>
+<td style="text-align: left;">4주</td>
+<td style="text-align: left;">핵심 코드 제공, 16H 집중 교육, 주간 밀착 오피스아워</td>
+<td style="text-align: left;">4,000만 ~ 5,000만 원</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Step 3. 검증/최적화</strong></td>
+<td style="text-align: left;">2주</td>
+<td style="text-align: left;">엣지 케이스 점검, 최종 시스템 Audit, 런칭 최적화</td>
+<td style="text-align: left;">1,500만 ~ 2,000만 원</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>합계</strong></td>
+<td style="text-align: left;"><strong>8주 (2개월)</strong></td>
+<td style="text-align: left;"><strong>맞춤형 교육 + 아키텍처 자문 + 프레임워크 코드 통합 제공</strong></td>
+<td style="text-align: left;"><strong>7,000만 ~ 9,000만 원</strong></td>
+</tr>
+</tbody>
+</table>
+<p><em>※ 본 내용은 상세 요구사항(교육 대상자 규모, 제공될 코어 프레임워크의 범위, 기존 레거시 시스템 복잡도 등) 협의 후 최종 작업 명세서(SOW)로 확정됩니다.</em></p>
+</body>
+</html>
