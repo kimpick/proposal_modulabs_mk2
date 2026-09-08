@@ -32,6 +32,10 @@ Thumbs.db
 .omc/
 .sisyphus/
 
+# 고객사 제공 내부 자료 (사내 시스템 캡처·계정 정보 포함 → 커밋 금지)
+projects/*/재단자료/
+projects/*/고객사자료/
+
 # Credentials
 token.json
 projects/claude-settings.json
