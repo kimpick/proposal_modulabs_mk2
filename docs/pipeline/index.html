@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>비즈팀 자동화 파이프라인</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  html,body{margin:0;padding:0;}
+  :root{
+    --bg:#f5f4ee;
+    --surface:#ffffff;
+    --surface-2:#ebe9df;
+    --ink:#1b211c;
+    --ink-soft:#5c6459;
+    --ink-faint:#8b9186;
+    --line:#d9d6c9;
+    --line-strong:#b9b6a8;
+    --lane-bg:#efeee5;
+
+    --automated:#2f7a5c;
+    --automated-soft:#e2f0e8;
+    --hitl:#a1721e;
+    --hitl-soft:#f5ecd8;
+    --manual:#6b6459;
+    --manual-soft:#eeece1;
+    --issue:#ad4230;
+    --issue-soft:#f7e6e0;
+    --gap:#7d5a9e;
+    --gap-soft:#eee6f5;
+    --outscope:#9aa39a;
+    --outscope-soft:#eceee9;
+
+    --canvas-dot:#00000014;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#12140f;
+      --surface:#1a1d16;
+      --surface-2:#22261d;
+      --ink:#eceee5;
+      --ink-soft:#a7ad9f;
+      --ink-faint:#767d70;
+      --line:#33372c;
+      --line-strong:#454a3b;
+      --lane-bg:#1c1f17;
+
+      --automated:#57d8a2;
+      --automated-soft:#183327;
+      --hitl:#e4b155;
+      --hitl-soft:#332a15;
+      --manual:#a3a99c;
+      --manual-soft:#26291f;
+      --issue:#e57c69;
+      --issue-soft:#3a1f19;
+      --gap:#c3a2e8;
+      --gap-soft:#2a2233;
+      --outscope:#6d7468;
+      --outscope-soft:#1c1f18;
+
+      --canvas-dot:#ffffff10;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#12140f;
+    --surface:#1a1d16;
+    --surface-2:#22261d;
+    --ink:#eceee5;
+    --ink-soft:#a7ad9f;
+    --ink-faint:#767d70;
+    --line:#33372c;
+    --line-strong:#454a3b;
+    --lane-bg:#1c1f17;
+
+    --automated:#57d8a2;
+    --automated-soft:#183327;
+    --hitl:#e4b155;
+    --hitl-soft:#332a15;
+    --manual:#a3a99c;
+    --manual-soft:#26291f;
+    --issue:#e57c69;
+    --issue-soft:#3a1f19;
+    --gap:#c3a2e8;
+    --gap-soft:#2a2233;
+    --outscope:#6d7468;
+    --outscope-soft:#1c1f18;
+
+    --canvas-dot:#ffffff10;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"IBM Plex Sans KR","IBM Plex Sans",system-ui,sans-serif;
+    overflow:hidden;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+
+  header{
+    padding:18px 24px 14px;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    background:var(--surface);
+    z-index:5;
+  }
+  .title-block h1{
+    font-size:19px;
+    font-weight:700;
+    letter-spacing:-0.01em;
+    margin:0 0 3px;
+  }
+  .title-block p{
+    margin:0;
+    font-size:12.5px;
+    color:var(--ink-soft);
+  }
+  .meta{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:11px;
+    color:var(--ink-faint);
+    text-align:right;
+    line-height:1.5;
+  }
+
+  .stage{
+    position:relative;
+    flex:1;
+    overflow:hidden;
+    background-image:radial-gradient(var(--canvas-dot) 1.4px, transparent 1.4px);
+    background-size:22px 22px;
+    cursor:grab;
+  }
+  .stage.grabbing{cursor:grabbing;}
+
+  .world{
+    position:absolute;
+    top:0;
+    left:0;
+    transform-origin:0 0;
+    will-change:transform;
+  }
+
+  .lane-col{
+    position:absolute;
+    top:0;
+    width:250px;
+    background:var(--lane-bg);
+    border-right:1px dashed var(--line);
+  }
+  .lane-col:last-child{border-right:none;}
+  .lane-label{
+    position:sticky;
+    top:0;
+    padding:10px 14px;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.04em;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    border-bottom:1px solid var(--line);
+    background:var(--lane-bg);
+  }
+
+  svg.edges{position:absolute;top:0;left:0;overflow:visible;}
+  .edge-path{fill:none;stroke:var(--line-strong);stroke-width:1.6;}
+  .edge-path.dashed{stroke-dasharray:4 4;}
+
+  .node{
+    position:absolute;
+    width:206px;
+    border-radius:10px;
+    border:1.5px solid var(--line-strong);
+    background:var(--surface);
+    padding:10px 12px 11px;
+    box-shadow:0 1px 2px rgba(0,0,0,.06);
+  }
+  .node .row{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    margin-bottom:5px;
+  }
+  .node .step-no{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:10px;
+    color:var(--ink-faint);
+  }
+  .node .badge{
+    margin-left:auto;
+    font-size:9.5px;
+    font-weight:600;
+    letter-spacing:.03em;
+    padding:2px 6px;
+    border-radius:99px;
+    white-space:nowrap;
+  }
+  .node .label{
+    font-size:13px;
+    font-weight:600;
+    line-height:1.32;
+    margin:0 0 4px;
+  }
+  .node .tool{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:10.5px;
+    color:var(--ink-soft);
+    line-height:1.4;
+  }
+  .node .detail{
+    margin-top:5px;
+    font-size:10.5px;
+    color:var(--ink-faint);
+    line-height:1.4;
+  }
+
+  .node.automated{border-color:var(--automated);}
+  .node.automated .badge{background:var(--automated-soft);color:var(--automated);}
+  .node.hitl{border-color:var(--hitl); border-style:double; border-width:3px;}
+  .node.hitl .badge{background:var(--hitl-soft);color:var(--hitl);}
+  .node.manual{border-style:dashed;}
+  .node.manual .badge{background:var(--manual-soft);color:var(--manual);}
+  .node.issue{border-color:var(--issue);}
+  .node.issue .badge{background:var(--issue-soft);color:var(--issue);}
+  .node.gap{border-color:var(--gap); border-style:dashed;}
+  .node.gap .badge{background:var(--gap-soft);color:var(--gap);}
+  .node.outscope{border-style:dotted; opacity:.62;}
+  .node.outscope .badge{background:var(--outscope-soft);color:var(--outscope);}
+
+  .new-flag{
+    position:absolute;
+    top:-8px;
+    right:-8px;
+    background:var(--automated);
+    color:var(--surface);
+    font-family:"IBM Plex Mono",monospace;
+    font-size:9px;
+    font-weight:700;
+    padding:2px 5px;
+    border-radius:5px;
+    letter-spacing:.03em;
+  }
+
+  .controls{
+    position:absolute;
+    right:16px;
+    bottom:16px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    z-index:4;
+  }
+  .controls button{
+    width:34px;height:34px;
+    border-radius:8px;
+    border:1px solid var(--line-strong);
+    background:var(--surface);
+    color:var(--ink);
+    font-size:16px;
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .controls button:hover{background:var(--surface-2);}
+  .controls button:focus-visible{outline:2px solid var(--automated); outline-offset:2px;}
+
+  .legend{
+    position:absolute;
+    left:16px;
+    bottom:16px;
+    z-index:4;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:11px 13px;
+    font-size:11px;
+    color:var(--ink-soft);
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+    max-width:230px;
+  }
+  .legend .lg-title{
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin-bottom:7px;
+  }
+  .legend .lg-row{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    margin-bottom:5px;
+  }
+  .legend .swatch{
+    width:13px;height:13px;
+    border-radius:4px;
+    flex:none;
+    border:1.5px solid;
+  }
+  .legend .lg-row:last-child{margin-bottom:0;}
+
+  .hint{
+    position:absolute;
+    top:14px;
+    left:50%;
+    transform:translateX(-50%);
+    background:var(--surface);
+    border:1px solid var(--line);
+    padding:6px 12px;
+    border-radius:99px;
+    font-size:11px;
+    color:var(--ink-soft);
+    z-index:4;
+    pointer-events:none;
+    transition:opacity .4s ease;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="title-block">
+    <h1>비즈팀 자동화 파이프라인</h1>
+    <p>인바운드 문의 → 제안서 발송 · 트리거 / 실행 툴 / 사람 승인 지점 지도</p>
+  </div>
+  <div class="meta">
+    업데이트 2026-09-10<br>
+    데이터 갱신: 아래 <code>NODES</code> 배열의 status만 수정
+  </div>
+</header>
+
+<div class="stage" id="stage">
+  <div class="world" id="world"></div>
+  <div class="hint" id="hint">드래그로 이동 · 스크롤로 확대/축소</div>
+  <div class="controls">
+    <button id="zoomIn" aria-label="확대">+</button>
+    <button id="zoomOut" aria-label="축소">−</button>
+    <button id="zoomReset" aria-label="처음으로">⤾</button>
+  </div>
+  <div class="legend">
+    <div class="lg-title">상태</div>
+    <div class="lg-row"><span class="swatch" style="border-color:var(--automated);background:var(--automated-soft)"></span>자동화됨</div>
+    <div class="lg-row"><span class="swatch" style="border-color:var(--hitl);border-style:double;border-width:3px;background:var(--hitl-soft)"></span>사람 승인 필요 (HITL)</div>
+    <div class="lg-row"><span class="swatch" style="border-color:var(--manual-soft);border-style:dashed;background:var(--manual-soft)"></span>수동 (미자동화)</div>
+    <div class="lg-row"><span class="swatch" style="border-color:var(--gap);border-style:dashed;background:var(--gap-soft)"></span>자동화 공백 (도구 없음)</div>
+    <div class="lg-row"><span class="swatch" style="border-color:var(--issue);background:var(--issue-soft)"></span>알려진 오류</div>
+    <div class="lg-row"><span class="swatch" style="border-color:var(--outscope);border-style:dotted;background:var(--outscope-soft);opacity:.7"></span>자동화 범위 제외</div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   데이터 정의 — 자동화가 진행될 때마다 이 배열만 고치면 됩니다.
+   lane: 0 외부/고객  1 자동화 시스템  2 이태영·PM  3 연구원  4 고객사·강사
+   status: automated | hitl | manual | issue | gap | outscope
+   isNew: 오늘(2026-09-10) 새로 자동화된 구간이면 true
+   ============================================================ */
+const LANES = ["외부 · 고객", "자동화 시스템", "이태영 · PM", "연구원", "고객사 · 강사"];
+
+const NODES = [
+  {id:"n1",  row:1,  lane:0, label:"신규 상담 문의",        tool:"Slack 웹훅",                       status:"automated", detail:"홈페이지/Slack 인바운드 접수"},
+  {id:"n2",  row:2,  lane:1, label:"Notion 페이지 자동 생성", tool:"Zapier · 잼나영 봇",                status:"automated", detail:"[비즈] 영업/제안현황 DB에 레코드 생성"},
+  {id:"n3",  row:3,  lane:2, label:"PM · 연구원 배정",       tool:"이태영 (사람 판단)",                 status:"hitl",      detail:"역량·일정 고려한 수동 배정"},
+  {id:"n4",  row:4,  lane:1, label:"배정 감지 폴링",         tool:"클라우드 루틴 · 뷰 모드 (매시간)",     status:"automated", isNew:true, detail:"🤖 자동화 대기열 뷰 조회, SQL 미사용"},
+  {id:"n5",  row:5,  lane:1, label:"체크박스 마킹",          tool:"Notion MCP",                       status:"automated", isNew:true, detail:"AI 자동화 시작됨 = YES (중복 방지)"},
+  {id:"n6",  row:6,  lane:1, label:"착수 알림",             tool:"Slack MCP",                        status:"issue",     detail:"워크스페이스 불일치로 실패 (modulabsworks ≠ 연결된 워크스페이스)"},
+  {id:"n7",  row:7,  lane:1, label:"기업 리서치",            tool:"/research · WebSearch",            status:"automated", isNew:true, detail:"사내 우선 조사, 조건부 외부 웹리서치"},
+  {id:"n8",  row:8,  lane:1, label:"Drive 업로드",          tool:"Google Drive MCP",                 status:"automated", isNew:true, detail:"★_인바운드/{기업명}/ 요청안+보고서"},
+  {id:"n9",  row:9,  lane:1, label:"Notion 링크 첨부",       tool:"Notion MCP",                       status:"automated", isNew:true, detail:"과업 페이지 본문에 Drive 링크 기록"},
+  {id:"n10", row:10, lane:1, label:"완료 알림",             tool:"Slack MCP",                        status:"issue",     detail:"n6과 동일한 워크스페이스 문제"},
+  {id:"n11", row:11, lane:2, label:"고객사 연락",            tool:"PM · 전화/메일",                     status:"manual",    detail:"금액·일정·요구사항 협의"},
+  {id:"n12", row:12, lane:2, label:"업무관리 DB 기록",        tool:"Notion (수동 입력)",                 status:"manual",    detail:"고객사 페이지 하위 업무관리 표"},
+  {id:"n13", row:13, lane:2, label:"견적서 작성 착수",         tool:"PM",                              status:"manual",    detail:"/estimate 있음 — 자동 트리거는 아직 없음"},
+  {id:"n14", row:14, lane:2, label:"제안서 작업 요청",         tool:"Slack (PM → 연구원)",               status:"manual",    detail:"사람이 직접 지시"},
+  {id:"n15", row:15, lane:3, label:"커리큘럼 작성",           tool:"/propose (content.json)",          status:"automated", detail:"기존 mk2 커맨드 — 수동 실행"},
+  {id:"n16", row:16, lane:3, label:"커리큘럼 검토",           tool:"4+1 리뷰어 · 하드스톱 게이트",         status:"hitl",      detail:"PASS 전 build·강사·견적 전부 금지"},
+  {id:"n17", row:17, lane:3, label:"강사 매칭",              tool:"— 미구현",                          status:"gap",       detail:"강사DB(179명) SQL 매칭 자동화 없음, 이력서 수동 첨부만 가능"},
+  {id:"n18", row:18, lane:3, label:"제안서 PDF 빌드",         tool:"build.py (2종)",                    status:"automated", detail:"고객사용 / 강사공유용 자동 생성"},
+  {id:"n19", row:19, lane:2, label:"견적서 최종 확인",         tool:"PM",                              status:"hitl",      detail:"강사료·출장비 반영 후 승인"},
+  {id:"n20", row:20, lane:2, label:"발송 직전 최종검수",        tool:"PM",                              status:"hitl",      detail:"제안서+견적서 함께 확인"},
+  {id:"n21", row:21, lane:2, label:"제안서 · 견적서 발송",      tool:"PM (직접 발송)",                    status:"manual",    detail:"메일은 초안까지만 AI, 발송은 항상 사람"},
+  {id:"n22", row:22, lane:4, label:"고객사 승인",             tool:"—",                              status:"outscope",  detail:"외부 의사결정"},
+  {id:"n23", row:23, lane:2, label:"운영 준비",              tool:"—",                              status:"outscope",  detail:"건마다 상이해 자동화 보류"},
+  {id:"n24", row:23, lane:3, label:"강사 확정 통보",           tool:"메일 초안(AI 가능) + 사람 발송",       status:"manual",    detail:"제안서(강사추천 문안 제외본) 첨부"},
+  {id:"n25", row:24, lane:3, label:"PPTX 검수 핑퐁",          tool:"연구원 ↔ 강사",                      status:"outscope",  detail:"교육마다 상이해 자동화 보류"},
+];
+
+const EDGES = [
+  ["n1","n2"], ["n2","n3"], ["n3","n4"],
+  ["n4","n5"], ["n5","n6",true], ["n5","n7"],
+  ["n7","n8"], ["n8","n9"], ["n9","n10",true], ["n9","n11"],
+  ["n11","n12"], ["n12","n13"], ["n13","n14"], ["n14","n15"],
+  ["n15","n16"], ["n16","n17"], ["n17","n18"],
+  ["n18","n19"], ["n19","n20"], ["n20","n21"],
+  ["n21","n22"], ["n21","n23"], ["n21","n24"], ["n24","n25",true],
+];
+
+/* ============================================================ */
+
+const LANE_W = 250;
+const ROW_H = 118;
+const NODE_W = 206;
+const TOP_PAD = 46;
+
+function laneX(lane){ return lane*LANE_W + (LANE_W-NODE_W)/2; }
+function rowY(row){ return TOP_PAD + (row-1)*ROW_H; }
+
+const world = document.getElementById("world");
+const maxRow = Math.max(...NODES.map(n=>n.row));
+const worldW = LANE_W * LANES.length;
+const worldH = TOP_PAD + maxRow*ROW_H + 60;
+world.style.width = worldW+"px";
+world.style.height = worldH+"px";
+
+LANES.forEach((name,i)=>{
+  const col = document.createElement("div");
+  col.className = "lane-col";
+  col.style.left = (i*LANE_W)+"px";
+  col.style.height = worldH+"px";
+  col.innerHTML = `<div class="lane-label">${name}</div>`;
+  world.appendChild(col);
+});
+
+const svgNS = "http://www.w3.org/2000/svg";
+const svg = document.createElementNS(svgNS,"svg");
+svg.setAttribute("class","edges");
+svg.setAttribute("width", worldW);
+svg.setAttribute("height", worldH);
+svg.innerHTML = `<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="var(--line-strong)"></path>
+  </marker>
+</defs>`;
+world.appendChild(svg);
+
+const nodeById = Object.fromEntries(NODES.map(n=>[n.id,n]));
+
+function nodeAnchor(n, side){
+  const x = laneX(n.lane) + NODE_W/2;
+  const y = rowY(n.row);
+  const h = 74;
+  return side==="top" ? {x, y} : {x, y: y+h};
+}
+
+EDGES.forEach(([fromId,toId,dashed])=>{
+  const a = nodeById[fromId], b = nodeById[toId];
+  const p1 = nodeAnchor(a,"bottom");
+  const p2 = nodeAnchor(b,"top");
+  const midY = (p1.y + p2.y)/2;
+  const path = document.createElementNS(svgNS,"path");
+  const d = `M ${p1.x} ${p1.y} C ${p1.x} ${midY}, ${p2.x} ${midY}, ${p2.x} ${p2.y}`;
+  path.setAttribute("d", d);
+  path.setAttribute("class", "edge-path" + (dashed ? " dashed" : ""));
+  path.setAttribute("marker-end","url(#arrow)");
+  svg.appendChild(path);
+});
+
+const STATUS_LABEL = {
+  automated:"자동화됨",
+  hitl:"승인 필요",
+  manual:"수동",
+  issue:"오류",
+  gap:"공백",
+  outscope:"범위 제외",
+};
+
+NODES.forEach(n=>{
+  const el = document.createElement("div");
+  el.className = "node " + n.status;
+  el.style.left = laneX(n.lane)+"px";
+  el.style.top = rowY(n.row)+"px";
+  el.innerHTML = `
+    ${n.isNew ? '<div class="new-flag">NEW</div>' : ''}
+    <div class="row">
+      <span class="step-no">${n.id.replace('n','')}</span>
+      <span class="badge">${STATUS_LABEL[n.status]}</span>
+    </div>
+    <div class="label">${n.label}</div>
+    <div class="tool">${n.tool}</div>
+    <div class="detail">${n.detail||''}</div>
+  `;
+  world.appendChild(el);
+});
+
+/* ---- pan & zoom ---- */
+const stage = document.getElementById("stage");
+let scale = 0.72, tx = 24, ty = 24;
+let isDragging = false, startX, startY, startTx, startTy;
+
+function applyTransform(){
+  world.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+}
+
+// initial center-ish view
+tx = 20; ty = 10;
+applyTransform();
+
+stage.addEventListener("pointerdown", (e)=>{
+  isDragging = true;
+  stage.classList.add("grabbing");
+  startX = e.clientX; startY = e.clientY;
+  startTx = tx; startTy = ty;
+  stage.setPointerCapture(e.pointerId);
+  const hint = document.getElementById("hint");
+  if(hint) hint.style.opacity = "0";
+});
+stage.addEventListener("pointermove", (e)=>{
+  if(!isDragging) return;
+  tx = startTx + (e.clientX - startX);
+  ty = startTy + (e.clientY - startY);
+  applyTransform();
+});
+stage.addEventListener("pointerup", (e)=>{
+  isDragging = false;
+  stage.classList.remove("grabbing");
+});
+stage.addEventListener("pointercancel", ()=>{ isDragging=false; stage.classList.remove("grabbing"); });
+
+stage.addEventListener("wheel", (e)=>{
+  e.preventDefault();
+  const rect = stage.getBoundingClientRect();
+  const cx = e.clientX - rect.left;
+  const cy = e.clientY - rect.top;
+  const worldX = (cx - tx) / scale;
+  const worldY = (cy - ty) / scale;
+  const delta = e.deltaY > 0 ? 0.9 : 1.1;
+  const newScale = Math.min(2.2, Math.max(0.32, scale * delta));
+  tx = cx - worldX * newScale;
+  ty = cy - worldY * newScale;
+  scale = newScale;
+  applyTransform();
+}, {passive:false});
+
+document.getElementById("zoomIn").addEventListener("click", ()=>{
+  scale = Math.min(2.2, scale*1.18);
+  applyTransform();
+});
+document.getElementById("zoomOut").addEventListener("click", ()=>{
+  scale = Math.max(0.32, scale/1.18);
+  applyTransform();
+});
+document.getElementById("zoomReset").addEventListener("click", ()=>{
+  scale = 0.72; tx = 20; ty = 10;
+  applyTransform();
+});
+</script>
+</body>
+</html>
