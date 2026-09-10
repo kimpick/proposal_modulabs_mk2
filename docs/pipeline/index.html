@@ -137,6 +137,9 @@
     background-image:radial-gradient(var(--canvas-dot) 1.4px, transparent 1.4px);
     background-size:22px 22px;
     cursor:grab;
+    user-select:none;
+    -webkit-user-select:none;
+    touch-action:none;
   }
   .stage.grabbing{cursor:grabbing;}
 
@@ -146,6 +149,12 @@
     left:0;
     transform-origin:0 0;
     will-change:transform;
+    user-select:none;
+    -webkit-user-select:none;
+    -webkit-user-drag:none;
+  }
+  .world *{
+    -webkit-user-drag:none;
   }
 
   .lane-col{
@@ -503,6 +512,7 @@ tx = 20; ty = 10;
 applyTransform();
 
 stage.addEventListener("pointerdown", (e)=>{
+  e.preventDefault();
   isDragging = true;
   stage.classList.add("grabbing");
   startX = e.clientX; startY = e.clientY;
@@ -510,6 +520,10 @@ stage.addEventListener("pointerdown", (e)=>{
   stage.setPointerCapture(e.pointerId);
   const hint = document.getElementById("hint");
   if(hint) hint.style.opacity = "0";
+});
+stage.addEventListener("dragstart", (e)=> e.preventDefault());
+document.addEventListener("selectstart", (e)=>{
+  if(e.target.closest && e.target.closest("#stage")) e.preventDefault();
 });
 stage.addEventListener("pointermove", (e)=>{
   if(!isDragging) return;
