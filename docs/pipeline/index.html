@@ -379,7 +379,7 @@ const NODES = [
   {id:"n3",  row:3,  lane:2, label:"PM · 연구원 배정",       tool:"이태영 (사람 판단)",                 status:"hitl",      detail:"이태영님이 누가 이 건을 맡을지 담당 PM·연구원을 직접 정해요. 사람만 할 수 있는 판단이라 자동화하지 않았어요."},
   {id:"n4",  row:4,  lane:1, label:"배정 감지 폴링",         tool:"클라우드 루틴 · 뷰 모드 (매시간)",     status:"automated", isNew:true, detail:"담당자가 새로 정해진 건이 있는지 한 시간마다 자동으로 확인해요."},
   {id:"n6",  row:5,  lane:1, label:"착수 알림",             tool:"Incoming Webhook",                 status:"automated", isNew:true, detail:"원래 문의가 올라온 슬랙 스레드에 '리서치 시작할게요' 댓글을 자동으로 달아요. 담당 PM·연구원 이름도 함께 태그돼서 알림이 가요. 회사 업무공간(modulabsworks) Slack은 AI가 읽지 못하게 하고, 이 채널에 글만 쓸 수 있는 전용 통로(웹훅)로만 접근해요."},
-  {id:"n7",  row:6,  lane:1, label:"기업 리서치",            tool:"/research · WebSearch",            status:"automated", isNew:true, detail:"그 회사에 대해 사내 자료를 먼저 찾아보고, 필요하면 인터넷도 검색해서 회사 정보를 정리해요."},
+  {id:"n7",  row:6,  lane:1, label:"기업 리서치",            tool:"/research · WebSearch",            status:"automated", isNew:true, detail:"그 회사에 대해 사내 자료를 먼저 찾아보고, 필요하면 인터넷도 검색해서 회사 정보를 정리해요. 문의 내용에서 애매하거나 빠진 정보(온라인 교육 방식, 예산, 일정 등)도 찾아내서 'PM이 고객사에 꼭 물어봐야 할 것' 목록까지 만들어요."},
   {id:"n8",  row:7,  lane:1, label:"Drive 업로드",          tool:"Google Drive MCP",                 status:"automated", isNew:true, detail:"조사한 내용과 원래 문의 내용을 그 회사 이름의 구글 드라이브 폴더에 자동으로 저장해요."},
   {id:"n9",  row:8,  lane:1, label:"리서치 완료 기록",        tool:"Notion MCP",                       status:"automated", isNew:true, detail:"그 회사 전용 '업무 관리' 표에 '리서치 완료'라는 새 줄을 자동으로 추가하고, 드라이브 폴더 링크도 같이 남겨요."},
   {id:"n10", row:9,  lane:1, label:"완료 알림",             tool:"Incoming Webhook",                 status:"automated", isNew:true, detail:"같은 슬랙 스레드에 '리서치 다 끝났어요' 댓글을 자동으로 달아요. 담당 PM 태그도 함께 가요. n6과 같은 방식(웹훅)으로 회사 업무공간 채널엔 글쓰기만 가능하게 좁혀뒀어요."},
