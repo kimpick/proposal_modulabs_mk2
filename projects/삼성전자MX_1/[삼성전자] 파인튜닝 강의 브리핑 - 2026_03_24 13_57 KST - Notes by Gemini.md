@@ -2,7 +2,7 @@
 
 ## \[삼성전자\] 파인튜닝 강의 브리핑
 
-초대됨 [didwldnd960923@gmail.com](mailto:didwldnd960923@gmail.com) [김영광](mailto:yk.kim@modulabs.co.kr) [guijin.son@snu.ac.kr](mailto:guijin.son@snu.ac.kr)
+초대됨 [[고객담당자 이메일 비공개]](mailto:[고객담당자 이메일 비공개]) [김영광](mailto:yk.kim@modulabs.co.kr) [[고객담당자 이메일 비공개]](mailto:[고객담당자 이메일 비공개])
 
 첨부파일 [\[삼성전자\] 파인튜닝 강의 브리핑](https://www.google.com/calendar/event?eid=NjFoNmFjMzJjbGdqOGI5Z2NkZ20yYjlrNmxoMzhiYjE2c29qNGJiNTZzcmo2Y2htNjRyajRvYjI3NCB5ay5raW1AbW9kdWxhYnMuY28ua3I) 
 
