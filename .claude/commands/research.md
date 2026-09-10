@@ -29,7 +29,8 @@ argument-hint: "{기업명}"
 
 ## STEP 1. 사내 정보 (1차 소스)
 - `memory/clients/_INDEX.md`에서 폴더↔고객사 매핑 확인 → 관련 `projects/<폴더>/`의 `요구조건.md`·`MEMORY.md`·회의록 확인.
-- (연동돼 있으면) Gmail·Slack·Notion에서 최초 문의·미팅로그·상업조건을 원문 근거와 함께 수집.
+- (연동돼 있으면) Gmail·Notion에서 최초 문의·미팅로그·상업조건을 원문 근거와 함께 수집.
+- **Slack은 `modulabs.slack.com`(커뮤니티 워크스페이스)만 참고 가능.** 실제 회사 업무공간인 `modulabsworks.slack.com`은 보안상 읽기 권한을 주지 않기로 결정(2026-09-10) — 검색 시도하지 말 것. 인바운드 문의 원문 자체는 Zapier가 Notion 과업 페이지 본문(`☎️ [기초 상담 요청 정보]` callout)에 이미 옮겨두므로 지장 없음.
 - 확인된 사실만. 없는 건 `(미확인)`.
 
 ### Notion DB 조회는 SQL 우선
