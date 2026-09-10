@@ -160,7 +160,7 @@
   .lane-col{
     position:absolute;
     top:0;
-    width:250px;
+    width:264px;
     background:var(--lane-bg);
     border-right:1px dashed var(--line);
   }
@@ -184,7 +184,7 @@
 
   .node{
     position:absolute;
-    width:206px;
+    width:232px;
     border-radius:10px;
     border:1.5px solid var(--line-strong);
     background:var(--surface);
@@ -374,31 +374,31 @@
 const LANES = ["외부 · 고객", "자동화 시스템", "이태영 · PM", "연구원", "고객사 · 강사"];
 
 const NODES = [
-  {id:"n1",  row:1,  lane:0, label:"신규 상담 문의",        tool:"Slack 웹훅",                       status:"automated", detail:"홈페이지/Slack 인바운드 접수"},
-  {id:"n2",  row:2,  lane:1, label:"Notion 페이지 자동 생성", tool:"Zapier · 잼나영 봇",                status:"automated", detail:"[비즈] 영업/제안현황 DB에 레코드 생성"},
-  {id:"n3",  row:3,  lane:2, label:"PM · 연구원 배정",       tool:"이태영 (사람 판단)",                 status:"hitl",      detail:"역량·일정 고려한 수동 배정"},
-  {id:"n4",  row:4,  lane:1, label:"배정 감지 폴링",         tool:"클라우드 루틴 · 뷰 모드 (매시간)",     status:"automated", isNew:true, detail:"🤖 자동화 대기열 뷰 조회, SQL 미사용"},
-  {id:"n5",  row:5,  lane:1, label:"체크박스 마킹",          tool:"Notion MCP",                       status:"automated", isNew:true, detail:"AI 자동화 시작됨 = YES (중복 방지)"},
-  {id:"n6",  row:6,  lane:1, label:"착수 알림",             tool:"Slack MCP",                        status:"issue",     detail:"워크스페이스 불일치로 실패 (modulabsworks ≠ 연결된 워크스페이스)"},
-  {id:"n7",  row:7,  lane:1, label:"기업 리서치",            tool:"/research · WebSearch",            status:"automated", isNew:true, detail:"사내 우선 조사, 조건부 외부 웹리서치"},
-  {id:"n8",  row:8,  lane:1, label:"Drive 업로드",          tool:"Google Drive MCP",                 status:"automated", isNew:true, detail:"★_인바운드/{기업명}/ 요청안+보고서"},
-  {id:"n9",  row:9,  lane:1, label:"Notion 링크 첨부",       tool:"Notion MCP",                       status:"automated", isNew:true, detail:"과업 페이지 본문에 Drive 링크 기록"},
-  {id:"n10", row:10, lane:1, label:"완료 알림",             tool:"Slack MCP",                        status:"issue",     detail:"n6과 동일한 워크스페이스 문제"},
-  {id:"n11", row:11, lane:2, label:"고객사 연락",            tool:"PM · 전화/메일",                     status:"manual",    detail:"금액·일정·요구사항 협의"},
-  {id:"n12", row:12, lane:2, label:"업무관리 DB 기록",        tool:"Notion (수동 입력)",                 status:"manual",    detail:"고객사 페이지 하위 업무관리 표"},
-  {id:"n13", row:13, lane:2, label:"견적서 작성 착수",         tool:"PM",                              status:"manual",    detail:"/estimate 있음 — 자동 트리거는 아직 없음"},
-  {id:"n14", row:14, lane:2, label:"제안서 작업 요청",         tool:"Slack (PM → 연구원)",               status:"manual",    detail:"사람이 직접 지시"},
-  {id:"n15", row:15, lane:3, label:"커리큘럼 작성",           tool:"/propose (content.json)",          status:"automated", detail:"기존 mk2 커맨드 — 수동 실행"},
-  {id:"n16", row:16, lane:3, label:"커리큘럼 검토",           tool:"4+1 리뷰어 · 하드스톱 게이트",         status:"hitl",      detail:"PASS 전 build·강사·견적 전부 금지"},
-  {id:"n17", row:17, lane:3, label:"강사 매칭",              tool:"— 미구현",                          status:"gap",       detail:"강사DB(179명) SQL 매칭 자동화 없음, 이력서 수동 첨부만 가능"},
-  {id:"n18", row:18, lane:3, label:"제안서 PDF 빌드",         tool:"build.py (2종)",                    status:"automated", detail:"고객사용 / 강사공유용 자동 생성"},
-  {id:"n19", row:19, lane:2, label:"견적서 최종 확인",         tool:"PM",                              status:"hitl",      detail:"강사료·출장비 반영 후 승인"},
-  {id:"n20", row:20, lane:2, label:"발송 직전 최종검수",        tool:"PM",                              status:"hitl",      detail:"제안서+견적서 함께 확인"},
-  {id:"n21", row:21, lane:2, label:"제안서 · 견적서 발송",      tool:"PM (직접 발송)",                    status:"manual",    detail:"메일은 초안까지만 AI, 발송은 항상 사람"},
-  {id:"n22", row:22, lane:4, label:"고객사 승인",             tool:"—",                              status:"outscope",  detail:"외부 의사결정"},
-  {id:"n23", row:23, lane:2, label:"운영 준비",              tool:"—",                              status:"outscope",  detail:"건마다 상이해 자동화 보류"},
-  {id:"n24", row:23, lane:3, label:"강사 확정 통보",           tool:"메일 초안(AI 가능) + 사람 발송",       status:"manual",    detail:"제안서(강사추천 문안 제외본) 첨부"},
-  {id:"n25", row:24, lane:3, label:"PPTX 검수 핑퐁",          tool:"연구원 ↔ 강사",                      status:"outscope",  detail:"교육마다 상이해 자동화 보류"},
+  {id:"n1",  row:1,  lane:0, label:"신규 상담 문의",        tool:"Slack 웹훅",                       status:"automated", detail:"고객이 홈페이지나 슬랙으로 교육 문의를 남기면, 여기서부터 자동으로 시작돼요."},
+  {id:"n2",  row:2,  lane:1, label:"Notion 페이지 자동 생성", tool:"Zapier · 잼나영 봇",                status:"automated", detail:"문의 내용이 노션의 영업 현황 표에 새 카드로 자동 정리돼요."},
+  {id:"n3",  row:3,  lane:2, label:"PM · 연구원 배정",       tool:"이태영 (사람 판단)",                 status:"hitl",      detail:"이태영님이 누가 이 건을 맡을지 담당 PM·연구원을 직접 정해요. 사람만 할 수 있는 판단이라 자동화하지 않았어요."},
+  {id:"n4",  row:4,  lane:1, label:"배정 감지 폴링",         tool:"클라우드 루틴 · 뷰 모드 (매시간)",     status:"automated", isNew:true, detail:"담당자가 새로 정해진 건이 있는지 한 시간마다 자동으로 확인해요."},
+  {id:"n5",  row:5,  lane:1, label:"체크박스 마킹",          tool:"Notion MCP",                       status:"automated", isNew:true, detail:"같은 건을 두 번 처리하지 않도록, 노션에 '처리 시작함' 표시를 자동으로 남겨요."},
+  {id:"n6",  row:6,  lane:1, label:"착수 알림",             tool:"Slack MCP",                        status:"issue",     detail:"'리서치 시작할게요'라고 슬랙에 알리려던 건데 실패해요 — 지금 연결된 슬랙 계정은 modulabs.slack.com인데, 이 채널은 modulabsworks.slack.com이라는 다른 워크스페이스에 있어서예요."},
+  {id:"n7",  row:7,  lane:1, label:"기업 리서치",            tool:"/research · WebSearch",            status:"automated", isNew:true, detail:"그 회사에 대해 사내 자료를 먼저 찾아보고, 필요하면 인터넷도 검색해서 회사 정보를 정리해요."},
+  {id:"n8",  row:8,  lane:1, label:"Drive 업로드",          tool:"Google Drive MCP",                 status:"automated", isNew:true, detail:"조사한 내용과 원래 문의 내용을 그 회사 이름의 구글 드라이브 폴더에 자동으로 저장해요."},
+  {id:"n9",  row:9,  lane:1, label:"Notion 링크 첨부",       tool:"Notion MCP",                       status:"automated", isNew:true, detail:"방금 만든 드라이브 폴더 링크를 노션 카드에 붙여서, 클릭 한 번에 찾아갈 수 있게 해요."},
+  {id:"n10", row:10, lane:1, label:"완료 알림",             tool:"Slack MCP",                        status:"issue",     detail:"'리서치 다 끝났어요'라고 알리려던 건데, n6과 똑같이 워크스페이스가 달라서(modulabs.slack.com ≠ modulabsworks.slack.com) 지금은 실패해요."},
+  {id:"n11", row:11, lane:2, label:"고객사 연락",            tool:"PM · 전화/메일",                     status:"manual",    detail:"PM이 직접 전화나 메일로 고객과 연락해서 예산·일정·세부 요청사항을 확인해요."},
+  {id:"n12", row:12, lane:2, label:"업무관리 DB 기록",        tool:"Notion (수동 입력)",                 status:"manual",    detail:"고객과 주고받은 내용을 PM이 직접 노션에 기록해요."},
+  {id:"n13", row:13, lane:2, label:"견적서 작성 착수",         tool:"PM",                              status:"manual",    detail:"PM이 견적서 작성을 시작해요. 만드는 도구는 있지만 아직 자동으로 시작되진 않아요."},
+  {id:"n14", row:14, lane:2, label:"제안서 작업 요청",         tool:"Slack (PM → 연구원)",               status:"manual",    detail:"PM이 슬랙으로 연구원에게 '커리큘럼이랑 제안서 만들어주세요'라고 직접 요청해요."},
+  {id:"n15", row:15, lane:3, label:"커리큘럼 작성",           tool:"/propose (content.json)",          status:"automated", detail:"연구원이 명령어 하나로 교육과정 초안을 자동으로 만들어요 (사람이 직접 실행시켜야 해요)."},
+  {id:"n16", row:16, lane:3, label:"커리큘럼 검토",           tool:"4+1 리뷰어 · 하드스톱 게이트",         status:"hitl",      detail:"만든 커리큘럼을 여러 기준으로 검토받아 통과해야만 다음 단계(제안서 만들기 등)로 넘어가요."},
+  {id:"n17", row:17, lane:3, label:"강사 매칭",              tool:"— 미구현",                          status:"gap",       detail:"이 교육에 맞는 강사를 자동으로 추천해주는 기능이 아직 없어요. 이력서를 하나하나 사람이 직접 골라 붙여야 해요."},
+  {id:"n18", row:18, lane:3, label:"제안서 PDF 빌드",         tool:"build.py (2종)",                    status:"automated", detail:"완성된 커리큘럼으로 제안서 PDF를 자동으로 만들어요 — 고객용과 강사용(강사 추천 부분 제외) 두 가지가 한번에 나와요."},
+  {id:"n19", row:19, lane:2, label:"견적서 최종 확인",         tool:"PM",                              status:"hitl",      detail:"강사비·출장비까지 반영된 견적서를 PM이 최종 확인해요."},
+  {id:"n20", row:20, lane:2, label:"발송 직전 최종검수",        tool:"PM",                              status:"hitl",      detail:"고객에게 보내기 직전, 제안서와 견적서를 마지막으로 한 번 더 살펴봐요."},
+  {id:"n21", row:21, lane:2, label:"제안서 · 견적서 발송",      tool:"PM (직접 발송)",                    status:"manual",    detail:"PM이 고객에게 직접 이메일을 보내요. AI는 메일 초안까지만 쓰고, 발송 버튼은 항상 사람이 눌러요."},
+  {id:"n22", row:22, lane:4, label:"고객사 승인",             tool:"—",                              status:"outscope",  detail:"고객이 제안을 받아들일지 결정하는 단계예요. 저희가 통제할 수 없어 자동화 대상이 아니에요."},
+  {id:"n23", row:23, lane:2, label:"운영 준비",              tool:"—",                              status:"outscope",  detail:"교육을 실제로 준비하는 단계예요. 건마다 필요한 게 너무 달라서 아직 자동화하지 않기로 했어요."},
+  {id:"n24", row:23, lane:3, label:"강사 확정 통보",           tool:"메일 초안(AI 가능) + 사람 발송",       status:"manual",    detail:"강사님께 '이 교육 맡아주세요' 연락드려요. 안내 메일 초안은 AI가 쓸 수 있지만, 실제 발송은 사람이 해요."},
+  {id:"n25", row:24, lane:3, label:"PPTX 검수 핑퐁",          tool:"연구원 ↔ 강사",                      status:"outscope",  detail:"연구원과 강사가 교육 자료(PPT)를 주고받으며 다듬는 과정이에요. 매번 달라서 자동화하지 않았어요."},
 ];
 
 const EDGES = [
@@ -413,9 +413,9 @@ const EDGES = [
 
 /* ============================================================ */
 
-const LANE_W = 250;
-const ROW_H = 118;
-const NODE_W = 206;
+const LANE_W = 264;
+const ROW_H = 168;
+const NODE_W = 232;
 const TOP_PAD = 46;
 
 function laneX(lane){ return lane*LANE_W + (LANE_W-NODE_W)/2; }
@@ -454,7 +454,7 @@ const nodeById = Object.fromEntries(NODES.map(n=>[n.id,n]));
 function nodeAnchor(n, side){
   const x = laneX(n.lane) + NODE_W/2;
   const y = rowY(n.row);
-  const h = 74;
+  const h = 128;
   return side==="top" ? {x, y} : {x, y: y+h};
 }
 
